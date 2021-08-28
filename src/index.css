@@ -65,6 +65,7 @@ html {
   margin: 10px 0;
   border-radius: 3px;
   font-family: 'Numans', sans-serif;
+  padding: 0 10px;
 }
 
 .login_btn {
@@ -90,6 +91,10 @@ input:focus {
 .login_btn:hover {
   color: black;
   background-color: #ffc412cc;
+}
+
+.login_btn:disabled {
+  background-color: rgba(128, 128, 128, 0.541);
 }
 
 /* body {
