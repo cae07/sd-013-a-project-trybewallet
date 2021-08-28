@@ -11,8 +11,8 @@ class Login extends React.Component {
               <h3>Login</h3>
             </div>
             <div className="card-body">
-              <input type="text" className="form-control" placeholder="username" />
-              <input type="password" className="form-control" placeholder="password" />
+              <input type="text" className="form-control" placeholder="email" data-testid="email-input" />
+              <input type="password" className="form-control" placeholder="senha" data-testid="password-input" />
               <input type="submit" value="Entrar" className="btn float-right login_btn" />
             </div>
           </div>
