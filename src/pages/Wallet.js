@@ -1,8 +1,11 @@
 import React from 'react';
+import FormDespesa from '../components/FormDespesa';
 
 class Wallet extends React.Component {
   render() {
-    return <div>TrybeWallet</div>;
+    return (
+      <div><FormDespesa /></div>
+    );
   }
 }
 

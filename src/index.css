@@ -11,7 +11,16 @@ html {
   font-family: 'Numans', sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  color: white;
+  font-size:12px;
+}
+
+.divWallet {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 30%;
 }
 
 .container {
@@ -95,6 +104,15 @@ input:focus {
 
 .login_btn:disabled {
   background-color: rgba(128, 128, 128, 0.541);
+}
+
+.formDespesa {
+  display: flex;
+  flex-wrap: wrap;
+  background-color:rgba(0, 0, 0, 0.623);
+}
+.formDespesa label, .formDespesa input, .formDespesa select, .formDespesa button {
+  margin: 10px 5px;
 }
 
 /* body {

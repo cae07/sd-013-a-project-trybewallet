@@ -1,8 +1,8 @@
-import { SAVE_LOGIN } from '../actions';
+import { SAVE_LOGIN, SAVE_DESPESA } from '../actions';
 
 const INITIAL_STATE = {
   login: '',
-  professionalInfo: {},
+  despesas: {},
 };
 
 const reducerWallet = (state = INITIAL_STATE, action) => {
@@ -11,6 +11,11 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       login: action.payload,
+    };
+  case SAVE_DESPESA:
+    return {
+      ...state,
+      despesas: action.payload,
     };
   default:
     return state;
