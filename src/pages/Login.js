@@ -1,6 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { formEmail } from '../actions/index';
 
+const validacaoEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/i;
+const NUMBER_SIX = 6;
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -21,8 +25,10 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { history } = this.props;
+    const { history, actionEmail } = this.props;
+    const { email } = this.state;
 
+    actionEmail(email);
     history.push('/carteira');
   }
 
@@ -61,6 +67,7 @@ class Login extends React.Component {
             <button
               type="button"
               onClick={ this.handleClick }
+              disabled={ !(validacaoEmail.test(email) && password.length >= NUMBER_SIX) }
             >
               Entrar
             </button>
@@ -72,9 +79,14 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+  actionEmail: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  actionEmail: (email) => dispatch(formEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
