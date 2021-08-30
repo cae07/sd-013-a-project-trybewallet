@@ -6,14 +6,14 @@ const INITIAL_STATE = {
   },
 };
 
-const reducer = (state = INITIAL_STATE, action) => {
+const reducerUser = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case EMAIL_LOGIN:
     return {
-      ...state, Pessoal: action.payload,
+      ...state, user: action.payload,
     };
   default: return state;
   }
 };
 
-export default reducer;
+export default reducerUser;
