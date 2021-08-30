@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// Importa o connect para realizar a conexão entre o mapStateToProps e o mapDispatchToProps com o componente Header
 import { connect } from 'react-redux';
 
+// importo do react icons ícones para serem utilizados para deletar e excluir expenses
 import { RiDeleteBinLine, RiEditLine } from 'react-icons/ri';
+
+// Importo as actions de Deletar e Editar Expenses/Despesas, e as renomeio para melhor trabalhar nelas
 import {
   actionDeleteExpense as eraseExpense,
   actionEditExpense as modifyExpense,
@@ -24,6 +28,7 @@ class ExpensesTable extends React.Component {
 
   render() {
     const { expenses, deleteExpense, editExpense } = this.props;
+
     return (
       <table>
         <thead className="table-header">
