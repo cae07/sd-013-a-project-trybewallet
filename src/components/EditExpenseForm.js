@@ -14,26 +14,29 @@ class EditExpenseForm extends React.Component {
     const { expenses, expenseId } = this.props;
     const expense = expenses.find((item) => item.id === expenseId);
     const { value, description, currency, method, tag, id, exchangeRates } = expense;
+
+    // State inicial vai ser as chaves abaixo:
     this.state = {
       value,
       description,
-      currency,
-      method,
-      tag,
-      id,
+      currency, // moeda
+      method, // método de pagamento
+      tag, // tipo de expense/despesa
+      id, // id
       exchangeRates,
     };
 
+    // As funções abaixo serão habilitadas para serem usadas em todo o componente/page
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.renderInput = this.renderInput.bind(this);
     this.renderSelect = this.renderSelect.bind(this);
   }
 
-  handleChange({ target }) {
-    this.setState({
-      [target.name]: target.value,
-    });
+  // Tudo que for digitado nos campos, é alterado automaticamente na state
+  // Conforme for digitando os campos são guardados na state
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
   }
 
   async handleClick(e) {
@@ -137,6 +140,9 @@ class EditExpenseForm extends React.Component {
   }
 }
 
+// A função mapStateToProps mapeia as states armazenadas na store para uma props
+// Ou seja, no caso abaixo eu acessei o reducer wallet para acessar a currencies, expenses e expenseId
+// E coloquei na props currencies, expenses e expenseId abaixo nas chaves
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
@@ -148,8 +154,7 @@ const mapDispatchToProps = (dispatch) => ({
   endExpenseEdit: (expense) => dispatch(finishExpenseEdit(expense)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditExpenseForm);
-
+// Faço a validação se os dados que recebi são válidos
 EditExpenseForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string),
   expenses: PropTypes.arrayOf(PropTypes.object),
@@ -157,7 +162,11 @@ EditExpenseForm.propTypes = {
   endExpenseEdit: PropTypes.func.isRequired,
 };
 
+// Semelhante ao propTypes, eu utilizo o defaultProps para definir um comportamento default, para quando uma propriedade não for informada receber algum valor em especial, no caso abaixo, a chave currencies e expenses recebem um array vazio.
 EditExpenseForm.defaultProps = {
   currencies: [],
   expenses: [],
 };
+
+// Faço a conexão do mapStateToProps e mapDispatchToProps com o componente EditExpenseForm
+export default connect(mapStateToProps, mapDispatchToProps)(EditExpenseForm);

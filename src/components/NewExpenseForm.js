@@ -199,5 +199,6 @@ NewExpenseForm.propTypes = {
 NewExpenseForm.defaultProps = {
   currencies: [],
 };
+
 // Faço a conexão do mapStateToProps e mapDispatchToProps com o componente NewExpenseForm
 export default connect(mapStateToProps, mapDispatchToProps)(NewExpenseForm);
