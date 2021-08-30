@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+
+// Importa o Provider que vai que vai providenciar que o app tenha acesso à store, passando ela mesmo como props à todo o app
 import { Provider } from 'react-redux';
 import App from './App';
 
+// Importa a store que é o state global
 import store from './store';
 
 import * as serviceWorker from './serviceWorker';
