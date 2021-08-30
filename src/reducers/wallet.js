@@ -45,12 +45,12 @@ export default function wallet(state = INITIAL_STATE_WALLET, action) {
       expenses: [
         ...state.expenses.filter((expense) => expense.id !== action.expense.id),
       ],
-      isEditing: false,
+      isEditing: false, // Altera para isEditing como false, pois está deletando e não editando
     };
   case ACTION_EDIT_EXPENSE_START:
-    return {
+    return { // Retorna o próprio state
       ...state,
-      isEditing: true,
+      isEditing: true, // Altera para isEditing como true, pois agora está editando
       expenseId: action.expense.id,
     };
   case ACTION_EDIT_EXPENSE_END:
