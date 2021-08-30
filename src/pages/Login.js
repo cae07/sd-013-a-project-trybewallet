@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import trybeLogo from '../img/trybe-logo.png';
+import '../styles/login.css';
+
 import { getEmail } from '../actions';
+
+import coin from '../img/coin.gif';
 
 class Login extends React.Component {
   constructor(props) {
@@ -89,9 +92,12 @@ class Login extends React.Component {
   render() {
     const { buttonDisable } = this.state;
     return (
-      <>
-        <img style={ { width: '200px' } } src={ trybeLogo } alt="Trybe Logo" />
-        <form>
+      <main className="login-container">
+        <section className="header-login-container">
+          <img style={ { width: '200px' } } src={ coin } alt="Trybe Logo" />
+          <h1>Carteira Digital</h1>
+        </section>
+        <form className="form-login-container">
           {this.inputsLogin()}
           <button
             disabled={ buttonDisable }
@@ -101,7 +107,7 @@ class Login extends React.Component {
             Entrar
           </button>
         </form>
-      </>
+      </main>
     );
   }
 }

@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 
 class InputsToAddExpenses extends Component {
   mapAllCurrency() {
-    const { currencies, state: { currency } } = this.props;
+    const { handleChange, currencies, state: { currency } } = this.props;
     return (
       <select
         value={ currency }
         aria-label="moeda"
         name="currency"
         id="currency"
-        onChange={ this.handleChange }
+        onChange={ handleChange }
       >
         { currencies && currencies.map((currencyValue) => (
           <option
