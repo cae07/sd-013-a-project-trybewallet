@@ -23,6 +23,9 @@ class Login extends React.Component {
               placeholder="Insira sua senha aqui!"
             />
           </label>
+          <div>
+            <input type="button" value="Entrar" />
+          </div>
         </form>
       </div>
     );
