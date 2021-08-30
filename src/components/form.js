@@ -1,7 +1,30 @@
 import React from 'react';
 
 class Form extends React.Component {
+  constructor() {
+    super();
+    this.fetchApi = this.fetchApi.bind(this);
+    this.state = {
+      currencies: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
+  async fetchApi() {
+    const ApiFetch = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const json = await ApiFetch.json();
+    const Allcurrencies = Object.keys(json);
+    const currenciesLessUSDT = Allcurrencies.filter((currencie) => currencie !== 'USDT');
+    this.setState({
+      currencies: currenciesLessUSDT,
+    });
+  }
+
   render() {
+    const { currencies } = this.state;
     return (
       <form>
         <label htmlFor="valor">
@@ -15,7 +38,9 @@ class Form extends React.Component {
         <label htmlFor="moeda">
           Moeda
           <select name="moeda" id="moeda">
-            <option value="0">0</option>
+            {currencies.map((currencie, index) => (
+              <option key={ index }>{currencie}</option>
+            ))}
           </select>
         </label>
         <label htmlFor="pagamento">
