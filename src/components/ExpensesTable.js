@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // Importa o connect para realizar a conexão entre o mapStateToProps e o mapDispatchToProps com o componente Header
 import { connect } from 'react-redux';
@@ -12,7 +12,12 @@ import {
   actionEditExpense as modifyExpense,
 } from '../actions';
 
-class ExpensesTable extends React.Component {
+class ExpensesTable extends Component {
+  // Crio a função renderButton para ser acessada clicar nos botões de Edit e Delete
+  // A função abaixo vai ser executada conforme parametros passados
+  // "name" pode ser: "edit" ou "delete"
+  // "expense" é a despesa
+  // "callback" pode ser: "editExpense" ou "deleteExpense". Ambas acionam na mapDispatchToProps uma action de edit e outra para deletar.
   renderButton(name, expense, callback) {
     return (
       <button
@@ -21,12 +26,16 @@ class ExpensesTable extends React.Component {
         onClick={ () => callback(expense) }
         className={ `${name}-btn expense-opt-btn` }
       >
+        {/* Se o name for "edit" aparece ícone de Editar */}
+        {/* Se o name não for "edit" aparece ícone de Deletar */}
         {name === 'edit' ? <RiEditLine /> : <RiDeleteBinLine />}
       </button>
     );
   }
 
   render() {
+    // A "expenses" foi criada pela função mapStateToProps fazendo a leitura do state e pegando as expenses que estão no estado global
+
     const { expenses, deleteExpense, editExpense } = this.props;
 
     return (
@@ -46,8 +55,10 @@ class ExpensesTable extends React.Component {
         </thead>
         <tbody className="table-body">
           {expenses.map((expense, index) => {
+            // Desconstroi a expense com todas as propriedades necessárias para montar a tabela
             const { description, tag, method, value, currency, exchangeRates } = expense;
             const { name, ask } = exchangeRates[currency];
+
             return (
               <tr key={ index }>
                 <td>{name}</td>
