@@ -7,19 +7,42 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      emailIsValid: false,
+      passwordIsValid: false,
     };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
-  handleInputChange({ target }) {
+  validateEmail(email) {
+    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+/i;
+    const isValid = emailRegex.test(email);
+    return isValid;
+  }
+
+  validatePassword(password) {
+    const minPasswordLength = 6;
+    const isValid = password.length >= minPasswordLength;
+    return isValid;
+  }
+
+  handleEmailChange({ target: { value } }) {
     this.setState({
-      [target.name]: target.value,
+      email: value,
+      emailIsValid: this.validateEmail(value),
+    });
+  }
+
+  handlePasswordChange({ target: { value } }) {
+    this.setState({
+      password: value,
+      passwordIsValid: this.validatePassword(value),
     });
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, emailIsValid, passwordIsValid } = this.state;
 
     return (
       <div className="container">
@@ -30,7 +53,7 @@ class Login extends React.Component {
             placeholder="email@email.com"
             test="email-input"
             value={ email }
-            onChange={ this.handleInputChange }
+            onChange={ this.handleEmailChange }
           />
 
           <Input
@@ -39,27 +62,13 @@ class Login extends React.Component {
             placeholder="********"
             test="password-input"
             value={ password }
-            onChange={ this.handleInputChange }
+            onChange={ this.handlePasswordChange }
           />
 
-          {/* <label htmlFor="email">
-            <input
-              type="email"
-              name="email"
-              placeholder="email@email.com"
-              data-testid="email-input"
-            />
-          </label>
-          <label htmlFor="password">
-            <input
-              type="password"
-              name="password"
-              placeholder="********"
-              data-testid="email-input"
-            />
-          </label> */}
-
-          <button type="submit">
+          <button
+            type="submit"
+            disabled={ !(emailIsValid && passwordIsValid) }
+          >
             Entrar
           </button>
         </form>

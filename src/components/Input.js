@@ -13,6 +13,7 @@ class Input extends React.Component {
           data-testid={ test }
           value={ value }
           onChange={ (event) => onChange(event) }
+          required
         />
       </label>);
   }
