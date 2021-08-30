@@ -1,70 +1,68 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Proptypes from 'prop-types';
-import Input from '../components/Input';
-import Button from '../components/Button';
+import { registerUser } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
       email: '',
       password: '',
+      disabled: true,
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleNextPage = this.handleNextPage.bind(this);
+    this.handleInputs = this.handleInputs.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  handleNextPage() {
-    const { email } = this.state;
-    const { changeValue, history } = this.props;
-    changeValue(email);
-    history.push('./carteira');
-  }
-
-  render() {
+  handleLogin(e) {
+    e.preventDefault();
     const { email, password } = this.state;
-    const { handleChange, handleNextPage } = this;
-    const passwordLength = 6;
-    const passwordCorrect = password.length >= passwordLength;
-    const validateEmail = () => {
-      const emailCorrect = /\S+@\S+\.\S+/;
-      return emailCorrect.test(email);
-    };
-    return (
-      <div>
-        <Input
-          label="Email:"
-          name="email"
-          datatestid="email-input"
-          onChange={ handleChange }
-        />
-        <Input
-          label="Senha:"
-          name="password"
-          datatestid="password-input"
-          onChange={ handleChange }
-        />
-        <Button
-          onClick={ handleNextPage }
-          disabled={ !(validateEmail() && passwordCorrect) }
-        />
-      </div>
-    );
   }
+
+  handleInputs({ target: { type, value } }) {
+    this.setState({ [type]: value }, () => {
+      const { email, password } = this.state;
+      const emailRegex = /\S+@\S+\.\S+/;
+      const maxNum = 6;
+      if (emailRegex.test(email) && password.length >= maxNum) {
+        this.setState({ disabled: false });
+      } else {
+        this.setState({ disabled: true });
+      }
+    });
+  }
+
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  changeValue: (state) => dispatch(emailLogin(state)) });
+WebGL2RenderingContext() {
+  const { email, password, disabled, isLogged } = this.state;
+  const { handleInputs, handleLogin } = this;
 
-Login.propTypes = {
-  changeValue: Proptypes.func.isRequired,
-  history: Proptypes.shape().isRequired,
-};
+  if (isLogged) return <Redirect to="/newpage" />;
 
-export default connect(null, mapDispatchToProps)(Login);
+  return (
+    <div className="login-container">
+      <form className="login-form">
+        <h3 className="login-header">Login</h3>
+        <input
+          data-tstid="email-input"
+          className="login-email"
+          type="email"
+          placeholder="Digite seu e-mail"
+          value={ email }
+          onChange={ handleInputs }        
+        />
+        <input
+            data-testid="password-input"
+            className="login-password"
+            type="password"
+            placeholder="Password"
+            value={ password }
+            onChange={ handleInputs }
+          />
+      </form>
+    </div>
+  )
+}

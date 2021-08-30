@@ -1,7 +1,12 @@
-// Coloque aqui suas actions
+export const REGISTER_USER = 'REGISTER_USER';
 export const LOADING_TYPE = 'LOADING_TYPE';
 export const SUCCESS_TYPE = 'SUCCESS_TYPE';
 export const ERROR_TYPE = 'ERROR_TYPE';
+
+export const registerUser = (payload) => ({
+  type: REGISTER_USER,
+  payload,
+});
 
 export const loadingAction = () => ({
   type: LOADING_TYPE,
@@ -17,11 +22,11 @@ export const errorAction = (payload) => ({
   payload,
 });
 
-export const fetchAPI = () => async (dispatch) => {
+export const fetchName = () => async (dispatch) => {
   dispatch(loadingAction());
   try {
     const res = await fetch('https://economia.awesomeapi.com.br/json/all');
-    if (!res.ok) throw new Error('fetch failed'); // tem que usar sesmpre antes do json
+    if (!res.ok) throw new Error('fetch failed'); // tem que usar sempre antes do json
     const data = await res.json();
     return dispatch(successAction(data));
   } catch (error) {
