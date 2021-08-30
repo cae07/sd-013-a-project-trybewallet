@@ -4,6 +4,9 @@ import { Redirect } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import putUser from '../actions';
 
+const REG_EX_EMAIL = /^([\w\d._\-#])+@([\w\d._\-#]+[.][\w\d._\-#]+)+$/;
+const passwordMaxLength = 6;
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +27,11 @@ class Login extends React.Component {
     });
   }
 
+  emailAndPasswordValidation() {
+    // O email está no formato válido, como 'alguem@alguem.com'.
+    // A senha possui 6 ou mais caracteres.
+  }
+
   render() {
     const { email, password, redirect } = this.state;
     const { pushUser } = this.props;
@@ -31,7 +39,7 @@ class Login extends React.Component {
     if (redirect) return <Redirect to="/carteira" />;
 
     return (
-      <fieldset>
+      <form>
         <div className="emailForm" />
         <label htmlFor="email">
           Email
@@ -45,7 +53,6 @@ class Login extends React.Component {
             required
           />
         </label>
-
         <label htmlFor="password">
           Password
           <input
@@ -58,20 +65,19 @@ class Login extends React.Component {
             required
           />
         </label>
-
         <button
           className="btn"
           type="button"
+          disabled={ !REG_EX_EMAIL.test(email) || password.length < passwordMaxLength }
           onClick={ async () => {
             await this.onClick();
-            return pushUser(this.state);
+            return pushUser({ email, password });
           } }
         >
           Entrar
-
         </button>
-      </fieldset>
-    );
+
+      </form>);
   }
 }
 
