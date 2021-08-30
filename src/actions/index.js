@@ -52,21 +52,30 @@ export const fetchCurrencies = () => async (dispatch) => {
   }
 };
 
+// *******************************************************************************************************
+// *******************************************************************************************************
+// Iniciando as actions de Expenses
+// *******************************************************************************************************
+// *******************************************************************************************************
+// Action para salvar a Expense, passando a expense como parametro, no estilo payload
 export const actionSaveExpense = (expenses) => ({
   type: ACTION_SAVE_EXPENSE,
   expenses,
 });
 
+// Action para deletar a Expense, passando a expense como parametro, no estilo payload
 export const actionDeleteExpense = (expense) => ({
   type: ACTION_DELETE_EXPENSE,
   expense,
 });
 
+// Action para editar a Expense, passando a expense como parametro, no estilo payload
 export const actionEditExpense = (expense) => ({
   type: ACTION_EDIT_EXPENSE_START,
   expense,
 });
 
+// Action para Finalizar a edição da Expense, passando a expense como parametro, no estilo payload
 export const actionEndExpenseEdit = (expense) => ({
   type: ACTION_EDIT_EXPENSE_END,
   expense,
