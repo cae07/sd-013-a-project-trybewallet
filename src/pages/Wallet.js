@@ -130,16 +130,16 @@ class Wallet extends React.Component {
           onChange={ this.handleChange }
           currencies={ currencies }
         />
-        <label htmlFor="payment-method">
+        <label htmlFor="method">
           Método de pagamento:
           <select
             onChange={ this.handleChange }
             aria-label="método de pagamento"
             id="method"
           >
-            <option value="dinheiro">Dinheiro</option>
-            <option value="cartão de crédito">Cartão de crédito</option>
-            <option value="cartão de débito">Cartão de débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
         <label htmlFor="tag">
