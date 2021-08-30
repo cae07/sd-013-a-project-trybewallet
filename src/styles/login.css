@@ -1,10 +1,7 @@
-body {
-  /* color: aliceblue; */
-}
-
 .login-container {
   align-items: center;
-  background-color: #333333;
+  background-color: #333;
+  color: aliceblue;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,6 +20,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 50%;
   min-height: 10vh;
+  width: 50%;
 }
