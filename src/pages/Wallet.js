@@ -8,12 +8,13 @@ class Wallet extends React.Component {
 
     this.state = {
       totalExpenses: 0,
+      value: 0,
     };
   }
 
   render() {
     const { userEmail } = this.props;
-    const { totalExpenses } = this.state;
+    const { totalExpenses, value } = this.state;
     return (
       <div>
         <header>
@@ -21,6 +22,16 @@ class Wallet extends React.Component {
           <h4 data-testid="total-field">{totalExpenses}</h4>
           <h4 data-testid="header-currency-field">BRL</h4>
         </header>
+        <fieldset>
+          <label htmlFor="value">
+            Valor:
+            <input
+              type="number"
+              name="value"
+              value={ value }
+            />
+          </label>
+        </fieldset>
       </div>);
   }
 }

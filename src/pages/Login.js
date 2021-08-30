@@ -22,8 +22,7 @@ class Login extends React.Component {
     const { name, value } = target;
     this.setState({
       [name]: value,
-    });
-    this.checkData();
+    }, () => this.checkData());
   }
 
   // Para fazer o teste do email, usei o regex do Gabriel Gaspar como base, assim como o seu if.
