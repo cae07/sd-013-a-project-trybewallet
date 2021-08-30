@@ -20,16 +20,18 @@ export const actionEmailChange = (payload) => ({
   payload,
 });
 
-// Action para gerar a conexao com a API de Moedas
+// Action para gerar o request para conexao com a API de Moedas
 const actionRequestCurrenciesTry = () => ({
   type: ACTION_REQUEST_START,
 });
 
+// Esta action é quando obtiver o retorno positivo de onexão com a API de Moedas
 const actionRequestCurrenciesSuccess = (currencies) => ({
   type: ACTION_REQUEST_SUCCESS,
   currencies,
 });
 
+// Esta action é quando obtiver o retorno negativo de onexão com a API de Moedas
 const actionRequestCurrenciesFail = (error) => ({
   type: ACTION_REQUEST_FAIL,
   error,
@@ -37,6 +39,7 @@ const actionRequestCurrenciesFail = (error) => ({
 
 export const fetchCurrencies = () => async (dispatch) => {
   try {
+    // Dispara a action de tentativa de conexão com a API de Moedas
     dispatch(actionRequestCurrenciesTry());
     const currencies = await currenciesAPI();
     dispatch(actionRequestCurrenciesSuccess(currencies));
