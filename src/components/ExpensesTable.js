@@ -1,56 +1,70 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
-import { deleteExpense, updateTotal } from '../actions';
+import { AiFillDelete, AiFillEdit } from 'react-icons/ai';
+import { deleteExpense, editMode, updateTotal } from '../actions';
 
-class ExpensesTable extends Component {
-  delExpense({ target }, expenses, delExp, updtTotal) {
-    const expenseId = parseFloat(target.id.split('-')[0]);
-    const filteredExpenses = expenses.filter((e) => e.id !== expenseId);
-    delExp(filteredExpenses);
-    updtTotal();
-  }
+const delExpense = (expenseId, expenses, delExp, updtTotal) => {
+  const filteredExpenses = expenses.filter((e) => e.id !== expenseId);
+  delExp(filteredExpenses);
+  updtTotal();
+};
 
-  renderExpenses(exp, delExp, updtTotal) {
-    return exp.map(({ id, description, tag, method, value, currency, exchangeRates }) => {
-      const val = parseFloat(value);
-      const ask = parseFloat(exchangeRates[currency].ask);
-      return (
-        <tr key={ id }>
-          <td>{description}</td>
-          <td>{tag}</td>
-          <td>{method}</td>
-          <td>{`${val}`}</td>
-          <td>{exchangeRates[currency].name.split('/')[0]}</td>
-          <td>{`${ask.toFixed(2)}`}</td>
-          <td>{`${(val * ask).toFixed(2)}`}</td>
-          <td>Real</td>
-          <td>
-            <button
-              type="button"
-              className={ `${id}-edit-btn` }
-              // data-testid=""
-              // onClick={ this.delExpense }
-            >
-              Editar
-            </button>
-            <button
-              type="button"
-              id={ `${id}-delete-btn` }
-              data-testid="delete-btn"
-              onClick={ (evt) => this.delExpense(evt, exp, delExp, updtTotal) }
-            >
-              Excluir
-            </button>
-          </td>
-        </tr>
-      );
-    });
-  }
+const editExpense = (expenseId, toggleEdit) => {
+  toggleEdit({ status: true, id: expenseId });
+};
 
-  render() {
-    const { expenses, delExp, updtTotal } = this.props;
+const renderExpenses = (props) => {
+  const { expenses: exp, delExp, updtTotal, toggleEdit, editStatus = {} } = props;
+  return exp.map(({ id, description, tag, method, value, currency, exchangeRates }) => {
+    const val = parseFloat(value);
+    const ask = parseFloat(exchangeRates[currency].ask);
     return (
+      <tr key={ id }>
+        <td>{description}</td>
+        <td>{tag}</td>
+        <td>{method}</td>
+        <td>{`${val}`}</td>
+        <td>{exchangeRates[currency].name.split('/')[0]}</td>
+        <td>{`${ask.toFixed(2)}`}</td>
+        <td>{`${(val * ask).toFixed(2)}`}</td>
+        <td>Real</td>
+        <td>
+          <button
+            type="button"
+            data-testid="edit-btn"
+            disabled={ editStatus.status }
+            onClick={ () => editExpense(id, toggleEdit) }
+          >
+            <AiFillEdit />
+          </button>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            disabled={ editStatus.status }
+            onClick={ () => delExpense(id, exp, delExp, updtTotal) }
+          >
+            <AiFillDelete />
+          </button>
+        </td>
+      </tr>
+    );
+  });
+};
+
+const renderErrorMessage = ({ error }) => {
+  if (error) {
+    return (
+      <h3 className="wallet-add-error">
+        Não conseguimos acessar o servidor para a adicionar sua despesa neste momento,
+        por favor tente novamente mais tarde.
+      </h3>
+    );
+  }
+};
+
+function ExpensesTable(props) {
+  return (
+    <>
       <table className="wallet-table">
         <tbody>
           <tr>
@@ -64,29 +78,24 @@ class ExpensesTable extends Component {
             <th>Moeda de conversão</th>
             <th>Editar/Excluir</th>
           </tr>
-          { this.renderExpenses(expenses, delExp, updtTotal) }
+          { renderExpenses(props) }
         </tbody>
       </table>
-    );
-  }
+      { renderErrorMessage(props) }
+    </>
+  );
 }
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  editStatus: state.wallet.editMode,
+  error: state.wallet.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   delExp: (payload) => dispatch(deleteExpense(payload)),
   updtTotal: () => dispatch(updateTotal()),
+  toggleEdit: (payload) => dispatch(editMode(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);
-
-ExpensesTable.propTypes = {
-  expenses: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.object),
-    PropTypes.arrayOf(PropTypes.string),
-  ]).isRequired,
-  delExp: PropTypes.func.isRequired,
-  updtTotal: PropTypes.func.isRequired,
-};

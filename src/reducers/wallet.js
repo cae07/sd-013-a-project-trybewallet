@@ -1,8 +1,8 @@
-import { IS_FETCHING, UPDATE_CURRENCIES, ERROR, ADD_EXPENSE,
-  UPDATE_TOTAL, DELETE_EXPENSE } from '../actions';
+import { UPDATE_CURRENCIES, ERROR, ADD_EXPENSE,
+  UPDATE_TOTAL, DELETE_EXPENSE, EDIT_MODE, EDIT_EXPENSE } from '../actions';
 
 const initialState = {
-  isFetching: false,
+  editMode: { status: false, id: 9999 },
   error: '',
   currencies: [],
   expenses: [],
@@ -16,16 +16,19 @@ const updateTotal = (state) => {
   ), 0);
 };
 
+const editExpense = ({ expenses }, payload) => {
+  const index = expenses.findIndex((exp) => exp.id === payload.id);
+  expenses[index] = payload;
+  return expenses;
+};
+
 function wallet(state = initialState, { type, payload }) {
   switch (type) {
-  case IS_FETCHING:
-    return { ...state, isFetching: true };
-
   case UPDATE_CURRENCIES:
-    return { ...state, currencies: [payload], isFetching: false };
+    return { ...state, currencies: [...payload], error: '' };
 
   case ERROR:
-    return { ...state, error: payload, isFetching: false };
+    return { ...state, error: payload };
 
   case UPDATE_TOTAL:
     return { ...state, total: updateTotal(state) };
@@ -33,11 +36,22 @@ function wallet(state = initialState, { type, payload }) {
   case ADD_EXPENSE:
     return {
       ...state,
-      expenses: [...state.expenses, { ...payload, exchangeRates: state.currencies[0] }],
+      expenses: [...state.expenses, { ...payload }],
+      error: '',
     };
 
   case DELETE_EXPENSE:
     return { ...state, expenses: payload };
+
+  case EDIT_MODE:
+    return { ...state, editMode: { ...payload } };
+
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      expenses: editExpense(state, payload),
+      editMode: { status: false, id: 9999 },
+    };
 
   default:
     return state;

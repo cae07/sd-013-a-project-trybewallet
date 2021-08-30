@@ -1,3 +1,8 @@
+.wallet-loading {
+  text-align: center;
+  margin-top: 50px;
+}
+
 .wallet-header {
   display: flex;
   justify-content: space-around;
@@ -5,22 +10,30 @@
   height: 50px;
 }
 
-.wallet-form {
+.wallet-add-form {
   height: 50px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgb(155, 155, 155);
+  background-color: rgb(129, 241, 64);
 }
 
-.wallet-form-value {
+.wallet-edit-form {
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgb(238, 170, 69);
+}
+
+.value-input {
   display: flex;
   align-items: center;
   margin: 0 5px;
   height: 100%;
 }
 
-.wallet-form-value input {
+.value-input input {
   width: 60px;
   height: 30px;
   padding: 0;
@@ -28,50 +41,50 @@
   font-size: 16px;
 }
 
-.wallet-form-currency {
+.currency-input {
   display: flex;
   align-items: center;
   margin: 0 5px;
   height: 100%;
 }
 
-.wallet-form-currency select {
+.currency-input select {
   width: fit-content;
   height: 30px;
 }
 
-.wallet-form-method {
+.method-input {
   display: flex;
   align-items: center;
   margin: 0 5px;
   height: 100%;
 }
 
-.wallet-form-method select {
+.method-input select {
   width: fit-content;
   height: 30px;
 }
 
-.wallet-form-tag {
+.tag-input {
   display: flex;
   align-items: center;
   margin: 0 5px;
   height: 100%;
 }
 
-.wallet-form-tag select {
+.tag-input select {
   width: fit-content;
   height: 30px;
 }
 
-.wallet-form-description {
+.description-input{
   display: flex;
   align-items: center;
   margin: 0 5px;
   height: 100%;
 }
 
-.wallet-form-description input {
+.description-input input {
   width: 150px;
   height: 30px;
   padding: 0;
@@ -99,5 +112,9 @@ table, th, td {
 }
 
 .wallet-table td {
+  text-align: center;
+}
+
+.wallet-add-error {
   text-align: center;
 }

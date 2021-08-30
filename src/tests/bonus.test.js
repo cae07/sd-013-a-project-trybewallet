@@ -27,7 +27,7 @@ describe('11 - Crie um botão para editar uma despesa da tabela contendo as segu
     const tagInput = await screen.findByTestId('tag-input');
     const descriptionInput = await screen.findByTestId('description-input');
     const editButton = await screen.findByText(/Editar despesa/i);
-
+    
     userEvent.type(valueInput, '100');
     userEvent.selectOptions(currencyInput, 'CAD');
     userEvent.selectOptions(methodInput, 'Dinheiro');
