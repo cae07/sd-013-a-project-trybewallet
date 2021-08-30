@@ -1,9 +1,43 @@
-// Coloque aqui suas actions
-import { SIGN_IN } from './actionTypes';
+import {
+  SIGN_IN,
+  REQUEST_CURRENCIES,
+  GET_CURRENCIES,
+  FAILED_REQUEST,
+} from './actionTypes';
 
-export const signIn = (email) => ({
-  type: SIGN_IN,
-  payload: email,
-});
+function requestCurrencies() {
+  return { type: REQUEST_CURRENCIES };
+}
 
-export const generic = () => ({});
+function failedRequest(error) {
+  return {
+    type: FAILED_REQUEST,
+    payload: error,
+  };
+}
+
+function getCurrencies(json) {
+  return {
+    type: GET_CURRENCIES,
+    payload: json,
+  };
+}
+
+export function signIn(email) {
+  return {
+    type: SIGN_IN,
+    payload: email,
+  };
+}
+
+export function fetchCurrencies() {
+  return (dispatch) => {
+    dispatch(requestCurrencies());
+    return fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json()
+        .then(
+          (json) => dispatch(getCurrencies(json)),
+          (error) => dispatch(failedRequest(error)),
+        ));
+  };
+}

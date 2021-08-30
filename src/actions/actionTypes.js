@@ -1,2 +1,4 @@
 export const SIGN_IN = 'SIGN_IN';
-export const ADD = 'ADD';
+export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
+export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const FAILED_REQUEST = 'FAILED_REQUEST';
