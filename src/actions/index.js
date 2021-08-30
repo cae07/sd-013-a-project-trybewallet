@@ -12,6 +12,9 @@ import {
   ACTION_EDIT_EXPENSE_END, // Wallet
 } from './actionTypes';
 
+// Esta action vai ser usada na page Login, dentro do mapDispatchToProps que vai receber como payload o email.
+// Dentro da mapDispatchToProps vai ter a chave handleEmail que recebe o payload como parametro, que quando ela é chamada no componente, será passado o email.
+// Com isso a chave além de receber o parametro ela dispara a dipatch com o mesmo parametro, que é o payload, que é o email.
 export const actionEmailChange = (payload) => ({
   type: ACTION_EMAIL,
   payload,
