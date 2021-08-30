@@ -1,3 +1,4 @@
+// Importa a função currenciesAPI, do /services, que faz o fetch na API
 import currenciesAPI from '../services';
 
 // Importa as action types do User e do Wallet
