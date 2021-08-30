@@ -11,6 +11,7 @@ class Header extends React.Component {
     this.getTotalExpenses = this.getTotalExpenses.bind(this); // Soma o total das expenses
   }
 
+  // Função que tem a finalidade de receber da state todas as expenses via props e aplicar um reducer para realizar a totalização com base no fator de conversão
   getTotalExpenses() {
     // Desconstroi o expenses que está na props porque foi passado como chave na mapStateToProps, busca ela dentro do state.wallet.expenses
     const { expenses } = this.props;
@@ -52,9 +53,6 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-// Faço a conexão do componente Header com a mapStateToProps
-export default connect(mapStateToProps)(Header);
-
 // Faço a validação se os dados que recebi são válidos
 Header.propTypes = {
   email: PropTypes.string.isRequired,
@@ -65,3 +63,6 @@ Header.propTypes = {
 Header.defaultProps = {
   expenses: [],
 };
+
+// Faço a conexão do componente Header com a mapStateToProps
+export default connect(mapStateToProps)(Header);

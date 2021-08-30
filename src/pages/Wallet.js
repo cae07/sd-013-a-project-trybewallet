@@ -28,7 +28,9 @@ class Wallet extends Component {
       <main className="wallet-main">
         {/* Renderiza o Header na página do Wallet */}
         <Header />
+        {/* Se o isEditing for true é para abrir o componente de Edição de Expenses */}
         { isEditing ? <EditExpenseForm /> : <NewExpenseForm />}
+        {/* Componente abaixo renderiza as expenses em uma tabela */}
         <ExpensesTable />
       </main>
     );
@@ -51,9 +53,6 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(getCurrencies()),
 });
 
-// Faço a conexão do mapStateToProps e mapDispatchToProps com o componente Wallet
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
-
 // Faço a validação se os dados que recebi são válidos
 Wallet.propTypes = {
   isEditing: PropTypes.bool,
@@ -64,3 +63,6 @@ Wallet.propTypes = {
 Wallet.defaultProps = {
   isEditing: false,
 };
+
+// Faço a conexão do mapStateToProps e mapDispatchToProps com o componente Wallet
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
