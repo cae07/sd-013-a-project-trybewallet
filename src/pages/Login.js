@@ -2,6 +2,16 @@ import React from 'react';
 import './Login.css';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      email: '',
+      password: '',
+      disabledBtn: true,
+    };
+  }
+
   render() {
     return (
       <main className="login-container">
