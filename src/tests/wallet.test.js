@@ -59,14 +59,14 @@ describe('5 - Crie um header para a página de carteira contendo as seguintes ca
 });
 
 describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as seguintes características:', () => {
-  test.skip('Um campo para adicionar o valor da despesa', async () => {
+  test('Um campo para adicionar o valor da despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const valueInput = await screen.findByLabelText(/valor/i);
 
     expect(valueInput).toBeInTheDocument();
   });
 
-  test.skip('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
+  test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const currencyInput = await screen.findByRole('combobox', {
       name: /moeda/i,
@@ -75,7 +75,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(currencyInput).toBeInTheDocument();
   });
 
-  test.skip('Um campo para selecionar qual método de pagamento será utilizado', async () => {
+  test('Um campo para selecionar qual método de pagamento será utilizado', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const methodInput = await screen.findByRole('combobox', {
       name: /método de pagamento/i,
@@ -91,7 +91,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(debitOption).toBeInTheDocument();
   });
 
-  test.skip('Um campo para selecionar uma categoria (tag) para a despesa.', async () => {
+  test('Um campo para selecionar uma categoria (tag) para a despesa.', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const tagInput = await screen.findByRole('combobox', {
       name: /tag/i,
@@ -110,7 +110,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(healthOption).toBeInTheDocument();
   });
 
-  test.skip('Um campo para adicionar a descrição da despesa', async () => {
+  test('Um campo para adicionar a descrição da despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const descriptionInput = await screen.findByRole('textbox', {
       name: /descrição/i,
