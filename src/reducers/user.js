@@ -1,12 +1,19 @@
+import { USER_INFO } from '../actions/actionTypes';
+
 const INITIAL_STATE = {
-  name: '',
+  email: '',
 };
 
-const movie = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case USER_INFO:
+    return {
+      ...state,
+      email: action.email,
+    };
   default:
     return state;
   }
 };
 
-export default movie;
+export default user;
