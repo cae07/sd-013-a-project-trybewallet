@@ -34,12 +34,12 @@ export default function wallet(state = INITIAL_STATE_WALLET, action) {
       ...state,
       isFetching: false,
       error: action.error };
-  case ACTION_SAVE_EXPENSE: // 
-    return {
+  case ACTION_SAVE_EXPENSE: // Action para salvar a Expense
+    return { // Retorna o próprio state e na chave expenses retorna a expense que já tinha, e adiciona/altera a informação nova que recebe como parametro estilo payload
       ...state,
       expenses: [...state.expenses, action.expenses],
     };
-  case ACTION_DELETE_EXPENSE:
+  case ACTION_DELETE_EXPENSE: // Action para deletar a Expense
     return {
       ...state,
       expenses: [
