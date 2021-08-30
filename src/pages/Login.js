@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import putUser from '../actions';
 
@@ -11,15 +11,15 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     const { user } = this.props;
-    this.state = { ...user };
+    this.state = { ...user, redirect: false };
 
-    // this.onClick = this.onClick.bind(this);
+    this.onClick = this.onClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  // onClick() {
-  //   this.setState({ redirect: true });
-  // }
+  onClick() {
+    this.setState({ redirect: true });
+  }
 
   handleChange(e) {
     this.setState({
@@ -33,10 +33,10 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
-    const { pushUser, history } = this.props;
+    const { email, password, redirect } = this.state;
+    const { pushUser } = this.props;
 
-    // if (redirect) return <Redirect to="/carteira" />;
+    if (redirect) return <Redirect to="/carteira" />;
 
     return (
       <form>
@@ -70,9 +70,8 @@ class Login extends React.Component {
           type="button"
           disabled={ !REG_EX_EMAIL.test(email) || password.length < passwordMaxLength }
           onClick={ () => {
-            // await this.onClick();
             pushUser({ email, password });
-            history.push('/carteira');
+            this.onClick();
           } }
         >
           Entrar
@@ -96,7 +95,6 @@ Login.propTypes = {
     email: Proptypes.string,
     password: Proptypes.string,
   }).isRequired,
-  history: Proptypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
