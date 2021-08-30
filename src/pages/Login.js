@@ -1,12 +1,68 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      disabled: true,
+      email: '',
+      password: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.validateLogin = this.validateLogin.bind(this);
+  }
+
+  async handleChange({ name, value }) {
+    this.setState({
+      [name]: value,
+    });
+    this.validateLogin();
+  }
+
+  // source: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+  validateLogin() {
+    const { email, password } = this.state;
+    const regex = /\S+@\S+\.\S+/;
+
+    const PASSWORD_LENGH = 5;
+
+    if (password.length >= PASSWORD_LENGH) {
+      return this.setState({
+        disabled: !regex.test(email),
+      });
+    }
+    return this.setState({ disabled: true });
+  }
+
   render() {
+    const { handleChange, state: { disabled } } = this;
     return (
       <div>
-        <input type="text" data-testid="email-input" placeholder="Email" />
-        <input type="text" data-testid="password-input" placeholder="Password" />
-        <input type="button" value="Entrar" />
+        <input
+          type="text"
+          data-testid="email-input"
+          placeholder="Email"
+          name="email"
+          onChange={ ({ target }) => handleChange(target) }
+        />
+
+        <input
+          type="text"
+          data-testid="password-input"
+          placeholder="Password"
+          name="password"
+          onChange={ ({ target }) => handleChange(target) }
+        />
+
+        <Link to="/carteira">
+          <input
+            type="button"
+            disabled={ disabled }
+            value="Entrar"
+          />
+        </Link>
       </div>
     );
   }
