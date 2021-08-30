@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// Importa o connect para realizar a conexão entre o mapStateToProps e o mapDispatchToProps com o componente Header
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
@@ -13,14 +14,12 @@ class Header extends React.Component {
   getTotalExpenses() {
     // Desconstroi o expenses que está na props porque foi passado como chave na mapStateToProps, busca ela dentro do state.wallet.expenses
     const { expenses } = this.props;
-
     // Executa o reduce para realizar a leitura de todas as expenses e realizar a acumulação
     const totalExpenses = expenses.reduce((total, each) => {
       const { value, currency, exchangeRates } = each; // Desconstrói o value, currency e exchangeRates de cada elemento lido pelo reduce
       const rate = parseFloat(exchangeRates[currency].ask); // A chave .ask é a que guarda na API o rate/fator de conversão
       return total + parseFloat(value) * rate; // Retorna o total já com a conversão realizada
     }, 0);
-
     return totalExpenses.toFixed(2); // Aplica duas casas após a vírgula
   }
 
@@ -34,6 +33,7 @@ class Header extends React.Component {
         <p data-testid="email-field" className="wallet-email">{`E-mail: ${email}`}</p>
         <div className="wallet-total-value">
           <span data-testid="total-field">
+            {/* Realiza o total das expenses */}
             {`Despesa Total: R$ ${this.getTotalExpenses()} `}
           </span>
           <span data-testid="header-currency-field">BRL</span>

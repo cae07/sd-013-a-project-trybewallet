@@ -16,8 +16,8 @@ class Wallet extends Component {
   componentDidMount() {
     // Desconstroi o fetchCurrencies que está na props porque foi passado como chave no mapDispatchToProps, com o valor de disparo da action fetchCurrencies que aqui o nome dela é getCurrencies, conforme explicação na linha 5
     const { fetchCurrencies } = this.props;
-
-    fetchCurrencies(); // Executo a action que dispara a busca pelas moedas na API
+    // Executo a action que dispara a busca pelas moedas na API
+    fetchCurrencies();
   }
 
   render() {
