@@ -8,6 +8,7 @@ import { fetchCurrencies as getCurrencies } from '../actions';
 // Importo os componentes para renderizar o Wallet
 import { ExpensesTable, Header, NewExpenseForm, EditExpenseForm } from '../components';
 
+// Importando estilização do Wallet
 import '../styles/Wallet.css';
 
 class Wallet extends Component {
