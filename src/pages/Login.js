@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { registerUser } from '../actions';
 import './Login.css';
 
@@ -18,9 +19,10 @@ class Login extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleLogin(evt) {
-    evt.preventDefault();
-    const { email, password } = this.state;
+  handleLogin() {
+    const { email } = this.state;
+    const { regUser } = this.props;
+    regUser(email);
   }
 
   handleInputs({ target: { type, value } }) {
@@ -37,10 +39,10 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, disabled, isLogged } = this.state;
+    const { email, password, disabled } = this.state;
+    const { loginStatus } = this.props;
     const { handleInputs, handleLogin } = this;
-
-    if (isLogged) return <Redirect to="/batata" />;
+    if (loginStatus) return <Redirect to="/carteira" />;
 
     return (
       <div className="login-container">
@@ -81,7 +83,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loginStatus: (payload) => dispatch(registerUser(payload)),
+  regUser: (payload) => dispatch(registerUser(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  loginStatus: PropTypes.string.isRequired,
+  regUser: PropTypes.func.isRequired,
+};
