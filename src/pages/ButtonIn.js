@@ -4,7 +4,7 @@ class ButtonIn extends React.Component {
   render() {
     return (
       <div>
-        <button type="button"> Entrar </button>
+        <button disabled="true" type="button"> Entrar </button>
       </div>);
   }
 }

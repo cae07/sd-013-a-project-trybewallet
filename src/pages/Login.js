@@ -1,11 +1,82 @@
 import React from 'react';
-import FormEP from './FormEP';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+      disable: true,
+    };
+    this.onclick = this.onclick.bind(this);
+    this.activateButton = this.activateButton.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onclick() {
+    const emailValue = document.querySelectorAll('input')[0];
+    const passwordValue = document.querySelectorAll('input')[1];
+    this.setState({
+      email: emailValue.value,
+      password: passwordValue.value,
+    });
+  }
+
+  onChange() {
+    const valueEmail = document.getElementById('email');
+    const valuePassword = document.getElementById('senha');
+    this.setState({
+      email: valueEmail.value,
+      password: valuePassword.value,
+    });
+    this.activateButton();
+  }
+
+  activateButton() {
+    const { email, password } = this.state;
+    const validPassword = 5;
+    const validEmail = /\S+@\S+\.\S+/;
+    if (password.length >= validPassword && validEmail.test(email)) {
+      this.setState({
+        disable: false,
+      });
+    } else {
+      this.setState({
+        disable: true,
+      });
+    }
+  }
+
   render() {
+    const { disable } = this.state;
     return (
       <div>
-        <FormEP />
+        <input
+          id="email"
+          onChange={ this.onChange }
+          data-testid="email-input"
+          type="email"
+          placeholder="Email"
+          required
+        />
+        <input
+          id="senha"
+          onChange={ this.onChange }
+          minLength="5"
+          data-testid="password-input"
+          type="password"
+          placeholder="senha"
+          required
+        />
+        <div>
+          <button
+            onClick={ this.onclick }
+            disabled={ disable }
+            type="button"
+          >
+            Entrar
+          </button>
+        </div>
       </div>);
   }
 }

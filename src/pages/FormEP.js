@@ -7,6 +7,7 @@ class FormEP extends React.Component {
       <div>
         <input data-testid="email-input" type="email" placeholder="Email" required />
         <input
+          minLength="6"
           data-testid="password-input"
           type="password"
           placeholder="senha"
