@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { signIn } from '../actions';
 
 function validateEmail(email) {
   const re = /\S+@\S+\.\S+/;
@@ -16,6 +19,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.checkLogin = this.checkLogin.bind(this);
+    this.submitLogin = this.submitLogin.bind(this);
 
     this.state = {
       disabledButton: true,
@@ -38,6 +42,14 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     }, () => this.checkLogin());
+  }
+
+  submitLogin(e) {
+    e.preventDefault();
+    const { email } = this.state;
+    const { saveUser, history } = this.props;
+    saveUser(email);
+    history.push('/carteira');
   }
 
   render() {
@@ -64,6 +76,7 @@ class Login extends React.Component {
           <button
             disabled={ disabledButton }
             type="submit"
+            onClick={ this.submitLogin }
           >
             Entrar
           </button>
@@ -73,4 +86,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveUser: (email) => dispatch(signIn(email)),
+});
+
+Login.propTypes = {
+  saveUser: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);

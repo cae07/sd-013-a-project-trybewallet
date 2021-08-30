@@ -10,6 +10,7 @@ const user = (state = INITIAL_STATE, action) => {
   case SIGN_IN:
     return {
       ...state,
+      email: action.payload,
     };
   default:
     return state;
