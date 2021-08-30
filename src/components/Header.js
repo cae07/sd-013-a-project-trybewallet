@@ -11,18 +11,23 @@ class Header extends React.Component {
   }
 
   getTotalExpenses() {
+    // Desconstroi o expenses que está na props porque foi passado como chave na mapStateToProps, busca ela dentro do state.wallet.expenses
     const { expenses } = this.props;
-    const totalExpenses = expenses.reduce((total, each) => {
-      const { value, currency, exchangeRates } = each;
-      const rate = parseFloat(exchangeRates[currency].ask); // A chave .ask é a que guarda na API o rate/fator de conversão
 
+    // Executa o reduce para realizar a leitura de todas as expenses e realizar a acumulação
+    const totalExpenses = expenses.reduce((total, each) => {
+      const { value, currency, exchangeRates } = each; // Desconstrói o value, currency e exchangeRates de cada elemento lido pelo reduce
+      const rate = parseFloat(exchangeRates[currency].ask); // A chave .ask é a que guarda na API o rate/fator de conversão
       return total + parseFloat(value) * rate; // Retorna o total já com a conversão realizada
     }, 0);
+
     return totalExpenses.toFixed(2); // Aplica duas casas após a vírgula
   }
 
   render() {
+    // Desconstrói o email que está guardado na state
     const { email } = this.props;
+
     return (
       <header className="wallet-header">
         <h1>Trybe Wallet</h1>
