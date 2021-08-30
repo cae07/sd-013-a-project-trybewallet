@@ -1,8 +1,12 @@
 import React from 'react';
+import FormEP from './FormEP';
 
 class Login extends React.Component {
   render() {
-    return <div>Login</div>;
+    return (
+      <div>
+        <FormEP />
+      </div>);
   }
 }
 
