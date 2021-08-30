@@ -104,13 +104,20 @@ class Login extends Component {
             Entrar
           </button>
         </form>
+        {/* Se o state login estiver como true, o link é redirecionado para /carteira */}
         {login ? <Redirect to="/carteira" /> : ''}
       </main>
     );
   }
 }
 
+// A função do mapDispatchToProps é despachar action para a store, com a finalidade de alterar o state da aplicação
+// A função dispatch() serve para despachar uma action para o reducer.
+// Recebe como parametro uma dispatch, e retorna um objeto com chave e valor.
 const mapDispatchToProps = (dispatch) => ({
+// A chave(handleEmail) é a prop do componente que vai ser envocada
+// E eu passo uma callback que vai ser o dispatch que vou realizar
+// O payload vai conter o NOVO valor que vai ser passado e alterado na state da store
   handleEmail: (payload) => dispatch(actionEmailChange(payload)),
 });
 
