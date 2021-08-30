@@ -39,22 +39,33 @@ class EditExpenseForm extends React.Component {
     this.setState({ [name]: value });
   }
 
-  async handleClick(e) {
-    e.preventDefault();
+  async handleClick(event) {
+    event.preventDefault(); // Cancela um evento se ele for cancelável sem parar a propagação do mesmo
+
     const { value, description, currency, method, tag, id, exchangeRates } = this.state;
     const { endExpenseEdit } = this.props;
     const expense = {
-      id,
+      id, // id
       value,
       description,
-      currency,
-      method,
-      tag,
+      currency, // moeda
+      method, // método de pagamento
+      tag, // tipo de expense/despesa
       exchangeRates,
     };
+
     endExpenseEdit(expense);
   }
 
+  // ****************************************************************************
+  // Função de renderização do Input
+  // ****************************************************************************
+  // {this.renderInput('Valor', 'number', 'value', value)}
+  // {this.renderInput('Descrição', 'text', 'description', description)}
+  // label: "Valor" ou "Descrição"
+  // type: "number" ou "text"
+  // name: "value" ou "description"
+  // value: variável value ou description
   renderInput(label, type, name, value) {
     return (
       <label htmlFor={ `${name}-input` }>
@@ -95,6 +106,15 @@ class EditExpenseForm extends React.Component {
     );
   }
 
+  // ****************************************************************************
+  // Função de renderização do Select
+  // ****************************************************************************
+  // {this.renderSelect('Método de pagamento', 'method', method, methods)}
+  // {this.renderSelect('Tag', 'tag', tag, tags)}
+  // label: "Tag" ou "Método de pagamento"
+  // name: "method" ou "tag"
+  // value: "method" ou "tag"
+  // options: "methods" ou "tags"
   renderSelect(label, name, value, options) {
     return (
       <label htmlFor={ `${name}-input` }>
@@ -106,6 +126,8 @@ class EditExpenseForm extends React.Component {
           onChange={ this.handleChange }
           value={ value }
         >
+          {/* Faz um map com o parametro de options recebido na função */}
+          {/* Isso faz com que seja criado as opções do Select */}
           {options.map((option) => (
             <option key={ option }>{option}</option>
           ))}
@@ -116,8 +138,11 @@ class EditExpenseForm extends React.Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
+    // Criando as tags opcionais de expenses
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    // Criando os methods de pagamento
     const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+
     return (
       <form className="edit-expense-form">
         <label htmlFor="currency-input">
