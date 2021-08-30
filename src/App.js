@@ -7,7 +7,7 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route path="/wallet" component={ Wallet } />
     </Switch>
-  )
+  );
 }
 
 export default App;
