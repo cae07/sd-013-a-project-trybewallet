@@ -1,6 +1,10 @@
-export const userLogin = (email) => ({
-  type: 'USER_LOGIN',
+import { USER, WALLET } from './actionTypes';
+
+export const userAction = (email) => ({
+  type: USER,
   payload: email,
 });
 
-export default userLogin;
+export const walletAction = () => ({
+  type: WALLET,
+});
