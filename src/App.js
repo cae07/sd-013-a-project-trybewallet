@@ -1,7 +1,9 @@
 import React from 'react';
 
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
+class App extends React.Component {
+  render() {
+    return <div>Hello, TrybeWallet!</div>;
+  }
 }
 
 export default App;
