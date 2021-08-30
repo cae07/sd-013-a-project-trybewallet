@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getCoins } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -8,6 +9,16 @@ class Wallet extends React.Component {
 
     this.renderHeader = this.renderHeader.bind(this);
     this.renderForms = this.renderForms.bind(this);
+    this.getCoinsOptions = this.getCoinsOptions.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCoinsOptions();
+  }
+
+  getCoinsOptions() {
+    const { fetchCoins } = this.props;
+    fetchCoins();
   }
 
   renderHeader() {
@@ -34,6 +45,7 @@ class Wallet extends React.Component {
   }
 
   renderForms() {
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="amount">
@@ -46,7 +58,10 @@ class Wallet extends React.Component {
         </label>
         <label htmlFor="coins">
           Moeda:
-          <select aria-label="moeda" id="coins" />
+          <select aria-label="moeda" id="coins">
+            {Object.keys(currencies)
+              .map((coin) => <option key={ coin } value={ coin }>{coin}</option>)}
+          </select>
         </label>
         <label htmlFor="payment-method">
           Método de pagamento:
@@ -79,12 +94,18 @@ class Wallet extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
+const mapStateToProps = ({ user, wallet }) => ({
   email: user.email,
+  currencies: wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCoins: () => dispatch(getCoins()),
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
-};
+  email: PropTypes.string,
+  fetchCoins: PropTypes.func,
+}.isRequired;
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
