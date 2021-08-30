@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+// O Redirect tem a função de redirecionar a página
 import { Redirect } from 'react-router-dom';
-
+// o actionEmailChange faz a action de alterar o email na state
 import { actionEmailChange } from '../actions';
 
 import '../styles/Login.css';
@@ -25,14 +26,18 @@ class Login extends Component {
     this.loginValidation = this.loginValidation.bind(this);
   }
 
+  // Essa função de handleClick vai ser executada quando clicar no botão "Entrar"
   handleClick(event) {
     event.preventDefault();
 
-    const { handleEmail } = this.props; // Desconstroi o handleEmail que foi passado como chave no mapDispatchToProps, com o valor de disparo da action actionEmailChange
+    // Desconstroi o handleEmail que está na props porque foi passado como chave no mapDispatchToProps, com o valor de disparo da action actionEmailChange
+    const { handleEmail } = this.props;
+    // Desconstrói o email que está guardado na state
     const { email } = this.state;
 
-    this.setState({ login: true });
+    this.setState({ login: true }); // Altera o state login para true, confirmando que foi realizado login
 
+    // Essa chave, que está na props, faz com que a action seja disparada como parametro passando o email
     handleEmail(email);
   }
 
@@ -121,6 +126,7 @@ const mapDispatchToProps = (dispatch) => ({
   handleEmail: (payload) => dispatch(actionEmailChange(payload)),
 });
 
+// O connect é responsável por fazer a conexão do meu componente Login com o mapDispatchToProps
 export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
