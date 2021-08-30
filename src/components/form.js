@@ -1,6 +1,40 @@
 import React from 'react';
 
 class form extends React.Component {
+  constructor() {
+    super();
+
+    this.fetchApi = this.fetchApi.bind(this);
+
+    this.state = {
+      apiResponse: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
+  fetchApi() {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({
+          apiResponse: json,
+        });
+      });
+  }
+
+  filterCurrency() {
+    const { apiResponse } = this.state;
+
+    const initials = Object.keys(apiResponse);
+    // usado para filtrar USDT que nao será usado
+    const filteredInitials = initials.filter((initial) => initial !== 'USDT');
+
+    return filteredInitials;
+  }
+
   render() {
     return (
       <form>
@@ -8,16 +42,16 @@ class form extends React.Component {
           Valor
           <input type="text" name="value" id="value" />
         </label>
-
         <label htmlFor="description">
           Descrição
           <input type="text" name="description" id="description" />
         </label>
-
         <label htmlFor="currency">
           Moeda
           <select name="currency" id="currency">
-            <option>Moeda</option>
+            {/* usa map para mostrar as moedas  */}
+            { this.filterCurrency()
+              .map((option, index) => (<option key={ index }>{ option }</option>)) }
           </select>
         </label>
 
@@ -29,7 +63,6 @@ class form extends React.Component {
             <option>Cartão de débito</option>
           </select>
         </label>
-
         <label htmlFor="tag">
           Tag
           <select name="tag" id="tag">
@@ -44,5 +77,4 @@ class form extends React.Component {
     );
   }
 }
-
 export default form;
