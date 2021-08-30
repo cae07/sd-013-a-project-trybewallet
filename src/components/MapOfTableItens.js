@@ -6,7 +6,7 @@ import loadingGif from '../img/loading.gif';
 import trash from '../img/trash.png';
 import pencil from '../img/pencil.png';
 
-import { dispatchDeleteRow, dispatchEditList } from '../actions';
+import { dispatchDeleteRow } from '../actions';
 
 class MapOfTableItens extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class MapOfTableItens extends Component {
   }
 
   render() {
-    const { expenses, isFetching, editExpenses } = this.props;
+    const { expenses, isFetching, editList } = this.props;
     const loading = <tr><td><img src={ loadingGif } alt="Loading" /></td></tr>;
     const emptyWallet = <tr><td>Sua carteira está vazia</td></tr>;
     if (expenses.length === 0) return (emptyWallet);
@@ -52,7 +52,7 @@ class MapOfTableItens extends Component {
                 <img style={ { width: '40px' } } src={ trash } alt="delete" />
               </button>
               <button
-                onClick={ () => editExpenses(id) }
+                onClick={ () => editList(id) }
                 data-testid="edit-btn"
                 type="button"
               >
@@ -73,13 +73,13 @@ const mapStateToProps = (storeState) => ({
 
 const mapDispathToProps = (dispatch) => ({
   deleteRow: (id, multiplyValue) => dispatch(dispatchDeleteRow(id, multiplyValue)),
-  editExpenses: (id) => dispatch(dispatchEditList(id)),
 });
 
 MapOfTableItens.propTypes = {
   expenses: PropTypes.array,
   isFetching: PropTypes.bool,
   deleteRow: PropTypes.func,
+  editList: PropTypes.func,
 }.isRequired;
 
 export default connect(

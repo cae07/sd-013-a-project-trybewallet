@@ -3,8 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import UserImage from '../img/user.png';
 import MapOfTableItens from '../components/MapOfTableItens';
-import { requestAPI, saveExpenses } from '../actions';
 import InputsToAddExpenses from '../components/InputsToAddExpenses';
+
+import {
+  requestAPI, saveExpenses, dispatchEditList, dispatchEditedExpenses,
+} from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -22,7 +25,10 @@ class Wallet extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.editForm = this.editForm.bind(this);
     this.readWasExpend = this.readWasExpend.bind(this);
+    this.editList = this.editList.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +40,15 @@ class Wallet extends React.Component {
     this.setState((prevState) => ({
       inputsValues: { ...prevState.inputsValues, [name]: value },
     }));
+  }
+
+  editList(idList) {
+    console.log('editList');
+    const { expenses, editExpenses } = this.props;
+    const findItem = expenses.find(({ id }) => id === idList);
+    this.setState(() => ({ inputsValues: findItem }), () => {
+      editExpenses(idList);
+    });
   }
 
   loginArea() {
@@ -50,7 +65,10 @@ class Wallet extends React.Component {
     const { expenses, isFetching } = this.props;
     if (!expenses.length || isFetching) return 0;
     const num = expenses.map(
-      ({ value, currency, exchangeRates }) => value * exchangeRates[currency].ask,
+      ({ value, currency, exchangeRates }) => {
+        console.log(expenses);
+        return value * exchangeRates[currency].ask;
+      },
     ).reduce((acc, curr) => acc + curr);
     return num.toFixed(2);
   }
@@ -72,10 +90,7 @@ class Wallet extends React.Component {
     );
   }
 
-  submitForm() {
-    const { dispatchExpenses } = this.props;
-    const { inputsValues } = this.state;
-    dispatchExpenses(inputsValues);
+  resetState() {
     this.setState(() => ({
       inputsValues: {
         id: 0,
@@ -87,6 +102,22 @@ class Wallet extends React.Component {
         exchangeRates: {},
       },
     }));
+  }
+
+  submitForm() {
+    console.log('submitForm');
+    const { dispatchExpenses } = this.props;
+    const { inputsValues } = this.state;
+    dispatchExpenses(inputsValues);
+    this.resetState();
+  }
+
+  editForm() {
+    console.log('editForm');
+    const { inputsValues } = this.state;
+    const { saveEditList } = this.props;
+    this.resetState();
+    saveEditList(inputsValues);
   }
 
   subtitle() {
@@ -116,12 +147,14 @@ class Wallet extends React.Component {
         <section>
           <InputsToAddExpenses
             submitForm={ this.submitForm }
+            editForm={ this.editForm }
+            handleChange={ this.handleChange }
             state={ inputsValues }
           />
         </section>
         <table>
           <thead>{ this.subtitle() }</thead>
-          <tbody><MapOfTableItens /></tbody>
+          <tbody><MapOfTableItens editList={ this.editList } /></tbody>
         </table>
       </>
     );
@@ -133,11 +166,14 @@ const mapStateToProps = (storeState) => ({
   expenses: storeState.wallet.expenses,
   isFetching: storeState.wallet.isFetching,
   idToEdit: storeState.wallet.idToEdit,
+  editor: storeState.wallet.editor,
 });
 
 const mapDispathToProps = (dispatch) => ({
   dispatchAPI: () => dispatch(requestAPI()),
-  dispatchExpenses: (payload) => dispatch(saveExpenses(payload)),
+  dispatchExpenses: (state) => dispatch(saveExpenses(state)),
+  editExpenses: (id) => dispatch(dispatchEditList(id)),
+  saveEditList: (state) => dispatch(dispatchEditedExpenses(state)),
 });
 
 Wallet.propTypes = {
@@ -145,6 +181,7 @@ Wallet.propTypes = {
   isFetching: PropTypes.bool,
   dispatchAPI: PropTypes.func,
   dispatchExpenses: PropTypes.func,
+  editExpenses: PropTypes.func,
   expenses: PropTypes.array,
 }.isRequired;
 

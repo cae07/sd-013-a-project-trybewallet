@@ -5,9 +5,10 @@ import {
   SAVE_EXPENSES_SUCCESS,
   DISPATCH_DETELE_ROW,
   DISPATCH_EDIT_LIST,
+  DISPATCH_EDITED_EXPENSES,
 } from '../actions';
 
-import { initialStateWithExpenses } from '../tests/mockData';
+// import { initialStateWithExpenses } from '../tests/mockData';
 
 const INITIAL_STATE = {
   isFetching: false,
@@ -18,7 +19,7 @@ const INITIAL_STATE = {
   requestFail: '',
 };
 
-let findExpendIndex;
+let findExpend;
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -34,15 +35,28 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, requestFail: action.fail, isFetching: false };
 
   case SAVE_EXPENSES_SUCCESS:
-    return { ...state, expenses: [...state.expenses, { ...action.payload, id: state.expenses.length}], isFetching: false };
+    return {
+      ...state,
+      expenses: [...state.expenses, { ...action.obj, id: state.expenses.length }],
+      isFetching: false,
+    };
 
   case DISPATCH_DETELE_ROW:
     // Dica Gabriel Gaspar, pois o filter com erra condição 'remove' o que eu quiser...
-    findExpendIndex = state.expenses.filter(({ id }) => id !== action.id);
-    return { ...state, expenses: findExpendIndex };
-  
+    findExpend = state.expenses.filter(({ id }) => id !== action.id);
+    return { ...state, expenses: findExpend };
+
   case DISPATCH_EDIT_LIST:
-    return { ...state, editor: true, idToEdit: action.id }
+    return { ...state, editor: true, idToEdit: action.id };
+
+  case DISPATCH_EDITED_EXPENSES:
+    findExpend = state.expenses.reduce(
+      (acc, curr) => {
+        if (curr.id !== state.idToEdit) return [...acc, curr];
+        return [...acc, action.state];
+      }, [],
+    );
+    return { ...state, expenses: findExpend, editor: false };
 
   default:
     return state;
