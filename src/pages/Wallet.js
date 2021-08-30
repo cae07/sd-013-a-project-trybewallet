@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import WalletBody from './components/WalletBody';
 
 class Wallet extends React.Component {
   constructor() {
@@ -9,12 +10,24 @@ class Wallet extends React.Component {
     this.state = {
       totalExpenses: 0,
       value: 0,
+      description: '',
+      payment: 'cash',
+      tag: 'food',
     };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
   }
 
   render() {
     const { userEmail } = this.props;
-    const { totalExpenses, value } = this.state;
+    const { totalExpenses, value, description, payment, tag } = this.state;
     return (
       <div>
         <header>
@@ -22,16 +35,14 @@ class Wallet extends React.Component {
           <h4 data-testid="total-field">{totalExpenses}</h4>
           <h4 data-testid="header-currency-field">BRL</h4>
         </header>
-        <fieldset>
-          <label htmlFor="value">
-            Valor:
-            <input
-              type="number"
-              name="value"
-              value={ value }
-            />
-          </label>
-        </fieldset>
+        <WalletBody
+          totalExpenses={ totalExpenses }
+          value={ value }
+          description={ description }
+          payment={ payment }
+          tag={ tag }
+          handleChange={ this.handleChange }
+        />
       </div>);
   }
 }
