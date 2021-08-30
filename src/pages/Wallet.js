@@ -6,7 +6,10 @@ import PropTypes from 'prop-types';
 import { fetchCurrencies as getCurrencies } from '../actions';
 
 // Importo os componentes para renderizar o Wallet
-import { ExpensesTable, Header, NewExpenseForm, EditExpenseForm } from '../components';
+import ExpensesTable from '../components/ExpensesTable';
+import Header from '../components/Header';
+import NewExpenseForm from '../components/NewExpenseForm';
+import EditExpenseForm from '../components/EditExpenseForm';
 
 // Importando estilização do Wallet
 import '../styles/Wallet.css';

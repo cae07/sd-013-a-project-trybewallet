@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import {
   fetchCurrencies as getCurrencies,
-  actionEndExpenseEdit as finishExpenseEdit,
+  actionEndExpenseEdit,
 } from '../actions';
 
 class EditExpenseForm extends React.Component {
@@ -39,11 +39,13 @@ class EditExpenseForm extends React.Component {
     this.setState({ [name]: value });
   }
 
-  async handleClick(event) {
+  handleClick(event) {
     event.preventDefault(); // Cancela um evento se ele for cancelável sem parar a propagação do mesmo
-
+    // Desconstrói o state pegando os states necessários
     const { value, description, currency, method, tag, id, exchangeRates } = this.state;
+    // Desconstrói a props pegando a chave endExpenseEdit criada na mapDispatchToProps que despacha a action actionEndExpenseEdit
     const { endExpenseEdit } = this.props;
+
     const expense = {
       id, // id
       value,
@@ -54,6 +56,7 @@ class EditExpenseForm extends React.Component {
       exchangeRates,
     };
 
+    // Executa a função que vai disparar a action actionEndExpenseEdit cujo payload é a expense
     endExpenseEdit(expense);
   }
 
@@ -174,9 +177,16 @@ const mapStateToProps = (state) => ({
   expenseId: state.wallet.expenseId,
 });
 
+// A função do mapDispatchToProps é despachar action para a store, com a finalidade de alterar o state da aplicação
+// A função dispatch() serve para despachar uma action para o reducer.
+// Recebe como parametro uma dispatch, e retorna um objeto com chave e valor.
 const mapDispatchToProps = (dispatch) => ({
+  // A chave(endExpenseEdit) é a prop do componente que vai ser envocada
+  // E eu passo uma callback que vai ser o dispatch que vou realizar
+  // O parametro eu passo a própria expense
+  // O retorno desse disparo será o novo valor dessa chave endExpenseEdit
   fetchCurrencies: () => dispatch(getCurrencies()),
-  endExpenseEdit: (expense) => dispatch(finishExpenseEdit(expense)),
+  endExpenseEdit: (expense) => dispatch(actionEndExpenseEdit(expense)),
 });
 
 // Faço a validação se os dados que recebi são válidos

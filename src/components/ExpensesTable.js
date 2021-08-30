@@ -54,6 +54,7 @@ class ExpensesTable extends Component {
           </tr>
         </thead>
         <tbody className="table-body">
+          {/* Percorre o expenses para listar todos expenses na tabela abaixo */}
           {expenses.map((expense, index) => {
             // Desconstroi a expense com todas as propriedades necessárias para montar a tabela
             const { description, tag, method, value, currency, exchangeRates } = expense;
