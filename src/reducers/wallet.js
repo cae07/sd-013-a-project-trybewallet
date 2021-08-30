@@ -1,4 +1,4 @@
-import { COINS_LOADING, COINS_SUCCESS } from '../actions';
+import { COINS_LOADING, COINS_SUCCESS, SPENT_SUCCESS } from '../actions';
 
 const INICIAL_STATE = {
   currencies: [],
@@ -17,6 +17,11 @@ const wallet = (state = INICIAL_STATE, action) => {
       ...state,
       coinsLoading: false,
       currencies: action.coins,
+    };
+  case SPENT_SUCCESS:
+    return {
+      ...state,
+      expenses: [...state.expenses, { ...action.spent, id: state.expenses.length }],
     };
   default:
     return state;
