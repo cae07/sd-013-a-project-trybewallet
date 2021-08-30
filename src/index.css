@@ -139,6 +139,9 @@ justify-content: space-between;
   color: #ffc312;
 }
 
+.infoTopo {
+text-align: right;
+}
 /* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

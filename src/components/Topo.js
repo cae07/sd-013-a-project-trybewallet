@@ -1,19 +1,30 @@
-/* eslint-disable no-useless-escape */
 import React from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-class Topo extends React.Component {
+class Header extends React.Component {
   render() {
-    // const { email } = this.props;
+    // const { user } = this.props;
+    const { user, wallet } = this.props;
     return (
       <div className="topo">
         <h1>TrybeWallet</h1>
-        <div>
+        <div className="infoTopo">
+          <p data-testid="header-currency-field">BRL</p>
+
           <p>
-            Email:
+            Despesa Total: R$
+            { ' ' }
+            <span data-testid="total-field">
+              { wallet.total || 0 }
+            </span>
           </p>
-          <p>Despesa Total: </p>
+
+          <p data-testid="email-field">
+            Email:
+            { ' ' }
+            { user.email }
+          </p>
         </div>
       </div>
     );
@@ -22,10 +33,16 @@ class Topo extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  wallet: state.wallet,
 });
 
-// Topo.propTypes = {
-//   email: PropTypes.string.isRequired,
-// };
+Header.propTypes = {
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }),
+  wallet: PropTypes.shape({
+    total: PropTypes.number,
+  }),
+}.isRequired;
 
-export default connect(mapStateToProps, null)(Topo);
+export default connect(mapStateToProps, null)(Header);

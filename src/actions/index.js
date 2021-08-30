@@ -1,12 +1,12 @@
 export const SAVE_LOGIN = 'SAVE_LOGIN';
 export const SAVE_DESPESA = 'SAVE_LOGIN';
 
-export const setInfoLogin = (payload) => (
+export const setInfoLogin = (state) => (
   {
-    type: SAVE_LOGIN, payload,
+    type: SAVE_LOGIN, state,
   });
 
-export const setInfoDespesa = (payload) => (
+export const setInfoDespesa = (state) => (
   {
-    type: SAVE_DESPESA, payload,
+    type: SAVE_DESPESA, state,
   });
