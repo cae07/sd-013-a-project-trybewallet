@@ -28,7 +28,7 @@ class Login extends React.Component {
     const { email, password, redirect } = this.state;
     const { pushUser } = this.props;
 
-    if (redirect) return <Redirect to="/Wallet" />;
+    if (redirect) return <Redirect to="/carteira" />;
 
     return (
       <fieldset>
