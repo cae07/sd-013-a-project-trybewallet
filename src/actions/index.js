@@ -9,22 +9,17 @@ export const emailLogin = (payload) => ({
   payload,
 });
 
-/* export const loadingAction = () => ({
-  type: LOADING_TYPE,
-}); */
-
 export const successAction = (payload) => ({
   type: SUCCESS_TYPE,
   payload,
 });
 
-export const errorAction = (payload) => ({
+export const errorAction = (error) => ({
   type: ERROR_TYPE,
-  payload,
+  payload: error,
 });
 
-export const fetchName = () => async (dispatch) => {
-  /* dispatch(loadinAction()); */
+export const fetchCoin = () => async (dispatch) => {
   try {
     const res = await fetch(URL);
     if (!res.ok) throw new Error('fetch failed');
