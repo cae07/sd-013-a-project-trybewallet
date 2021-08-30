@@ -21,22 +21,12 @@ describe('11 - Crie um botão para editar uma despesa da tabela contendo as segu
     const toggleEditBtn = screen.getAllByTestId('edit-btn')[0];
     fireEvent.click(toggleEditBtn);
 
-    const editButton = await screen.findByRole('button', {
-      name: /Editar despesa/i,
-    });
-    const valueInput = await screen.findByLabelText(/valor/i);
-    const currencyInput = await screen.findByRole('combobox', {
-      name: /moeda/i,
-    });
-    const methodInput = await screen.findByRole('combobox', {
-      name: /método de pagamento/i,
-    });
-    const tagInput = await screen.findByRole('combobox', {
-      name: /tag/i,
-    });
-    const descriptionInput = await screen.findByRole('textbox', {
-      name: /descrição/i,
-    });
+    const valueInput = await screen.findByTestId('value-input');
+    const currencyInput = await screen.findByTestId('currency-input');
+    const methodInput = await screen.findByTestId('method-input');
+    const tagInput = await screen.findByTestId('tag-input');
+    const descriptionInput = await screen.findByTestId('description-input');
+    const editButton = await screen.findByText(/Editar despesa/i);
 
     userEvent.type(valueInput, '100');
     userEvent.selectOptions(currencyInput, 'CAD');
