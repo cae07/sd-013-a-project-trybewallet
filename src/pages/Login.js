@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import putUser from '../actions';
 
@@ -11,15 +11,15 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     const { user } = this.props;
-    this.state = { ...user, redirect: false };
+    this.state = { ...user };
 
-    this.onClick = this.onClick.bind(this);
+    // this.onClick = this.onClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  onClick() {
-    this.setState({ redirect: true });
-  }
+  // onClick() {
+  //   this.setState({ redirect: true });
+  // }
 
   handleChange(e) {
     this.setState({
@@ -33,10 +33,10 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, redirect } = this.state;
-    const { pushUser } = this.props;
+    const { email, password } = this.state;
+    const { pushUser, history } = this.props;
 
-    if (redirect) return <Redirect to="/carteira" />;
+    // if (redirect) return <Redirect to="/carteira" />;
 
     return (
       <form>
@@ -69,9 +69,10 @@ class Login extends React.Component {
           className="btn"
           type="button"
           disabled={ !REG_EX_EMAIL.test(email) || password.length < passwordMaxLength }
-          onClick={ async () => {
-            await this.onClick();
-            return pushUser({ email, password });
+          onClick={ () => {
+            // await this.onClick();
+            pushUser({ email, password });
+            history.push('/carteira');
           } }
         >
           Entrar
@@ -86,7 +87,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => ({
-  user: state.ReducerUser.user,
+  user: state.user,
 });
 
 Login.propTypes = {
@@ -95,6 +96,9 @@ Login.propTypes = {
     email: Proptypes.string,
     password: Proptypes.string,
   }).isRequired,
+  history: Proptypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+// REG_EX_EMAIL Src = https://github.com/tryber/sd-013-a-project-trybewallet/commit/5a34a421a7986a7d4b91d93fd084b7a8a5b4bc58 PEDRO ALLES
