@@ -139,6 +139,7 @@ class NewExpenseForm extends React.Component {
           value={ value }
         >
           {/* Faz um map com o parametro de options recebido na função */}
+          {/* Isso faz com que seja criado as opções do Select */}
           {options.map((option) => (
             <option key={ option }>{option}</option>
           ))}
