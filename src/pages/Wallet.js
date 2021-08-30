@@ -43,7 +43,6 @@ class Wallet extends React.Component {
   }
 
   editList(idList) {
-    console.log('editList');
     const { expenses, editExpenses } = this.props;
     const findItem = expenses.find(({ id }) => id === idList);
     this.setState(() => ({ inputsValues: findItem }), () => {
@@ -65,10 +64,7 @@ class Wallet extends React.Component {
     const { expenses, isFetching } = this.props;
     if (!expenses.length || isFetching) return 0;
     const num = expenses.map(
-      ({ value, currency, exchangeRates }) => {
-        console.log(expenses);
-        return value * exchangeRates[currency].ask;
-      },
+      ({ value, currency, exchangeRates }) => value * exchangeRates[currency].ask,
     ).reduce((acc, curr) => acc + curr);
     return num.toFixed(2);
   }
@@ -105,7 +101,6 @@ class Wallet extends React.Component {
   }
 
   submitForm() {
-    console.log('submitForm');
     const { dispatchExpenses } = this.props;
     const { inputsValues } = this.state;
     dispatchExpenses(inputsValues);
@@ -113,7 +108,6 @@ class Wallet extends React.Component {
   }
 
   editForm() {
-    console.log('editForm');
     const { inputsValues } = this.state;
     const { saveEditList } = this.props;
     this.resetState();

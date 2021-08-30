@@ -14,6 +14,7 @@ const INITIAL_STATE = {
   isFetching: false,
   editor: false,
   idToEdit: 0,
+  currencyToExchange: 'BRL',
   currencies: [],
   expenses: [],
   requestFail: '',

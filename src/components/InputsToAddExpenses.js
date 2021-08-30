@@ -67,9 +67,19 @@ class InputsToAddExpenses extends Component {
   }
 
   render() {
-    const { editor, submitForm, handleChange, state: {
+    const { editor, submitForm, editForm, handleChange, state: {
       description, value,
     } } = this.props;
+    const submitButton = (
+      <button onClick={ submitForm } type="button">
+        Adicionar despesa
+      </button>
+    );
+    const editButton = (
+      <button onClick={ editForm } type="button">
+        Editar despesas
+      </button>
+    );
     return (
       <form>
         <label htmlFor="value">
@@ -94,9 +104,7 @@ class InputsToAddExpenses extends Component {
           />
         </label>
         { this.selectsCurrencyPaymentMethodAndTag() }
-        <button onClick={ submitForm } type="button">
-          { (editor) ? 'Editar despesas' : 'Adicionar despesa'}
-        </button>
+        { (editor) ? editButton : submitButton }
       </form>
     );
   }
@@ -111,6 +119,7 @@ InputsToAddExpenses.propTypes = {
   editor: PropTypes.bool,
   handleChange: PropTypes.func,
   submitForm: PropTypes.func,
+  editForm: PropTypes.func,
   state: PropTypes.object,
   currencies: PropTypes.array,
 }.isRequired;
