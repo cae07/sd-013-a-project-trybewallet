@@ -1,10 +1,9 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
 
-const initialState = { // provavel que troque o estado inicial
-  loading: false,
-  data: '',
-  error: '',
+const initialState = {
+  currencies: [],
+  expenses: [],
 };
 
 function reducerWallet(state = initialState, { type, payload }) {

@@ -1,10 +1,8 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
 
-const initialState = { // provavel que troque o estado inicial
-  loading: false,
-  data: '',
-  error: '',
+const initialState = {
+  email: '',
 };
 
 function reducerUser(state = initialState, { type, payload }) {
