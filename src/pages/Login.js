@@ -17,22 +17,22 @@ class Login extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleLogin(evt) {
-    evt.preventDefault();
-    const { /* email, password */ } = this.state;
-  }
-
   handleInputs({ target: { type, value } }) {
     this.setState({ [type]: value }, () => {
       const { email, password } = this.state;
       const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-      const magNum = 6;
-      if (emailRegex.test(email) && password.length >= magNum) {
+      const maxNum = 6;
+      if (emailRegex.test(email) && password.length >= maxNum) {
         this.setState({ disabled: false });
       } else {
         this.setState({ disabled: true });
       }
     });
+  }
+
+  handleLogin(e) {
+    e.preventDefault();
+    const { email, password } = this.state;
   }
 
   render() {
