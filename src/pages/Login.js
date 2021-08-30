@@ -59,7 +59,7 @@ class Login extends React.Component {
         />
 
         <input
-          type="text"
+          type="password"
           data-testid="password-input"
           placeholder="Password"
           name="password"
