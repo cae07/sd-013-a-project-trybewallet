@@ -50,6 +50,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchCurrencies: () => dispatch(getCurrencies()),
 });
 
+// Faço a conexão do mapStateToProps e mapDispatchToProps com o componente Wallet
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 
 // Faço a validação se os dados que recebi são válidos
@@ -58,6 +59,7 @@ Wallet.propTypes = {
   fetchCurrencies: PropTypes.func.isRequired,
 };
 
+// Bem semelhante ao propTypes, eu utilizo o defaultProps para definir um comportamento default, para quando uma propriedade não for informada receber algum valor em especial, no caso abaixo, a chave isEditing receber a propriedade false.
 Wallet.defaultProps = {
   isEditing: false,
 };
