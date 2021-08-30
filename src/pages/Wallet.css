@@ -80,3 +80,24 @@
 .wallet-form-add {
   height: 30px;
 }
+
+table, th, td {
+  border: 1px solid black;
+}
+
+.wallet-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.wallet-table tr:first-child {
+  background-color: blanchedalmond;
+}
+
+.wallet-table tr {
+  height: 40px;
+}
+
+.wallet-table td {
+  text-align: center;
+}

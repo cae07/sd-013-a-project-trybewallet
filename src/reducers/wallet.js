@@ -1,4 +1,5 @@
-import { IS_FETCHING, UPDATE_CURRENCIES, ERROR, UPDATE_EXPENSES } from '../actions';
+import { IS_FETCHING, UPDATE_CURRENCIES, ERROR, ADD_EXPENSE,
+  UPDATE_TOTAL } from '../actions';
 
 const initialState = {
   isFetching: false,
@@ -8,10 +9,11 @@ const initialState = {
   total: 0,
 };
 
-const calcTotal = (state, payload) => {
-  const { value, currency } = payload;
-  const { currencies, total } = state;
-  return total + (parseFloat(value) * parseFloat(currencies[0][currency].ask));
+const updateTotal = (state) => {
+  const { expenses } = state;
+  return expenses.reduce((acc, { value, exchangeRates, currency }) => (
+    acc + (parseFloat(value) * parseFloat(exchangeRates[currency].ask))
+  ), 0);
 };
 
 function wallet(state = initialState, { type, payload }) {
@@ -25,12 +27,14 @@ function wallet(state = initialState, { type, payload }) {
   case ERROR:
     return { ...state, error: payload, isFetching: false };
 
-  case UPDATE_EXPENSES:
+  case ADD_EXPENSE:
     return {
       ...state,
       expenses: [...state.expenses, { ...payload, exchangeRates: state.currencies[0] }],
-      total: calcTotal(state, payload),
     };
+
+  case UPDATE_TOTAL:
+    return { ...state, total: updateTotal(state) };
 
   default:
     return state;

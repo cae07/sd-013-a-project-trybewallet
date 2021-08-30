@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchCurrencies, updateExpenses } from '../actions';
+import { fetchCurrencies, addExpen, updateTotal } from '../actions';
 
 const food = 'Alimentação';
 
@@ -32,10 +32,11 @@ class WalletAddForm extends Component {
   }
 
   async addExpense() {
-    const { expensesList, getCurrencies, addExp } = this.props;
+    const { expensesList, getCurrencies, addExp, updtTotal } = this.props;
     await getCurrencies();
     const payload = { id: expensesList.length, ...this.state };
     addExp(payload);
+    updtTotal();
     this.setState({
       value: '0',
       currency: 'USD',
@@ -119,11 +120,13 @@ class WalletAddForm extends Component {
 const mapStateToProps = (state) => ({
   currencyList: state.wallet.currencies,
   expensesList: state.wallet.expenses,
+  editMode: state.wallet.isEditing,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchCurrencies()),
-  addExp: (payload) => dispatch(updateExpenses(payload)),
+  addExp: (payload) => dispatch(addExpen(payload)),
+  updtTotal: () => dispatch(updateTotal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletAddForm);
@@ -139,4 +142,5 @@ WalletAddForm.propTypes = {
   ]).isRequired,
   getCurrencies: PropTypes.func.isRequired,
   addExp: PropTypes.func.isRequired,
+  updtTotal: PropTypes.func.isRequired,
 };
