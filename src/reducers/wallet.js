@@ -1,4 +1,5 @@
 import {
+  ADD_EXPENSE,
   SET_CURRENCIES_FAILURE,
   SET_CURRENCIES_SUCCESS,
   SET_LOADING,
@@ -20,6 +21,14 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: action.payload, isLoading: false };
   case SET_CURRENCIES_FAILURE:
     return { ...state, error: action.payload, isLoading: false };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses, {
+        id: state.expenses.length,
+        ...action.payload,
+      }],
+    };
   default:
     return state;
   }

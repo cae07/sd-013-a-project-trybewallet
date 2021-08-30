@@ -1,23 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrencies } from '../actions';
+import { addExpense, getCurrencies } from '../actions';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Select from '../components/Select';
+import responseAPIToArray from '../utils/responseAPIToArray';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       value: '',
       description: '',
       currency: 'USD',
-      payment: 'Dinheiro',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     };
 
     this.handleChangeInput = this.handleChangeInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -31,21 +33,31 @@ class Wallet extends React.Component {
     });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    const { handleAddExpense, currencies, handleGetCurrencies } = this.props;
+
+    handleGetCurrencies();
+
+    handleAddExpense({ ...this.state, exchangeRates: currencies });
+  }
+
   renderSelects() {
     const { isLoading, currencies } = this.props;
-    const mapCurrenciesToCode = currencies.map((currency) => currency.code);
+    const mapCurrenciesToOptions = responseAPIToArray(currencies);
+
     return (
       <>
         <Select
           label="Moeda:"
           name="currency"
-          options={ mapCurrenciesToCode }
+          options={ mapCurrenciesToOptions }
           onChange={ this.handleChangeInput }
           isLoading={ isLoading }
         />
         <Select
           label="Método de pagamento:"
-          name="payment"
+          name="method"
           options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
           onChange={ this.handleChangeInput }
         />
@@ -65,16 +77,11 @@ class Wallet extends React.Component {
     return (
       <>
         <Header />
-        <form
-          onSubmit={ (event) => {
-            event.preventDefault();
-            console.log(this.state);
-          } }
-        >
+        <form onSubmit={ this.handleSubmit }>
           <Input
             label="Valor:"
             name="value"
-            type="text"
+            type="number"
             placeholder="00,00"
             test=""
             onChange={ this.handleChangeInput }
@@ -89,7 +96,9 @@ class Wallet extends React.Component {
             onChange={ this.handleChangeInput }
             value={ description }
           />
-          {this.renderSelects()}
+          { this.renderSelects() }
+
+          <button type="submit">Adicionar despesa</button>
         </form>
       </>
     );
@@ -103,10 +112,12 @@ const mapStateToProps = ({ wallet }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleGetCurrencies: () => dispatch(getCurrencies()),
+  handleAddExpense: (expense) => dispatch(addExpense(expense)),
 });
 
 Wallet.propTypes = {
   handleGetCurrencies: PropTypes.func.isRequired,
+  handleAddExpense: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };

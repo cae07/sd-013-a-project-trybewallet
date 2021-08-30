@@ -1,4 +1,5 @@
 import {
+  ADD_EXPENSE,
   LOGIN,
   SET_CURRENCIES_FAILURE,
   SET_CURRENCIES_SUCCESS,
@@ -31,12 +32,18 @@ export const getCurrencies = () => async (dispatch) => {
     const data = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await data.json();
 
-    const mapResponse = Object.entries(response).map((currency) => currency[1]);
-    const responseWithoutUSDT = mapResponse
-      .filter((currency) => currency.codein !== 'BRLT');
+    // console.log(response);
+    // const mapResponse = Object.entries(response).map((currency) => currency[1]);
+    // const responseWithoutUSDT = mapResponse
+    //   .filter((currency) => currency.codein !== 'BRLT');
 
-    return dispatch(setCurrenciesSuccess(responseWithoutUSDT));
+    return dispatch(setCurrenciesSuccess(response));
   } catch (error) {
     return dispatch(setCurrenciesFailure(error.message));
   }
 };
+
+export const addExpense = (payload) => ({
+  type: ADD_EXPENSE,
+  payload,
+});

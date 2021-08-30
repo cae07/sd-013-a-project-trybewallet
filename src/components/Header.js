@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import expensesToBRL from '../utils/expensesToBRL';
 
 class Header extends React.Component {
   render() {
     const { email, expenses } = this.props;
+    const expensesSum = expensesToBRL(expenses);
+
     return (
       <header style={ { display: 'flex' } }>
         <h1>Tybewallet</h1>
@@ -22,7 +25,7 @@ class Header extends React.Component {
             Despesa Total:
           </strong>
           <span data-testid="total-field">
-            {expenses}
+            {expensesSum}
           </span>
           <span data-testid="header-currency-field">
             BRL
@@ -32,9 +35,9 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-  expenses: state.wallet.expenses.reduce((acc, curr) => (acc + curr), 0),
+const mapStateToProps = ({ wallet, user }) => ({
+  email: user.email,
+  expenses: wallet.expenses,
 });
 
 Header.propTypes = {
