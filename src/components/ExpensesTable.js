@@ -66,11 +66,21 @@ class ExpensesTable extends React.Component {
   }
 }
 
+// A função mapStateToProps mapeia as states armazenadas na store para uma props
+// Ou seja, no caso abaixo eu acessei o reducer wallet para acessar a expenses
+// E coloquei na props expenses abaixo nas chaves
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
+// A função do mapDispatchToProps é despachar action para a store, com a finalidade de alterar o state da aplicação
+// A função dispatch() serve para despachar uma action para o reducer.
+// Recebe como parametro uma dispatch, e retorna um objeto com chave e valor.
 const mapDispatchToProps = (dispatch) => ({
+  // A chave(deleteExpense) é a prop do componente que vai ser envocada
+  // E eu passo uma callback que vai ser o dispatch que vou realizar
+  // O parametro eu passo a própria expense
+  // O retorno desse disparo será o novo valor dessa chave deleteExpense
   deleteExpense: (expense) => dispatch(eraseExpense(expense)),
   editExpense: (expense) => dispatch(modifyExpense(expense)),
 });
