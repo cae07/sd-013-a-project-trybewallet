@@ -3,20 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.getTotalExpenses = this.getTotalExpenses.bind(this);
+    // As funções abaixo serão habilitadas para serem usadas em todo o componente/page
+    this.getTotalExpenses = this.getTotalExpenses.bind(this); // Soma o total das expenses
   }
 
   getTotalExpenses() {
     const { expenses } = this.props;
     const totalExpenses = expenses.reduce((total, each) => {
       const { value, currency, exchangeRates } = each;
-      const rate = parseFloat(exchangeRates[currency].ask);
-      return total + parseFloat(value) * rate;
+      const rate = parseFloat(exchangeRates[currency].ask); // A chave .ask é a que guarda na API o rate/fator de conversão
+
+      return total + parseFloat(value) * rate; // Retorna o total já com a conversão realizada
     }, 0);
-    return totalExpenses.toFixed(2);
+    return totalExpenses.toFixed(2); // Aplica duas casas após a vírgula
   }
 
   render() {
@@ -54,6 +56,7 @@ Header.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
 };
 
+// Bem semelhante ao propTypes, eu utilizo o defaultProps para definir um comportamento default, para quando uma propriedade não for informada receber algum valor em especial, no caso abaixo, a chave expenses receber um array vazio.
 Header.defaultProps = {
   expenses: [],
 };
