@@ -47,20 +47,20 @@ export default function wallet(state = INITIAL_STATE_WALLET, action) {
       ],
       isEditing: false, // Altera para isEditing como false, pois está deletando e não editando
     };
-  case ACTION_EDIT_EXPENSE_START:
+  case ACTION_EDIT_EXPENSE_START: // Action para iniciar editação da Expense
     return { // Retorna o próprio state
       ...state,
       isEditing: true, // Altera para isEditing como true, pois agora está editando
       expenseId: action.expense.id,
     };
   case ACTION_EDIT_EXPENSE_END:
-    return {
+    return { // Retorna o próprio state, e dentro da chave "expenses" e percorre dados via map
       ...state,
       expenses: state.expenses.map((item) => {
-        if (item.id === action.expense.id) return { ...item, ...action.expense };
-        return item;
+        if (item.id === action.expense.id) return { ...item, ...action.expense }; // Se encontrar um elemento de id igual ao da expense então retorna o elemento inteiro e a expense nova
+        return item; // Caso não satisfaça o item acima, retorna apenas o item
       }),
-      isEditing: false,
+      isEditing: false, // Altera para isEditing como false, pois agora está finalizado a edição
     };
   default:
     return state;
