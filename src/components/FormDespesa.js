@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { setInfoDespesa } from '../actions';
 
 class FormDespesa extends React.Component {
@@ -61,12 +61,11 @@ class FormDespesa extends React.Component {
   }
 }
 
-FormDespesa.propTypes = {
-  // dispatchSetDespesa: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
+// FormDespesa.propTypes = {
+//   history: PropTypes.shape({
+//     push: PropTypes.func,
+//   }).isRequired,
+// };
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchSetDespesa: (infoUser) => dispatch(setInfoDespesa(infoUser)),
