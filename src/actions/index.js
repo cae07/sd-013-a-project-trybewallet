@@ -2,6 +2,7 @@ export const REGISTER_USER = 'REGISTER_USER';
 export const IS_FETCHING = 'IS_FETCHING';
 export const UPDATE_CURRENCIES = 'UPDATE_CURRENCIES';
 export const ERROR = 'ERROR';
+export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';
 
 export const registerUser = (payload) => ({
   type: REGISTER_USER,
@@ -19,6 +20,11 @@ export const updateCurrencies = (payload) => ({
 
 export const errorHandler = (payload) => ({
   type: ERROR,
+  payload,
+});
+
+export const updateExpenses = (payload) => ({
+  type: UPDATE_EXPENSES,
   payload,
 });
 
