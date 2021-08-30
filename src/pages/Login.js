@@ -3,28 +3,41 @@ import InputField from '../components/InputField';
 import SubmitBtn from '../components/SubmitBtn';
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
 
-  onChange = () => ({});
+  onChange() {
 
-  onClick = () => ({});
+  }
+
+  onClick() {
+
+  }
 
   render() {
     return (
-      <formfield className="login">
+      <form className="login">
         <InputField
           testid="email-input"
           type="text"
           placeholder="user@email.com"
-          onChange= { this.onChange }/>
+          onChange={ this.onChange }
+        />
         <InputField
           testid="password-input"
           type="text"
           placeholder="Password"
-          onChange= { this.onChange }/>
-        <SubmitBtn testid="submit-login-btn"
-        onClick = { this.onClick }
-        name = "Entrar"/>
-      </formfield>
+          onChange={ this.onChange }
+        />
+        <SubmitBtn
+          testid="submit-login-btn"
+          onClick={ this.onClick }
+          name="Entrar"
+        />
+      </form>
     );
   }
 }
