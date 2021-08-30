@@ -15,9 +15,17 @@ export const isFetching = () => ({
   type: IS_FETCHING,
 });
 
-// getApiInfo = () => (dispatch) => {
-//   dispatch(isFetching());
-//   return {
-//     fetch
-//   };
-// };
+const filterCurrencies = (currencies) => {
+  const currenciesValues = Object.values(currencies);
+  return currenciesValues.filter((currency) => currency.codein === 'BRL');
+};
+
+export const getApiInfo = () => (dispatch) => {
+  dispatch(isFetching());
+  return fetch('https://economia.awesomeapi.com.br/json/all')
+    .then((response) => response.json())
+    .then((data) => {
+      const dataFiltered = filterCurrencies(data);
+      return dispatch(getExchangeRate(dataFiltered));
+    });
+};

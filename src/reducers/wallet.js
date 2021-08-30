@@ -12,7 +12,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case GET_EXCHANGE_RATE:
     return {
       ...state,
-      expenses: action.payload,
+      currencies: action.payload,
       isFetching: false,
     };
 
