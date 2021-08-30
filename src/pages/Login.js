@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addUser } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,6 +14,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.validateLogin = this.validateLogin.bind(this);
+    this.addEmail = this.addEmail.bind(this);
   }
 
   async handleChange({ name, value }) {
@@ -36,8 +39,14 @@ class Login extends React.Component {
     return this.setState({ disabled: true });
   }
 
+  addEmail() {
+    const { email } = this.state;
+    const { saveEmail } = this.props;
+    saveEmail(email);
+  }
+
   render() {
-    const { handleChange, state: { disabled } } = this;
+    const { handleChange, state: { disabled }, addEmail } = this;
     return (
       <div>
         <input
@@ -61,6 +70,7 @@ class Login extends React.Component {
             type="button"
             disabled={ disabled }
             value="Entrar"
+            onClick={ () => addEmail() }
           />
         </Link>
       </div>
@@ -68,4 +78,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (payload) => dispatch(addUser(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
