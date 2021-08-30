@@ -69,8 +69,15 @@ class NewExpenseForm extends React.Component {
     });
   }
 
+  // ****************************************************************************
+  // Função de renderização do Input
+  // ****************************************************************************
   // {this.renderInput('Valor', 'number', 'value', value)}
   // {this.renderInput('Descrição', 'text', 'description', description)}
+  // label: "Valor" ou "Descrição"
+  // type: "number" ou "text"
+  // name: "value" ou "description"
+  // value: variável value ou description
   renderInput(label, type, name, value) {
     return (
       <label htmlFor={ `${name}-input` }>
@@ -111,8 +118,15 @@ class NewExpenseForm extends React.Component {
     );
   }
 
+  // ****************************************************************************
+  // Função de renderização do Select
+  // ****************************************************************************
   // {this.renderSelect('Método de pagamento', 'method', method, methods)}
   // {this.renderSelect('Tag', 'tag', tag, tags)}
+  // label: "Tag" ou "Método de pagamento"
+  // name: "method" ou "tag"
+  // value: "method" ou "tag"
+  // options: "methods" ou "tags"
   renderSelect(label, name, value, options) {
     return (
       <label htmlFor={ `${name}-input` }>
