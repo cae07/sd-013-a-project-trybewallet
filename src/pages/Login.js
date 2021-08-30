@@ -37,6 +37,7 @@ class Login extends React.Component {
           Email
           <input
             type="text"
+            data-testid="email-input"
             onChange={ this.handleChange }
             value={ email }
             name="email"
@@ -48,6 +49,7 @@ class Login extends React.Component {
         <label htmlFor="password">
           Password
           <input
+            data-testid="password-input"
             type="password"
             onChange={ this.handleChange }
             name="password"
@@ -65,7 +67,7 @@ class Login extends React.Component {
             return pushUser(this.state);
           } }
         >
-          Enviar
+          Entrar
 
         </button>
       </fieldset>
