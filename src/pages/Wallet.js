@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import WalletBody from './components/WalletBody';
+import { getCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -16,6 +17,11 @@ class Wallet extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    const { savePairs } = this.props;
+    savePairs();
   }
 
   handleChange({ target }) {
@@ -49,10 +55,15 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  savePairs: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
 });
 
-export default connect(mapStateToProps, null)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  savePairs: () => dispatch(getCurrencies()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

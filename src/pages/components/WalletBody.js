@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class WalletBody extends Component {
+  constructor() {
+    super();
+
+    this.filterCurrencies = this.filterCurrencies.bind(this);
+  }
+
+  //  Depois de olhar muito e não entender porque minha função não funcionava, procurei no PR do Gaspar novamente e percebi que só usando o map, não funcionaria, usando Object.keys, o método retorna um novo array
+  // e por isso funcionaria
+  filterCurrencies() {
+    const { currencies } = this.props;
+    return Object.keys(currencies).map((currency) => (
+      <option key={ currency } value={ currency }>{currency}</option>
+    ));
+  }
+
   render() {
     const { value, d, payment, tag, handleChange } = this.props;
     return (
@@ -23,7 +39,7 @@ class WalletBody extends Component {
         <label htmlFor="moeda">
           Moeda
           <select id="moeda">
-            <option value="tst">teste</option>
+            {this.filterCurrencies()}
           </select>
         </label>
         <label htmlFor="payment">
@@ -55,6 +71,11 @@ WalletBody.propTypes = {
   payment: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  currencies: PropTypes.objectOf().isRequired,
 };
 
-export default WalletBody;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps)(WalletBody);
