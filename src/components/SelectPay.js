@@ -6,7 +6,7 @@ class SelectPay extends Component {
     const { onChange } = this.props;
     return (
       <label htmlFor="pay">
-        Métodos de Pagamento
+        Método de Pagamento
         <select onChange={ onChange } required="required" id="pay">
           <option name="Dinheiro">Dinheiro</option>
           <option name="Credito">Cartão de crédito</option>

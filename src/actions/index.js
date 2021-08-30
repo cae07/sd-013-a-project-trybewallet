@@ -9,9 +9,9 @@ export const emailLogin = (payload) => ({
   payload,
 });
 
-export const loadingAction = () => ({
+/* export const loadingAction = () => ({
   type: LOADING_TYPE,
-});
+}); */
 
 export const successAction = (payload) => ({
   type: SUCCESS_TYPE,
@@ -24,7 +24,7 @@ export const errorAction = (payload) => ({
 });
 
 export const fetchName = () => async (dispatch) => {
-  dispatch(loadinAction());
+  /* dispatch(loadinAction()); */
   try {
     const res = await fetch(URL);
     if (!res.ok) throw new Error('fetch failed');
