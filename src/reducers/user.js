@@ -1,1 +1,9 @@
-// Esse reducer será responsável por tratar as informações da pessoa usuária
+const ESTADO_INICIAL_USER = {
+  user: {
+    email: '',
+  },
+};
+
+const reducer = (state = ESTADO_INICIAL_USER) => state;
+
+export default reducer;
