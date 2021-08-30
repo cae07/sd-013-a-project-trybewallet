@@ -1,17 +1,15 @@
-import { ENTER_EMAIL } from '../actions/index';
+import { API_CURRENCIES } from '../actions/index';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  expenses: [],
+  currencies: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case ENTER_EMAIL:
+  case API_CURRENCIES:
     return ({
-      ...state, email: action.email,
+      ...state, currencies: action.payload,
     });
   default: return state;
   }

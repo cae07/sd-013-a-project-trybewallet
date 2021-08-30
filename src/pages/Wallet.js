@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { fetchAPI } from '../actions';
 import trybeLogo from '../images/trybeLogo.png';
 
 class Wallet extends React.Component {
@@ -30,11 +31,12 @@ class Wallet extends React.Component {
   }
 
   inputSelect() {
+    const { currenciesState } = this.props;
     return (
       <label htmlFor="moeda">
         Moeda:
         <select className="valueMoeda" id="moeda">
-          <option>test</option>
+          {currenciesState.map((moeda) => (<option key={ moeda }>{ moeda }</option>))}
         </select>
       </label>
     );
@@ -69,7 +71,8 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, moedas } = this.props;
+    moedas();
     return (
       <div>
         <header className="header-wallet-contain">
@@ -97,12 +100,21 @@ class Wallet extends React.Component {
   }
 }
 
-Wallet.propTypes = {
-  email: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  currenciesState: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps, null)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  moedas: () => dispatch(fetchAPI()),
+});
+
+Wallet.propTypes = {
+  currenciesState: PropTypes.shape({
+    map: PropTypes.func,
+  }).isRequired,
+  email: PropTypes.func.isRequired,
+  moedas: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
