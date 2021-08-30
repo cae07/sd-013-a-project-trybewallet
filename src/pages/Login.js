@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import actionAdd from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -8,14 +11,20 @@ class Login extends React.Component {
       password: '',
     };
     this.onSubmitForm = this.onSubmitForm.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.changeHandler = this.changeHandler.bind(this);
   }
 
   onSubmitForm(event) {
     event.preventDefault();
+
+    const { handleSubmit, history } = this.props;
+    const { email } = this.state;
+
+    handleSubmit(email);
+    history.push('/carteira');
   }
 
-  handleChange({ target }) {
+  changeHandler({ target }) {
     const { name } = target;
     const { value } = target;
     this.setState({ [name]: value });
@@ -46,7 +55,7 @@ class Login extends React.Component {
               id="email"
               value={ email }
               data-testid="email-input"
-              onChange={ this.handleChange }
+              onChange={ this.changeHandler }
             />
           </label>
           <label htmlFor="password">
@@ -58,7 +67,7 @@ class Login extends React.Component {
               id="password"
               data-testid="password-input"
               value={ password }
-              onChange={ this.handleChange }
+              onChange={ this.changeHandler }
             />
           </label>
           <div>
@@ -70,4 +79,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  handleSubmit: (email) => dispatch(actionAdd(email)),
+});
+
+Login.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
