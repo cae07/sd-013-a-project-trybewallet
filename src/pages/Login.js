@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
+/* import PropTypes from 'prop-types'; */
 import { registerUser } from '../actions';
 
 class Login extends React.Component {
@@ -40,7 +40,7 @@ class Login extends React.Component {
 
   render() {
     const { email, password, disabled } = this.state;
-    const { loginStatus } = this.props;
+    /* const { loginStatus } = this.props; */
     const { handleInputs, handleLogin } = this;
 
     if (isLogged) return <Redirect to="/carteira" />;
@@ -89,7 +89,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
-Login.propTypes = {
+/* Login.propTypes = {
   loginStatus: PropTypes.string.isRequired,
   regUser: PropTypes.func.isRequired,
-};
+}; */

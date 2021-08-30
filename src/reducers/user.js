@@ -7,9 +7,9 @@ const initialState = {
 
 function reducerUser(state = initialState, { type, payload }) {
   switch (type) {
-    case REGISTER_USER:
-      return { ...state, email: payload };
-      
+  case REGISTER_USER:
+    return { ...state, email: payload };
+
   default:
     return state;
   }
