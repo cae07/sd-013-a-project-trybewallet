@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+// Renomeio a fetchCurrencies pois foi precisar do nome dela para ser chave do meu mapDispatchToProps
 import { fetchCurrencies as getCurrencies } from '../actions';
+
+// Imposto os componentes para renderizar o Wallet
 import { ExpensesTable, Header, NewExpenseForm, EditExpenseForm } from '../components';
 
 import '../styles/Wallet.css';
 
 class Wallet extends Component {
+  // O componentDidMount é chamado imediatamente após o componente ser renderizado
   componentDidMount() {
+    // Desconstroi o fetchCurrencies que está na props porque foi passado como chave no mapDispatchToProps, com o valor de disparo da action getCurrencies
     const { fetchCurrencies } = this.props;
     fetchCurrencies();
   }
