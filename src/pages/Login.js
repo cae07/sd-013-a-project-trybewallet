@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { registerUser } from '../actions';
 
 class Login extends React.Component {
@@ -32,14 +33,17 @@ class Login extends React.Component {
 
   handleLogin(e) {
     e.preventDefault();
-    const { email, password } = this.state;
+    const { email } = this.state;
+    const { regUser } = thi.props;
+    regUser(email);
   }
 
   render() {
-    const { email, password, disabled, isLogged } = this.state;
+    const { email, password, disabled } = this.state;
+    const { loginStatus } = this.props;
     const { handleInputs, handleLogin } = this;
 
-    if (isLogged) return <Redirect to="/batata" />;
+    if (isLogged) return <Redirect to="/carteira" />;
 
     return (
       <div className="login-container">
@@ -80,7 +84,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loginStatus: (payload) => dispatch(registerUser(payload)),
+  regUser: (payload) => dispatch(registerUser(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  loginStatus: PropTypes.string.isRequired,
+  regUser: PropTypes.func.isRequired,
+};

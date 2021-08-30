@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
+import { REGISTER_USER } from '../actions';
 
 const initialState = {
   email: '',
@@ -7,15 +7,9 @@ const initialState = {
 
 function reducerUser(state = initialState, { type, payload }) {
   switch (type) {
-  case LOADING_TYPE:
-    return { ...state, loading: true };
-
-  case SUCCESS_TYPE:
-    return { ...state, data: payload, loading: false };
-
-  case ERROR_TYPE:
-    return { ...state, error: payload, loading: false };
-
+    case REGISTER_USER:
+      return { ...state, email: payload };
+      
   default:
     return state;
   }
