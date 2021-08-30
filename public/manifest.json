@@ -1,25 +1,20 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "short_name": "PersonalWallet",
+  "name": "Wallet for finances control",
+  "version": "1.0",
+  "description": "Carteira de controle de gastos com conversor de moedas",
+  "author": "Leonardo Santos",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_title": "PersonalWallet"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "permissions": ["storage", "https://economia.awesomeapi.com.br/"],
+  "icons": {
+    "16": "logo192.png",
+    "48": "logo192.png",
+    "128": "logo192.png"
+  }
 }
