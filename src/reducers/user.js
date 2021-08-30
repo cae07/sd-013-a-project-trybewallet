@@ -4,8 +4,8 @@ import { LOGIN_SUBMIT } from '../actions';
 
 // declarar o estado inicial
 const initialState = {
-  email: '',
-  password: '',
+  email: 'alguem@email.com',
+  password: '123456',
 };
 
 function user(state = initialState, action) {
