@@ -138,6 +138,7 @@ class NewExpenseForm extends React.Component {
           onChange={ this.handleChange }
           value={ value }
         >
+          {/* Faz um map com o parametro de options recebido na função */}
           {options.map((option) => (
             <option key={ option }>{option}</option>
           ))}
