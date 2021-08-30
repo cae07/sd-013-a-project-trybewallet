@@ -80,7 +80,7 @@ class Wallet extends React.Component {
       const convertedValue = item.exchangeRates[item.currency].ask;
       itemAcc += item.value * convertedValue;
       return itemAcc;
-    }, 0);
+    }, 0).toFixed(2);
   }
 
   renderHeader() {
