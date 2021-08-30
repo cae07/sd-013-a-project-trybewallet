@@ -1,4 +1,4 @@
-import ADD_CONTACT from '../actions/actionTypes';
+import { ADD_CONTACT } from '../actions';
 
 const INITIAL_STATE = {
   email: '',

@@ -1,8 +1,6 @@
-import ADD_CONTACT from './actionTypes';
+export const ADD_CONTACT = 'ADD_CONTACT';
 
-const actionAdd = (payload) => ({
+export const actionAdd = (payload) => ({
   type: ADD_CONTACT,
   payload,
 });
-
-export default actionAdd;

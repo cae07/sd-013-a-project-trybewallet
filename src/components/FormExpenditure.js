@@ -1,10 +1,14 @@
 import React from 'react';
-import Input from './Input';
-import Select from './Select';
+import { Input, Select } from './index';
 
 const paymentOptions = ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito'];
 const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-const coinType = [];
+
+export async function fetchCurrencies() {
+  const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const response = await request.json();
+  return response;
+}
 
 class FormExpenditure extends React.Component {
   constructor() {
@@ -12,14 +16,25 @@ class FormExpenditure extends React.Component {
     this.state = {
       valor: '',
       description: '',
-      coin: '',
+      types: [],
       payments: '',
       tag: '',
     };
+    this.getCurrencies = this.getCurrencies.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCurrencies();
+  }
+
+  async getCurrencies() {
+    const json = await fetchCurrencies();
+    const types = Object.keys(json).filter((key) => key !== 'USDT');
+    this.setState({ types });
   }
 
   render() {
-    const { valor, description, payments, coin, tag } = this.state;
+    const { valor, description, payments, coin, tag, types } = this.state;
     return (
       <div>
         <form>
@@ -31,15 +46,13 @@ class FormExpenditure extends React.Component {
             id="valor"
           />
           <Select
-            defaultOption="Selecione"
             onchange="Kek"
             value={ coin }
             label="Moeda: "
             id="coin"
-            options={ coinType }
+            options={ types }
           />
           <Select
-            defaultOption="Selecione"
             onchange="Kek"
             value={ payments }
             label="Método de Pagamento: "
@@ -47,7 +60,6 @@ class FormExpenditure extends React.Component {
             options={ paymentOptions }
           />
           <Select
-            defaultOption="Selecione"
             onchange="Kek"
             value={ tag }
             label="Tag: "
