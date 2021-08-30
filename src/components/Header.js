@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
   render() {
     const { email } = this.props;
-    console.log(email);
+
     return (
       <div>
         <nav>
           <ul>
             <li>
-              <Link exact to="/">HOME</Link>
+              <Link to="/">HOME</Link>
             </li>
             <li data-testid="email-field">
               Email:
@@ -31,7 +31,7 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({ email: state.user.email });
+const mapStateToProps = ({ user }) => ({ email: user.email });
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
