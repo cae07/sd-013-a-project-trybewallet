@@ -35,7 +35,7 @@ class ExpensesTable extends Component {
 
   render() {
     // A "expenses" foi criada pela função mapStateToProps fazendo a leitura do state e pegando as expenses que estão no estado global
-
+    // A "deleteExpense" e a "editExpense" foi criada pelo mapDispatchToProps acionando dispatchs nas actions e edição e exclusão de expenses e retornando resultado na props
     const { expenses, deleteExpense, editExpense } = this.props;
 
     return (
@@ -57,6 +57,7 @@ class ExpensesTable extends Component {
           {expenses.map((expense, index) => {
             // Desconstroi a expense com todas as propriedades necessárias para montar a tabela
             const { description, tag, method, value, currency, exchangeRates } = expense;
+            // Desconstroi as propriedades name e ask que estão dentro da exchangeRates desconstruída na linha acima
             const { name, ask } = exchangeRates[currency];
 
             return (
