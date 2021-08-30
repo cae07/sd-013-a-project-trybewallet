@@ -52,6 +52,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 
+// Faço a validação se os dados que recebi são válidos
 Wallet.propTypes = {
   isEditing: PropTypes.bool,
   fetchCurrencies: PropTypes.func.isRequired,

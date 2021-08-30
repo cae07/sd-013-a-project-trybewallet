@@ -45,9 +45,10 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-// Faço a conexão do componente com a mapStateToProps
+// Faço a conexão do componente Header com a mapStateToProps
 export default connect(mapStateToProps)(Header);
 
+// Faço a validação se os dados que recebi são válidos
 Header.propTypes = {
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object),

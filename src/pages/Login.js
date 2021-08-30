@@ -130,6 +130,7 @@ const mapDispatchToProps = (dispatch) => ({
 // O connect é responsável por fazer a conexão do meu componente Login com o mapDispatchToProps
 export default connect(null, mapDispatchToProps)(Login);
 
+// Faço a validação se os dados que recebi são válidos
 Login.propTypes = {
   handleEmail: PropTypes.func.isRequired,
 };
