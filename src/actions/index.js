@@ -3,9 +3,8 @@ export const LOADING_TYPE = 'LOADING_TYPE';
 export const SUCCESS_TYPE = 'SUCCESS_TYPE';
 export const ERROR_TYPE = 'ERROR_TYPE';
 
-
 export const loadingAction = () => ({
-  type: LOADING_TYPE
+  type: LOADING_TYPE,
 });
 
 export const successAction = (payload) => ({
@@ -18,16 +17,14 @@ export const errorAction = (payload) => ({
   payload,
 });
 
-export const fetchAPI = () => {
-  return async (dispatch) => {
-    dispatch(loadingAction());
-    try {
-      const res = await fetch('https://economia.awesomeapi.com.br/json/all');
-      if(!res.ok) throw new Error('fetch failed'); // tem que usar sesmpre antes do json
-      const data = await res.json();
-      return dispatch(successAction(data))
-    } catch (error) {
-      return dispatch(errorAction(error.message))
-    }
-  };
-}
+export const fetchAPI = () => async (dispatch) => {
+  dispatch(loadingAction());
+  try {
+    const res = await fetch('https://economia.awesomeapi.com.br/json/all');
+    if (!res.ok) throw new Error('fetch failed'); // tem que usar sesmpre antes do json
+    const data = await res.json();
+    return dispatch(successAction(data));
+  } catch (error) {
+    return dispatch(errorAction(error.message));
+  }
+};

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
-import { emailLogin } from '../actions';
 import Input from '../components/Input';
 import Button from '../components/Button';
 
@@ -56,7 +55,7 @@ class Login extends React.Component {
           disabled={ !(validateEmail() && passwordCorrect) }
         />
       </div>
-    )
+    );
   }
 }
 
@@ -69,4 +68,3 @@ Login.propTypes = {
 };
 
 export default connect(null, mapDispatchToProps)(Login);
-
