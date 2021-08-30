@@ -75,14 +75,17 @@ const mapDispatchToProps = (dispatch) => ({
   editExpense: (expense) => dispatch(modifyExpense(expense)),
 });
 
+// Faço a validação se os dados que recebi são válidos
 ExpensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
   deleteExpense: PropTypes.func.isRequired,
   editExpense: PropTypes.func.isRequired,
 };
 
+// Bem semelhante ao propTypes, eu utilizo o defaultProps para definir um comportamento default, para quando uma propriedade não for informada receber algum valor em especial, no caso abaixo, a chave expenses receber um array vazio.
 ExpensesTable.defaultProps = {
   expenses: [],
 };
 
+// Faço a conexão do mapStateToProps e mapDispatchToProps com o componente ExpensesTable
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);
