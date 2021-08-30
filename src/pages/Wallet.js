@@ -34,6 +34,8 @@ class Wallet extends Component {
   }
 }
 
+// A função mapStateToProps mapeia as states armazenadas na store para uma props
+// Ou seja, caso eu quiser acessar os dados providos pelo reducer wallet, como o caso abaixo, eu devo acessar o caminho do state com o reducer desejado e nomear a prop que o receberá, que no caso abaixo é a isEditing
 const mapStateToProps = (state) => ({
   isEditing: state.wallet.isEditing,
 });
