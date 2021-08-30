@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { saveUserInfo } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -8,10 +12,23 @@ class Login extends React.Component {
       email: '',
       password: '',
       isBtnDisabled: true,
+      btnIsClicked: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.verifyInputs = this.verifyInputs.bind(this);
+  }
+
+  handleClick() {
+    const { email } = this.state;
+    const { saveEmail } = this.props;
+
+    saveEmail(email);
+
+    this.setState({
+      btnIsClicked: true,
+    });
   }
 
   handleChange({ target }) {
@@ -42,7 +59,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { isBtnDisabled } = this.state;
+    const { isBtnDisabled, btnIsClicked } = this.state;
 
     return (
       <div>
@@ -67,13 +84,26 @@ class Login extends React.Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button type="button" disabled={ isBtnDisabled }>
+          <button
+            type="button"
+            disabled={ isBtnDisabled }
+            onClick={ this.handleClick }
+          >
             Entrar
           </button>
+          { btnIsClicked && <Redirect to="/carteira" /> }
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (payload) => dispatch(saveUserInfo(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

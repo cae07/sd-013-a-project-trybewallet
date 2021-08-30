@@ -2,9 +2,7 @@
 import { SAVE_USER_INFO } from '../actions';
 
 export const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
@@ -12,9 +10,7 @@ const user = (state = INITIAL_STATE, action) => {
   case SAVE_USER_INFO:
     return {
       ...state,
-      user: {
-        email: action.payload,
-      },
+      email: action.payload,
     };
   default:
     return state;
