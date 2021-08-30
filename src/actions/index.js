@@ -37,13 +37,17 @@ const actionRequestCurrenciesFail = (error) => ({
   error,
 });
 
+// Função fetchCurrencies para conexão com a API de Moedas, passando a dispatch como parametro
 export const fetchCurrencies = () => async (dispatch) => {
   try {
     // Dispara a action de tentativa de conexão com a API de Moedas
     dispatch(actionRequestCurrenciesTry());
+    // Guarda na variável currencies os dados de retorno da API
     const currencies = await currenciesAPI();
+    // Se chegou até esse ponto aciono a action de Success de conexão com a API
     dispatch(actionRequestCurrenciesSuccess(currencies));
   } catch (error) {
+    // Se chegou nesse ponto de erro, aciono a action de Error de conexão com a API
     dispatch(actionRequestCurrenciesFail(error));
   }
 };
