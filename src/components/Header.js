@@ -36,11 +36,16 @@ class Header extends React.Component {
   }
 }
 
+// A função mapStateToProps mapeia as states armazenadas na store para uma props
+// Ou seja, no caso abaixo eu acessei o reducer user para acessar o email
+// E também acessei o reducer wallet para acessar a expenses
+// E ambos colocar dentro de suas devidas props criadas abaixo nas chaves
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
 });
 
+// Faço a conexão do componente com a mapStateToProps
 export default connect(mapStateToProps)(Header);
 
 Header.propTypes = {
