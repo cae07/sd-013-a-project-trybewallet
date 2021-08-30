@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// Importa o connect para realizar a conexão entre o mapStateToProps e o mapDispatchToProps com o componente Header
+// Importa o connect para realizar a conexão entre o mapStateToProps e o mapDispatchToProps com o componente ExpensesTable
 import { connect } from 'react-redux';
 
 // importo do react icons ícones para serem utilizados para deletar e excluir expenses

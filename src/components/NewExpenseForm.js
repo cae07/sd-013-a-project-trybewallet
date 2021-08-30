@@ -1,10 +1,12 @@
 import React from 'react';
+// Importa o connect para realizar a conexão entre o mapStateToProps e o mapDispatchToProps com o componente NewExpenseForm
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import currenciesAPI from '../services';
 import { fetchCurrencies as getCurrencies, actionSaveExpense as addExpense } from '../actions';
 
+// State inicial vai ser as chaves abaixo:
 const INITIAL_STATE = {
   value: '0',
   description: '',
@@ -15,9 +17,10 @@ const INITIAL_STATE = {
 };
 
 class NewExpenseForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
+    // State inicial vai a chamada da constante abaixo criada fora da classe
     this.state = {
       ...INITIAL_STATE,
     };
@@ -116,8 +119,11 @@ class NewExpenseForm extends React.Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
+    // Criando as tags opcionais de expenses
     const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    // Criando os methods de pagamento
     const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+
     return (
       <form className="new-expense-form">
         <label htmlFor="currency-input">
