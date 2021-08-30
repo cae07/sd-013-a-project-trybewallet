@@ -140,6 +140,9 @@ class NewExpenseForm extends React.Component {
   }
 }
 
+// A função mapStateToProps mapeia as states armazenadas na store para uma props
+// Ou seja, no caso abaixo eu acessei o reducer wallet para acessar a currencies
+// E coloquei na props currencies abaixo nas chaves
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
