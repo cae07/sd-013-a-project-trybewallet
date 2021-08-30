@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Proptypes from 'prop-types';
+import putUser from '../Redux/actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -24,8 +25,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
-    const { putUser } = this.props;
+    const { email, password, redirect } = this.state;
+    const { pushUser } = this.props;
 
     if (redirect) return <Redirect to="/Wallet" />;
 
@@ -61,7 +62,7 @@ class Login extends React.Component {
           type="button"
           onClick={ async () => {
             await this.onClick();
-            return putUser(this.state);
+            return pushUser(this.state);
           } }
         >
           Enviar
@@ -73,15 +74,15 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  putUser: (state) => (dispatch(putUser(state))),
+  pushUser: (state) => (dispatch(putUser(state))),
 });
 
 const mapStateToProps = (state) => ({
-  user: state.Reducer.user,
+  user: state.ReducerUser.user,
 });
 
 Login.propTypes = {
-  putUser: Proptypes.func.isRequired,
+  pushUser: Proptypes.func.isRequired,
   user: Proptypes.shape({
     email: Proptypes.string,
     password: Proptypes.string,
