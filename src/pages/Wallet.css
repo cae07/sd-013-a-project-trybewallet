@@ -1,6 +1,6 @@
 .wallet-loading {
-  text-align: center;
   margin-top: 50px;
+  text-align: center;
 }
 
 .wallet-header {
@@ -77,7 +77,7 @@
   width: fit-content;
 }
 
-.description-input{
+.description-input {
   align-items: center;
   display: flex;
   height: 100%;
@@ -94,7 +94,7 @@
   height: 30px;
 }
 
-table, th, td {
+table , th , td {
   border: 1px solid black;
 }
 
@@ -103,12 +103,12 @@ table, th, td {
   width: 100%;
 }
 
-.wallet-table tr:first-child {
-  background-color: blanchedalmond;
-}
-
 .wallet-table tr {
   height: 40px;
+}
+
+.wallet-table tr:first-child {
+  background-color: blanchedalmond;
 }
 
 .wallet-table td {
