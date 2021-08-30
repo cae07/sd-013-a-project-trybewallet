@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// O connect é uma função muito importante que conecta o mapStateToProps e o mapDispatchToProps com a store
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // O Redirect tem a função de redirecionar a página
@@ -21,9 +22,9 @@ class Login extends Component {
     };
 
     // As funções abaixo serão habilitadas para serem usadas em todo o componente/page
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.loginValidation = this.loginValidation.bind(this);
+    this.handleChange = this.handleChange.bind(this); // Tudo que for digitado nos campos, é alterado automaticamente na state
+    this.handleClick = this.handleClick.bind(this); // Vai ser executada quando clicar no botão "Entrar"
+    this.loginValidation = this.loginValidation.bind(this); // // Função que faz a validação do email e password digitado, e libera botão Entrar
   }
 
   // Essa função de handleClick vai ser executada quando clicar no botão "Entrar"
