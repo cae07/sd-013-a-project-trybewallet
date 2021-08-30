@@ -3,8 +3,8 @@ import INITIAL_STATE from '../helpers/initialState';
 
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'PRIMEIRA_ACTION':
-    return { ...state, email: action.value };
+  case 'SET_EMAIL':
+    return { ...state, email: action.payload };
   default:
     return state;
   }
