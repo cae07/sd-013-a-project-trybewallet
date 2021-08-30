@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getCurrencies } from '../actions';
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Select from '../components/Select';
@@ -17,6 +20,11 @@ class Wallet extends React.Component {
     this.handleChangeInput = this.handleChangeInput.bind(this);
   }
 
+  componentDidMount() {
+    const { handleGetCurrencies } = this.props;
+    handleGetCurrencies();
+  }
+
   handleChangeInput({ target: { name, value } }) {
     this.setState({
       [name]: value,
@@ -24,13 +32,16 @@ class Wallet extends React.Component {
   }
 
   renderSelects() {
+    const { isLoading, currencies } = this.props;
+    const mapCurrenciesToCode = currencies.map((currency) => currency.code);
     return (
       <>
         <Select
           label="Moeda:"
           name="currency"
-          options={ ['USD'] }
+          options={ mapCurrenciesToCode }
           onChange={ this.handleChangeInput }
+          isLoading={ isLoading }
         />
         <Select
           label="Método de pagamento:"
@@ -85,4 +96,19 @@ class Wallet extends React.Component {
   }
 }
 
-export default Wallet;
+const mapStateToProps = ({ wallet }) => ({
+  isLoading: wallet.isLoading,
+  currencies: wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  handleGetCurrencies: () => dispatch(getCurrencies()),
+});
+
+Wallet.propTypes = {
+  handleGetCurrencies: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

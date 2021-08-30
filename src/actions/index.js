@@ -1,11 +1,42 @@
-import { LOGIN } from './actionTypes';
+import {
+  LOGIN,
+  SET_CURRENCIES_FAILURE,
+  SET_CURRENCIES_SUCCESS,
+  SET_LOADING,
+} from './actionTypes';
 
 export const login = (email) => ({
   type: LOGIN,
   email,
 });
 
-export const save = (payload) => ({
-  type: LOGIN,
+export const setLoading = () => ({
+  type: SET_LOADING,
+});
+
+export const setCurrenciesSuccess = (payload) => ({
+  type: SET_CURRENCIES_SUCCESS,
   payload,
 });
+
+export const setCurrenciesFailure = (payload) => ({
+  type: SET_CURRENCIES_FAILURE,
+  payload,
+});
+
+export const getCurrencies = () => async (dispatch) => {
+  setLoading();
+
+  try {
+    const data = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await data.json();
+
+    const mapResponse = Object.entries(response).map((currency) => currency[1]);
+    const responseWithoutUSDT = mapResponse
+      .filter((currency) => currency.codein !== 'BRLT');
+
+    return dispatch(setCurrenciesSuccess(responseWithoutUSDT));
+  } catch (error) {
+    return dispatch(setCurrenciesFailure(error.message));
+  }
+};

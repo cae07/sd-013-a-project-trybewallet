@@ -1,3 +1,7 @@
 export const LOGIN = 'LOGIN';
 
-export const SAVE_INCOME = 'SAVE_INCOME';
+export const SET_LOADING = 'SET_LOADING';
+
+export const SET_CURRENCIES_SUCCESS = 'SET_CURRENCIES_SUCCESS';
+
+export const SET_CURRENCIES_FAILURE = 'SET_CURRENCIES_FAILURE';
