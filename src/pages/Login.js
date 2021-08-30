@@ -1,9 +1,97 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import clickEnter from '../actions/userActions';
 
 class Login extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      senha: '',
+      disabled: true,
+    };
+    this.HandleOnChange = this.HandleOnChange.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.ValidationLogin = this.ValidationLogin.bind(this);
+  }
+
+  onClick() {
+    const { email } = this.state;
+    const { history, despachaProGlobal } = this.props;
+    despachaProGlobal(email);
+    history.push('/carteira');
+  }
+
+  ValidationLogin(email, senha) {
+    const emailRegex = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    const minPasswordSize = 4;
+    if (email.match(emailRegex) && senha.length > minPasswordSize) {
+      this.setState({
+        disabled: false,
+      });
+    }
+  }
+
+  HandleOnChange({ target }) {
+    const { email, senha } = this.state;
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+    this.ValidationLogin(email, senha);
+  }
+
   render() {
-    return <div>Login</div>;
+    const { email, senha } = this.state;
+    const { disabled } = this.state;
+    return (
+      <form>
+        <label
+          htmlFor="email-input"
+        >
+          Email
+          <input
+            data-testid="email-input"
+            type="email"
+            id="email-input"
+            name="email"
+            value={ email }
+            onChange={ this.HandleOnChange }
+          />
+        </label>
+        <label
+          htmlFor="password-input"
+        >
+          Senha
+          <input
+            data-testid="password-input"
+            id="password-input"
+            name="senha"
+            onChange={ this.HandleOnChange }
+            type="password"
+            value={ senha }
+          />
+        </label>
+        <button
+          type="button"
+          disabled={ disabled }
+          onClick={ this.onClick }
+        >
+          Entrar
+        </button>
+      </form>
+    );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  history: PropTypes.shape().isRequired,
+  despachaProGlobal: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  despachaProGlobal: (payload) => dispatch(clickEnter(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
