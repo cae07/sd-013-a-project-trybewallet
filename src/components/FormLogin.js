@@ -14,17 +14,17 @@ class FormLogin extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     // this.validateData = this.validateData.bind(this);
-    this.onSubmitForm = this.onSubmitForm.bind(this);
+    // this.onSubmitForm = this.onSubmitForm.bind(this);
   }
 
-  onSubmitForm(event) {
-    event.preventDefault();
-    const { history, dispatchSetInfo } = this.props;
-    // Disparamos a nossa action através da função importada
-    // de actions.js, que apelidamos de dispatchSetInfo
-    dispatchSetInfo(this.state);
-    history.push('/carteira');
-  }
+  // onSubmitForm(event) {
+  //   event.preventDefault();
+  //   const { history, dispatchSetInfo } = this.props;
+  //   // Disparamos a nossa action através da função importada
+  //   // de actions.js, que apelidamos de dispatchSetInfo
+  //   dispatchSetInfo(this.state);
+  //   history.push('/carteira');
+  // }
 
   // validateData() {
   //   const { email, password } = this.state;
@@ -40,21 +40,22 @@ class FormLogin extends React.Component {
 
     this.setState({
       [name]: value,
+    }, () => {
+      const { email, password } = this.state;
+      const passwordFormat = '11';
+      this.setState(
+        (email === '22' && password === passwordFormat)
+          ? {
+            validateLogin: true,
+          } : {
+            validateLogin: false,
+          },
+      );
     });
-    // this.validateData();
-    const { email, password } = this.state;
-    const passwordFormat = '23456';
-    this.setState(
-      (email === 'email@email.com' && password === passwordFormat)
-        ? {
-          validateLogin: true,
-        } : {
-          validateLogin: false,
-        },
-    );
   }
 
   render() {
+    const { onSubmitForm } = this.props;
     const { validateLogin } = this.state;
     return (
       <div className="divWallet">
@@ -82,11 +83,11 @@ class FormLogin extends React.Component {
                 onChange={ this.handleChange }
               />
               <button
-                type="submit"
+                type="button"
                 value="Entrar"
                 className="btn float-right login_btn"
                 disabled={ !validateLogin }
-                onClick={ this.onSubmitForm }
+                onClick={ () => onSubmitForm(this.state) }
               >
                 Entrar
               </button>
@@ -98,7 +99,7 @@ class FormLogin extends React.Component {
 }
 
 FormLogin.propTypes = {
-  dispatchSetInfo: PropTypes.func.isRequired,
+  onSubmitForm: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   despesas: {},
 };
 
-const reducerWallet = (state = INITIAL_STATE, action) => {
+const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SAVE_LOGIN:
     return {
@@ -22,4 +22,4 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default reducerWallet;
+export default wallet;

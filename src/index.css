@@ -13,14 +13,14 @@ html {
   justify-content: center;
   align-items: flex-start;
   color: white;
-  font-size:12px;
+  font-size: 12px;
 }
 
 .divWallet {
-display: flex;
-flex-direction: column;
-align-items: center;
-margin-top: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30%;
 }
 
 .container {
@@ -34,6 +34,7 @@ margin-top: 30%;
 }
 .container h1 {
   margin-bottom: 70px;
+  color: #ffc312;
 }
 
 .card {
@@ -109,10 +110,33 @@ input:focus {
 .formDespesa {
   display: flex;
   flex-wrap: wrap;
-  background-color:rgba(0, 0, 0, 0.623);
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.623);
+  padding: 10px 0;
 }
-.formDespesa label, .formDespesa input, .formDespesa select, .formDespesa button {
+.formDespesa label,
+.formDespesa input,
+.formDespesa select,
+.formDespesa button {
   margin: 10px 5px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  font-family: 'Numans', sans-serif;
+  font-size:10px;
+  padding: 0 5px;
+}
+
+.despesa_btn {
+  background-color:#ffc312;
+}
+
+.topo {
+  display: flex;
+justify-content: space-between;
+}
+.topo h1 {
+  color: #ffc312;
 }
 
 /* body {
