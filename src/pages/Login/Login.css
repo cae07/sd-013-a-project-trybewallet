@@ -18,7 +18,7 @@ fieldset {
   padding: 26px;
   border: 2px solid green;
   box-shadow: 8px 8px 12px black;
-  height: 400px;
+  height: 350px;
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,6 @@ button {
   background-color: #04AA6D;
   color: white;
   padding: 14px;
-  margin: 16px 0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
