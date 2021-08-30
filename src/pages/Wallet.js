@@ -3,7 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Wallet extends React.Component {
-  render() {
+  constructor(props) {
+    super(props);
+
+    this.renderHeader = this.renderHeader.bind(this);
+    this.renderForms = this.renderForms.bind(this);
+  }
+
+  renderHeader() {
     const { email } = this.props;
     return (
       <header>
@@ -22,7 +29,53 @@ class Wallet extends React.Component {
         >
           BRL
         </span>
-      </header>);
+      </header>
+    );
+  }
+
+  renderForms() {
+    return (
+      <form>
+        <label htmlFor="amount">
+          Valor:
+          <input id="amount" type="text" />
+        </label>
+        <label htmlFor="description">
+          Descrição:
+          <input id="description" type="text" />
+        </label>
+        <label htmlFor="coins">
+          Moeda:
+          <select aria-label="moeda" id="coins" />
+        </label>
+        <label htmlFor="payment-method">
+          Método de pagamento:
+          <select aria-label="método de pagamento" id="payment-method">
+            <option value="dinheiro">Dinheiro</option>
+            <option value="cartão de crédito">Cartão de crédito</option>
+            <option value="cartão de débito">Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag:
+          <select name="tag" id="tag">
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
+          </select>
+        </label>
+      </form>
+    );
+  }
+
+  render() {
+    return (
+      <>
+        {this.renderHeader()}
+        {this.renderForms()}
+      </>);
   }
 }
 
