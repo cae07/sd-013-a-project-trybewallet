@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { registerUser } from '../actions';
 import './Login.css';
 
 class Login extends React.Component {
@@ -19,6 +20,7 @@ class Login extends React.Component {
   handleLogin(e) {
     e.preventDefault();
     const { email, password } = this.state;
+    console.log(email, password);
   }
 
   handleChange(e) {
@@ -29,7 +31,7 @@ class Login extends React.Component {
     const validEmailAndPassword = () => {
       const { email, password } = this.state;
       const passwordLength = password.length;
-      const maxPasswordLength = 6;
+      const maxPasswordLength = 5;
 
       if (emailPattern.test(email) && passwordLength >= maxPasswordLength) {
         return this.setState({ disabledBtn: false });
@@ -52,18 +54,20 @@ class Login extends React.Component {
 
           <fieldset>
             <legend>Faça seu Login</legend>
-            <div data-testid="email-input" className="email-input">
+            <div className="email-input">
               <input
+                data-testid="email-input"
                 name="email"
                 value={ email }
-                type="text"
+                type="email"
                 placeholder="Username"
                 onChange={ this.handleChange }
               />
             </div>
 
-            <div data-testid="password-input" className="password-input">
+            <div className="password-input">
               <input
+                data-testid="password-input"
                 name="password"
                 value={ password }
                 type="password"
@@ -75,7 +79,7 @@ class Login extends React.Component {
             <button
               onClick={ this.handleLogin }
               disabled={ disabledBtn }
-              type="submit"
+              type="button"
             >
               Entrar
             </button>
@@ -92,4 +96,8 @@ const mapStateToProps = (state) => ({
   user: state.userReducer,
 });
 
-export default connect(mapStateToProps)(Login);
+const mapDispatchToProps = (dispatch) => ({
+  login: (payload) => dispatch(registerUser(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
