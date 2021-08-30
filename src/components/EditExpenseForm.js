@@ -11,7 +11,11 @@ class EditExpenseForm extends React.Component {
   constructor(props) {
     super(props);
 
+    // Desconstroi as states abaixo lidas pela mapStateToProps
     const { expenses, expenseId } = this.props;
+
+    // Guarda na variável expense o elemento que tem o id igual ao do expenseId
+    // Ou seja, busca na lista de expenses, através do id, que está no expenseId
     const expense = expenses.find((item) => item.id === expenseId);
     const { value, description, currency, method, tag, id, exchangeRates } = expense;
 
