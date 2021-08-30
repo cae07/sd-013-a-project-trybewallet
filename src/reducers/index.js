@@ -1,4 +1,4 @@
-
+// Importa o combineReducers do redux para fazer a junção dos reducers do app
 import { combineReducers } from 'redux';
 
 // Importa os 2 reducers criados conforme README
