@@ -1,37 +1,38 @@
 export const REGISTER_USER = 'REGISTER_USER';
-export const LOADING_TYPE = 'LOADING_TYPE';
-export const SUCCESS_TYPE = 'SUCCESS_TYPE';
-export const ERROR_TYPE = 'ERROR_TYPE';
+export const IS_FETCHING = 'IS_FETCHING';
+export const UPDATE_CURRENCIES = 'UPDATE_CURRENCIES';
+export const ERROR = 'ERROR';
 
 export const registerUser = (payload) => ({
   type: REGISTER_USER,
   payload,
 });
 
-export const loadingAction = () => ({
-  type: LOADING_TYPE,
+export const isFetching = () => ({
+  type: IS_FETCHING,
 });
 
-export const successAction = (payload) => ({
-  type: SUCCESS_TYPE,
+export const updateCurrencies = (payload) => ({
+  type: UPDATE_CURRENCIES,
   payload,
 });
 
-export const errorAction = (payload) => ({
-  type: ERROR_TYPE,
+export const errorHandler = (payload) => ({
+  type: ERROR,
   payload,
 });
 
-export const fetchName = () => (
+export const fetchCurrencies = () => (
   async (dispatch) => {
-    dispatch(loadingAction());
+    dispatch(isFetching());
     try {
-      const res = await fetch(URL);
-      if (!res.ok) throw new Error('fetch failed');
+      const res = await fetch('https://economia.awesomeapi.com.br/json/all');
+      if (!res.ok) throw new Error('Couldn\'t fetch data');
       const data = await res.json();
-      return dispatch(successAction(data));
+      delete data.USDT;
+      return dispatch(updateCurrencies(data));
     } catch (error) {
-      return dispatch(errorAction(error.message));
+      return dispatch(errorHandler(error.message));
     }
   }
 );

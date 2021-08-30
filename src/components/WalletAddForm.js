@@ -1,8 +1,36 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { fetchCurrencies } from '../actions';
 
 class WalletAddForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: '',
+      currency: '',
+      method: '',
+      tag: '',
+      description: '',
+
+    };
+  }
+
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
+  renderCurrencyOptions() {
+    const { currencyList } = this.props;
+    if (currencyList.length > 0) {
+      return Object.keys(currencyList[0]).map((c) => (
+        <option key={ c } value={ c }>{ c }</option>
+      ));
+    }
+  }
+
   render() {
     return (
       <form className="wallet-form">
@@ -13,7 +41,7 @@ class WalletAddForm extends Component {
         <label htmlFor="currency" className="wallet-form-currency">
           Moeda:&nbsp;
           <select name="currency" id="currency">
-            <option value="nsei">batata</option>
+            {this.renderCurrencyOptions()}
           </select>
         </label>
         <label htmlFor="method" className="wallet-form-method">
@@ -43,18 +71,20 @@ class WalletAddForm extends Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   userEmail: state.user.email,
-//   total: state.wallet.total,
-// });
+const mapStateToProps = (state) => ({
+  currencyList: state.wallet.currencies,
+});
 
-export default connect(null, null)(WalletAddForm);
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrencies()),
+});
 
-// WalletAddForm.propTypes = {
-//   userEmail: PropTypes.string.isRequired,
-//   total: PropTypes.number,
-// };
+export default connect(mapStateToProps, mapDispatchToProps)(WalletAddForm);
 
-// WalletAddForm.defaultProps = {
-//   total: 0,
-// };
+WalletAddForm.propTypes = {
+  currencyList: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.object),
+    PropTypes.arrayOf(PropTypes.string),
+  ]).isRequired,
+  getCurrencies: PropTypes.func.isRequired,
+};
