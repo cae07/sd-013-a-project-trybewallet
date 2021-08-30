@@ -1,5 +1,5 @@
 import { IS_FETCHING, UPDATE_CURRENCIES, ERROR, ADD_EXPENSE,
-  UPDATE_TOTAL } from '../actions';
+  UPDATE_TOTAL, DELETE_EXPENSE } from '../actions';
 
 const initialState = {
   isFetching: false,
@@ -27,14 +27,17 @@ function wallet(state = initialState, { type, payload }) {
   case ERROR:
     return { ...state, error: payload, isFetching: false };
 
+  case UPDATE_TOTAL:
+    return { ...state, total: updateTotal(state) };
+
   case ADD_EXPENSE:
     return {
       ...state,
       expenses: [...state.expenses, { ...payload, exchangeRates: state.currencies[0] }],
     };
 
-  case UPDATE_TOTAL:
-    return { ...state, total: updateTotal(state) };
+  case DELETE_EXPENSE:
+    return { ...state, expenses: payload };
 
   default:
     return state;

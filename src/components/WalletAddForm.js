@@ -34,7 +34,10 @@ class WalletAddForm extends Component {
   async addExpense() {
     const { expensesList, getCurrencies, addExp, updtTotal } = this.props;
     await getCurrencies();
-    const payload = { id: expensesList.length, ...this.state };
+    const payload = {
+      id: expensesList.length === 0 ? 0 : expensesList[expensesList.length - 1].id + 1,
+      ...this.state,
+    };
     addExp(payload);
     updtTotal();
     this.setState({
@@ -106,6 +109,7 @@ class WalletAddForm extends Component {
             type="text"
             id="description"
             value={ description }
+            maxLength="25"
             onChange={ handleChange }
           />
         </label>

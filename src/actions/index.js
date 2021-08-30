@@ -3,8 +3,9 @@ export const IS_FETCHING = 'IS_FETCHING';
 export const UPDATE_CURRENCIES = 'UPDATE_CURRENCIES';
 export const ERROR = 'ERROR';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
-export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 export const UPDATE_TOTAL = 'UPDATE_TOTAL';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const registerUser = (payload) => ({
   type: REGISTER_USER,
@@ -25,13 +26,18 @@ export const errorHandler = (payload) => ({
   payload,
 });
 
+export const updateTotal = () => ({
+  type: UPDATE_TOTAL,
+});
+
 export const addExpen = (payload) => ({
   type: ADD_EXPENSE,
   payload,
 });
 
-export const updateTotal = () => ({
-  type: UPDATE_TOTAL,
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
 });
 
 export const fetchCurrencies = () => (
