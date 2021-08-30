@@ -10,7 +10,7 @@ class Wallet extends React.Component {
     this.state = {
       totalExpenses: 0,
       value: 0,
-      description: '',
+      d: '',
       payment: 'cash',
       tag: 'food',
     };
@@ -27,7 +27,7 @@ class Wallet extends React.Component {
 
   render() {
     const { userEmail } = this.props;
-    const { totalExpenses, value, description, payment, tag } = this.state;
+    const { totalExpenses, value, d, payment, tag } = this.state;
     return (
       <div>
         <header>
@@ -38,7 +38,7 @@ class Wallet extends React.Component {
         <WalletBody
           totalExpenses={ totalExpenses }
           value={ value }
-          description={ description }
+          d={ d }
           payment={ payment }
           tag={ tag }
           handleChange={ this.handleChange }

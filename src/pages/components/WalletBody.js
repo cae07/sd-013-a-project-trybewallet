@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class WalletBody extends Component {
   render() {
-    const { value, description, payment, tag, handleChange } = this.props;
+    const { value, d, payment, tag, handleChange } = this.props;
     return (
       <fieldset>
         <label htmlFor="value">
@@ -16,33 +16,34 @@ class WalletBody extends Component {
             onChange={ handleChange }
           />
         </label>
-        <label htmlFor="description">
+        <label htmlFor="d">
           Descrição
-          <input
-            id="description"
-            type="text"
-            name="description"
-            value={ description }
-            onChange={ handleChange }
-          />
+          <input id="d" type="text" name="d" value={ d } onChange={ handleChange } />
         </label>
-        <select>
+        <label htmlFor="moeda">
           Moeda
-        </select>
-        <select name="payment" onChange={ handleChange } value={ payment }>
+          <select id="moeda">
+            <option value="tst">teste</option>
+          </select>
+        </label>
+        <label htmlFor="payment">
           Método de pagamento
-          <option value="cash">Dinheiro</option>
-          <option value="credit">Cartão de crédito</option>
-          <option value="debit">Cartão de débito</option>
-        </select>
-        <select name="tag" tag onChange={ handleChange } value={ tag }>
-          Tag:
-          <option value="food">Alimentação</option>
-          <option value="leisure">Lazer</option>
-          <option value="work">Trabalho</option>
-          <option value="transportation">Transporte</option>
-          <option value="health">Saúde</option>
-        </select>
+          <select id="payment" name="payment" onChange={ handleChange } value={ payment }>
+            <option value="cash">Dinheiro</option>
+            <option value="credit">Cartão de crédito</option>
+            <option value="debit">Cartão de débito</option>
+          </select>
+        </label>
+        <label htmlFor="tag">
+          Tag
+          <select id="tag" name="tag" tag onChange={ handleChange } value={ tag }>
+            <option value="food">Alimentação</option>
+            <option value="leisure">Lazer</option>
+            <option value="work">Trabalho</option>
+            <option value="transportation">Transporte</option>
+            <option value="health">Saúde</option>
+          </select>
+        </label>
       </fieldset>
     );
   }
@@ -50,7 +51,7 @@ class WalletBody extends Component {
 
 WalletBody.propTypes = {
   value: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
+  d: PropTypes.string.isRequired,
   payment: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
