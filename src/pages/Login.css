@@ -62,3 +62,8 @@ button {
 button:hover {
   background-color: #07b676;
 }
+
+button:disabled {
+  background-color: #323d39;
+  cursor: grab;
+}
