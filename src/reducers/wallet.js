@@ -16,4 +16,3 @@ const wallet = (state = INITIAL_STATE, action) => {
 };
 
 export default wallet;
-
