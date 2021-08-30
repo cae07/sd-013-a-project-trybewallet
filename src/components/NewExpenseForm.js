@@ -3,16 +3,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+// Importa função de fetch da API como currenciesAPI
 import currenciesAPI from '../services';
-import { fetchCurrencies as getCurrencies, actionSaveExpense as addExpense } from '../actions';
+
+// Importando e renomeando as actions
+import {
+  fetchCurrencies as getCurrencies,
+  actionSaveExpense as addExpense,
+} from '../actions';
 
 // State inicial vai ser as chaves abaixo:
 const INITIAL_STATE = {
   value: '0',
   description: '',
   currency: 'USD',
-  method: 'Dinheiro',
-  tag: 'Alimentação',
+  method: 'Dinheiro', // Opções à adicionar: ['Dinheiro', 'Cartão de crédito', 'Cartão de débito']
+  tag: 'Alimentação', // Opções à adicionar: ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde']
   id: 0,
 };
 
@@ -25,20 +31,22 @@ class NewExpenseForm extends React.Component {
       ...INITIAL_STATE,
     };
 
+    // As funções abaixo serão habilitadas para serem usadas em todo o componente/page
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.renderInput = this.renderInput.bind(this);
     this.renderSelect = this.renderSelect.bind(this);
   }
 
-  handleChange({ target }) {
-    this.setState({
-      [target.name]: target.value,
-    });
+  // Tudo que for digitado nos campos, é alterado automaticamente na state
+  // Conforme for digitando os campos são guardados na state
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
   }
 
-  async handleClick(e) {
-    e.preventDefault();
+  async handleClick(event) {
+    event.preventDefault(); // Cancela um evento se ele for cancelável sem parar a propagação do mesmo
+
     const { value, description, currency, method, tag, id } = this.state;
     const { saveExpense } = this.props;
     const exchangeRates = await currenciesAPI();
@@ -51,13 +59,18 @@ class NewExpenseForm extends React.Component {
       tag,
       exchangeRates,
     };
+
     saveExpense(expense);
+
+    // Altera o id do state adicionando "+1" ao id atual
     this.setState({
       ...INITIAL_STATE,
       id: id + 1,
     });
   }
 
+  // {this.renderInput('Valor', 'number', 'value', value)}
+  // {this.renderInput('Descrição', 'text', 'description', description)}
   renderInput(label, type, name, value) {
     return (
       <label htmlFor={ `${name}-input` }>
@@ -98,6 +111,8 @@ class NewExpenseForm extends React.Component {
     );
   }
 
+  // {this.renderSelect('Método de pagamento', 'method', method, methods)}
+  // {this.renderSelect('Tag', 'tag', tag, tags)}
   renderSelect(label, name, value, options) {
     return (
       <label htmlFor={ `${name}-input` }>
