@@ -9,15 +9,15 @@ class Login extends React.Component {
 
           <fieldset>
             <legend>Faça seu Login</legend>
-            <div className="username-input">
+            <div data-testid="email-input" className="email-input">
               <input type="text" placeholder="Username" />
             </div>
 
-            <div className="password-input">
+            <div data-testid="password-input" className="password-input">
               <input type="password" placeholder="Password" />
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit">Entrar</button>
           </fieldset>
 
         </form>
