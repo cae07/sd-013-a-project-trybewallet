@@ -22,11 +22,12 @@ export const actionEmailChange = (payload) => ({
 });
 
 // Action para gerar o request para conexao com a API de Moedas
+// Não há payload ou parametro pois para tentar fazer a fetch na API não é necessário passar parametro
 const actionRequestCurrenciesTry = () => ({
   type: ACTION_REQUEST_START,
 });
 
-// Esta action é quando obtiver o retorno positivo de onexão com a API de Moedas
+// Esta action é quando obtiver o retorno positivo de conexão com a API de Moedas
 const actionRequestCurrenciesSuccess = (currencies) => ({
   type: ACTION_REQUEST_SUCCESS,
   currencies,
