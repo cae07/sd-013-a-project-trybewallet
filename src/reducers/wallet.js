@@ -10,11 +10,7 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
   case LOADING_TYPE:
     return { ...state };
   case SUCCESS_TYPE:
-    return { ...state,
-      currencies: action.payload,
-      expenses: {
-        exchangeRates: action.payload,
-      },
+    return { ...state, currencies: action.payload,
     };
   case ERROR_TYPE:
     return { ...state, error: action.payload };

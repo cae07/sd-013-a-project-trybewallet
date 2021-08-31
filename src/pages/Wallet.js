@@ -105,7 +105,6 @@ class Wallet extends React.Component {
             onChange={ handleChange }
           />
           <Button
-            type="button"
             name="Adicionar despesa"
             onClick={ handleNextExpense }
           />
