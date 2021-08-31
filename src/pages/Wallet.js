@@ -12,6 +12,11 @@ class Wallet extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { moedas } = this.props;
+    moedas();
+  }
+
   inputValue() {
     return (
       <label htmlFor="value">
@@ -71,8 +76,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, moedas } = this.props;
-    moedas();
+    const { email } = this.props;
     return (
       <div>
         <header className="header-wallet-contain">
