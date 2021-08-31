@@ -1,18 +1,21 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { WALLET_INFO } from '../actions';
+import { LOADING_CURRENCY, SUCESS_CURRENCY, FAIL_CURRENCY } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  isloading: false,
+  error: '',
 };
 
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case WALLET_INFO:
-    return {
-      ...state,
-      currencies: action.payload,
-      expenses: action.payload };
+  case LOADING_CURRENCY:
+    return { ...state, isloading: true };
+  case SUCESS_CURRENCY:
+    return { ...state, currencies: action.payload };
+  case FAIL_CURRENCY:
+    return { ...state, error: action.payload.message };
   default: return state;
   }
 }
