@@ -7,10 +7,10 @@ import { fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
-    const { getCurrency } = this.props;
+    const { getExchangeRates } = this.props;
     // dispara a action que vai consultar a api
     // Espera-se o retorno de um objeto
-    getCurrency();
+    getExchangeRates();
   }
 
   render() {
@@ -27,11 +27,11 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({ ...state });
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrency: () => dispatch(fetchCurrencies()),
+  getExchangeRates: () => dispatch(fetchCurrencies()),
 });
 
 Wallet.propTypes = {
-  getCurrency: propTypes.func.isRequired,
+  getExchangeRates: propTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

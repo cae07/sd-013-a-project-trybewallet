@@ -3,6 +3,7 @@ import {
   REQUEST_API,
   GET_INFO,
   FAILED_REQUEST,
+  ADD_EXPENSE,
 } from '../actions';
 
 // declarar o estado inicial do reducer
@@ -27,6 +28,8 @@ function walletReducer(state = initialState, action) {
     };
   case FAILED_REQUEST:
     return { ...state, error: action.payload, loading: false };
+  case ADD_EXPENSE:
+    return { ...state, expenses: [...state.expenses, action.payload] };
   default:
     return state;
   }
