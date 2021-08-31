@@ -28,12 +28,12 @@
   color: whitesmoke;
   display: flex;
   flex-direction: column;
-  margin: 5% 20%;
+  margin: 5% auto;
   padding: 10px;
 }
 
 .img {
-  background-image: url('https://www.pngmart.com/files/8/Wallet-PNG-Transparent-Images.png');
+  background-image: url('./Wallet-PNG-Transparent-Images.png');
   background-position: center;
   background-size: cover;
   display: flex;

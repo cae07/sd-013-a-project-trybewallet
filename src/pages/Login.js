@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -19,9 +18,9 @@ class Login extends React.Component {
   }
 
   onSubmitForm() {
-    const { onSubmit } = this.props;
-    // const { email } = this.state;
+    const { onSubmit, history } = this.props;
     onSubmit(this.state);
+    history.push('/carteira');
   }
 
   handleChange({ target }) {
@@ -31,6 +30,9 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const passwordMin = 6;
+    const passwordAllow = password.length >= passwordMin;
+    const emailValid = () => (/\S+@\S+\.\S+/).test(email);
 
     return (
       <div className="App-header">
@@ -61,13 +63,14 @@ class Login extends React.Component {
             />
           </label>
 
-          <Link
-            to="/carteira"
+          <button
+            disabled={ !(emailValid() && passwordAllow) }
             className="button"
+            type="submit"
             onClick={ () => this.onSubmitForm() }
           >
             Entrar
-          </Link>
+          </button>
 
         </fieldset>
       </div>
@@ -77,6 +80,9 @@ class Login extends React.Component {
 
 Login.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => (
