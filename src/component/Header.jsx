@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
@@ -22,5 +22,5 @@ Header.propTypes = {
 const mapStateToProps = (state) => ({
   myState: state.user.user,
 });
-input-change
+
 export default connect(mapStateToProps)(Header);
