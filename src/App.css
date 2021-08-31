@@ -33,10 +33,10 @@
 }
 
 .img {
-  display: flex;
   background-image: url('https://www.pngmart.com/files/8/Wallet-PNG-Transparent-Images.png');
   background-position: center;
   background-size: cover;
+  display: flex;
   flex-direction: column;
   height: 300px;
   justify-content: center;
