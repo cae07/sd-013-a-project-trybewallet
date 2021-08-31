@@ -5,7 +5,7 @@ import { setInfoDespesa } from '../actions';
 
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-class FormDespesa extends React.Component {
+class Expense extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +22,7 @@ class FormDespesa extends React.Component {
 
   render() {
     return (
-      <div className="formDespesa">
+      <div className="Expense">
         <form>
           <label htmlFor="Valor">
             Valor:
@@ -30,7 +30,10 @@ class FormDespesa extends React.Component {
           </label>
           <label htmlFor="Moeda">
             Moeda:
-            <select type="text" id="Moeda" name="Moeda" label="Moeda" />
+            <select type="text" id="Moeda" name="Moeda" label="Moeda">
+              { getCoins.map((coin) => (
+                <option key={ coin }>{ coin }</option>)) }
+            </select>
           </label>
           <label htmlFor="method">
             Método de pagamento:
@@ -66,7 +69,7 @@ class FormDespesa extends React.Component {
   }
 }
 
-// FormDespesa.propTypes = {
+// Expense.propTypes = {
 //   history: PropTypes.shape({
 //     push: PropTypes.func,
 //   }).isRequired,
@@ -76,4 +79,4 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchSetDespesa: (infoUser) => dispatch(setInfoDespesa(infoUser)),
 });
 
-export default connect(null, mapDispatchToProps)(FormDespesa);
+export default connect(null, mapDispatchToProps)(Expense);
