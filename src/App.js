@@ -1,9 +1,10 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import Login from './pages/Login';
+import Rotas from './components/rotas';
 
 function App() {
-  return <Route path="/" component={ Login } />;
+  return (
+    <Rotas />
+  );
 }
 
 export default App;
