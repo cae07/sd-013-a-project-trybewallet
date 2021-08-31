@@ -3,12 +3,13 @@ import Proptypes from 'prop-types';
 
 class Button extends React.Component {
   render() {
-    const { onClick } = this.props;
+    const { onClick, disabled } = this.props;
     return (
       <section>
         <button
           type="submit"
           onClick={ onClick }
+          disabled={ disabled }
         >
           Entrar
         </button>
@@ -19,6 +20,7 @@ class Button extends React.Component {
 
 Button.propTypes = {
   onClick: Proptypes.func,
+  disabled: Proptypes.func,
 }.isRequired;
 
 export default Button;

@@ -5,14 +5,14 @@ const INITIAL_STATE = {
   },
 };
 
-const reducer = (state = INITIAL_STATE, action) => {
+const reducerWallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'EMAIL_LOGIN':
+  case '':
     return {
-      ...state, Pessoal: action.payload,
+      ...state, wallet: action.payload,
     };
   default: return state;
   }
 };
 
-export default reducer;
+export default reducerWallet;
