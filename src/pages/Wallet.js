@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
-import { setInfoDespesa, getCurrencies } from '../actions';
+import { setExpense } from '../actions';
 import Expense from '../components/Expense';
 import Header from '../components/Header';
 
@@ -9,12 +9,6 @@ class Wallet extends React.Component {
   // constructor(props) {
   //   super(props);
   // }
-
-  componentDidMount() {
-    const wallet = this.props;
-    getCurrencies();
-    console.log(wallet);
-  }
 
   render() {
     return (
@@ -27,7 +21,7 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchSetDespesa: (infoDespesa) => dispatch(setInfoDespesa(infoDespesa)),
+  dispatchExpense: (expense) => dispatch(setExpense(expense)),
 });
 
 export default connect(null, mapDispatchToProps)(Wallet);

@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-import { setInfoDespesa } from '../actions';
+import PropTypes from 'prop-types';
+import { fetchApiCurrencies } from '../actions';
 
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 class Expense extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount() {
+    const { dispatchExpense } = this.props;
+    dispatchExpense();
   }
 
   handleChange({ target: { id, value } }) {
@@ -21,6 +23,7 @@ class Expense extends React.Component {
   }
 
   render() {
+    const { wallet } = this.props;
     return (
       <div className="Expense">
         <form>
@@ -31,8 +34,10 @@ class Expense extends React.Component {
           <label htmlFor="Moeda">
             Moeda:
             <select type="text" id="Moeda" name="Moeda" label="Moeda">
-              { getCoins.map((coin) => (
-                <option key={ coin }>{ coin }</option>)) }
+              { Object.keys(wallet)
+                .filter((index) => index !== 'USDT')
+                .map((coin) => (
+                  <option key={ coin }>{ coin }</option>)) }
             </select>
           </label>
           <label htmlFor="method">
@@ -69,14 +74,16 @@ class Expense extends React.Component {
   }
 }
 
-// Expense.propTypes = {
-//   history: PropTypes.shape({
-//     push: PropTypes.func,
-//   }).isRequired,
-// };
+Expense.propTypes = {
+  wallet: PropTypes.array,
+}.isRequired;
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchSetDespesa: (infoUser) => dispatch(setInfoDespesa(infoUser)),
+const mapStateToProps = (stateStore) => ({
+  wallet: stateStore.wallet.currencies,
 });
 
-export default connect(null, mapDispatchToProps)(Expense);
+const mapDispatchToProps = (dispatch) => ({
+  dispatchExpense: () => dispatch(fetchApiCurrencies()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Expense);

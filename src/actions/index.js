@@ -8,7 +8,7 @@ export const setInfoLogin = (state) => (
     state,
   });
 
-export const setInfoDespesa = (state) => (
+export const setExpense = (state) => (
   {
     type: SAVE_DESPESA,
     state,
@@ -21,16 +21,16 @@ export const setCurrencies = (jsonCurrencies) => (
     jsonCurrencies, // jsonCurrencies é o valor recebido pelo dispatch realizado pela função getCurrencies, com o resultado do fetch, que é um json com as moedas.
   });
 
-export function getCurrencies() {
+export function fetchApiCurrencies() {
   // este primeiro return com dispatch é necessário pois o thunk sempre retorna uma função.
   return (dispatch) => {
     // caso queira ADICIONAR alguma ação ANTES do resultado da api, chama a action ANTES, e faz a lógica no reducer para alterar alguma chave. Ex.: ADICIONAR componente loading na tela.
     // dispatch(novaAction1(true));
 
     // fecth da api com as informações das moedas.
-    fecth('https://economia.awesomeapi.com.br/json/all')
+    return fetch('https://economia.awesomeapi.com.br/json/all')
       // then (então) converte o retorno para json
-      .then((response) => response.json)
+      .then((response) => response.json())
       // envia o json para a action setCurrencies.
       .then((currencies) => dispatch(setCurrencies(currencies)));
 
