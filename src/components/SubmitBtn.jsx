@@ -9,7 +9,7 @@ class SubmitBtn extends React.Component {
         date-testid={ testid }
         type="submit"
         onClick={ onClick }
-        diabled={ isValid }
+        disabled={ !isValid }
       >
         { name }
       </button>
