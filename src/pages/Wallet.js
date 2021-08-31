@@ -1,5 +1,9 @@
 import React from 'react';
-import { Header, Input, Select } from '../componets';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Header, Input, Select, Button } from '../componets';
+import getApi from '../services/getCurrentExchangeApi';
+import { fetchCurrentExchange } from '../actions';
 
 const paymentMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const category = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -8,40 +12,89 @@ class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      currently: '',
+      currentExchange: '',
+      id: 0,
     };
-    this.getApi = this.getApi.bind(this);
+    this.get = this.get.bind(this);
+    this.setID = this.setID.bind(this);
   }
 
   componentDidMount() {
-    this.getApi();
+    this.get();
   }
 
-  async getApi() {
-    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const result = await api.json();
-    const data = await result;
+  setID() {
+    const { currentExchange } = this.props;
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+    }));
+    currentExchange(this.state);
+  }
+
+  async get() {
     this.setState({
-      currently: Object.keys(data)
+      currentExchange: Object.keys(await getApi())
         .filter((a) => a !== 'USDT'),
     });
   }
 
+  handleChenge(target) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
-    const { currently } = this.state;
+    const { currentExchange } = this.state;
+    const onChange = ({ target }) => this.handleChenge(target);
     return (
       <div>
         <Header />
         <div>
-          <Input name="valor" type="number" />
-          <Input name="descrição" type="text" />
-          <Select name="Moeda" data={ currently } />
-          <Select name="Método de pagamento" data={ paymentMethod } />
-          <Select name="Tag" data={ category } />
+          <Input
+            name="valor"
+            type="number"
+            id="value"
+            onChange={ onChange }
+          />
+          <Input
+            name="descrição"
+            type="text"
+            id="description"
+            onChange={ onChange }
+          />
+          <Select
+            name="moeda"
+            id="currency"
+            data={ currentExchange }
+            onChange={ onChange }
+          />
+          <Select
+            name="método de pagamento"
+            id="method"
+            data={ paymentMethod }
+            onChange={ onChange }
+          />
+          <Select
+            name="tag"
+            id="tag"
+            data={ category }
+            onChange={ onChange }
+          />
+          <Button name="Adicionar despesa" state={ this.state } onClick={ this.setID } />
         </div>
       </div>
     );
   }
 }
 
-export default Wallet;
+Wallet.propTypes = {
+  currentExchange: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  currentExchange: (state) => dispatch(fetchCurrentExchange(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Wallet);

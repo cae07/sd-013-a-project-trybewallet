@@ -10,9 +10,11 @@ class Header extends React.Component {
     return (
       <div>
         <span data-testid="email-field">{email}</span>
-        {expenses !== ''
-          ? <span data-testid="total-field">0</span>
-          : <span data-testid="total-field">{expenses}</span>}
+        <span data-testid="total-field">
+          { parseFloat(expenses.reduce((acumulator, currentValue) => acumulator
+          + (currentValue.value
+          * currentValue.exchangeRates[currentValue.currency].ask), 0))}
+        </span>
         <span data-testid="header-currency-field">BRL</span>
       </div>
     );
