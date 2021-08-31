@@ -2,21 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Input, InputSelect, Header } from '../components';
+import { walletFetch } from '../actions';
 import './wallet.css';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { fetchApi } = this.props;
+    fetchApi();
+  }
+
   render() {
+    const { currencies } = this.props;
+
+    const lestSelecCurrencies = Object.keys(currencies)
+      .filter((currencie) => currencie !== 'USDT');
+
     const listTag = [
-      { id: '1', value: 'alimentação', title: 'Alimentação' },
-      { id: '2', value: 'lazer', title: 'Lazer' },
-      { id: '3', value: 'trabalho', title: 'Trabalho' },
-      { id: '4', value: 'transporte', title: 'Transporte' },
-      { id: '5', value: 'saúde', title: 'Saúde' },
+      'Alimentação',
+      'Lazer',
+      'Trabalho',
+      'Transporte',
+      'Saúde',
     ];
     const paymentMethods = [
-      { id: '1', value: 'dinheiro', title: 'Dinheiro' },
-      { id: '2', value: 'credito', title: 'Cartão de crédito' },
-      { id: '3', value: 'debito', title: 'Cartão de débito' },
+      'Dinheiro',
+      'Cartão de crédito',
+      'Cartão de débito',
     ];
     const { email } = this.props;
     return (
@@ -28,8 +39,7 @@ class Wallet extends React.Component {
             <Input label="Descrição" />
             <InputSelect
               label="Moeda"
-              listSelect={ [{ id: '1', title: 'teste', value: 'n.a' },
-                { id: '2', title: 'teste', value: 'n.a' }] }
+              listSelect={ lestSelecCurrencies }
             />
             <InputSelect
               label="Método de pagamento"
@@ -42,14 +52,24 @@ class Wallet extends React.Component {
           </form>
         </section>
       </>
-
     );
   }
 }
 
-const mapStateToProps = (state) => ({ email: state.user.email });
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  currencies: state.wallet.currencies[0],
+});
+const mapDispatchToProps = (dispatch) => ({
+  fetchApi: () => dispatch(walletFetch()),
+});
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  fetchApi: PropTypes.func.isRequired,
+  currencies: PropTypes.shape(),
 };
-export default connect(mapStateToProps)(Wallet);
+Wallet.defaultProps = {
+  currencies: {},
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

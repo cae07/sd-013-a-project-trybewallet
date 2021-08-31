@@ -7,7 +7,7 @@ function InputSelect({ label, listSelect }) {
       {`${label}`}
       <select>
         {listSelect.map(
-          (item) => <option key={ item.id } value={ item.value }>{item.title}</option>,
+          (item) => <option key={ item }>{ item }</option>,
         )}
       </select>
     </label>
