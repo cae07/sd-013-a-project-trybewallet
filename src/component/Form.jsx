@@ -20,7 +20,9 @@ class Form extends React.Component {
         </label>
         <label htmlFor="input-change">
           Moeda
-          <select id="input-change" />
+          <select id="input-change">
+            <option value="empty">0</option>
+          </select>
         </label>
         <label htmlFor="input-payment">
           Método de pagamento
