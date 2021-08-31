@@ -1,15 +1,23 @@
-/* eslint-disable no-useless-escape */
 import React from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 import { setInfoDespesa } from '../actions';
 
+const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 class FormDespesa extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
 
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target: { id, value } }) {
+    this.setState({
+      [id]: value,
+    });
   }
 
   render() {
@@ -24,25 +32,22 @@ class FormDespesa extends React.Component {
             Moeda:
             <select type="text" id="Moeda" name="Moeda" label="Moeda" />
           </label>
-          <label htmlFor="Método de pagamento">
+          <label htmlFor="method">
             Método de pagamento:
-            <select
-              type="text"
-              name="Método de pagamento"
-            >
-              <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de crédito">Cartão de crédito</option>
-              <option value="Cartão de débito">Cartão de débito</option>
+            <select id="method" onChange={ this.handleChange } className="form__field">
+              { paymentMethods.map((method) => (
+                <option key={ method }>{ method }</option>)) }
             </select>
           </label>
-          <label htmlFor="Método de pagamento">
+          <label htmlFor="tag">
             Tag:
-            <select type="text" id="Tag" name="Tag" label="Tag">
-              <option value="Alimentação" label="Alimentação" />
-              <option value="Lazer" label="Lazer" />
-              <option value="Trabalho" label="Trabalho" />
-              <option value="Transporte" label="Transporte" />
-              <option value="Saúde" label="Saúde" />
+            <select
+              onChange={ this.handleChange }
+              data-testid="method-input"
+              id="tag"
+              className="form__field"
+            >
+              { tags.map((tag) => (<option key={ tag }>{ tag }</option>)) }
             </select>
           </label>
           <label htmlFor="Descrição">
