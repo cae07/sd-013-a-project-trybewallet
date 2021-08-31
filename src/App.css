@@ -27,6 +27,7 @@
   border-radius: 10px;
   color: whitesmoke;
   display: flex;
+  font-size: large;
   flex-direction: column;
   margin: 5% auto;
   padding: 10px;
