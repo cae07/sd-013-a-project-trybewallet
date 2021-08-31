@@ -10,7 +10,6 @@ class Header extends React.Component {
           email:
           {email}
         </span>
-        <span data-testid="total-field">............Valor inicial 0</span>
         <span data-testid="header-currency-field"> BRL</span>
       </div>
     );

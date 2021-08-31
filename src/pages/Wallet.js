@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Forms from '../components/Forms';
 import Header from '../components/Header';
 import { fetchAPI } from '../actions';
+import Gastos from '../components/Gastos';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -19,6 +20,7 @@ class Wallet extends React.Component {
           <Header email={ email } />
         </header>
         <Forms />
+        <Gastos />
       </div>
     );
   }

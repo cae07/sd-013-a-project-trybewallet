@@ -2,6 +2,12 @@
 export const ENVIAR_EMAIL = 'ENVIAR_EMAIL';
 export const WAITING_API = 'WAITING_API';
 export const FINISH_FETCH = 'FINISH_FETCH';
+export const SAVE_EXPENSES = 'SAVE_EXPENSES';
+
+export const saveExpenses = (expenseObj) => ({
+  type: SAVE_EXPENSES,
+  expenseObj,
+});
 
 export const userAction = (payload) => ({
   type: ENVIAR_EMAIL,

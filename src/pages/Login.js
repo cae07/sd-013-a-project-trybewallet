@@ -19,7 +19,6 @@ class Login extends React.Component {
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value }, this.verifyEmailAndPassword);
-    // Fazer verificacao
   }
 
   handleClick() {
