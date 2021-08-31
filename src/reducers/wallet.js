@@ -9,7 +9,10 @@ const INITIAL_STATE = {
 function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case WALLET_INFO:
-    return { ...state, currencies: action.payload, expenses: action.payload };
+    return {
+      ...state,
+      currencies: action.payload,
+      expenses: action.payload };
   default: return state;
   }
 }
