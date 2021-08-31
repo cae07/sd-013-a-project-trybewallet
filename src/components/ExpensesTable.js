@@ -72,6 +72,7 @@ class ExpensesTable extends Component {
                 <td>{tag}</td>
                 <td>{method}</td>
                 <td>
+                  {/* Renderiza os botões de edit e delete */}
                   {this.renderButton('edit', expense, editExpense)}
                   {this.renderButton('delete', expense, deleteExpense)}
                 </td>
