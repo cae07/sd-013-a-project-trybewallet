@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-
 import { Login, Wallet } from './pages';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -16,7 +15,6 @@ function App() {
         <Route path="/carteira" component={ Wallet } />
 
       </Switch>
-      <ToastContainer />
 
     </div>
   );

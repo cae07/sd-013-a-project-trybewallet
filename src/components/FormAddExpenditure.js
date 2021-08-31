@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
-import { toast } from 'react-toastify';
+import { Alert } from 'bootstrap';
 import { Input, Select } from './index';
 import { fetchCurrencies, addExpense, totalUpdate } from '../actions';
 
@@ -40,7 +40,7 @@ class FormAddExpenditure extends React.Component {
     const { value, description, tag, method, currency } = this.state;
 
     if (!value || !description) {
-      return toast.warning('Por favor preencha todos os campos!');
+      return 'Por favor preencha todos os campos!';
     }
 
     const validadeValue = () => {
@@ -52,7 +52,7 @@ class FormAddExpenditure extends React.Component {
     };
 
     if (validadeValue()) {
-      return toast.warn('Digite apenas números!');
+      return '';
     }
 
     const data = {
@@ -65,7 +65,7 @@ class FormAddExpenditure extends React.Component {
     };
 
     handleSubmit(data);
-    return toast.success('Adicionado com Sucesso!');
+    return 'adicionado com sucesso';
   }
 
   changeHandler({ target }) {
