@@ -28,7 +28,6 @@ class Wallet extends React.Component {
 
   mapCurrenciesIntoOptions() {
     const { currencies } = this.state;
-    console.log(currencies);
     return currencies.map((currency) => (
       <option key={ currency.name } value={ currency.code }>{currency.code}</option>));
   }
