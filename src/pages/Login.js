@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { sendUserEmail } from '../actions';
+import { sendUserInfo } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,7 +10,8 @@ class Login extends React.Component {
     this.state = {
       invalidEmail: true,
       invalidPassword: true,
-      userEmail: '',
+      email: '',
+      password: '',
     };
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
@@ -19,21 +21,24 @@ class Login extends React.Component {
   validateEmail({ target: { value } }) {
     const pattern = /\S+@\S+\.\S+/;
     if (pattern.test(value)) {
-      return this.setState({ invalidEmail: false, userEmail: value });
+      return this.setState({ invalidEmail: false, email: value });
     }
-    return this.setState({ invalidEmail: true, userEmail: value });
+    return this.setState({ invalidEmail: true, email: value });
   }
 
   validatePassword({ target: { value } }) {
     const MIN_LENGTH_PASSWORD = 6;
-    if (value.length >= MIN_LENGTH_PASSWORD) this.setState({ invalidPassword: false });
+    if (value.length >= MIN_LENGTH_PASSWORD) {
+      return this.setState({ invalidPassword: false, password: value });
+    }
+    return this.setState({ invalidPassword: true, password: value });
   }
 
   handleSubmit(e) {
-    const { sendEmail } = this.props;
-    const { userEmail } = this.state;
+    const { sendUserInfo } = this.props;
+    const { email, password } = this.state;
     e.preventDefault();
-    sendEmail(userEmail);
+    sendUserInfo(({ email, password }));
     this.setState({ shouldRedirect: true });
   }
 
@@ -46,7 +51,7 @@ class Login extends React.Component {
     }
 
     return (
-      <div>
+      <main>
         <form onSubmit={ this.handleSubmit }>
           <label htmlFor="email">
             <input
@@ -75,13 +80,17 @@ class Login extends React.Component {
             Entrar
           </button>
         </form>
-      </div>
+      </main>
     );
   }
 }
 
+Login.propTypes = {
+  sendUserInfo: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  sendEmail: (payload) => dispatch(sendUserEmail(payload)),
+  sendUserInfo: (payload) => dispatch(sendUserInfo(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

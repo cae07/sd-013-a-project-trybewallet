@@ -1,7 +1,9 @@
-// Coloque aqui suas actions
-export const USER_EMAIL = 'USER_EMAIL';
+// Types
+export const USER_INFO = 'USER_INFO';
+export const WALLET_INFO = 'WALLET_INFO';
 
-export const sendUserEmail = (payload) => ({
-  type: USER_EMAIL,
+// Actions Creators
+export const sendUserInfo = (payload) => ({
+  type: USER_INFO,
   payload,
 });
