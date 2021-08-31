@@ -1,26 +1,20 @@
 import { USER_LOGIN } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-    password: '',
-  },
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  email: '',
+  password: '',
 };
 
-const myReducer = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case USER_LOGIN:
     return ({
-      ...state,
-      user: action.payload,
+      email: action.payload.email,
+      password: action.payload.password,
     });
   default:
     return state;
   }
 };
 
-export default myReducer;
+export default user;
