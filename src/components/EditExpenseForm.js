@@ -43,6 +43,7 @@ class EditExpenseForm extends React.Component {
     this.setState({ [name]: value });
   }
 
+  // Função que quando clicar no botão "Editar despesa" é executada
   handleClick(event) {
     event.preventDefault(); // Cancela um evento se ele for cancelável sem parar a propagação do mesmo
     // Desconstrói o state pegando os states necessários
@@ -91,7 +92,8 @@ class EditExpenseForm extends React.Component {
   }
 
   renderSelectCurrencies(value, handleChange) {
-    const { currencies } = this.props;
+    const { currencies } = this.props; // Desconstroi da state que foi lida através da mapStateToProps
+
     return (
       <select
         id="currency-input"
@@ -156,6 +158,7 @@ class EditExpenseForm extends React.Component {
           {'Moeda: '}
           {this.renderSelectCurrencies(currency, this.handleChange)}
         </label>
+        {/* As funções abaixo foram para simplificar a renderização */}
         {this.renderInput('Valor', 'number', 'value', value)}
         {this.renderInput('Descrição', 'text', 'description', description)}
         {this.renderSelect('Tag', 'tag', tag, tags)}
