@@ -1,7 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { string } from 'yargs';
 
 class Forms extends React.Component {
   render() {
+    const { coinName } = this.props;
     return (
       <div>
         <form>
@@ -16,8 +20,12 @@ class Forms extends React.Component {
           <label htmlFor="moeda">
             Moeda
             <select id="moeda">
-              <option>moeda 1</option>
-              <option>moeda 2</option>
+              {coinName.map((coin) => {
+                if (coin !== 'DOGE' && coin !== 'USDT') {
+                  return <option key={ coin }>{ coin }</option>;
+                }
+                return null;
+              })}
             </select>
           </label>
           <label htmlFor="cartao">
@@ -44,4 +52,12 @@ class Forms extends React.Component {
   }
 }
 
-export default Forms;
+const mapStateToProps = (state) => ({
+  coinName: Object.keys(state.wallet.currencies),
+});
+
+Forms.propTypes = {
+  coinName: PropTypes.arrayOf(string).isRequired,
+};
+
+export default connect(mapStateToProps)(Forms);

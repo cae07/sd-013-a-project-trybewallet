@@ -3,8 +3,14 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Forms from '../components/Forms';
 import Header from '../components/Header';
+import { fetchAPI } from '../actions';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
+  }
+
   render() {
     const { email } = this.props;
     return (
@@ -18,12 +24,17 @@ class Wallet extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrencies: () => dispatch(fetchAPI()),
+});
+
 const mapStateToProps = (state) => ({
   email: state.user.email,
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  fetchCurrencies: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
