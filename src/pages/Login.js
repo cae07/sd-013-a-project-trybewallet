@@ -17,12 +17,14 @@ class Login extends React.Component {
 
   handleSubmit(event) {
     const { updateUser, history } = this.props;
+    // pega o email pra madna pra store.
     const email = document.getElementById('aligned-name');
     event.preventDefault();
     updateUser({ email: email.value });
     history.push('/carteira');
   }
 
+  // Função resposavel por valida o email e a senha.
   validEmailPassword(event) {
     const { id, value } = event.target;
 
@@ -52,7 +54,6 @@ class Login extends React.Component {
         className="pure-form pure-form-aligned"
       >
         <fieldset>
-
           <img
             className="image-user"
             src="https://image.flaticon.com/icons/png/512/149/149071.png"
@@ -63,7 +64,7 @@ class Login extends React.Component {
           <InputEmail handleChange={ this.validEmailPassword } />
           <div className="pure-controls">
             <button
-              disabled={ (email && password) ? '' : 'treu' }
+              disabled={ (email && password) ? '' : 'true' }
               type="submit"
               className="pure-button pure-button-primary"
             >
