@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import { registerUser } from '../actions';
 import './Login.css';
 
@@ -17,9 +19,11 @@ class Login extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleLogin(e) {
-    e.preventDefault();
-    const { email, password } = this.state;
+  handleLogin() {
+    const { email } = this.state;
+    const { registeredUser } = this.props;
+
+    registeredUser(email);
   }
 
   handleChange(e) {
@@ -46,6 +50,9 @@ class Login extends React.Component {
 
   render() {
     const { email, password, disabledBtn } = this.state;
+    const { userLoginStatus } = this.props;
+    console.log(userLoginStatus);
+    if (userLoginStatus) return <Redirect to="/carteira" />;
 
     return (
       <main className="login-container">
@@ -91,12 +98,17 @@ class Login extends React.Component {
   }
 }
 
+Login.propTypes = {
+  userLoginStatus: PropTypes.string.isRequired,
+  registeredUser: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
-  user: state.userReducer,
+  userLoginStatus: state.user.email,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (payload) => dispatch(registerUser(payload)),
+  registeredUser: (payload) => dispatch(registerUser(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
