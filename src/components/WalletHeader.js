@@ -4,9 +4,12 @@ import React, { Component } from 'react';
 // PropTypes
 import PropTypes from 'prop-types';
 
+// Redux
+import { connect } from 'react-redux';
+
 class WalletHeader extends Component {
   render() {
-    const { props: { userEmail } } = this;
+    const { props: { userEmail, expensesTotal } } = this;
     return (
       <div className="WalletHeader">
         <span
@@ -17,7 +20,7 @@ class WalletHeader extends Component {
         <span
           data-testid="total-field"
         >
-          0
+          { expensesTotal }
         </span>
         <span
           data-testid="header-currency-field"
@@ -31,6 +34,11 @@ class WalletHeader extends Component {
 
 WalletHeader.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  expensesTotal: PropTypes.number.isRequired,
 };
 
-export default WalletHeader;
+const mapStateToProps = (store) => ({
+  expensesTotal: store.wallet.expensesTotal,
+});
+
+export default connect(mapStateToProps, null)(WalletHeader);
