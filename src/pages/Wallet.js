@@ -58,12 +58,15 @@ class Wallet extends React.Component {
   }
 
   totalExpenses() {
-    const { wallet } = this.state;
+    const { wallet: { expenses } } = this.state;
     return (
       <p className="despezas" data-testid="total-field">
         Despesa Total: R$
         {' '}
-        { wallet.expenses }
+        { expenses.reduce((acc, cur) => {
+          acc += cur;
+          return acc;
+        }, 0) }
       </p>
     );
   }
