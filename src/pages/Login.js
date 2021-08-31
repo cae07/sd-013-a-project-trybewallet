@@ -11,7 +11,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      disable: true,
+      disabled: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,30 +20,27 @@ class Login extends React.Component {
   }
 
   handleChange({ target: { name, value } }) {
-    this.setState({
-      [name]: value,
-    });
-    this.validation(this.state);
+    this.setState({ [name]: value }, () => this.validation());
   }
 
-  validation({ email, password }) {
-    const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i;
-    const number = 6;
+  validation() {
+    const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    const number = 5;
+    const { email, password } = this.state;
+    const disabled = !(regex.test(email) && password.length > number);
 
-    if (regex.test(email) && password.length >= number) {
-      this.setState({ disabled: false });
-    }
+    this.setState({ disabled });
   }
 
   handleClick() {
     const { history } = this.props;
-    const { email, password } = this.state;
-    actionRegisterUser({ email, password });
+    const { email } = this.state;
+    actionRegisterUser(email);
     history.push('/carteira');
   }
 
   render() {
-    const { disable } = this.state;
+    const { disabled } = this.state;
     return (
       <form>
         <fieldset>
@@ -62,7 +59,7 @@ class Login extends React.Component {
           <Button
             name="Entrar"
             onHandleClick={ this.handleClick }
-            disable={ disable }
+            disabled={ disabled }
           />
         </fieldset>
       </form>
