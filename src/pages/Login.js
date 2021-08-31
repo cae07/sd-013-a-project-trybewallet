@@ -1,4 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import '../App.css';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { sendUserInfo } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,6 +16,7 @@ class Login extends React.Component {
         email: '',
         password: '',
       },
+      shouldRedirect: false,
     };
 
     this.validateEmail = this.validateEmail.bind(this);
@@ -50,15 +56,25 @@ class Login extends React.Component {
     });
   }
 
-  formSubmit() {
+  formSubmit(e) {
+    e.preventDefault();
+    const { user: { email, password } } = this.state;
+    const { submitUser } = this.props;
 
+    submitUser(({ email, password }));
+    this.setState({ shouldRedirect: true });
   }
 
   render() {
-    const { invalidEmail, invalidPassword } = this.state;
-
+    const { invalidEmail, invalidPassword, shouldRedirect } = this.state;
+    if (shouldRedirect) {
+      return <Redirect to="/carteira" />;
+    }
     return (
-      <form>
+      <form
+        className="login-form"
+        onSubmit={ this.formSubmit }
+      >
         <label htmlFor="login">
           <input
             onChange={ this.validateEmail }
@@ -80,7 +96,7 @@ class Login extends React.Component {
           />
         </label>
         <button
-          type="button"
+          type="submit"
           disabled={
             invalidEmail || invalidPassword
           }
@@ -92,4 +108,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  submitUser: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  submitUser: (user) => dispatch(sendUserInfo(user)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
