@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './WalletForm.css';
-import { fetchData } from '../../actions';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchData } from '../../actions';
+import './WalletForm.css';
 
 class WalletForm extends Component {
   constructor() {
@@ -16,11 +17,19 @@ class WalletForm extends Component {
   }
 
   componentDidMount() {
-    fetchData();
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
   }
 
   renderOptions() {
-    return <option>option</option>;
+    const { currencies } = this.props;
+    // if (currencies.length > 0) {
+    //   return Object.keys(currencies[0]).map((currency) => (
+    //     <option key={ currency } value={ currency }>{ currency }</option>
+    //   ));
+    // }
+
+    // TODO: Fazer um map para cada moeda
   }
 
   render() {
@@ -76,4 +85,13 @@ const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(WalletForm);
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrencies: () => dispatch(fetchData()),
+});
+
+WalletForm.propTypes = {
+  fetchCurrencies: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

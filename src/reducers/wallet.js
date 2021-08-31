@@ -6,9 +6,10 @@ import {
 } from '../constants';
 
 const INITIAL_STATE = {
-  currencies: [],
+  currencies: [{}],
   expenses: [],
   total: 0,
+  error: '',
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -22,14 +23,14 @@ const wallet = (state = INITIAL_STATE, action) => {
   case LOADING_ACTION_SUCCESS:
     return {
       ...state,
-      loading: false,
-      currencies: action.payload.currencies,
-      expenses: action.payload.expenses,
+      currencies: action.payload,
+      expenses: action.payload,
     };
 
   case LOADING_ACTION_FAIL:
     return {
       ...state,
+      error: action.payload.error,
       loading: false,
     };
 

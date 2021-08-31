@@ -7,45 +7,42 @@ import {
   API_URL,
 } from '../constants';
 
-const registerUser = (user) => ({
+export const registerUser = (user) => ({
   type: REGISTER_USER,
   payload: user,
 });
 
-const loadingAction = () => ({
+export const loadingAction = () => ({
   type: LOADING_ACTION,
-  isLoading: true,
 });
 
-const loadingActionSuccess = (success) => ({
+export const loadingActionSuccess = (payload) => ({
   type: LOADING_ACTION_SUCCESS,
-  isLoading: false,
-  payload: success,
+  payload,
 });
 
-const loadingActionFail = (fail) => ({
+export const loadingActionFail = (payload) => ({
   type: LOADING_ACTION_FAIL,
-  isLoading: false,
-  payload: fail,
+  payload,
 });
 
-const fetchData = () => (
+export const fetchData = () => (
   async (dispatch) => {
     dispatch(loadingAction());
     const SUCCESS_CODE = 200;
 
     try {
       const res = await fetch(API_URL);
+
       if (res.status !== SUCCESS_CODE) {
         throw new Error('Error fetching data');
       }
+
       const data = await res.json();
-      console.log(data);
+
       return dispatch(loadingActionSuccess(data));
     } catch (error) {
       return dispatch(loadingActionFail(error.message));
     }
   }
 );
-
-export { registerUser, fetchData };
