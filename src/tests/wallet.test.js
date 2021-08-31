@@ -33,7 +33,7 @@ describe('4 - Crie uma página para sua carteira com as seguintes característic
 describe.only('5 - Crie um header para a página de carteira contendo as seguintes características:', () => {
   const initial = initialStateHeader;
 
-  test.only('Um elemento que exiba o email do usuário que fez login.', () => {
+  test('Um elemento que exiba o email do usuário que fez login.', () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     const emailField = screen.getByTestId('email-field');
 

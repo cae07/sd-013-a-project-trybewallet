@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 class Header extends React.Component {
   render() {
     const { email, total } = this.props;
@@ -19,10 +21,11 @@ class Header extends React.Component {
               { ' ' }
               { email }
             </li>
-            <li>
-              <span data-testid="total-field">
-                {`Despesa total: R$${total.toFixed(2)}`}
-              </span>
+            <li data-testid="total-field">
+              Despesa Total: R$
+              {' '}
+              {total === undefined ? 0 : 1}
+              {' '}
               <span data-testid="header-currency-field">BRL</span>
             </li>
           </ul>
