@@ -1,6 +1,7 @@
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const SUCCESS_REQUEST = 'SUCCESS_REQUEST';
 export const FAIL_REQUEST = 'FAIL_REQUEST';
+export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 
 export const saveUserEmail = (payload) => ({
   type: SAVE_EMAIL,
@@ -30,3 +31,8 @@ export const getCurrencies = () => (dispatch) => {
     .then((rsp2) => dispatch(getCurrenciesSuccess(rsp2)),
       () => dispatch(getCurrenciesFail));
 };
+
+export const saveNewExpense = (payload) => ({
+  type: SAVE_EXPENSE,
+  payload,
+});

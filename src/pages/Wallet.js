@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import WalletBody from './components/WalletBody';
-import { getCurrencies } from '../actions';
+import { getCurrencies, saveNewExpense } from '../actions';
+
+let id = 0;
 
 class Wallet extends React.Component {
   constructor() {
@@ -10,13 +12,15 @@ class Wallet extends React.Component {
 
     this.state = {
       totalExpenses: 0,
+      currency: 'USD',
       value: 0,
-      d: '',
+      description: '',
       payment: 'cash',
       tag: 'food',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.saveExpense = this.saveExpense.bind(this);
   }
 
   componentDidMount() {
@@ -31,9 +35,39 @@ class Wallet extends React.Component {
     });
   }
 
+  async saveExpense() {
+    const { value, description, payment, tag, currency } = this.state;
+    const { expenseSaving } = this.props;
+    this.setState({
+      currency: 'USD',
+      value: 0,
+      description: '',
+      payment: 'cash',
+      tag: 'food',
+    });
+    const askForExpenseCurrency = await fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((r) => r[currency]);
+    const newName = askForExpenseCurrency.name.split('/');
+    [askForExpenseCurrency.name] = newName;
+    const globalStateObject = {
+      id,
+      value,
+      description,
+      payment,
+      tag,
+      currency,
+      exchangeRates: {
+        ...askForExpenseCurrency,
+      },
+    };
+    id += 1;
+    expenseSaving(globalStateObject);
+  }
+
   render() {
     const { userEmail } = this.props;
-    const { totalExpenses, value, d, payment, tag } = this.state;
+    const { totalExpenses, value, description, payment, tag, currency } = this.state;
     return (
       <div>
         <header>
@@ -44,10 +78,12 @@ class Wallet extends React.Component {
         <WalletBody
           totalExpenses={ totalExpenses }
           value={ value }
-          d={ d }
+          d={ description }
           payment={ payment }
           tag={ tag }
+          crrncy={ currency }
           handleChange={ this.handleChange }
+          saveExpense={ this.saveExpense }
         />
       </div>);
   }
@@ -56,6 +92,7 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
   savePairs: PropTypes.func.isRequired,
+  expenseSaving: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -64,6 +101,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   savePairs: () => dispatch(getCurrencies()),
+  expenseSaving: (globalStateObject) => dispatch(saveNewExpense(globalStateObject)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

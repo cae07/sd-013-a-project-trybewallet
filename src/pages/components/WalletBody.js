@@ -19,7 +19,7 @@ class WalletBody extends Component {
   }
 
   render() {
-    const { value, d, payment, tag, handleChange } = this.props;
+    const { value, d, payment, tag, handleChange, crrncy, saveExpense } = this.props;
     return (
       <fieldset>
         <label htmlFor="value">
@@ -32,13 +32,13 @@ class WalletBody extends Component {
             onChange={ handleChange }
           />
         </label>
-        <label htmlFor="d">
+        <label onChange={ handleChange } htmlFor="d">
           Descrição
-          <input id="d" type="text" name="d" value={ d } onChange={ handleChange } />
+          <input id="d" type="text" name="description" value={ d } />
         </label>
-        <label htmlFor="moeda">
+        <label htmlFor="moeda" onChange={ handleChange } value={ crrncy }>
           Moeda
-          <select id="moeda">
+          <select name="currency" id="moeda">
             {this.filterCurrencies()}
           </select>
         </label>
@@ -60,6 +60,7 @@ class WalletBody extends Component {
             <option value="health">Saúde</option>
           </select>
         </label>
+        <button type="button" onClick={ saveExpense }>Adicionar Despesa</button>
       </fieldset>
     );
   }
@@ -71,6 +72,8 @@ WalletBody.propTypes = {
   payment: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  crrncy: PropTypes.string.isRequired,
+  saveExpense: PropTypes.func.isRequired,
   currencies: PropTypes.objectOf().isRequired,
 };
 
