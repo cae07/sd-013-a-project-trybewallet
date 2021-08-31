@@ -3,6 +3,7 @@ import {
   REQUEST_CURRENCIES,
   GET_CURRENCIES,
   FAILED_REQUEST,
+  ADD_EXPENSE,
 } from './actionTypes';
 
 function requestCurrencies() {
@@ -39,5 +40,26 @@ export function fetchCurrencies() {
           (json) => dispatch(getCurrencies(json)),
           (error) => dispatch(failedRequest(error)),
         ));
+  };
+}
+
+function newExpense(expense) {
+  return {
+    type: ADD_EXPENSE,
+    payload: expense,
+  };
+}
+
+export function addExpense(expense) {
+  return (dispatch) => {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((json) => {
+        const completeExpense = {
+          ...expense,
+          exchangeRates: json,
+        };
+        dispatch(newExpense(completeExpense));
+      });
   };
 }
