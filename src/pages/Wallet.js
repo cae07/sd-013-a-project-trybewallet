@@ -1,12 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Input from '../components/Input';
 import SelectCoin from '../components/SelectCoin';
 import SelectPay from '../components/SelectPay';
 import SelectTag from '../components/SelectTag';
+import { fetchCoin } from '../actions';
+import Input from '../components/Input';
 
 class Wallet extends React.Component {
+  componentDidMount() {
+    const { getCoins } = this.props;
+    getCoins();
+  }
+
   render() {
     const { user } = this.props;
     const { email } = user;
@@ -41,12 +45,17 @@ class Wallet extends React.Component {
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   user: state.user,
 });
+
+const mapDispatchToProps = (dispatch) => ({
+  getCoins: () => dispatch(fetchCoin()),
+});
+
 Wallet.propTypes = {
   user: PropTypes.objectOf(PropTypes.string).isRequired,
+  getCoins: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
