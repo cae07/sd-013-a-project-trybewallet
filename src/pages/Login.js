@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { recordUser } from '../actions';
 // import { Redirect } from 'react-router-dom';
 
@@ -9,6 +10,9 @@ class Login extends React.Component {
     super();
     this.state = {
       butto: true,
+      senha: '',
+      email: '',
+      shouldRedirect: true,
     };
     this.login = this.login.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -17,17 +21,26 @@ class Login extends React.Component {
   login(e) {
     e.preventDefault();
     const { state: { email }, props: { dispatchValue } } = this;
-    // const { dispatchValue } = this.;
     dispatchValue(email);
+    this.setState({ shouldRedirect: false });
   }
 
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
+    const { senha, email } = this.state;
+    const vali = /\S+@\S+\.\S+/; /* soure: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/ */
+    const num = 5; /* procura por validações de email */
+    if (senha.length >= num && vali.test(email)) {
+      this.setState({ butto: false });
+    }
   }
 
   render() {
-    const { butto } = this.state;
+    const { butto, shouldRedirect } = this.state;
+    if (!shouldRedirect) {
+      return <Redirect to="/carteira" />;
+    }
     return (
       <form onSubmit={ this.login }>
         <div>Login</div>
