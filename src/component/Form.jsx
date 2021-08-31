@@ -1,47 +1,56 @@
 import React from 'react';
+import CoinType from './componentsForms/CoinType';
+import Description from './componentsForms/Description';
+import PaymentType from './componentsForms/PaymentType';
+import SpendingReason from './componentsForms/SpendingReason';
+import Value from './componentsForms/Value';
 
 class Form extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: '',
+      description: '',
+      coin: '',
+      method: '',
+      reason: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
   render() {
+    const { value, description, coin, method, reason } = this.state;
     return (
       <form>
-        <label htmlFor="input-value">
-          Valor
-          <input
-            type="text"
-            id="input-value"
-          />
-        </label>
-        <label htmlFor="input-description">
-          Descrição
-          <input
-            type="text"
-            id="input-description"
-          />
-        </label>
-        <label htmlFor="input-change">
-          Moeda
-          <select id="input-change">
-            <option value="empty">0</option>
-          </select>
-        </label>
-        <label htmlFor="input-payment">
-          Método de pagamento
-          <select name="" id="input-payment">
-            <option value="money">Dinheiro</option>
-            <option value="debit">Cartão de crédito</option>
-            <option value="credit">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="input-why">
-          Tag
-          <select name="" id="input-why">
-            <option value="food">Alimentação</option>
-            <option value="play">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
-          </select>
-        </label>
+        <Value
+          onChange={ (event) => this.handleChange(event) }
+          value={ value }
+        />
+        <Description
+          onChange={ (event) => this.handleChange(event) }
+          value={ description }
+        />
+        <CoinType
+          onChange={ (event) => this.handleChange(event) }
+          value={ coin }
+        />
+        <PaymentType
+          onChange={ (event) => this.handleChange(event) }
+          value={ method }
+        />
+        <SpendingReason
+          onChange={ (event) => this.handleChange(event) }
+          value={ reason }
+        />
       </form>
     );
   }
