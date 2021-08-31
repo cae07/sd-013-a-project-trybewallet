@@ -1,10 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import InputText from './InputText';
 import SelectCurrency from './SelectCurrency';
 import SelectInput from './SelectInput';
 import { payMethodOptions, expenseCategoryOptions } from '../data';
+import { getCurrencies } from '../actions';
 
 class ExpensesForm extends React.Component {
+  componentDidMount() {
+    const { populateCoins } = this.props;
+    populateCoins();
+  }
+
   render() {
     return (
       <section>
@@ -36,4 +44,12 @@ class ExpensesForm extends React.Component {
   }
 }
 
-export default ExpensesForm;
+ExpensesForm.propTypes = {
+  populateCoins: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  populateCoins: () => dispatch(getCurrencies()),
+});
+
+export default connect(null, mapDispatchToProps)(ExpensesForm);
