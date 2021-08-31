@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Login, Wallet } from './pages';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
