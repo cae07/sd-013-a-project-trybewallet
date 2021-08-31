@@ -1,7 +1,8 @@
 import { WALLET_DATA } from '../actions';
 
 const INITIAL_STATE = {
-  gastos: '',
+  gastos: 0,
+  cambio: 'BRl',
 };
 
 function wallet(state = INITIAL_STATE, action) {

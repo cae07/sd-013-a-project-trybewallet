@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import { loginEmail } from '../actions';
 
-class Login extends React.Component {
+export class Login extends React.Component {
   constructor() {
     super();
     this.state = {
       email: '',
       password: '',
       disable: true,
+      redirectToCarteira: false,
     };
     this.onclick = this.onclick.bind(this);
     this.activateButton = this.activateButton.bind(this);
@@ -17,16 +19,15 @@ class Login extends React.Component {
   }
 
   onclick() {
-    const { history, dispatchLogin } = this.props;
     const { email } = this.state;
-    const emailValue = document.querySelectorAll('input')[0];
-    const passwordValue = document.querySelectorAll('input')[1];
+    const { userLogin } = this.props;
+    const emailValue = document.getElementById('email');
+    const passwordValue = document.getElementById('senha');
     this.setState({
       email: emailValue.value,
       password: passwordValue.value,
     });
-    dispatchLogin(email);
-    history.push('/carteira');
+    userLogin(email);
   }
 
   onChange() {
@@ -55,7 +56,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disable } = this.state;
+    const { disable, redirectToCarteira } = this.state;
     return (
       <div>
         <input
@@ -84,18 +85,16 @@ class Login extends React.Component {
             Entrar
           </button>
         </div>
+        {redirectToCarteira ? <Redirect to="/carteira" /> : ''}
       </div>);
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchLogin: (email) => dispatch(loginEmail(email)),
+  userLogin: (payload) => dispatch(loginEmail(payload)),
 });
 export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-  dispatchLogin: PropTypes.func.isRequired,
+  userLogin: PropTypes.func.isRequired,
 };
