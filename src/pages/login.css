@@ -13,7 +13,7 @@
 }
 
 .login-section form {
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -31,6 +31,6 @@
 .login-section form button {
   background-color: rgb(0, 196, 124);
   border-radius: 8px;
-  color: rgb(255, 255, 255);
+  color: white;
   margin: 5px 0 5px 0;
 }
