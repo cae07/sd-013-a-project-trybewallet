@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class PasswordInput extends Component {
-
   render() {
     const { func, pass } = this.props;
 
