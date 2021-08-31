@@ -1,8 +1,11 @@
 import React from 'react';
+import InputUser from '../Components/InputUser';
 
 class Login extends React.Component {
   render() {
-    return <div>Login</div>;
+    return (
+      <InputUser />
+    );
   }
 }
 
