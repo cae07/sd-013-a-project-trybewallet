@@ -1,4 +1,3 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
 
 const initialState = {
@@ -6,7 +5,7 @@ const initialState = {
   expenses: [],
 };
 
-function reducerWallet(state = initialState, { type, payload }) {
+function wallet(state = initialState, { type, payload }) {
   switch (type) {
   case LOADING_TYPE:
     return { ...state, loading: true };
@@ -22,4 +21,4 @@ function reducerWallet(state = initialState, { type, payload }) {
   }
 }
 
-export default reducerWallet;
+export default wallet;

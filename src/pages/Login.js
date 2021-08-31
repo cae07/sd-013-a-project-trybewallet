@@ -1,95 +1,88 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-/* import PropTypes from 'prop-types'; */
-import { registerUser } from '../actions';
+import { saveEmail } from '../actions';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
-
+  constructor() {
+    super();
     this.state = {
       email: '',
       password: '',
-      disabled: true,
     };
-
-    this.handleInputs = this.handleInputs.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
   }
 
-  handleInputs({ target: { type, value } }) {
-    this.setState({ [type]: value }, () => {
-      const { email, password } = this.state;
-      const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-      const maxNum = 6;
-      if (emailRegex.test(email) && password.length >= maxNum) {
-        this.setState({ disabled: false });
-      } else {
-        this.setState({ disabled: true });
-      }
-    });
-  }
-
-  handleLogin(e) {
-    e.preventDefault();
+  onSubmitForm() {
+    const { history, EmailKey } = this.props;
+    // Disparamos a nossa action através da função importada
+    // de actions.js, que apelidamos de EmailKey
     const { email } = this.state;
-    const { regUser } = thi.props;
-    regUser(email);
+    EmailKey(email);
+    history.push('/carteira');
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
   }
 
   render() {
-    const { email, password, disabled } = this.state;
-    /* const { loginStatus } = this.props; */
-    const { handleInputs, handleLogin } = this;
-
-    if (isLogged) return <Redirect to="/carteira" />;
-
+    const { email, password } = this.state;
+    const passwordMin = 6;
+    const passwordCorrect = password.length >= passwordMin;
+    const validateEmail = () => {
+      const re = /\S+@\S+\.\S+/;
+      return re.test(email);
+    };
     return (
-      <div className="login-container">
-        <form className="login-form">
-          <h3 className="login-heading">This is a login</h3>
+      <div>
+        <input
+          type="email"
+          name="email"
+          data-testid="email-input"
+          value={ email }
+          onChange={ this.handleChange }
+        />
+        <div>
           <input
-            data-testid="email-input"
-            className="login-email"
-            type="email"
-            placeholder="Email"
-            value={ email }
-            onChange={ handleInputs }
-          />
-          <input
-            data-testid="password-input"
-            className="login-password"
             type="password"
-            placeholder="Password"
+            data-testid="password-input"
+            name="password"
             value={ password }
-            onChange={ handleInputs }
+            onChange={ this.handleChange }
           />
-          <button
-            className="login-btn"
-            type="button"
-            disabled={ disabled }
-            onClick={ handleLogin }
-          >
-            Entrar
-          </button>
-        </form>
+        </div>
+        <button
+          type="submit"
+          disabled={ !(validateEmail() && passwordCorrect) }
+          onClick={ this.onSubmitForm }
+        >
+          Entrar
+        </button>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  loginStatus: state.user.email,
-});
+Login.propTypes = {
+  EmailKey: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  regUser: (payload) => dispatch(registerUser(payload)),
-});
+  EmailKey: (email) => dispatch(saveEmail(email)),
+}
+);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
 
-/* Login.propTypes = {
-  loginStatus: PropTypes.string.isRequired,
-  regUser: PropTypes.func.isRequired,
-}; */
+// https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+// Nesse link acima o regex significa anystring@anystring.anystring código do stackoverflow
+// https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
+// o test retorna um booleano se o email for válido com o regex da true
+// colocando a exclamação nega e daí fica falso com isso o botao ativa.
+// https://medium.com/front-end-weekly/react-tips-disable-buttons-formdata-types-for-function-6c8f23d13b64
