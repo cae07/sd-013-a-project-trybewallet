@@ -1,77 +1,78 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+
 import { Input, Select } from './index';
+import { fetchCurrencies } from '../actions';
 
 const paymentOptions = ['Dinheiro', 'Cartão de Crédito', 'Cartão de Débito'];
 const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-
-export async function fetchCurrencies() {
-  const request = await fetch('https://economia.awesomeapi.com.br/json/all');
-  const response = await request.json();
-  return response;
-}
 
 class FormExpenditure extends React.Component {
   constructor() {
     super();
     this.state = {
-      valor: '',
+      value: '',
       description: '',
-      types: [],
-      payments: '',
+      method: '',
       tag: '',
+      currency: '',
     };
-    this.getCurrencies = this.getCurrencies.bind(this);
+
+    this.changeHandler = this.changeHandler.bind(this);
   }
 
   componentDidMount() {
-    this.getCurrencies();
+    const { getCurrencies } = this.props;
+    getCurrencies();
   }
 
-  async getCurrencies() {
-    const json = await fetchCurrencies();
-    const types = Object.keys(json).filter((key) => key !== 'USDT');
-    this.setState({ types });
+  changeHandler({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
   }
 
   render() {
-    const { valor, description, payments, coin, tag, types } = this.state;
+    const { value, description, method, currency, tag } = this.state;
+    const { list } = this.props;
+
     return (
       <div>
         <form>
           <Input
-            label="Valor:"
+            label="Valor: "
             type="text"
-            onchange="oi"
-            value={ valor }
-            id="valor"
+            onChange={ this.changeHandler }
+            value={ value }
+            name="value"
           />
           <Select
-            onchange="Kek"
-            value={ coin }
+            onChange={ this.changeHandler }
+            value={ currency }
             label="Moeda: "
-            id="coin"
-            options={ types }
+            name="currency"
+            options={ [...list] }
           />
           <Select
-            onchange="Kek"
-            value={ payments }
+            onChange={ this.changeHandler }
+            value={ method }
             label="Método de Pagamento: "
-            id="payments"
+            name="method"
             options={ paymentOptions }
           />
           <Select
-            onchange="Kek"
+            onChange={ this.changeHandler }
             value={ tag }
             label="Tag: "
-            id="tag"
+            name="tag"
             options={ tagOptions }
           />
           <Input
             label="Descrição:"
             type="text"
-            onchange="oi"
+            onChange={ this.changeHandler }
             value={ description }
-            id="description"
+            name="description"
           />
           <input type="submit" value="Add" onClick="lele" />
         </form>
@@ -80,4 +81,15 @@ class FormExpenditure extends React.Component {
   }
 }
 
-export default FormExpenditure;
+const mapStateToProps = ({ wallet }) => ({ list: wallet.currencies });
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrencies()),
+});
+
+FormExpenditure.propTypes = {
+  getCurrencies: PropTypes.func.isRequired,
+  list: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormExpenditure);
