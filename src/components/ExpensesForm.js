@@ -39,9 +39,9 @@ class ExpensesForm extends React.Component {
     });
     try {
       const response = await fetchAPI();
+      console.log(response);
       const data = await Object.entries(response);
-      const currencies = data.filter(([name]) => name !== 'USDT' && name !== 'DOGE')
-        .map(([name]) => name);
+      const currencies = data.map(([name]) => name);
 
       this.setState({
         isLoadingCoins: false,
