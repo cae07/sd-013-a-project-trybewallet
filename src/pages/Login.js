@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { recordUser } from '../actions';
-// import { Redirect } from 'react-router-dom';
 
 class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      butto: true,
+      button: true,
       senha: '',
       email: '',
       shouldRedirect: true,
@@ -19,11 +18,19 @@ class Login extends React.Component {
   }
 
   login(e) {
-    e.preventDefault();
     const { state: { email }, props: { dispatchValue } } = this;
     dispatchValue(email);
+    // history.push('/carteira');
     this.setState({ shouldRedirect: false });
+    e.preventDefault();
   }
+
+  // newRouter() {
+  //   const { props: { history }, state: { button } } = this;
+  //   if (!button) {
+  //     history.push('/carteira');
+  //   }
+  // }
 
   handleChange({ target }) {
     const { name, value } = target;
@@ -32,12 +39,12 @@ class Login extends React.Component {
     const vali = /\S+@\S+\.\S+/; /* soure: https://www.horadecodar.com.br/2020/09/13/como-validar-email-com-javascript/ */
     const num = 5; /* procura por validações de email */
     if (senha.length >= num && vali.test(email)) {
-      this.setState({ butto: false });
+      this.setState({ button: false });
     }
   }
 
   render() {
-    const { butto, shouldRedirect } = this.state;
+    const { button, shouldRedirect } = this.state;
     if (!shouldRedirect) {
       return <Redirect to="/carteira" />;
     }
@@ -65,7 +72,7 @@ class Login extends React.Component {
             data-testid="password-input"
           />
         </label>
-        <button type="submit" disabled={ butto }>Entrar</button>
+        <button type="submit" disabled={ button }>Entrar</button>
       </form>
     );
   }
@@ -76,5 +83,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 Login.propTypes = {
   dispatchValue: PropTypes.func.isRequired,
+  // history: PropTypes.objectOf.isRequired,
 };
 export default connect(null, mapDispatchToProps)(Login);

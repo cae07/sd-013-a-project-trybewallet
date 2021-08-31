@@ -1,14 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
 
 function App() {
   return (
-    <Router>
-      <Route exact path="/" component={ Login } />
+
+    <Switch>
+
+      <Route exact path="/" render={ ({ history }) => <Login history={ history } /> } />
       <Route exact path="/carteira" component={ Wallet } />
-    </Router>
+    </Switch>
+
   );
 }
 
