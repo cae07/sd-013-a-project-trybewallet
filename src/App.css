@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .App {
   text-align: center;
 }
@@ -5,6 +10,13 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+body {
+  width: 100vw;
+  height:100vh;
+  display: grid;
+  place-items: center;
 }
 
 @media ( prefers-reduced-motion : no-preference ) {
