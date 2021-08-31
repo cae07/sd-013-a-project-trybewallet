@@ -1,9 +1,9 @@
 // Coloque aqui suas actions
 import { USER_ACTION, WALLET_ACTION } from './actionTypes';
 
-export const userAction = (state) => ({
+export const userAction = (email) => ({
   type: USER_ACTION,
-  state,
+  email,
 });
 
 export const walletAction = (state) => ({

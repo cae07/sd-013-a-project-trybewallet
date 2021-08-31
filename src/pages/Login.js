@@ -50,7 +50,6 @@ class Login extends React.Component {
       state: { button } } = this;
     return (
       <div>
-        <h1>Trybe Wallet</h1>
         <input
           type="text"
           name="email"

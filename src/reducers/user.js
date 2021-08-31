@@ -11,7 +11,6 @@ const userReducer = (state = INITIAL_STATE, action) => {
   case USER_ACTION:
     return { ...state,
       email: action.email,
-      password: action.password,
     };
 
   default:
