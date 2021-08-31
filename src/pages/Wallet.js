@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Header, Input, Select, Button } from '../componets';
+import { Header, Input, Select, Button, ExpanseTable, HeaderTable } from '../componets';
 import getApi from '../services/getCurrentExchangeApi';
 import { fetchCurrentExchange } from '../actions';
 
@@ -47,6 +47,7 @@ class Wallet extends React.Component {
 
   render() {
     const { currentExchange } = this.state;
+    const { expenses } = this.props;
     const onChange = ({ target }) => this.handleChenge(target);
     return (
       <div>
@@ -84,6 +85,12 @@ class Wallet extends React.Component {
           />
           <Button name="Adicionar despesa" state={ this.state } onClick={ this.setID } />
         </div>
+        <table>
+          <HeaderTable />
+          {expenses.length > 0
+            && expenses
+              .map((expanse, index) => <ExpanseTable key={ index } data={ expanse } />)}
+        </table>
       </div>
     );
   }
@@ -91,10 +98,15 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   currentExchange: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
+
+const mapStateToProps = ({ wallet: { expenses } }) => ({
+  expenses,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   currentExchange: (state) => dispatch(fetchCurrentExchange(state)),
 });
 
-export default connect(null, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

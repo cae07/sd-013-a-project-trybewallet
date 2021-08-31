@@ -13,7 +13,8 @@ class Header extends React.Component {
         <span data-testid="total-field">
           { parseFloat(expenses.reduce((acumulator, currentValue) => acumulator
           + (currentValue.value
-          * currentValue.exchangeRates[currentValue.currency].ask), 0))}
+          * currentValue.exchangeRates[currentValue.currency].ask), 0))
+            .toLocaleString('en', { style: 'currency', currency: 'BRL' })}
         </span>
         <span data-testid="header-currency-field">BRL</span>
       </div>
