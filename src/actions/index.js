@@ -1,16 +1,18 @@
 export const EMAIL_LOGIN = 'EMAIL_LOGIN';
-/* export const LOADING_TYPE = 'LOADING_TYPE';
+export const LOADING_TYPE = 'LOADING_TYPE';
 export const SUCCESS_TYPE = 'SUCCESS_TYPE';
-export const ERROR_TYPE = 'ERROR_TYPE'; */
+export const ERROR_TYPE = 'ERROR_TYPE';
+const URL = 'https://economia.awesomeapi.com.br/json/all';
 
 export const emailLogin = (payload) => ({
   type: EMAIL_LOGIN,
   payload,
 });
 
-/* export const loadingAction = () => ({
+export const loadingAction = () => ({
   type: LOADING_TYPE,
 });
+
 export const successAction = (payload) => ({
   type: SUCCESS_TYPE,
   payload,
@@ -29,4 +31,4 @@ export const fetchName = () => async (dispatch) => {
   } catch (error) {
     return dispatch(errorAction(error.message));
   }
-}; */
+};
