@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class PaymentSelect extends Component {
+class MethodSelect extends Component {
   render() {
     return (
       <label htmlFor="payment-method-select">
         Método de pagamento
-        <select name="payment-method-select" id="payment-method-select">
+        <select name="method" id="payment-method-select">
           <option value="" checked disabled>Selecione um método de pagamento</option>
           <option value="cash">Dinheiro</option>
           <option value="credit-card">Cartão de crédito</option>
@@ -16,4 +16,4 @@ class PaymentSelect extends Component {
   }
 }
 
-export default PaymentSelect;
+export default MethodSelect;

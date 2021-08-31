@@ -5,7 +5,7 @@ class TagSelect extends Component {
     return (
       <label htmlFor="expense-tag-select">
         Tag
-        <select name="expense-tag-select" id="expense-tag-select">
+        <select name="tag" id="expense-tag-select">
           <option value="" checked disabled>Selecione um Categoria</option>
           <option value="food">Alimentação</option>
           <option value="leisure">Lazer</option>

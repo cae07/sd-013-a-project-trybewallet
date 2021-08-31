@@ -1,41 +1,19 @@
+// React
 import React, { Component } from 'react';
 
+// PropTypes
+import PropTypes from 'prop-types';
+
 class CurrencySelect extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currencies: [],
-    };
-
-    this.fetchCurrencies = this.fetchCurrencies.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchCurrencies();
-  }
-
-  fetchCurrencies() {
-    fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((data) => {
-        delete data.USDT;
-        this.setState({
-          currencies: Object.keys(data),
-        });
-      });
-  }
-
   render() {
-    const { state: { currencies } } = this;
+    const { props: { currencies } } = this;
     return (
       <label htmlFor="currency-select">
         Moeda
-        <select name="currency-select" id="currency-select">
-          <option value="" checked disabled>Selecione uma moeda</option>
+        <select name="currency" id="currency-select">
           {
-            currencies.map((currency) => (
-              <option key={ currency } value={ currency }>{currency}</option>
+            currencies.map((code) => (
+              <option key={ code } value={ code }>{ code }</option>
             ))
           }
         </select>
@@ -43,5 +21,9 @@ class CurrencySelect extends Component {
     );
   }
 }
+
+CurrencySelect.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default CurrencySelect;
