@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { removeExpense } from '../actions';
 
 function round2Digits(number) {
   return Math.round((Number(number) + Number.EPSILON) * 100) / 100;
@@ -13,7 +15,7 @@ function convertCurrency(expense) {
 
 class TableRow extends Component {
   render() {
-    const { expense } = this.props;
+    const { expense, removeRow } = this.props;
     const {
       value,
       description,
@@ -21,6 +23,7 @@ class TableRow extends Component {
       tag,
       currency,
       exchangeRates,
+      id,
     } = expense;
     const { name, ask } = exchangeRates[currency]; // Example of name -> "Dólar Americano/Real Brasileiro"
     const targetCurrency = name.split('/')[0];
@@ -36,20 +39,20 @@ class TableRow extends Component {
         <td>{ round2Digits(ask) }</td>
         <td>{ convertCurrency(expense) }</td>
         <td>{ baseCurrency }</td>
-        <td>Editar/Excluir</td>
+        <td>
+          <button
+            data-testid="delete-btn"
+            type="button"
+            onClick={ () => removeRow(id) }
+          >
+            x
+          </button>
+        </td>
       </tr>
     );
   }
 }
-/* <th>Descrição</th>
-<th>Tag</th>
-<th>Método de pagamento</th>
-<th>Valor</th>
-<th>Moeda</th>
-<th>Câmbio utilizado</th>
-<th>Valor convertido</th>
-<th>Moeda de conversão</th>
-<th>Editar/Excluir</th> */
+
 TableRow.propTypes = {
   expense: PropTypes.shape({
     value: PropTypes.string,
@@ -57,11 +60,17 @@ TableRow.propTypes = {
     tag: PropTypes.string,
     currency: PropTypes.string,
     method: PropTypes.string,
+    id: PropTypes.number,
     exchangeRates: PropTypes.shape({
       ask: PropTypes.string,
       name: PropTypes.string,
     }),
   }).isRequired,
+  removeRow: PropTypes.func.isRequired,
 };
 
-export default TableRow;
+const mapDispatchToProps = (dispatch) => ({
+  removeRow: (id) => dispatch(removeExpense(id)),
+});
+
+export default connect(null, mapDispatchToProps)(TableRow);

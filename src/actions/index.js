@@ -4,6 +4,7 @@ import {
   GET_CURRENCIES,
   FAILED_REQUEST,
   ADD_EXPENSE,
+  REMOVE_EXPENSE,
 } from './actionTypes';
 
 function requestCurrencies() {
@@ -61,5 +62,12 @@ export function addExpense(expense) {
         };
         dispatch(newExpense(completeExpense));
       });
+  };
+}
+
+export function removeExpense(id) {
+  return {
+    type: REMOVE_EXPENSE,
+    payload: id,
   };
 }
