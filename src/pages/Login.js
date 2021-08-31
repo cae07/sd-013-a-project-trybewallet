@@ -30,6 +30,15 @@ class Login extends React.Component {
   render() {
     const { handleChange, handleClick } = this;
     const { email, password } = this.state;
+    const minCharactersPassword = 6;
+    const validPassword = password.length >= minCharactersPassword;
+    // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+    // Nesse link acima o regex significa anystring@anystring.anystring código do stackoverflow
+    // Ajuda de Aline Hoshino
+    const validEmail = () => {
+      const regex = /\S+@\S+\.\S+/;
+      return regex.test(email);
+    };
     return (
       <div>
         <Input
@@ -48,6 +57,7 @@ class Login extends React.Component {
         />
         <Button
           onClick={ handleClick }
+          disabled={ !(validEmail() && validPassword) }
         />
       </div>
     );
