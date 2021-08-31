@@ -3,16 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      totalExpenses: 0,
-    };
-  }
-
   render() {
     const { email, totalValue } = this.props;
-    const { totalExpenses } = this.state;
     return (
       <div>
         <p data-testid="email-field">{email}</p>
@@ -28,6 +20,7 @@ const mapStateToProps = (state) => ({
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  totalValue: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Header);

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getApiInfo, addExpense } from '../actions';
+import ContentTable from '../components/ContentTable';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -108,6 +109,7 @@ class Wallet extends React.Component {
           </label>
           <input type="button" value="Adicionar despesa" onClick={ () => handleClick() } />
         </form>
+        <ContentTable />
       </>
     );
   }
@@ -124,9 +126,6 @@ const mapStateToProps = (state) => ({
 });
 
 Wallet.propTypes = {
-  // currencies: PropTypes.object.shape({
-
-  // }).isRequired,
   getCurrency: PropTypes.func.isRequired,
   addToExpenses: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
