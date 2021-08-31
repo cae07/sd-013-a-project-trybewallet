@@ -1,4 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { sendUserInfo } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -6,56 +10,59 @@ class Login extends React.Component {
     this.state = {
       authEmail: true,
       authPassword: true,
-      user: {
-        email: '',
-        password: '',
-      },
+      email: '',
+      password: '',
+      shouldRedirect: false,
     };
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
 
-  formSubmit() {
-
+  formSubmit(event) {
+    event.preventDefault();
+    const { email, password } = this.state;
+    const { submitUser } = this.props;
+    submitUser(({ email, password }));
+    this.setState({ shouldRedirect: true });
   }
 
   validateEmail({ target }) {
     const { value } = target;
-    const { user } = this.state;
     const regex = /\S+@\S+\.\S+/; // Gesse Turma 13A
     if (regex.test(value)) {
       return this.setState({
         authEmail: false,
-        user: { ...user, email: value },
+        email: value,
       });
     }
     return this.setState({
       authEmail: true,
-      user: { ...user, email: value },
+      email: value,
     });
   }
 
   validatePassword({ target }) {
     const { value } = target;
-    const { user } = this.state;
     const MIN_LENGTH_PASSWORD = 6;
     if (value.length >= MIN_LENGTH_PASSWORD) {
       return this.setState({
         authPassword: false,
-        user: { ...user, password: value },
+        password: value,
       });
     }
     return this.setState({
       authPassword: true,
-      user: { ...user, password: value },
-    });
+      password: value });
   }
 
   render() {
-    const { authEmail, authPassword } = this.state;
+    const { authEmail, authPassword, shouldRedirect } = this.state;
+    if (shouldRedirect) {
+      return <Redirect to="/carteira" />;
+    }
     return (
-      <form>
+      <form className="forms" onSubmit={ this.formSubmit }>
         <label htmlFor="login">
           <input
             id="login"
@@ -76,7 +83,7 @@ class Login extends React.Component {
         </label>
         <button
           disabled={ authEmail || authPassword }
-          type="button"
+          type="submit"
         >
           Entrar
         </button>
@@ -85,4 +92,11 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  submitUser: PropTypes.func,
+}.isRequired;
+
+const mapDispachToProps = (dispatch) => ({
+  submitUser: (payload) => dispatch(sendUserInfo(payload)),
+});
+export default connect(null, mapDispachToProps)(Login);
