@@ -35,10 +35,10 @@ class Login extends React.Component {
   }
 
   handleSubmit(e) {
-    const { sendUserInfo } = this.props;
+    const { sendUserInfoToStore } = this.props;
     const { email, password } = this.state;
     e.preventDefault();
-    sendUserInfo(({ email, password }));
+    sendUserInfoToStore(({ email, password }));
     this.setState({ shouldRedirect: true });
   }
 
@@ -86,11 +86,11 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  sendUserInfo: PropTypes.func.isRequired,
+  sendUserInfoToStore: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  sendUserInfo: (payload) => dispatch(sendUserInfo(payload)),
+  sendUserInfoToStore: (payload) => dispatch(sendUserInfo(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
