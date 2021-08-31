@@ -33,7 +33,7 @@ class Login extends React.Component {
 
   /**
    * https://learnetto.com/blog/react-form-validation
-   * Site usado axiliar no segundo parâmetro do setState
+   * Site usado para auxiliar no segundo parâmetro do setState
   */
   handleChange({ target }) {
     const { name, value } = target;
@@ -52,29 +52,31 @@ class Login extends React.Component {
   render() {
     const { email, password, btnDisabled } = this.state;
     return (
-      <form>
-        <input
-          type="text"
-          data-testid="email-input"
-          onChange={ this.handleChange }
-          name="email"
-          value={ email }
-        />
-        <input
-          type="password"
-          data-testid="password-input"
-          onChange={ this.handleChange }
-          name="password"
-          value={ password }
-        />
-        <button
-          type="submit"
-          onClick={ this.handleClick }
-          disabled={ btnDisabled }
-        >
-          Entrar
-        </button>
-      </form>
+      <section id="section-form">
+        <form>
+          <input
+            type="text"
+            data-testid="email-input"
+            onChange={ this.handleChange }
+            name="email"
+            value={ email }
+          />
+          <input
+            type="password"
+            data-testid="password-input"
+            onChange={ this.handleChange }
+            name="password"
+            value={ password }
+          />
+          <button
+            type="submit"
+            onClick={ this.handleClick }
+            disabled={ btnDisabled }
+          >
+            Entrar
+          </button>
+        </form>
+      </section>
     );
   }
 }
