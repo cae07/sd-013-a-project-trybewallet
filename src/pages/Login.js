@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import login from '../actions';
+import { login } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -52,7 +52,7 @@ class Login extends React.Component {
   render() {
     const { email, password, btnDisabled } = this.state;
     return (
-      <section id="section-form">
+      <section id="section-form-login">
         <form>
           <input
             type="text"
