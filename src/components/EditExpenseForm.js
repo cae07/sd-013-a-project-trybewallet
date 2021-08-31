@@ -31,10 +31,11 @@ class EditExpenseForm extends React.Component {
     };
 
     // As funções abaixo serão habilitadas para serem usadas em todo o componente/page
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.renderInput = this.renderInput.bind(this);
-    this.renderSelect = this.renderSelect.bind(this);
+    this.handleChange = this.handleChange.bind(this); // Conforme for digitando os campos são guardados na state
+    this.handleClick = this.handleClick.bind(this); // Função que quando clicar no botão "Editar despesa" é executada
+    this.renderInput = this.renderInput.bind(this); // Função de renderização dos Inputs da tela conforme parametros recebidos
+    this.renderSelect = this.renderSelect.bind(this); // Função de renderização do Select da tela conforme parametros recebidos
+    this.renderSelectCurrencies = this.renderSelectCurrencies.bind(this); // Função para montar a combolist com as moedas
   }
 
   // Tudo que for digitado nos campos, é alterado automaticamente na state
@@ -91,6 +92,7 @@ class EditExpenseForm extends React.Component {
     );
   }
 
+  // Função para montar a combolist com as moedas
   renderSelectCurrencies(value, handleChange) {
     const { currencies } = this.props; // Desconstroi da state que foi lida através da mapStateToProps
 
@@ -103,6 +105,7 @@ class EditExpenseForm extends React.Component {
         value={ value }
         className="currency-input"
       >
+        {/* percorre o currencies para montar o combolist com as moedas  */}
         {currencies.map((currency) => {
           if (currency === 'USDT') return '';
           return (
