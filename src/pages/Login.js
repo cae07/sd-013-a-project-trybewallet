@@ -35,7 +35,6 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    console.log(this.state);
     const { handleUserLogin, history } = this.props;
     handleUserLogin(this.state);
     this.setState({
