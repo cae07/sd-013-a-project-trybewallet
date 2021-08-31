@@ -1,10 +1,13 @@
 // Coloque aqui suas actions
+export const USER_ACTION = 'USER_ACTION';
+export const WALLET_ACTION = 'WALLET_ACTION';
 
-export const USER_ACTION = (email) => ({
-  type: 'USER_ACTION',
-  email,
+export const sendUserInfo = (payload) => ({
+  type: USER_ACTION,
+  payload,
 });
 
-export const WALLET_ACTION = () => ({
-  type: 'WALLET_ACTION',
+export const sendWalletInfo = (payload) => ({
+  type: WALLET_ACTION,
+  payload,
 });
