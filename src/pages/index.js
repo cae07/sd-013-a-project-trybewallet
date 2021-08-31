@@ -1,2 +1,2 @@
 export { default as Login } from './Login';
-export { default as wallet } from './Wallet';
+export { default as Wallet } from './Wallet';
