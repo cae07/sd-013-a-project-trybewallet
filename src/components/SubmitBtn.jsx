@@ -21,7 +21,7 @@ SubmitBtn.propTypes = {
   name: PropTypes.string.isRequired,
   testid: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  isValid: PropTypes.func.isRequired,
+  isValid: PropTypes.bool.isRequired,
 };
 
 export default SubmitBtn;
