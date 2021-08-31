@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { addSpent, getCoins } from '../actions';
 import WalletInput from '../components/WalletInput';
 import WalletSelect from '../components/WalletSelect';
+import WalletTable from '../components/WalletTable';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class Wallet extends React.Component {
     this.getCoinsOptions = this.getCoinsOptions.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleExpenses = this.handleExpenses.bind(this);
-    // this.totalExpenses = this.totalExpenses.bind(this);
+    this.totalExpenses = this.totalExpenses.bind(this);
     this.checkInputs = this.checkInputs.bind(this);
   }
 
@@ -95,7 +96,7 @@ class Wallet extends React.Component {
         <span
           data-testid="total-field"
         >
-          {this.totalExpenses()}
+          {`Despesa Total: ${this.totalExpenses()}`}
         </span>
         <span
           data-testid="header-currency-field"
@@ -161,14 +162,17 @@ class Wallet extends React.Component {
     return (
       <>
         {this.renderHeader()}
-        {this.renderForms()}
-        <button
-          onClick={ this.handleExpenses }
-          type="button"
-          disabled={ addButton }
-        >
-          Adicionar despesa
-        </button>
+        <div>
+          {this.renderForms()}
+          <button
+            onClick={ this.handleExpenses }
+            type="button"
+            disabled={ addButton }
+          >
+            Adicionar despesa
+          </button>
+        </div>
+        <WalletTable />
       </>);
   }
 }
