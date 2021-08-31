@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function InputSelect({ label, listSelect }) {
   return (
-    <label>
+    <label htmlFor="item">
       {`${label}`}
       <select>
         {listSelect.map(

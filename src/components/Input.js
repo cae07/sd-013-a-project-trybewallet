@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 function Input({ label }) {
   return (
-    <label>
+    <labe htmlFor="valor">
       {`${label}`}
       <input type="text" name="valor" />
-    </label>
+    </labe>
 
   );
 }
