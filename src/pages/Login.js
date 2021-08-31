@@ -51,7 +51,7 @@ class Login extends React.Component {
   render() {
     const { email, password, disabledBtn } = this.state;
     const { userLoginStatus } = this.props;
-    console.log(userLoginStatus);
+
     if (userLoginStatus) return <Redirect to="/carteira" />;
 
     return (

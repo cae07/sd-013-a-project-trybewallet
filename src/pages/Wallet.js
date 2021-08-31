@@ -1,17 +1,13 @@
 import React from 'react';
+import './Wallet.css';
+import WalletHeader from '../components/WalletHeader';
 
 class Wallet extends React.Component {
   render() {
     return (
       <>
-        <header>EMAIL DO USUARIO</header>
-        <div>
-          Total de Despesas
-        </div>
-
-        <div>
-          CÂMBIO: BRL
-        </div>
+        <h1>Carteira</h1>
+        <WalletHeader />
       </>
     );
   }
