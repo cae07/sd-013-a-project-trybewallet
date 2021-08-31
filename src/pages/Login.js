@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// O connect é uma função muito importante que conecta o mapStateToProps e o mapDispatchToProps com a store
+// O connect é uma função muito importante que conecta o mapStateToProps e o mapDispatchToProps com o componente
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // O Redirect tem a função de redirecionar a página
