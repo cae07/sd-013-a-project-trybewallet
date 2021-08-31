@@ -15,8 +15,8 @@ class Wallet extends React.Component {
       currency: 'USD',
       value: 0,
       description: '',
-      payment: 'cash',
-      tag: 'food',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -36,25 +36,27 @@ class Wallet extends React.Component {
   }
 
   async saveExpense() {
-    const { value, description, payment, tag, currency } = this.state;
+    const { value, description, method, tag, currency, totalExpenses } = this.state;
     const { expenseSaving } = this.props;
     this.setState({
       currency: 'USD',
       value: 0,
       description: '',
-      payment: 'cash',
+      method: 'cash',
       tag: 'food',
     });
     const askForExpenseCurrency = await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
-      .then((r) => r[currency]);
-    const newName = askForExpenseCurrency.name.split('/');
-    [askForExpenseCurrency.name] = newName;
+      .then((r) => r);
+    Object.values(askForExpenseCurrency).forEach((cur) => {
+      const newName = cur.name.split('/');
+      [cur.name] = newName;
+    });
     const globalStateObject = {
       id,
       value,
       description,
-      payment,
+      method,
       tag,
       currency,
       exchangeRates: {
@@ -63,11 +65,16 @@ class Wallet extends React.Component {
     };
     id += 1;
     expenseSaving(globalStateObject);
+    let newExpenses = value * askForExpenseCurrency[currency].ask;
+    newExpenses = Math.round((newExpenses + totalExpenses) * 100) / 100;
+    this.setState({
+      totalExpenses: newExpenses,
+    });
   }
 
   render() {
     const { userEmail } = this.props;
-    const { totalExpenses, value, description, payment, tag, currency } = this.state;
+    const { totalExpenses, value, description, method, tag, currency } = this.state;
     return (
       <div>
         <header>
@@ -79,7 +86,7 @@ class Wallet extends React.Component {
           totalExpenses={ totalExpenses }
           value={ value }
           d={ description }
-          payment={ payment }
+          method={ method }
           tag={ tag }
           crrncy={ currency }
           handleChange={ this.handleChange }
