@@ -6,7 +6,7 @@ const initialState = {
   error: '',
 };
 
-function walletReducer(state = initialState, { type, payload }) {
+function wallet(state = initialState, { type, payload }) {
   switch (type) {
   case LOADING_TYPE:
     return { ...state, loading: true };
@@ -22,4 +22,4 @@ function walletReducer(state = initialState, { type, payload }) {
   }
 }
 
-export default walletReducer;
+export default wallet;

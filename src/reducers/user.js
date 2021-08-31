@@ -6,7 +6,7 @@ const initialState = {
   error: '',
 };
 
-function userReducer(state = initialState, { type, payload }) {
+function user(state = initialState, { type, payload }) {
   switch (type) {
   case LOADING_TYPE:
     return { ...state, loading: true };
@@ -22,4 +22,4 @@ function userReducer(state = initialState, { type, payload }) {
   }
 }
 
-export default userReducer;
+export default user;
