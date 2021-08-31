@@ -7,24 +7,28 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      disableButton: true,
+      isDisabled: true,
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.activeButton = this.activeButton.bind(this);
   }
 
-  validataionInput() {
+  handleChange({ target }) {
+    this.setState({ [target.name]: target.value }, () => {
+      this.activeButton();
+    });
+  }
+
+  activeButton() {
     const { email, password } = this.state;
     const minPasswordLength = 6;
-    const checkEmail = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
-    const checkPassword = (password.length >= minPasswordLength);
-    if (checkEmail && checkPassword) {
-      this.setState({ disableButton: false });
-    } else {
-      this.setState({ disableButton: true });
-    }
+    const validEmail = (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+    this.setState({ isDisabled: !(password.length >= minPasswordLength && validEmail) });
   }
 
   render() {
-    const { disableButton } = this.state;
+    const { email, password, isDisabled } = this.state;
     return (
       <div>
         <form>
@@ -35,6 +39,9 @@ class Login extends React.Component {
               id="email-login"
               type="text"
               placeholder="Digite seu Email"
+              onChange={ this.handleChange }
+              name="email"
+              value={ email }
             />
           </label>
           <label htmlFor="password-login">
@@ -44,11 +51,15 @@ class Login extends React.Component {
               id="password-login"
               type="password"
               placeholder="Digite sua senha"
+              name="password"
+              value={ password }
+              onChange={ this.handleChange }
             />
           </label>
           <button
-            type="button"
-            disabled={ disableButton }
+            className="enter"
+            type="submit"
+            disabled={ isDisabled }
           >
             Entrar
           </button>

@@ -1,9 +1,14 @@
 // Coloque aqui suas actions
 
-export const setUser = (payload) => ({
-  type: SET_USER, payload,
-});
+/* import { USER_ACTION } from "./actionTypes";
 
-export const setWallet = (payload) => ({
-  type: SET_WALLET, payload,
-});
+export const userAction = () => ({
+  type: USER_ACTION,
+  user: {
+    email,
+    password,
+    disableButton: false,
+  },
+}); */
+
+// Descomentar depois
