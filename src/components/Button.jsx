@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Button(props) {
-  const { name, text, id, className, testID, onClick } = props;
+  const { name, text, id, className, testID, onClick, disabled } = props;
 
   return (
     <div>
@@ -13,6 +13,7 @@ function Button(props) {
         className={ className }
         data-testid={ testID }
         onClick={ onClick }
+        disabled={ disabled }
       >
         { text }
       </button>
@@ -20,7 +21,7 @@ function Button(props) {
   );
 }
 
-const { string, func } = PropTypes;
+const { string, func, bool } = PropTypes;
 
 Button.propTypes = {
   name: string,
@@ -29,6 +30,7 @@ Button.propTypes = {
   className: string,
   testID: string,
   onClick: func,
+  disabled: bool,
 }.isRequired;
 
 export default Button;

@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom';
@@ -9,12 +8,10 @@ import Wallet from './pages/Wallet';
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" render={ () => <Login /> } />
-        <Route path="/carteira" render={ () => <Wallet /> } />
-      </Switch>
-    </Router>
+    <Switch>
+      <Route exact path="/" component={ Login } />
+      <Route exact path="/carteira" component={ Wallet } />
+    </Switch>
   );
 }
 
