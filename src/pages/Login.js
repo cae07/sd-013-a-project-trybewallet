@@ -1,4 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { sendUserInfo } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,6 +14,7 @@ class Login extends React.Component {
         email: '',
         password: '',
       },
+      authenticated: false,
     };
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
@@ -19,6 +24,7 @@ class Login extends React.Component {
   validateEmail({ target }) {
     const { user } = this.state;
     const { value } = target;
+    // Obg Gessé pelo Regex maroto!@S+
     const regex = /\S+@\S+\.\S+/;
     if (regex.test(value)) {
       return this.setState({
@@ -46,14 +52,19 @@ class Login extends React.Component {
     });
   }
 
-  formSubmit() {
-
+  formSubmit(e) {
+    e.preventDefault();
+    const { user: { email, password } } = this.state;
+    const { submitUser } = this.props;
+    submitUser(({ email, password }));
+    this.setState({ authenticated: true });
   }
 
   render() {
-    const { invalidPassword, invalidEmail } = this.state;
+    const { invalidPassword, invalidEmail, authenticated } = this.state;
+    if (authenticated) return <Redirect to="/carteira" />;
     return (
-      <form>
+      <form onSubmit={ this.formSubmit }>
         <label htmlFor="login">
           <input
             id="login"
@@ -75,7 +86,7 @@ class Login extends React.Component {
           />
         </label>
         <button
-          type="button"
+          type="submit"
           disabled={ invalidEmail || invalidPassword }
         >
           Entrar
@@ -85,4 +96,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  submitUser: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  submitUser: (user) => dispatch(sendUserInfo(user)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
