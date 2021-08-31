@@ -1,4 +1,4 @@
-import { COINS_LOADING, COINS_SUCCESS, COINS_FAIL, SPENT_SUCCESS } from '../actions';
+import { COINS_LOADING, COINS_SUCCESS, COINS_FAIL, SPENT_SUCCESS, DELETE_ITEM } from '../actions';
 
 const INICIAL_STATE = {
   currencies: [],
@@ -29,6 +29,11 @@ const wallet = (state = INICIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses, { ...action.spent, id: state.expenses.length }],
       isLoading: false,
+    };
+  case DELETE_ITEM:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.itemId),
     };
   default:
     return state;

@@ -8,8 +8,7 @@ class WalletSelect extends Component {
       <label htmlFor={ id }>
         {labelText}
         <select value={ value } onChange={ onChange } aria-label={ ariaLabel } id={ id }>
-          {Object.keys(currencies)
-            .map((coin) => <option key={ coin } value={ coin }>{coin}</option>)}
+          {currencies.map((coin) => <option key={ coin } value={ coin }>{coin}</option>)}
         </select>
       </label>
     );

@@ -8,6 +8,8 @@ export const COINS_FAIL = 'COINS_FAIL';
 
 export const SPENT_SUCCESS = 'SPENT_SUCCESS';
 
+export const DELETE_ITEM = 'DELETE_ITEM';
+
 export const getUserEmail = (payload) => ({
   type: GET_USER_EMAIL,
   email: payload,
@@ -31,6 +33,11 @@ const spentSuccess = (payload, exchangeRates) => ({
   },
 });
 
+export const deleteRow = (itemId) => ({
+  type: DELETE_ITEM,
+  itemId,
+});
+
 // Tip from Murilo Rainho
 const fetchCoinAPI = async () => {
   const apiResponse = await fetch('https://economia.awesomeapi.com.br/json/all');
@@ -43,7 +50,8 @@ export const getCoins = () => async (dispatch) => {
   dispatch(coinsLoading);
   try {
     const coinsLabel = await fetchCoinAPI();
-    dispatch(coinsSuccess(coinsLabel));
+    // Tip from Murilo Rainho
+    dispatch(coinsSuccess(Object.keys(coinsLabel)));
   } catch (error) {
     dispatch(coinsFail(error));
   }
