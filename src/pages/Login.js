@@ -1,84 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { saveEmail } from '../actions';
+import Input from '../components/Input';
+import Button from '../components/Button';
 
 class Login extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: '',
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.onSubmitForm = this.onSubmitForm.bind(this);
-  }
-
-  onSubmitForm() {
-    const { history, EmailKey } = this.props;
-    // Disparamos a nossa action através da função importada
-    // de actions.js, que apelidamos de EmailKey
-    const { email } = this.state;
-    EmailKey(email);
-    history.push('/carteira');
-  }
-
-  handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({ [name]: value });
-  }
-
   render() {
-    const { email, password } = this.state;
-    const passwordMin = 6;
-    const passwordCorrect = password.length >= passwordMin;
-    const validateEmail = () => {
-      const re = /\S+@\S+\.\S+/;
-      return re.test(email);
-    };
     return (
       <div>
-        <input
-          type="email"
+        <Input
+          label="Email:"
           name="email"
-          data-testid="email-input"
-          value={ email }
-          onChange={ this.handleChange }
+          datatestid="email-input"
+          onChange=""
         />
-        <div>
-          <input
-            type="password"
-            data-testid="password-input"
-            name="password"
-            value={ password }
-            onChange={ this.handleChange }
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={ !(validateEmail() && passwordCorrect) }
-          onClick={ this.onSubmitForm }
-        >
-          Entrar
-        </button>
+        <Input
+          label="Senha:"
+          name="password"
+          datatestid="password-input"
+          onChange=""
+        />
+        <Button
+          onClick=""
+        />
       </div>
     );
   }
 }
 
-Login.propTypes = {
-  EmailKey: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  EmailKey: (email) => dispatch(saveEmail(email)),
-}
-);
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;
 
 // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
 // Nesse link acima o regex significa anystring@anystring.anystring código do stackoverflow

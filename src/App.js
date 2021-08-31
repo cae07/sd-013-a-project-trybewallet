@@ -1,17 +1,17 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
-import Wallet from './pages/Wallet';
+/* import Wallet from './pages/Wallet'; */
+import './App.css';
 
-function App() {
-  return (
-    <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route path="/carteira" component={ Wallet } />
-    </Switch>
-  );
+class App extends Component {
+  render() {
+    return (
+      <Switch>
+        <Route exact path="/" component={ Login } />
+      </Switch>
+    );
+  }
 }
-
 export default App;
-
-// codigo inteiro baseado nos estudos da aluna Aline Eiko Hoshino <3
+// codigo inteiro baseado nos estudos da aluna Aline Eiko Hoshino e do Pedro Delicoli
