@@ -22,7 +22,7 @@ export const errorAction = (payload) => ({
   payload,
 });
 export const fetchName = () => async (dispatch) => {
-  dispatch(loadinAction());
+  dispatch(loadingAction());
   try {
     const res = await fetch(URL);
     if (!res.ok) throw new Error('fetch failed');
