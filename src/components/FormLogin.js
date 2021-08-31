@@ -12,7 +12,16 @@ class FormLogin extends React.Component {
       password: '',
       validateLogin: false,
     };
+    this.onSubmitForm = this.onSubmitForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  onSubmitForm() {
+    const { history, dispatchLogin } = this.props;
+    // Disparamos a nossa action através da função importada
+    // de actions.js, que apelidamos de dispatchLogin
+    dispatchLogin();
+    history.push('/carteira');
   }
 
   handleChange({ target }) {
@@ -35,7 +44,6 @@ class FormLogin extends React.Component {
   }
 
   render() {
-    const { onSubmitForm } = this.props;
     const { validateLogin } = this.state;
     return (
       <div className="divWallet">
@@ -67,7 +75,7 @@ class FormLogin extends React.Component {
                 value="Entrar"
                 className="btn float-right login_btn"
                 disabled={ !validateLogin }
-                onClick={ () => onSubmitForm(this.state) }
+                onClick={ this.onSubmitForm() }
               >
                 Entrar
               </button>
@@ -79,11 +87,14 @@ class FormLogin extends React.Component {
 }
 
 FormLogin.propTypes = {
-  onSubmitForm: PropTypes.func.isRequired,
+  dispatchLogin: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchSetInfo: (infoUser) => dispatch(saveLogin(infoUser)),
+  dispatchLogin: (infoUser) => dispatch(saveLogin(infoUser)),
 });
 
 export default connect(null, mapDispatchToProps)(FormLogin);

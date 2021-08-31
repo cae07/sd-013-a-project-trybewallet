@@ -9,9 +9,7 @@ const user = (state = INITIAL_STATE, action) => {
   case SAVE_LOGIN:
     return {
       ...state,
-      email: action.state.email,
-      password: action.state.password,
-      validateLogin: action.state.validateLogin,
+      email: action.email,
     };
   default:
     return state;

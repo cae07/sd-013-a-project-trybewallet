@@ -15,7 +15,7 @@ export const saveExpense = (state) => (
   });
 
 // action responsável pelo envio do json com as moedas após a requisição na api.
-export const setCurrencies = (jsonCurrencies) => (
+export const saveCurrencies = (jsonCurrencies) => (
   {
     type: SAVE_CURRENCIES,
     jsonCurrencies, // jsonCurrencies é o valor recebido pelo dispatch realizado pela função getCurrencies, com o resultado do fetch, que é um json com as moedas.
@@ -31,7 +31,7 @@ export function fetchApiCurrencies() {
     // then (então) converte o retorno para json
     .then((response) => response.json())
     // envia o json para a action setCurrencies.
-    .then((currencies) => dispatch(setCurrencies(currencies)));
+    .then((currencies) => dispatch(saveCurrencies(currencies)));
 
   // caso queira RETIRAR alguma ação DEPOIS do resultado da api, chama a action DEPOIS, e faz a lógica no reducer para alterar alguma chave. Ex.: RETIRAR componente loading na tela.
   // dispatch(novaAction2(false));
