@@ -25,9 +25,7 @@ class Login extends React.Component {
 
   onClick(e) {
     const { isValid } = this.state;
-    if (isValid) {
-
-    } else {
+    if (!isValid) {
       e.preventDefault();
     }
   }
