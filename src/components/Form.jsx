@@ -26,8 +26,10 @@ class Form extends Component {
     tokens();
   }
 
-  componentDidUpdate() {
-    // const { listTokens } = this.props;
+  funcSetState(param) {
+    this.setState({
+      moeda: param,
+    });
   }
 
   HandleOnChange({ target }) {
@@ -38,6 +40,7 @@ class Form extends Component {
   }
 
   render() {
+    const { listTokens } = this.props;
     const { valor, pay, tag, moeda, descricao } = this.state;
     return (
       <div>
@@ -55,6 +58,7 @@ class Form extends Component {
           <InputMoeda
             onChange={ this.HandleOnChange }
             moeda={ moeda }
+            tokens={ listTokens }
           />
           <br />
           <InputMethod
@@ -73,7 +77,7 @@ class Form extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  listTokens: state,
+  listTokens: state.wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -82,7 +86,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Form.propTypes = {
   tokens: PropTypes.func.isRequired,
-  // listTokens: PropTypes.shape().isRequired,
+  listTokens: PropTypes.shape().isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

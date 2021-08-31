@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 class InputMoeda extends Component {
   render() {
-    const { onChange, moeda } = this.props;
+    const { onChange, moeda, tokens } = this.props;
+    const keys = Object.keys(tokens);
     return (
       <div>
         <label
@@ -17,6 +18,12 @@ class InputMoeda extends Component {
             id="input-moeda"
           >
             Moeda
+            {keys
+              .filter((key) => key !== 'USDT')
+              .map((key, index) => (
+                <option key={ index } value={ key }>
+                  { key }
+                </option>))}
           </select>
         </label>
       </div>
