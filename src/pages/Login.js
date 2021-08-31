@@ -54,6 +54,7 @@ class Login extends React.Component {
         <Button
           onClick={ handleNextPage }
           disabled={ !(validateEmail() && passwordCorrect) }
+          name="Entrar"
         />
       </div>
     );

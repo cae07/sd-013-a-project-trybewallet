@@ -1,4 +1,4 @@
-import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
+import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE, EXPENSE_ADD } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -10,9 +10,16 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
   case LOADING_TYPE:
     return { ...state };
   case SUCCESS_TYPE:
-    return { ...state, currencies: action.payload };
+    return { ...state,
+      currencies: action.payload,
+      expenses: {
+        exchangeRates: action.payload,
+      },
+    };
   case ERROR_TYPE:
     return { ...state, error: action.payload };
+  case EXPENSE_ADD:
+    return { ...state, expenses: action.payload };
   default: return state;
   }
 };
