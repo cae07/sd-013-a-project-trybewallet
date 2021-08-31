@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import HeaderWallet from '../components/HeaderWallet';
+import InputsWallet from '../components/InputsWallet';
+import SelectsWallet from '../components/SelectsWallet';
 
 class Wallet extends React.Component {
   /* constructor(props) {
@@ -12,30 +13,17 @@ class Wallet extends React.Component {
   } */
 
   render() {
-    const { user } = this.props;
     return (
       <div>
-        <h1>TrybeWallet</h1>
-        <header>
-          <section>
-            <span>
-              Email:
-              <p data-testid="email-field">{ user.email }</p>
-            </span>
-            <span data-testid="header-currency-field">
-              Despesa Total:
-              <p data-testid="total-field">0</p>
-              {' '}
-              BRL
-            </span>
-          </section>
-        </header>
+        <HeaderWallet />
+        <InputsWallet />
+        <SelectsWallet />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+/* const mapStateToProps = (state) => ({
   user: state.user,
 });
 
@@ -43,6 +31,6 @@ Wallet.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
   }).isRequired,
-};
+}; */
 
-export default connect(mapStateToProps)(Wallet);
+export default Wallet;
