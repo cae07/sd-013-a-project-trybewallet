@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
 
 class Header extends React.Component {
   render() {
@@ -24,7 +24,7 @@ class Header extends React.Component {
             <li data-testid="total-field">
               Despesa Total: R$
               {' '}
-              {total === undefined ? 0 : 1}
+              {total.toFixed(2)}
               {' '}
               <span data-testid="header-currency-field">BRL</span>
             </li>
@@ -43,8 +43,12 @@ const mapStateToProps = ({ user, wallet }) => (
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  total: PropTypes.number.isRequired,
+  total: PropTypes.number,
 
+};
+
+Header.defaultProps = {
+  total: 0,
 };
 
 export default connect(mapStateToProps)(Header);
