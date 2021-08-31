@@ -18,9 +18,11 @@ class Wallet extends React.Component {
   async fetchCurrencies() {
     const api = await fetch('https://economia.awesomeapi.com.br/json/all');
     const json = await api.json();
-    const currencies = Object.values(json);
+    const allCurrencies = Object.values(json);
+    const filteredCurrencies = allCurrencies
+      .filter((currency) => currency.name !== 'Dólar Americano/Real Brasileiro Turismo');
     this.setState({
-      currencies,
+      currencies: filteredCurrencies,
     });
   }
 
