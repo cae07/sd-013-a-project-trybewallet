@@ -26,10 +26,12 @@ export const requestAPIFailed = () => ({
 
 export function getCurrencies() {
   return async (dispatch) => {
-    dispatch(requestAPI()); // faz a requisição da api e muda o loadin pra true
+    dispatch(requestAPI()); // faz a requisição da api e muda o loading pra true
     try {
-      const data = await fetchAPI();
-      const currencies = data.map(([name]) => name);
+      const response = await fetchAPI();
+      const data = await Object.entries(response);
+      const currencies = data.map(([name]) => name)
+        .filter(([name]) => name !== 'USDT' && name !== 'DOGE');
 
       dispatch(requestAPISuccessful(currencies));
     } catch (error) {

@@ -24,6 +24,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case REQUEST_API_FAILED:
     return {
       ...state,
+      isLoading: false,
       error: true,
     };
   default:
