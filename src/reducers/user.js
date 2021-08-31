@@ -11,7 +11,7 @@ const initialState = {
 function user(state = initialState, action) {
   switch (action.type) {
   case LOGIN_SUBMIT:
-    return { ...state, email: action.payload.email, password: action.payload.password };
+    return { ...state, email: action.payload };
   default:
     return state;
   }

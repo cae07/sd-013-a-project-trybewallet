@@ -100,7 +100,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  pushUser: (email, password) => dispatch(loginSubmit(email, password)),
+  pushUser: (email) => dispatch(loginSubmit(email)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
