@@ -1,11 +1,33 @@
 import React, { Component } from 'react';
+import './WalletForm.css';
+import { fetchData } from '../../actions';
+import { connect } from 'react-redux';
 
 class WalletForm extends Component {
+  constructor() {
+    super();
+    this.state = {
+      valor: '',
+      descricao: '',
+      moeda: '',
+      metodo_pagamento: '',
+      categoria: '',
+    };
+  }
+
+  componentDidMount() {
+    fetchData();
+  }
+
+  renderOptions() {
+    return <option>option</option>;
+  }
+
   render() {
     return (
       <div>
 
-        <form>
+        <form className="wallet-add-form">
           <label htmlFor="valor">
             Valor
             <input type="number" name="valor" id="valor" />
@@ -19,7 +41,7 @@ class WalletForm extends Component {
           <label htmlFor="moeda">
             Moeda
             <select name="moeda" id="moeda">
-              <option>BRL</option>
+              {this.renderOptions()}
             </select>
           </label>
 
@@ -50,4 +72,8 @@ class WalletForm extends Component {
   }
 }
 
-export default WalletForm;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps)(WalletForm);

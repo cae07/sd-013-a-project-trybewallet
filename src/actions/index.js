@@ -40,6 +40,7 @@ const fetchData = () => (
         throw new Error('Error fetching data');
       }
       const data = await res.json();
+      console.log(data);
       return dispatch(loadingActionSuccess(data));
     } catch (error) {
       return dispatch(loadingActionFail(error.message));

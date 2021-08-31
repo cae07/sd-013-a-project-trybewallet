@@ -3,3 +3,15 @@
   margin: 0;
   padding: 0;
 }
+
+.wallet-add-form {
+  border: 2px solid green;
+  border-radius: 5px;
+  box-shadow: 8px 8px 12px black;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  justify-content: space-evenly;
+  padding: 26px;
+  width: 400px;
+}
