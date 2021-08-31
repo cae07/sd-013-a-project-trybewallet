@@ -1,12 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class SelectCurrency extends React.Component {
   render() {
-    const { coins, loading, value, changeEvent } = this.props;
+    const { value, options, isLoading, errorFetch, changeEvent } = this.props;
 
-    if (loading) {
+    console.log(`erro no Fetch: ${errorFetch}`);
+
+    if (isLoading) {
       return (
         <label htmlFor="currency">
           <select name="currency" id="currency">
@@ -27,7 +28,7 @@ class SelectCurrency extends React.Component {
         >
           {/* <option value="BRL">BRL</option> */}
           {
-            coins.map((coin) => (
+            options.map((coin) => (
               <option
                 key={ coin }
                 value={ coin }
@@ -43,15 +44,11 @@ class SelectCurrency extends React.Component {
 }
 
 SelectCurrency.propTypes = {
-  coins: PropTypes.arrayOf(PropTypes.string).isRequired,
-  loading: PropTypes.bool.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isLoading: PropTypes.bool.isRequired,
   changeEvent: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
+  errorFetch: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  coins: state.wallet.currencies,
-  loading: state.wallet.isLoading,
-});
-
-export default connect(mapStateToProps, null)(SelectCurrency);
+export default SelectCurrency;

@@ -5,7 +5,8 @@ import InputText from './InputText';
 import SelectCurrency from './SelectCurrency';
 import SelectInput from './SelectInput';
 import { payMethodOptions, expenseCategoryOptions } from '../data';
-import { getCurrencies } from '../actions';
+import fetchAPI from '../services/api';
+import { saveCurrenciesInfo } from '../actions';
 
 class ExpensesForm extends React.Component {
   constructor(props) {
@@ -19,19 +20,20 @@ class ExpensesForm extends React.Component {
       expenseCategory: 'Alimentação',
       isLoadingCoins: false,
       currencies: [],
+      errorFetchCoins: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.fetchCoins = this.fetchCoins.bind(this);
   }
 
-
-
   componentDidMount() {
-    const { populateCoins } = this.props;
-    populateCoins();
+    this.fetchCoins();
   }
 
   async fetchCoins() {
+    const { saveCurrenciesInRedux } = this.props;
+
     this.setState({
       isLoadingCoins: true,
     });
@@ -45,8 +47,12 @@ class ExpensesForm extends React.Component {
         isLoadingCoins: false,
         currencies,
       });
+      saveCurrenciesInRedux(currencies);
     } catch (error) {
-      dispatch(requestAPIFailed());
+      this.setState({
+        errorFetchCoins: true,
+        isLoadingCoins: false,
+      });
     }
   }
 
@@ -57,13 +63,8 @@ class ExpensesForm extends React.Component {
   }
 
   render() {
-    const {
-      value,
-      description,
-      currency,
-      paymentMethod,
-      expenseCategory,
-    } = this.state;
+    const { value, description, currency, paymentMethod, expenseCategory,
+      currencies, errorFetchCoins, isLoadingCoins } = this.state;
 
     return (
       <section>
@@ -83,6 +84,8 @@ class ExpensesForm extends React.Component {
           <SelectCurrency
             value={ currency }
             options={ currencies }
+            isLoading={ isLoadingCoins }
+            errorFetch={ errorFetchCoins }
             changeEvent={ this.handleChange }
           />
           <SelectInput
@@ -107,11 +110,11 @@ class ExpensesForm extends React.Component {
 }
 
 ExpensesForm.propTypes = {
-  populateCoins: PropTypes.func.isRequired,
+  saveCurrenciesInRedux: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  populateCoins: () => dispatch(getCurrencies()),
+  saveCurrenciesInRedux: (payload) => dispatch(saveCurrenciesInfo(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(ExpensesForm);
