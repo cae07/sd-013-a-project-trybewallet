@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 class InputUser extends React.Component {
   constructor() {
@@ -68,8 +68,8 @@ class InputUser extends React.Component {
   }
 }
 
-InputUser.propTypes = {
-  label: PropTypes.string.isRequired,
-}
+// InputUser.propTypes = {
+//   label: PropTypes.string.isRequired,
+// }
 
 export default InputUser;
