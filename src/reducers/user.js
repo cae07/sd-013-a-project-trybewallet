@@ -6,7 +6,7 @@ const INITIAL_STATE = {
   password: '',
 };
 
-function reducer(state = INITIAL_STATE, action) {
+function userReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case USER_INFO:
     return {
@@ -19,4 +19,4 @@ function reducer(state = INITIAL_STATE, action) {
   }
 }
 
-export default reducer;
+export default userReducer;

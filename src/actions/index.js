@@ -1,6 +1,5 @@
 // Coloque aqui suas actions
 export const USER_INFO = 'USER_INFO';
-
 export const WALLET_INFO = 'SEND_PASSWORD';
 
 export const sendUserInfo = (payload) => ({

@@ -6,11 +6,11 @@ const INITIAL_STATE = {
   },
 };
 
-function reducer(state = INITIAL_STATE, action) {
+function walletReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   default:
     return state;
   }
 }
 
-export default reducer;
+export default walletReducer;
