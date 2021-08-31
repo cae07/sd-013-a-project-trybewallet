@@ -64,7 +64,7 @@ class Expense extends React.Component {
           <button
             type="button"
             className="btn float-right despesa_btn"
-            onClick={ dispatchExpense() }
+            onClick={ dispatchExpense }
           >
             Adicionar despesa
           </button>

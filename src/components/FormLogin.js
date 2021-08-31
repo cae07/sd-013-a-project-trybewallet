@@ -1,7 +1,7 @@
-/* eslint-disable no-useless-escape */
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router'; // importação para utilizar as informações do history da página inicial. Encapsular o componente no export.
 import { saveLogin } from '../actions';
 
 class FormLogin extends React.Component {
@@ -12,15 +12,15 @@ class FormLogin extends React.Component {
       password: '',
       validateLogin: false,
     };
-    this.onSubmitForm = this.onSubmitForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
   }
 
   onSubmitForm() {
     const { history, dispatchLogin } = this.props;
     // Disparamos a nossa action através da função importada
     // de actions.js, que apelidamos de dispatchLogin
-    dispatchLogin();
+    dispatchLogin(this.state);
     history.push('/carteira');
   }
 
@@ -75,7 +75,7 @@ class FormLogin extends React.Component {
                 value="Entrar"
                 className="btn float-right login_btn"
                 disabled={ !validateLogin }
-                onClick={ this.onSubmitForm() }
+                onClick={ this.onSubmitForm }
               >
                 Entrar
               </button>
@@ -89,7 +89,7 @@ class FormLogin extends React.Component {
 FormLogin.propTypes = {
   dispatchLogin: PropTypes.func.isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func,
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
@@ -97,4 +97,4 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchLogin: (infoUser) => dispatch(saveLogin(infoUser)),
 });
 
-export default connect(null, mapDispatchToProps)(FormLogin);
+export default connect(null, mapDispatchToProps)(withRouter(FormLogin));

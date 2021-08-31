@@ -1,6 +1,6 @@
 export const SAVE_LOGIN = 'SAVE_LOGIN';
 export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
-export const SAVE_EXPENSE = 'SAVE_LOGIN';
+export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 
 export const saveLogin = (state) => (
   {
