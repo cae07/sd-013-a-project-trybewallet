@@ -19,11 +19,8 @@ class Header extends React.Component {
               { ' ' }
               { email }
             </li>
-            <li data-testid="total-field">
-              Despesa Total: R$
-              {' '}
-              {newTotal(total)}
-              {' '}
+            <li>
+              <span data-testid="total-field">{`Despesa total: R$${total.toFixed(2)}`}</span>
               <span data-testid="header-currency-field">BRL</span>
             </li>
           </ul>
