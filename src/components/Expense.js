@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchApiCurrencies } from '../actions';
+import { fetchApiCurrencies, saveExpense } from '../actions';
 
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -12,8 +12,8 @@ class Expense extends React.Component {
   }
 
   componentDidMount() {
-    const { dispatchExpense } = this.props;
-    dispatchExpense();
+    const { dispatchCurrencies } = this.props;
+    dispatchCurrencies();
   }
 
   handleChange({ target: { id, value } }) {
@@ -23,21 +23,20 @@ class Expense extends React.Component {
   }
 
   render() {
-    const { wallet } = this.props;
+    const { wallet, dispatchExpense } = this.props;
     return (
-      <div className="Expense">
+      <div className="formExpense">
         <form>
           <label htmlFor="Valor">
             Valor:
-            <input type="text" id="Valor" name="Valor" label="Valor" />
+            <input type="text" id="Valor" label="Valor" onChange={ this.handleChange } />
           </label>
           <label htmlFor="Moeda">
             Moeda:
-            <select type="text" id="Moeda" name="Moeda" label="Moeda">
+            <select type="text" id="Moeda" label="Moeda" onChange={ this.handleChange }>
               { Object.keys(wallet)
                 .filter((index) => index !== 'USDT')
-                .map((coin) => (
-                  <option key={ coin }>{ coin }</option>)) }
+                .map((coin) => (<option key={ coin }>{ coin }</option>)) }
             </select>
           </label>
           <label htmlFor="method">
@@ -60,11 +59,12 @@ class Expense extends React.Component {
           </label>
           <label htmlFor="Descrição">
             Descrição:
-            <input type="text" id="Descrição" name="Descrição" label="Descrição" />
+            <input type="text" id="Descrição" onChange={ this.handleChange } />
           </label>
           <button
-            type="submit"
+            type="button"
             className="btn float-right despesa_btn"
+            onClick={ dispatchExpense() }
           >
             Adicionar despesa
           </button>
@@ -83,7 +83,8 @@ const mapStateToProps = (stateStore) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchExpense: () => dispatch(fetchApiCurrencies()),
+  dispatchCurrencies: () => dispatch(fetchApiCurrencies()),
+  dispatchExpense: (expense) => dispatch(saveExpense(expense)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expense);

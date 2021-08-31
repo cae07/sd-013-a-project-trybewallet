@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
-import { setExpense } from '../actions';
+
 import Expense from '../components/Expense';
 import Header from '../components/Header';
 
@@ -20,8 +19,4 @@ class Wallet extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchExpense: (expense) => dispatch(setExpense(expense)),
-});
-
-export default connect(null, mapDispatchToProps)(Wallet);
+export default Wallet;

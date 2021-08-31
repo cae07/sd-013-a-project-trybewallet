@@ -1,16 +1,16 @@
 export const SAVE_LOGIN = 'SAVE_LOGIN';
-export const SAVE_DESPESA = 'SAVE_LOGIN';
 export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
+export const SAVE_EXPENSE = 'SAVE_LOGIN';
 
-export const setInfoLogin = (state) => (
+export const saveLogin = (state) => (
   {
     type: SAVE_LOGIN,
     state,
   });
 
-export const setExpense = (state) => (
+export const saveExpense = (state) => (
   {
-    type: SAVE_DESPESA,
+    type: SAVE_EXPENSE,
     state,
   });
 
@@ -23,18 +23,16 @@ export const setCurrencies = (jsonCurrencies) => (
 
 export function fetchApiCurrencies() {
   // este primeiro return com dispatch é necessário pois o thunk sempre retorna uma função.
-  return (dispatch) => {
-    // caso queira ADICIONAR alguma ação ANTES do resultado da api, chama a action ANTES, e faz a lógica no reducer para alterar alguma chave. Ex.: ADICIONAR componente loading na tela.
-    // dispatch(novaAction1(true));
+  // caso queira ADICIONAR alguma ação ANTES do resultado da api, chama a action ANTES, e faz a lógica no reducer para alterar alguma chave. Ex.: ADICIONAR componente loading na tela.
+  // dispatch(novaAction1(true));
 
-    // fecth da api com as informações das moedas.
-    return fetch('https://economia.awesomeapi.com.br/json/all')
-      // then (então) converte o retorno para json
-      .then((response) => response.json())
-      // envia o json para a action setCurrencies.
-      .then((currencies) => dispatch(setCurrencies(currencies)));
+  // depois, fecth da api com as informações das moedas.
+  return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
+    // then (então) converte o retorno para json
+    .then((response) => response.json())
+    // envia o json para a action setCurrencies.
+    .then((currencies) => dispatch(setCurrencies(currencies)));
 
-    // caso queira RETIRAR alguma ação DEPOIS do resultado da api, chama a action DEPOIS, e faz a lógica no reducer para alterar alguma chave. Ex.: RETIRAR componente loading na tela.
-    // dispatch(novaAction2(false));
-  };
+  // caso queira RETIRAR alguma ação DEPOIS do resultado da api, chama a action DEPOIS, e faz a lógica no reducer para alterar alguma chave. Ex.: RETIRAR componente loading na tela.
+  // dispatch(novaAction2(false));
 }

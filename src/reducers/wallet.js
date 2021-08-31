@@ -1,4 +1,4 @@
-import { SAVE_DESPESA, SAVE_CURRENCIES } from '../actions';
+import { SAVE_EXPENSE, SAVE_CURRENCIES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case SAVE_DESPESA:
+  case SAVE_EXPENSE:
     return {
       ...state,
     };

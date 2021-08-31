@@ -107,17 +107,17 @@ input:focus {
   background-color: rgba(128, 128, 128, 0.541);
 }
 
-.formDespesa {
+.formExpense {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.623);
   padding: 10px 0;
 }
-.formDespesa label,
-.formDespesa input,
-.formDespesa select,
-.formDespesa button {
+.formExpense label,
+.formExpense input,
+.formExpense select,
+.formExpense button {
   margin: 10px 5px;
   height: 30px;
   border: none;

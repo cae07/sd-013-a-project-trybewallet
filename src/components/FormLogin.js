@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setInfoLogin } from '../actions';
+import { saveLogin } from '../actions';
 
 class FormLogin extends React.Component {
   constructor(props) {
@@ -83,7 +83,7 @@ FormLogin.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchSetInfo: (infoUser) => dispatch(setInfoLogin(infoUser)),
+  dispatchSetInfo: (infoUser) => dispatch(saveLogin(infoUser)),
 });
 
 export default connect(null, mapDispatchToProps)(FormLogin);
