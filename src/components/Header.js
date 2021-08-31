@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { email } = this.props;
+    const { email, total } = this.props;
+    const newTotal = total.toFixed(2);
 
     return (
       <div>
@@ -20,8 +21,10 @@ class Header extends React.Component {
               { email }
             </li>
             <li data-testid="total-field">
-              Despesa Total: R$ 0
-              { ' ' }
+              Despesa Total: R$
+              {' '}
+              {newTotal}
+              {' '}
               <span data-testid="header-currency-field">BRL</span>
             </li>
           </ul>
@@ -31,10 +34,16 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({ email: user.email });
+const mapStateToProps = ({ user, wallet }) => (
+  { email: user.email,
+    total: wallet.total,
+  }
+);
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
+
 };
 
 export default connect(mapStateToProps)(Header);

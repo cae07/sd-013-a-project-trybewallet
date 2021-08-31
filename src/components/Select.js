@@ -11,7 +11,6 @@ class Select extends Component {
         <select
           name={ name }
           id={ name }
-          required
           onChange={ onChange }
           value={ value }
         >

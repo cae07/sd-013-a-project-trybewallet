@@ -13,7 +13,6 @@ class Input extends Component {
           value={ value }
           onChange={ onChange }
           id={ name }
-          required
         />
       </label>
     );
