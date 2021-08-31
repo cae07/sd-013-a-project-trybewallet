@@ -93,7 +93,7 @@ class Wallet extends React.Component {
           <Input
             label="Descrição"
             onChange={ handleChange }
-            name="description"
+            name="descrição"
           />
           <SelectCoin
             onChange={ handleChange }
