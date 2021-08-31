@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { InputEmail, InputName } from '../components';
 import { userAction } from '../actions';
+import './login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -49,30 +50,32 @@ class Login extends React.Component {
   render() {
     const { email, password } = this.state;
     return (
-      <form
-        onSubmit={ this.handleSubmit }
-        className="pure-form pure-form-aligned"
-      >
-        <fieldset>
-          <img
-            className="image-user"
-            src="https://image.flaticon.com/icons/png/512/149/149071.png"
-            width="150px"
-            alt=""
-          />
-          <InputName handleChange={ this.validEmailPassword } />
-          <InputEmail handleChange={ this.validEmailPassword } />
-          <div className="pure-controls">
-            <button
-              disabled={ (email && password) ? '' : 'true' }
-              type="submit"
-              className="pure-button pure-button-primary"
-            >
-              Entrar
-            </button>
-          </div>
-        </fieldset>
-      </form>
+      <section className="flex-user">
+        <form
+          onSubmit={ this.handleSubmit }
+          className="pure-form pure-form-aligned"
+        >
+          <fieldset>
+            <img
+              className="image-user"
+              src="https://image.flaticon.com/icons/png/512/149/149071.png"
+              width="150px"
+              alt=""
+            />
+            <InputName handleChange={ this.validEmailPassword } />
+            <InputEmail handleChange={ this.validEmailPassword } />
+            <div className="pure-controls">
+              <button
+                disabled={ (email && password) ? '' : 'true' }
+                type="submit"
+                className="pure-button pure-button-primary"
+              >
+                Entrar
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </section>
     );
   }
 }

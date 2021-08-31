@@ -1,0 +1,22 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+function InputSelect({ label, listSelect }) {
+  return (
+    <label>
+      {`${label}`}
+      <select>
+        {listSelect.map(
+          (item) => <option key={ item.id } value={ item.value }>{item.title}</option>,
+        )}
+      </select>
+    </label>
+
+  );
+}
+
+InputSelect.propTypes = {
+  label: PropTypes.string.isRequired,
+  listSelect: PropTypes.arrayOf().isRequired,
+};
+export default InputSelect;

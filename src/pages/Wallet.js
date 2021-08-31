@@ -1,29 +1,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import digitalWallet from '../image/digital-wallet.png';
+import { Input, InputSelect, Header } from '../components';
 import './wallet.css';
 
 class Wallet extends React.Component {
   render() {
+    const listTag = [
+      { id: '1', value: 'alimentação', title: 'Alimentação' },
+      { id: '2', value: 'lazer', title: 'Lazer' },
+      { id: '3', value: 'trabalho', title: 'Trabalho' },
+      { id: '4', value: 'transporte', title: 'Transporte' },
+      { id: '5', value: 'saúde', title: 'Saúde' },
+    ];
+    const paymentMethods = [
+      { id: '1', value: 'dinheiro', title: 'Dinheiro' },
+      { id: '2', value: 'credito', title: 'Cartão de crédito' },
+      { id: '3', value: 'debito', title: 'Cartão de débito' },
+    ];
     const { email } = this.props;
     return (
-      <header className="flex container-header">
-        <section className="image-header">
-          <img src={ digitalWallet } width="30px" alt="lobo wallet" />
-        </section>
+      <>
+        <Header email={ email } />
         <section>
-          Bem Vindo Ao Wallet
+          <form className="pure-form">
+            <Input label="Valor" />
+            <Input label="Descrição" />
+            <InputSelect
+              label="Moeda"
+              listSelect={ [{ id: '1', title: 'teste', value: 'n.a' },
+                { id: '2', title: 'teste', value: 'n.a' }] }
+            />
+            <InputSelect
+              label="Método de pagamento"
+              listSelect={ paymentMethods }
+            />
+            <InputSelect
+              label="Tag"
+              listSelect={ listTag }
+            />
+          </form>
         </section>
-        <section data-testid="email-field">
-          Email:
-          { ` ${email}` }
-        </section>
-        <section data-testid="total-field">
-          Dispesa Total: R$ 0,00
-          <span data-testid="header-currency-field">BRL</span>
-        </section>
-      </header>
+      </>
+
     );
   }
 }
