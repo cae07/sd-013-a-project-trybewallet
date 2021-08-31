@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -16,14 +15,6 @@ class Header extends React.Component {
 
   render() {
     const { emailWallet, price, moeda } = this.state;
-    if (emailWallet === '') {
-      return (
-        <div>
-          <Redirect to="/" />
-        </div>
-      );
-    }
-    console.log(this.props);
     return (
       <header>
         <div className="header-icon">Trybe Wallet</div>
