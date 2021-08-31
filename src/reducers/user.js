@@ -5,7 +5,7 @@ const initialState = {
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-  case 'VERIFY_USER':
+  case 'USER_ACT':
     return { ...state, ...action.state };
   default:
     return state;

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { verifyUser } from '../actions';
+import { userAct } from '../actions';
+// Agradecimentos ao grandessíssimo Rogério P. da Silva que me deu aulas.
 
 class Login extends React.Component {
   constructor(props) {
@@ -16,17 +17,17 @@ class Login extends React.Component {
     };
   }
 
-  validateEmail(mail) {
-    const { validate } = this.state;
+  validateEmail() {
+    const { email, validate } = this.state;
     const valida = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
-    if (valida.test(mail)) {
+    if (valida.test(email)) {
       return this.setState({ validate: { ...validate, login: true } });
     }
     this.setState({ validate: { ...validate, login: false } });
   }
 
-  validateSenha(pass) {
-    const { validate } = this.state;
+  validateSenha() {
+    const { pass, validate } = this.state;
     const minimumPass = 6;
     if (pass.length >= minimumPass) {
       return this.setState({ validate: { ...validate, senha: true } });
@@ -41,11 +42,10 @@ class Login extends React.Component {
       const { name, value } = target;
       if (name === 'email') {
         return this.setState({ [name]: value },
-          () => { this.validateEmail(this.state.email); });
+          () => { this.validateEmail(); });
       }
-      this.setState({
-        [name]: value },
-      () => { this.validateSenha(this.state.pass); });
+      this.setState({ [name]: value },
+        () => { this.validateSenha(); });
     };
 
     const handleClick = () => {
@@ -85,7 +85,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  userState: (state) => dispatch(verifyUser(state)),
+  userState: (state) => dispatch(userAct(state)),
 });
 
 Login.propTypes = {
