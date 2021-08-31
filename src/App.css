@@ -15,33 +15,33 @@
 }
 
 .App-header label {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 20px;
 }
 
 .button {
+  align-items: center;
+  background-color: seagreen;
+  border-radius: 10px;
+  color: whitesmoke;
   display: flex;
   flex-direction: column;
   margin: 5% 20%;
   padding: 10px;
-  align-items: center;
-  color: whitesmoke;
-  background-color: seagreen;
-  border-radius: 10px;
 }
 
 .img {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: auto;
-  background-size: cover;
-  background-position: center;
   background-image: url('https://www.pngmart.com/files/8/Wallet-PNG-Transparent-Images.png');
+  background-position: center;
+  background-size: cover;
+  flex-direction: column;
+  height: 300px;
+  justify-content: center;
+  margin: auto;
+  position: relative;
+  text-align: center;
+  width: 300px;
 }
