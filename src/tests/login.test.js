@@ -36,14 +36,14 @@ describe('1 - Crie uma página inicial de login com os seguintes campos e caract
 });
 
 describe('2 - Realize as seguintes verificações nos campos de email, senha e botão:', () => {
-  test('O botão de "Entrar" está desabilitado ao entrar na página', () => {
+  test.skip('O botão de "Entrar" está desabilitado ao entrar na página', () => {
     renderWithRouterAndStore(<App />, '/');
 
     const button = screen.getByText(/Entrar/i);
     expect(button).toBeDisabled();
   });
 
-  test('O botão de "Entrar está desabilitado quando um email inválido é digitado', () => {
+  test.skip('O botão de "Entrar está desabilitado quando um email inválido é digitado', () => {
     renderWithRouterAndStore(<App />, '/');
 
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
@@ -67,7 +67,7 @@ describe('2 - Realize as seguintes verificações nos campos de email, senha e b
     expect(button).toBeDisabled();
   });
 
-  test('O botão de "Entrar está desabilitado quando uma senha inválida é digitada', () => {
+  test.skip('O botão de "Entrar está desabilitado quando uma senha inválida é digitada', () => {
     renderWithRouterAndStore(<App />, '/');
 
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
@@ -79,7 +79,7 @@ describe('2 - Realize as seguintes verificações nos campos de email, senha e b
     expect(button).toBeDisabled();
   });
 
-  test('O botão de "Entrar" está habilitado quando um email e uma senha válidos são passados', () => {
+  test.skip('O botão de "Entrar" está habilitado quando um email e uma senha válidos são passados', () => {
     renderWithRouterAndStore(<App />, '/');
 
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
@@ -93,7 +93,7 @@ describe('2 - Realize as seguintes verificações nos campos de email, senha e b
 });
 
 describe('3 - Utilize o Redux para salvar no estado global as informações da pessoa logada', () => {
-  test('Salve o email no estado da aplicação, com a chave email, assim que o usuário logar.', () => {
+  test.skip('Salve o email no estado da aplicação, com a chave email, assim que o usuário logar.', () => {
     const { store } = renderWithRouterAndStore(<App />, '/');
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
     const senha = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
@@ -106,7 +106,7 @@ describe('3 - Utilize o Redux para salvar no estado global as informações da p
     expect(store.getState().user.email).toBe(VALID_EMAIL);
   });
 
-  test('A rota deve ser mudada para \'/carteira\' após o clique no botão.', () => {
+  test.skip('A rota deve ser mudada para \'/carteira\' após o clique no botão.', () => {
     const { history } = renderWithRouterAndStore(<App />, '/');
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
     const senha = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
