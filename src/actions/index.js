@@ -3,15 +3,14 @@ export const LOADING_TYPE = 'LOADING_TYPE';
 export const SUCCESS_TYPE = 'SUCCESS_TYPE';
 export const ERROR_TYPE = 'ERROR_TYPE';
 const URL = 'https://economia.awesomeapi.com.br/json/all';
-
 export const emailLogin = (payload) => ({
   type: EMAIL_LOGIN,
   payload,
 });
 
-export const loadingAction = () => ({
+/* export const loadingAction = () => ({
   type: LOADING_TYPE,
-});
+}); */
 
 export const successAction = (payload) => ({
   type: SUCCESS_TYPE,
@@ -21,8 +20,9 @@ export const errorAction = (payload) => ({
   type: ERROR_TYPE,
   payload,
 });
+
 export const fetchName = () => async (dispatch) => {
-  dispatch(loadingAction());
+  /* dispatch(loadinAction()); */
   try {
     const res = await fetch(URL);
     if (!res.ok) throw new Error('fetch failed');
