@@ -3,6 +3,7 @@ import { CLICK_ENTER } from '../actions/userActions';
 
 const initialState = {
   email: '',
+  despesa: 0,
 };
 
 function user(state = initialState, action) {
