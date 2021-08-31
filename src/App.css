@@ -1,17 +1,7 @@
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -20,22 +10,38 @@
   color: white;
   display: flex;
   flex-direction: column;
-  font-size: calc(10px + 2vmin);
   justify-content: center;
   min-height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
 }
 
-@keyframes App-logo-spin {
+.button {
+  display: flex;
+  flex-direction: column;
+  margin: 5% 20%;
+  padding: 10px;
+  align-items: center;
+  color: whitesmoke;
+  background-color: seagreen;
+  border-radius: 10px;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+.img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  background-size: cover;
+  background-position: center;
+  background-image: url('https://www.pngmart.com/files/8/Wallet-PNG-Transparent-Images.png');
 }
