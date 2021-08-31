@@ -34,17 +34,13 @@ class Login extends React.Component {
 
   handleClick() {
     const { history, pushUser } = this.props;
-    const { email, password } = this.state;
-    pushUser(email, password); // action para atualizar a store
+    const { email } = this.state;
+    pushUser(email); // action para atualizar a store
     history.push('/carteira');
   }
 
   render() {
     const { email, password, validateLogin } = this.state;
-    // const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+?$/i;
-    // const boolValidateEmail = regexEmail.test(email);
-    // const minLengthPassword = 6;
-    // const boolValidatePassword = (password.length >= minLengthPassword);
     return (
       <div>
         Login Trybe Wallet

@@ -5,10 +5,18 @@ import { LOGIN_SUBMIT } from '../actions';
 // declarar o estado inicial
 const initialState = {
   email: 'alguem@email.com',
-  password: '123456',
 };
 
-function user(state = initialState, action) {
+// ---------------------------------------------------------------------------------------
+// Source: https://www.pluralsight.com/guides/deeply-nested-objectives-redux;
+// Guia que explica sobre a sintaxe que deve ser utilizada no retorno dos reducers
+// quando há a necessidade de atualizar uma propriedade do estado global que está em
+// niveis mais baixos no objeto.
+// Exemplo:
+//   return { ...state, user: { ...state.user, email: action.payload } };
+// ---------------------------------------------------------------------------------------
+
+function userReducer(state = initialState, action) {
   switch (action.type) {
   case LOGIN_SUBMIT:
     return { ...state, email: action.payload };
@@ -17,4 +25,4 @@ function user(state = initialState, action) {
   }
 }
 
-export default user;
+export default userReducer;
