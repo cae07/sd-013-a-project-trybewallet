@@ -7,11 +7,6 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
-    this.inputValue = this.inputValue.bind(this);
-    this.selectOptionMoeda = this.selectOptionMoeda.bind(this);
-    this.selectOptionPagamento = this.selectOptionPagamento.bind(this);
-    this.selectOptionTag = this.selectOptionTag.bind(this);
-
     this.state = {};
   }
 
@@ -33,7 +28,7 @@ class Wallet extends React.Component {
     return (
       <label htmlFor="description">
         Descrição:
-        <input type="description" id="valor" />
+        <input type="text" id="description" />
       </label>
     );
   }
@@ -91,13 +86,11 @@ class Wallet extends React.Component {
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <form>
-          <fieldset>
-            {this.inputValue()}
-            {this.imputDescription()}
-            {this.selectOptionMoeda()}
-            {this.selectOptionPagamento()}
-            {this.selectOptionTag()}
-          </fieldset>
+          {this.inputValue()}
+          {this.imputDescription()}
+          {this.selectOptionMoeda()}
+          {this.selectOptionPagamento()}
+          {this.selectOptionTag()}
         </form>
       </div>
     );
