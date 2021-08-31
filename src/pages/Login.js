@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { saveEmail } from '../actions';
 
@@ -9,10 +10,17 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-    }
+    };
 
-    this.handleChange = this.handleChange.bind(this);
     this.onSubmitLogin = this.onSubmitLogin.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  onSubmitLogin() {
+    const { history, getEmail } = this.props;
+    const { email } = this.state;
+    getEmail(email);
+    history.push('/carteira');
   }
 
   handleChange({ target }) {
@@ -20,49 +28,50 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   }
 
-  onSubmitLogin() {
-    const { history, saveEmail } = this.props;
-    const { email } = this.state;
-    saveEmail(email);
-    history.push('/carteira');
-  }
-
   render() {
     const { email, password } = this.state;
     const passwordLength = 6;
     const passwordCorrect = password.length >= passwordLength;
     const verifiedEmail = () => {
-        let result = /\S+@\S+\.\S+/;
-        return result.test(email);
-    }
+      const result = /\S+@\S+\.\S+/;
+      return result.test(email);
+    };
 
     return (
       <fieldset>
-        <input 
+        <input
           type="text"
           name="email"
           data-testid="email-input"
           onChange={ this.handleChange }
         />
-        <input 
+        <input
           type="text"
           name="password"
           data-testid="password-input"
           onChange={ this.handleChange }
         />
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={ !(verifiedEmail() && passwordCorrect) }
           onClick={ this.onSubmitLogin }
-          >Entrar
+        >
+          Entrar
         </button>
       </fieldset>
-    )
+    );
   }
 }
 
+Login.propTypes = {
+  getEmail: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
-   saveEmail: (email) => dispatch(saveEmail(email))
-})
+  getEmail: (email) => dispatch(saveEmail(email)),
+});
 
 export default connect(null, mapDispatchToProps)(Login);
