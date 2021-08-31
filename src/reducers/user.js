@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   email: '',
 };
 
-const userReducer = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case LOADING_ACTION:
     return { ...state, loading: true };
@@ -25,4 +25,4 @@ const userReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default userReducer;
+export default user;
