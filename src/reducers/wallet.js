@@ -1,8 +1,6 @@
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+  currencies: [],
+  expenses: [],
 };
 
 const reducerWallet = (state = INITIAL_STATE, action) => {
@@ -14,5 +12,4 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
   default: return state;
   }
 };
-
 export default reducerWallet;
