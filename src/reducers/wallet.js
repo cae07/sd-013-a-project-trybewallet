@@ -3,12 +3,13 @@
 const INITIAL_STATE_WALLET = {
   currencies: [],
   expenses: [],
+  coins: [],
 };
 
 function wallet(state = INITIAL_STATE_WALLET, action) {
   switch (action.type) {
-  case 'ADD_WALLET':
-    return { ...state, wallet: action.payload };
+  case 'ADD_COINS':
+    return { ...state, currencies: [...action.payload] };
   default:
     return state;
   }

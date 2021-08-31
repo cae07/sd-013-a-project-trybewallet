@@ -1,10 +1,11 @@
 // Coloque aqui suas actions
 
-const putUser = (payload) => (
+export const putUser = (payload) => (
   { type: 'ADD_USERFORMS', payload });
+
+export const putCoins = (payload) => (
+  { type: 'ADD_COINS', payload }
+);
 
 // const putWallet = (payload) => (
 //   { type: 'ADD_WALLET', payload });
-
-export default putUser;
-// export const personalForms = (payload) => ({ type: 'ADD_PERSONALFORMS', payload });

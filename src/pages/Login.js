@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Proptypes from 'prop-types';
-import putUser from '../actions';
+import { putUser } from '../actions';
 
 const REG_EX_EMAIL = /^([\w\d._\-#])+@([\w\d._\-#]+[.][\w\d._\-#]+)+$/;
 const passwordMaxLength = 6;
@@ -25,11 +25,6 @@ class Login extends React.Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
-  }
-
-  emailAndPasswordValidation() {
-    // O email está no formato válido, como 'alguem@alguem.com'.
-    // A senha possui 6 ou mais caracteres.
   }
 
   render() {
