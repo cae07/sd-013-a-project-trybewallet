@@ -7,11 +7,13 @@ import InputTag from './InputTag';
 import InputValor from './InputValor';
 import { fetchName } from '../actions/walletActions';
 import InputDescricao from './InputDescricao';
+import InputButton from './InputButton';
 
 class Form extends Component {
   constructor() {
     super();
     this.state = {
+      id: 0,
       valor: 0,
       pay: '',
       tag: '',
@@ -19,6 +21,7 @@ class Form extends Component {
       descricao: '',
     };
     this.HandleOnChange = this.HandleOnChange.bind(this);
+    this.contadorClick = this.contadorClick.bind(this);
   }
 
   componentDidMount() {
@@ -39,8 +42,15 @@ class Form extends Component {
     });
   }
 
+  contadorClick() {
+    const { id } = this.state;
+    this.setState({
+      id: id + 1,
+    });
+  }
+
   render() {
-    const { listTokens } = this.props;
+    const { listTokens, enviaSpence, tokens } = this.props;
     const { valor, pay, tag, moeda, descricao } = this.state;
     return (
       <div>
@@ -70,6 +80,13 @@ class Form extends Component {
             onChange={ this.HandleOnChange }
             tag={ tag }
           />
+          <br />
+          <InputButton
+            enviaSpence={ enviaSpence }
+            state={ this.state }
+            contadorClick={ this.contadorClick }
+            tokens={ tokens }
+          />
         </form>
       </div>
     );
@@ -82,11 +99,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   tokens: () => dispatch(fetchName()),
+
 });
 
 Form.propTypes = {
   tokens: PropTypes.func.isRequired,
-  listTokens: PropTypes.shape().isRequired,
+  // listTokens: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

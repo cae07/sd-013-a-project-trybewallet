@@ -13,6 +13,7 @@ class InputDescricao extends Component {
             onChange={ onChange }
             value={ descricao }
             id="input-descricao"
+            name="descricao"
           />
         </label>
       </div>
