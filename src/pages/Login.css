@@ -14,49 +14,49 @@ form {
 }
 
 fieldset {
-  border-radius: 5px;
-  padding: 26px;
   border: 2px solid green;
+  border-radius: 5px;
   box-shadow: 8px 8px 12px black;
-  height: 350px;
-  width: 400px;
   display: flex;
   flex-direction: column;
+  height: 350px;
   justify-content: space-evenly;
+  padding: 26px;
+  width: 400px;
 }
 
 legend {
-  text-align: center;
   font-size: 1.6em;
+  text-align: center;
 }
 
 .login-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 input {
-  width: 100%;
-  padding: 12px 20px;
-  display: inline-block;
   border: 1px solid #ccc;
-  box-sizing: border-box;
   border-radius: 5px;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 12px 20px;
+  width: 100%;
 }
 
 button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px;
+  background-color: #04aa6d;
   border: none;
   border-radius: 5px;
+  color: white;
   cursor: pointer;
-  width: 100%;
   font-size: 1.2em;
   font-weight: 700;
   letter-spacing: 4px;
+  padding: 14px;
+  width: 100%;
 }
 
 button:hover {
