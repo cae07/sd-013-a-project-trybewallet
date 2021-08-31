@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class LoginInput extends Component {
-  constructor() {
-    super();
-
-  }
 
   render() {
     const { func, login } = this.props;
