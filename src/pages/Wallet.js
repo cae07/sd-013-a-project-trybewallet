@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import InputWallet from '../components/InputWallet';
 import SelectGroup from '../components/SelectGroup';
+import { fetchAPI } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -14,8 +15,22 @@ class Wallet extends React.Component {
       currency: 'Teste',
       payment: 'Dinheiro',
       tag: 'Alimentação',
+      loading: true,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.localGetCurrencies = this.localGetCurrencies.bind(this);
+  }
+
+  componentDidMount() {
+    this.localGetCurrencies();
+  }
+
+  async localGetCurrencies() {
+    const { getCurrencies } = this.props;
+    await getCurrencies();
+    this.setState({
+      loading: false,
+    });
   }
 
   handleChange({ target }) {
@@ -24,8 +39,9 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
-    const { value, description, currency, payment, tag } = this.state;
+    const { email, propCurrencies } = this.props;
+    console.log(propCurrencies);
+    const { value, description, currency, payment, tag, loading } = this.state;
     return (
       <>
         <Header email={ email } />
@@ -46,28 +62,42 @@ class Wallet extends React.Component {
             value={ description }
             onChange={ this.handleChange }
           />
-          <SelectGroup
-            currency={ currency }
-            payment={ payment }
-            tag={ tag }
-            handleChange={ this.handleChange }
-          />
+          {loading === false
+            ? (
+              <SelectGroup
+                currency={ currency }
+                payment={ payment }
+                tag={ tag }
+                handleChange={ this.handleChange }
+                propCurrencies={ propCurrencies }
+              />
+            )
+            : null}
         </form>
       </>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  email: state.user.email,
-});
-
 Wallet.propTypes = {
   email: PropTypes.string,
+  getCurrencies: PropTypes.func.isRequired,
+  propCurrencies: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 Wallet.defaultProps = {
   email: '',
 };
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchAPI()),
+});
+
+const mapStateToProps = (state) => ({
+  email: state.user.email,
+  propCurrencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+
+// https://github.com/facebook/prop-types/issues/212

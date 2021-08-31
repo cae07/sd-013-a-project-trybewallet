@@ -4,7 +4,7 @@ import SelectWallet from './SelectWallet';
 
 class SelectGroup extends React.Component {
   render() {
-    const { handleChange, currency, payment, tag } = this.props;
+    const { handleChange, currency, payment, tag, propCurrencies } = this.props;
     return (
       <>
         <SelectWallet
@@ -14,7 +14,9 @@ class SelectGroup extends React.Component {
           value={ currency }
           onChange={ handleChange }
         >
-          <option value="test">Teste</option>
+          {
+            propCurrencies.map((item, index) => <option key={ index }>{item}</option>)
+          }
         </SelectWallet>
         <SelectWallet
           label="Método de pagamento"
@@ -50,6 +52,9 @@ SelectGroup.propTypes = {
   currency: PropTypes.string.isRequired,
   payment: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
+  propCurrencies: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default SelectGroup;
+
+// https://github.com/facebook/prop-types/issues/212

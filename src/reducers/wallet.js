@@ -1,5 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
+import { LOADING_TYPE, CURRENCY_TYPE, ERROR_TYPE } from '../actions';
 
 const initialState = {
   currencies: [],
@@ -11,8 +11,8 @@ function wallet(state = initialState, { type, payload }) {
   switch (type) {
   case LOADING_TYPE:
     return { ...state, loading: true };
-  case SUCCESS_TYPE:
-    return { ...state, data: payload, loading: false };
+  case CURRENCY_TYPE:
+    return { ...state, currencies: payload, loading: false };
   case ERROR_TYPE:
     return { ...state, error: payload, loading: false };
   default:
