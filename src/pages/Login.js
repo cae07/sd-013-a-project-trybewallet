@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { saveEmail } from '../actions';
+import Input from '../components/Input';
 
 class Login extends React.Component {
   constructor() {
@@ -41,28 +42,24 @@ class Login extends React.Component {
     return (
       <div>
         <form>
-          <label htmlFor="email">
-            <input
-              type="email"
-              name="email"
-              value={ email }
-              onChange={ this.handleChange }
-              id="email"
-              data-testid="email-input"
-              placeholder="email"
-            />
-          </label>
-          <label htmlFor="password">
-            <input
-              type="password"
-              name="password"
-              value={ password }
-              onChange={ this.handleChange }
-              id="password"
-              data-testid="password-input"
-              placeholder="senha"
-            />
-          </label>
+          <Input
+            type="email"
+            name="email"
+            id="email"
+            value={ email }
+            placeholder="email"
+            dataTestId="email-input"
+            onChange={ this.handleChange }
+          />
+          <Input
+            type="password"
+            name="password"
+            id="password"
+            value={ password }
+            placeholder="senha"
+            dataTestId="password-input"
+            onChange={ this.handleChange }
+          />
           {/* Parte do disabled foi feita com ajuda a Aline Hoshino */}
           <button
             type="submit"

@@ -2,9 +2,9 @@
 import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
 
 const initialState = {
+  currencies: [],
+  expenses: [],
   loading: false,
-  data: '',
-  error: '',
 };
 
 function wallet(state = initialState, { type, payload }) {
