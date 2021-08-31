@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { fetchApiDolar } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -12,6 +13,11 @@ class Wallet extends React.Component {
     this.selectOptionTag = this.selectOptionTag.bind(this);
 
     this.state = {};
+  }
+
+  componentDidMount() {
+    const { actionApi } = this.props;
+    actionApi();
   }
 
   inputValue() {
@@ -33,11 +39,14 @@ class Wallet extends React.Component {
   }
 
   selectOptionMoeda() {
+    const { stateApiMoeda } = this.props;
     return (
       <label htmlFor="moeda">
         Moeda:
         <select id="moeda">
-          <option>Trybe</option>
+          {stateApiMoeda.map((element) => (
+            <option key={ element }>{element}</option>
+          ))}
         </select>
       </label>
     );
@@ -73,6 +82,7 @@ class Wallet extends React.Component {
 
   render() {
     const { stateEmail } = this.props;
+
     return (
       <div>
         <header>
@@ -95,11 +105,20 @@ class Wallet extends React.Component {
 }
 
 Wallet.propTypes = {
+  actionApi: PropTypes.func.isRequired,
+  stateApiMoeda: PropTypes.shape({
+    map: PropTypes.func,
+  }).isRequired,
   stateEmail: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   stateEmail: state.user.email,
+  stateApiMoeda: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps, null)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  actionApi: () => dispatch(fetchApiDolar()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
