@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+
+header {
+  align-items: center;
+  background-color: #8b8bae;
+  display: flex;
+  height: 40px;
+  justify-content: space-evenly;
+  padding: 10px;
+  width: 100vw;
+}
+
+.header-icon {
+  font-family: Abril Fatface, cursive;
+  font-size: 25px;
+  margin-right: 700px;
+}

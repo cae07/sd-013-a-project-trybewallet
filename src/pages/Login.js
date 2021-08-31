@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import actionGetEmail from '../actions/index';
+import './Login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class Login extends React.Component {
   enableButton() {
     const { email, password } = this.state;
     const validPassword = 6;
+
     if (password.length >= validPassword) {
       const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
       if (regex.test(email)) return true;
@@ -39,36 +41,40 @@ class Login extends React.Component {
     const { getEmailDispatch } = this.props;
 
     return (
-      <div className="container">
-        <input
-          className="login-input"
-          data-testid="email-input"
-          type="email"
-          name="email"
-          placeholder="email"
-          value={ email }
-          onChange={ this.handleChange }
-        />
-        <input
-          className="login-input"
-          data-testid="password-input"
-          type="password"
-          name="password"
-          placeholder="password"
-          value={ password }
-          onChange={ this.handleChange }
-        />
-        <Link to="/carteira">
-          <button
-            className="login-btn"
-            type="button"
-            disabled={ !this.enableButton() }
-            onClick={ () => getEmailDispatch(this.state) }
-          >
-            Entrar
-          </button>
-        </Link>
-      </div>
+      <section className="login-section">
+        <div className="login-container">
+          <h1>Trybe Wallet</h1>
+          <input
+            className="login-input"
+            data-testid="email-input"
+            type="email"
+            name="email"
+            placeholder="email"
+            value={ email }
+            onChange={ this.handleChange }
+          />
+          <input
+            className="login-input"
+            data-testid="password-input"
+            type="password"
+            name="password"
+            placeholder="password"
+            value={ password }
+            onChange={ this.handleChange }
+          />
+          <Link to="/carteira">
+            <button
+              id="elemento"
+              className="login-btn"
+              type="button"
+              disabled={ !this.enableButton() }
+              onClick={ () => getEmailDispatch(this.state) }
+            >
+              Entrar
+            </button>
+          </Link>
+        </div>
+      </section>
     );
   }
 }

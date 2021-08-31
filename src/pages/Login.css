@@ -1,4 +1,6 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap') ;
+
+.login-section {
   align-items: center;
   background-color: #313131;
   display: flex;
@@ -7,12 +9,13 @@ body {
   width: 100vw;
 }
 
-.container {
+.login-container {
   align-items: center;
   background-color: white;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  font-family: Abril Fatface, cursive;
   height: 200px;
   justify-content: center;
   padding: 40px;
@@ -24,11 +27,15 @@ body {
 }
 
 .login-btn {
-  background-color: #a6cc5e;
+  background-color: red;
   color: white;
   cursor: pointer;
   margin-top: 10px;
   padding: 5px 20px;
+}
+
+.login-btn:enabled {
+  background-color: #a6cc5e;
 }
 
 .login-btn:hover {
