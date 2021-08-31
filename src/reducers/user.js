@@ -1,6 +1,7 @@
 const ESTADO_INICIAL_USER = {
   user: {
     email: '',
+    password: '',
   },
 };
 
