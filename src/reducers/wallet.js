@@ -1,4 +1,9 @@
-import { COINS_LOADING, COINS_SUCCESS, COINS_FAIL, SPENT_SUCCESS, DELETE_ITEM } from '../actions';
+import {
+  COINS_LOADING,
+  COINS_SUCCESS,
+  COINS_FAIL,
+  SPENT_SUCCESS,
+  DELETE_ITEM } from '../actions';
 
 const INICIAL_STATE = {
   currencies: [],
