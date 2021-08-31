@@ -1,10 +1,10 @@
-// export const LOADING_TYPE = 'LOADING_TYPE';
+export const SAVE_EMAIL = 'SAVE_EMAIL';
 // export const SUCCESS_TYPE = 'SUCCESS_TYPE';
 // export const ERROR_TYPE = 'ERROR_TYPE';
 
-// export const isLoadingAction = () => ({
-//   type: LOADING_TYPE.anchor,
-// });
+export const saveEmail = (email) => ({
+  type: SAVE_EMAIL, payload: { email },
+});
 
 // export const successAction = (payload) => ({
 //   type: SUCCESS_TYPE,

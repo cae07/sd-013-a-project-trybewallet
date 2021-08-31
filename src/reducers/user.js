@@ -1,26 +1,18 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
-import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
+import { SAVE_EMAIL } from '../actions';
 
 const initialState = {
-  loading: false,
-  data: '',
-  error: '',
+  email: '',
 };
 
-function reducerUser(state = initialState, action) {
+function user(state = initialState, action) {
   switch (action.type) {
-  case LOADING_TYPE:
-    return { ...state, loading: true };
-
-  case SUCCESS_TYPE:
-    return { ...state, data: action.payload, loading: false };
-
-  case ERROR_TYPE:
-    return { ...state, error: action.payload, loading: false };
+  case SAVE_EMAIL:
+    return { ...state, email: action.payload.email };
 
   default:
     return state;
   }
 }
 
-export default reducerUser;
+export default user;

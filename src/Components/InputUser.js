@@ -1,5 +1,8 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'; // impoteiro o withRouter para poder manipular o history
+import { saveEmail } from '../actions/index';
 
 class InputUser extends React.Component {
   constructor() {
@@ -21,6 +24,12 @@ class InputUser extends React.Component {
   }
 
   submitForm() {
+    const { email } = this.state;
+    const { saveEmailOnGlobalState, history } = this.props;
+
+    saveEmailOnGlobalState(email);
+    // agora mudo de pagina
+    history.push('/carteira');
   }
 
   render() {
@@ -68,8 +77,29 @@ class InputUser extends React.Component {
   }
 }
 
-// InputUser.propTypes = {
-//   label: PropTypes.string.isRequired,
+InputUser.propTypes = {
+  saveEmailOnGlobalState: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+// const mapStateToProps = state => {
+//   return {
+//     user: state.user
+//   }
 // }
 
-export default InputUser;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmailOnGlobalState: (email) => {
+    // saveEmail vai retornar um objeto com { type: BLA, payload: { email }}
+    const actionWithEmail = saveEmail(email);
+
+    // a gente DISPARA esse objeto para o redux
+    dispatch(actionWithEmail);
+  },
+});
+
+const InputUserWithRouter = withRouter(InputUser); // passei o componente dentro do whithRouter
+// print de exemplo no dia 31/08 está no slack comigo mesma.
+export default connect(null, mapDispatchToProps)(InputUserWithRouter);

@@ -1,26 +1,26 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
+// import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
 
-const initialState = {
-  loading: false,
-  data: '',
-  error: '',
-};
+// const initialState = {
+//   loading: false,
+//   data: '',
+//   error: '',
+// };
 
-function reducerWallet(state = initialState, action) {
-  switch (action.type) {
-  case LOADING_TYPE:
-    return { ...state, loading: true };
+// function reducerWallet(state = initialState, action) {
+//   switch (action.type) {
+//   case LOADING_TYPE:
+//     return { ...state, loading: true };
 
-  case SUCCESS_TYPE:
-    return { ...state, data: action.payload, loading: false };
+//   case SUCCESS_TYPE:
+//     return { ...state, data: action.payload, loading: false };
 
-  case ERROR_TYPE:
-    return { ...state, error: action.payload, loading: false };
+//   case ERROR_TYPE:
+//     return { ...state, error: action.payload, loading: false };
 
-  default:
-    return state;
-  }
-}
+//   default:
+//     return state;
+//   }
+// }
 
-export default reducerWallet;
+// export default reducerWallet;
