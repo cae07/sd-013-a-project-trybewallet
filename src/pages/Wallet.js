@@ -4,8 +4,8 @@ class Wallet extends React.Component {
   render() {
     return (
       <div>
-        <input type="text" data-testid="email-input" />
-        <input type="text" data-testid="password-input" />
+        <input type="text" />
+        <input type="text" />
         <button type="button">Entrar</button>
       </div>);
   }

@@ -10,19 +10,11 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.enableButton = this.enableButton.bind(this);
-    this.handlePage = this.handlePage.bind(this);
 
     this.state = {
       email: '',
       password: '',
-      changePage: false,
     };
-  }
-
-  handlePage(state) {
-    const { getEmailDispatch } = this.props;
-    this.setState({ changePage: true });
-    getEmailDispatch(state);
   }
 
   enableButton() {
@@ -44,9 +36,12 @@ class Login extends React.Component {
 
   render() {
     const { email, password } = this.state;
+    const { getEmailDispatch } = this.props;
+
     return (
-      <div>
+      <div className="container">
         <input
+          className="login-input"
           data-testid="email-input"
           type="email"
           name="email"
@@ -55,6 +50,7 @@ class Login extends React.Component {
           onChange={ this.handleChange }
         />
         <input
+          className="login-input"
           data-testid="password-input"
           type="password"
           name="password"
@@ -64,10 +60,10 @@ class Login extends React.Component {
         />
         <Link to="/carteira">
           <button
-            type="button"
             className="login-btn"
+            type="button"
             disabled={ !this.enableButton() }
-            onClick={ () => this.handlePage(this.state) }
+            onClick={ () => getEmailDispatch(this.state) }
           >
             Entrar
           </button>
