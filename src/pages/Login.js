@@ -39,7 +39,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, buttonState } = this.state;
+    const { email, password, buttonStateDisabled } = this.state;
     return (
       <div>
         <input
@@ -56,7 +56,7 @@ class Login extends React.Component {
           onChange={ this.handleChange }
           value={ password }
         />
-        <button disabled={ buttonState } type="button">Entrar</button>
+        <button disabled={ buttonStateDisabled } type="button">Entrar</button>
       </div>
     );
   }
