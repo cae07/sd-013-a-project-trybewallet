@@ -9,14 +9,18 @@ import { connect } from 'react-redux';
 
 // Children
 import WalletHeader from '../components/WalletHeader';
+import ExpenseForm from '../components/ExpenseForm';
 
 class Wallet extends React.Component {
   render() {
     const { props: { userEmail } } = this;
     return (
-      <WalletHeader
-        userEmail={ userEmail }
-      />
+      <div className="Wallet">
+        <WalletHeader
+          userEmail={ userEmail }
+        />
+        <ExpenseForm />
+      </div>
     );
   }
 }

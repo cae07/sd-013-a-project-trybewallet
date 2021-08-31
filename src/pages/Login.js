@@ -52,6 +52,7 @@ class Login extends React.Component {
     const { state: { emailInput, passwordInput } } = this;
     return (
       <form className="Login">
+        <h1>Trybewallet</h1>
         <fieldset className="form-group">
           <legend>Login</legend>
           { /* Input Login */ }
