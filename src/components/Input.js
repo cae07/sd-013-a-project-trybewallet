@@ -6,7 +6,11 @@ class Input extends Component {
     const { dataTestid, name, type, placeholder, value, onChange } = this.props;
 
     return (
-      <label className="Input" htmlFor={ name } placeholder={ `${name}` }>
+      <label
+        className="Input"
+        htmlFor={ name }
+        placeholder={ `${name}` }
+      >
         <input
           data-testid={ dataTestid }
           name={ name }

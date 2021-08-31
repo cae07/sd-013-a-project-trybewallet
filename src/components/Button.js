@@ -3,9 +3,13 @@ import Proptypes from 'prop-types';
 
 class Button extends Component {
   render() {
-    const { buttonText, onClick } = this.props;
+    const { buttonText, disabled, onClick } = this.props;
     return (
-      <button type="submit" onClick={ onClick }>
+      <button
+        disabled={ disabled }
+        type="submit"
+        onClick={ onClick }
+      >
         { buttonText }
       </button>
     );
@@ -14,6 +18,7 @@ class Button extends Component {
 
 Button.propTypes = {
   buttonText: Proptypes.string,
+  disabled: Proptypes.bool,
   onClick: Proptypes.func,
 }.isRequired;
 

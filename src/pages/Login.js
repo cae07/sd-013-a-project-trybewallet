@@ -8,11 +8,13 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      name: '',
       email: '',
+      password: '',
     };
     this.handleChange = this.handleChange.bind(this);
     // this.handleClick = this.handleClick.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
+    this.validatePassword = this.validatePassword.bind(this);
   }
 
   handleChange(e) {
@@ -26,8 +28,23 @@ class Login extends Component {
   //   history.push('./');
   // }
 
+  // Email validation reference: Aline Hoshino's code
+  validateEmail() {
+    const { email } = this.state;
+    const regex = /\S+@\S+\.\S+/;
+    return regex.test(email);
+  }
+
+  validatePassword() {
+    const { password } = this.state;
+    const passwordMinLength = 6;
+    return password.length >= passwordMinLength;
+  }
+
   render() {
-    const { handleChange, handleClick } = this;
+    const { handleChange, handleClick, validateEmail, validatePassword } = this;
+    const { email, password } = this.state;
+
     return (
       <div>
         Login
@@ -38,6 +55,7 @@ class Login extends Component {
             onChange={ handleChange }
             placeholder="Email"
             type="text"
+            value={ email }
           />
 
           <Input
@@ -46,11 +64,15 @@ class Login extends Component {
             onChange={ handleChange }
             placeholder="Senha"
             type="password"
+            value={ password }
           />
 
-          <Button buttonText="Entrar" onClick={ handleClick } />
+          <Button
+            buttonText="Entrar"
+            disabled={ !(validateEmail() && validatePassword()) }
+            onClick={ handleClick }
+          />
         </fieldset>
-
       </div>
     );
   }

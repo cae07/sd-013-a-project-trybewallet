@@ -10,7 +10,6 @@ class App extends Component {
         <Switch>
           <Route path="/" component={ Login } />
         </Switch>
-
       </div>
     );
   }
