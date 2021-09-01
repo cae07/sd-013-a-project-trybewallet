@@ -25,11 +25,11 @@ class ExpensesTable extends React.Component {
           <td>{ description }</td>
           <td>{ tag }</td>
           <td>{ method }</td>
-          <td>{ `${currency} ${roundNumber(value)}` }</td>
+          <td>{ `${roundNumber(value)}` }</td>
           <td>{ name.split('/')[0] }</td>
           <td>{ roundNumber(ask) }</td>
           <td>{ roundNumber(Number(value) * Number(ask)) }</td>
-          <td>{ name.split('/')[1] }</td>
+          <td>Real</td>
           <td>
             <button type="button">Editar</button>
             <button type="button">Excluir</button>

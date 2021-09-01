@@ -12,5 +12,5 @@ export const expenseCategoryOptions = [
 ];
 
 export const roundNumber = (number) => (
-  (Math.round(number * 100) / 100).toFixed(2)
+  Math.round(number * 100) / 100
 );
