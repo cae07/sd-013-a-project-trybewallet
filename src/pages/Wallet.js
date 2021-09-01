@@ -16,6 +16,7 @@ class Wallet extends React.Component {
     };
     this.renderHeader = this.renderHeader.bind(this);
     this.renderForm = this.renderForm.bind(this);
+    this.renderTable = this.renderTable.bind(this);
     this.change = this.change.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.sumExpenses = this.sumExpenses.bind(this);
@@ -43,7 +44,7 @@ class Wallet extends React.Component {
     let soma = 0;
     const { expenses } = this.props;
     expenses.forEach(({ value, currency, exchangeRates }) => {
-      if (exchangeRates[currency].ask) {
+      if (exchangeRates[currency]) {
         soma += (parseFloat(value) * parseFloat(exchangeRates[currency].ask));
         return soma;
       }
@@ -112,12 +113,32 @@ class Wallet extends React.Component {
     );
   }
 
+  renderTable() {
+    return (
+      <table border="1">
+        <tr>
+          <td>Descrição</td>
+          <td>Tag</td>
+          <td>Método de pagamento</td>
+          <td>Valor</td>
+          <td>Moeda</td>
+          <td>Valor convertido</td>
+          <td>Moeda de conversão</td>
+          <td>Editar/Excluir</td>
+        </tr>
+      </table>
+    );
+  }
+
   render() {
     return (
       <main>
         {this.renderHeader()}
         <section>
           {this.renderForm()}
+        </section>
+        <section>
+          {this.renderTable()}
         </section>
       </main>
     );
