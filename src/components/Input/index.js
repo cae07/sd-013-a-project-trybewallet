@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Label, Input } from './styles';
+import style from './style.module.css';
 
 const InputComponent = ({
   id, testId, placeholder, type, onChange,
 }) => (
-  <Label htmlFor={ id }>
+  <label className={ style.label } htmlFor={ id }>
     {placeholder}
-    <Input
+    <input
+      className={ style.input }
       onChange={ onChange }
       placeholder={ placeholder }
       id={ id }
       type={ type }
       data-testid={ testId }
     />
-  </Label>
+  </label>
 );
 
 InputComponent.defaultProps = {

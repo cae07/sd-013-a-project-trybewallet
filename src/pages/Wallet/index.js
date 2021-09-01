@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchCoins } from '../../actions';
 import { Input, Select } from '../../components';
-import { Form, Main } from './styles';
+import style from './style.module.css';
 import { coinsSelect, paymentMethods, tags } from './utils';
 
 class Wallet extends React.Component {
@@ -33,7 +33,7 @@ class Wallet extends React.Component {
     const { coins } = this.props;
     return (
       <article>
-        <Form>
+        <form className={ style.form }>
           <Input
             id="value"
             placeholder="Valor"
@@ -57,19 +57,19 @@ class Wallet extends React.Component {
             placeholder="Tag"
             options={ tags }
           />
-        </Form>
+        </form>
       </article>
     );
   }
 
   render() {
     return (
-      <Main>
+      <main className={ style.main }>
         {this.renderHeader()}
         <section>
           {this.renderForm()}
         </section>
-      </Main>
+      </main>
     );
   }
 }

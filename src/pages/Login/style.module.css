@@ -1,0 +1,13 @@
+.main {
+  background: lightgrey;
+  display: grid;
+  height: 100vh;
+  place-items: center;
+  width: 100vw;
+}
+
+.form {
+  display: grid;
+  gap: 5px;
+  place-items: center;
+}

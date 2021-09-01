@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Label, Select } from './styles';
+import style from './style.module.css';
 
 const SelectComponent = ({
   id, testId, placeholder, type, onChange, options,
 }) => (
-  <Label htmlFor={ id }>
+  <label className={ style.label } htmlFor={ id }>
     {placeholder}
-    <Select
+    <select
+      className={ style.select }
       onChange={ onChange }
       placeholder={ placeholder }
       id={ id }
@@ -17,8 +18,8 @@ const SelectComponent = ({
       {options.map((option) => (
         <option key={ option.value }>{option.label}</option>
       ))}
-    </Select>
-  </Label>
+    </select>
+  </label>
 );
 
 SelectComponent.defaultProps = {

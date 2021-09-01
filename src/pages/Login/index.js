@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { sendUserInfo } from '../../actions';
 import { Input } from '../../components';
 import { validateEmail, validatePassword } from './utils';
-import { Form, Main } from './styles';
+import style from './style.module.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -47,8 +47,8 @@ class Login extends React.Component {
     const { handleEmail, handlePassword } = this;
     const { invalidEmail, invalidPassword } = this.state;
     return (
-      <Main>
-        <Form onSubmit={ this.handleSubmit }>
+      <main className={ style.main }>
+        <form className={ style.form } onSubmit={ this.handleSubmit }>
           <Input
             id="email"
             testId="email-input"
@@ -70,8 +70,8 @@ class Login extends React.Component {
           >
             Entrar
           </button>
-        </Form>
-      </Main>
+        </form>
+      </main>
     );
   }
 
