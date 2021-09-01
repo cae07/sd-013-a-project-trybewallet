@@ -8,12 +8,6 @@ export const saveLogin = (state) => (
     state,
   });
 
-export const saveExpense = (expense) => (
-  {
-    type: SAVE_EXPENSE,
-    expense,
-  });
-
 // action responsável pelo envio do json com as moedas após a requisição na api.
 export const saveCurrencies = (jsonCurrencies) => (
   {
@@ -36,3 +30,14 @@ export function fetchApiCurrencies() { // este é o thunk
   // caso queira RETIRAR alguma ação DEPOIS do resultado da api, chama a action DEPOIS, e faz a lógica no reducer para alterar alguma chave. Ex.: RETIRAR componente loading na tela.
   // dispatch(novaAction2(false));
 }
+
+export const saveExpense = (expense) => {
+  const receivedExpense = {
+    type: SAVE_EXPENSE,
+    expense,
+  };
+  return (dispatch) => {
+    dispatch(fetchApiCurrencies);
+    return (() => dispatch(receivedExpense));
+  };
+};
