@@ -1,6 +1,6 @@
 const CURRENCY_API = 'https://economia.awesomeapi.com.br/json/all';
 
-export const getCoins = () => (
+const getCoins = () => (
   fetch(`${CURRENCY_API}`)
     .then((response) => (
       response
