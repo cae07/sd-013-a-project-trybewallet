@@ -33,9 +33,9 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { history } = this.props;
+    const { history, registerUser } = this.props;
     const { email } = this.state;
-    actionRegisterUser(email);
+    registerUser(email);
     history.push('/carteira');
   }
 
@@ -72,7 +72,8 @@ const mapDispathToProps = (dispatch) => ({
 });
 
 Login.propTypes = {
-  history: PropTypes.arrayOf(PropTypes.string).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  registerUser: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispathToProps)(Login);
