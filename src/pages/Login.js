@@ -61,8 +61,8 @@ class Login extends Component {
     };
 
     const handleClick = () => {
-      const { history } = this.props;
-      loginName({ email, password });
+      const { history, loginNamee } = this.props;
+      loginNamee({ email, password });
       history.push('/carteira');
     };
 
@@ -97,11 +97,11 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  loginName: (payload) => dispatch(loginName(payload)),
+  loginNamee: (payload) => dispatch(loginName(payload)),
 });
 
 Login.propTypes = {
-  loginName: PropTypes.func,
+  loginNamee: PropTypes.func,
   history: PropTypes.arrayOf(Object),
 }.isRequired;
 
