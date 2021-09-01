@@ -22,8 +22,8 @@ class Login extends React.Component {
     this.handleValidation();
   }
 
-  onChange({ target: { value, placeholder } }) {
-    this.setState({ [placeholder]: value });
+  onChange({ target: { value, name } }) {
+    this.setState({ [name]: value });
   }
 
   onClick(e) {
@@ -59,13 +59,15 @@ class Login extends React.Component {
     return (
       <form className="login" onSubmit={ (e) => e.preventDefault() }>
         <InputField
+          name="email"
           testid="email-input"
           type="text"
-          placeholder="email"
+          placeholder="email@email.com"
           onChange={ this.onChange }
           value={ email }
         />
         <InputField
+          name="password"
           testid="password-input"
           type="text"
           placeholder="password"
