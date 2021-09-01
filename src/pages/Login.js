@@ -61,7 +61,7 @@ class Login extends Component {
     };
 
     const handleClick = () => {
-      const { history, loginName } = this.props;
+      const { history } = this.props;
       loginName({ email, password });
       history.push('/carteira');
     };
