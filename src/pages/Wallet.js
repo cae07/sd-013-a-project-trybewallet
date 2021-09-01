@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Input, InputSelect, Header } from '../components';
+import { Input, InputSelect, Header, TableWallet } from '../components';
 import { walletFetch, setExpenses } from '../actions';
 import './wallet.css';
 
@@ -90,6 +90,7 @@ class Wallet extends React.Component {
             </button>
           </form>
         </section>
+        <TableWallet />
       </>
     );
   }
@@ -98,6 +99,7 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   email: state.user.email,
   currencies: state.wallet.currencies[0],
+  expenses: state.wallet.expenses,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchApi: () => dispatch(walletFetch()),

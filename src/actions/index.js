@@ -28,7 +28,6 @@ export const walletFetch = () => async (dispatch) => { // thunk declarado
     dispatch(requestFetch());
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const wallet = await response.json();
-
     return dispatch(receiveFetch(wallet));
   } catch (error) {
     return dispatch(faillFetch());
