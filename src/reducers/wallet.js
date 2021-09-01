@@ -1,10 +1,18 @@
-import { IS_FETCHING, UPDATE_CURRENCIES, ERROR } from '../actions';
+import {
+  IS_FETCHING,
+  UPDATE_CURRENCIES,
+  ADD_EXPENSE,
+  UPDATE_TOTAL,
+} from '../actions';
+
+import sumExpenses from '../helpers/sumExpenses';
 
 const INITIAL_STATE = {
   isFetching: false,
-  error: '',
+  // error: '',
   currencies: [],
   expenses: [],
+  total: 0,
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
@@ -15,8 +23,20 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case UPDATE_CURRENCIES:
     return { ...state, currencies: [action.payload] };
 
-  case ERROR:
-    return { ...state, error: action.payload };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        {
+          id: state.expenses.length,
+          ...action.payload,
+        }],
+    };
+
+  case UPDATE_TOTAL:
+    return { ...state, total: sumExpenses(state) };
+
   default:
     return state;
   }
