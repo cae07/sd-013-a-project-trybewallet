@@ -85,7 +85,7 @@ class Login extends Component {
           />
           <button
             type="submit"
-            disabled={ validate.login === false || validate.password === false }
+            disabled={ !validate.login || !validate.password }
             onClick={ handleClick }
           >
             Entrar
