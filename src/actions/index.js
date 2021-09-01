@@ -1,6 +1,6 @@
-// Coloque aqui suas actions
+import getCoins from '../services';
+
 export const USER_INFO = 'USER_INFO';
-export const WALLET_INFO = 'WALLET_INFO';
 export const LOADING_COIN = 'LOADING_COIN';
 export const SUCCESS_COIN = 'SUCCESS_COIN';
 export const ERROR_COIN = 'ERROR_COIN';
@@ -10,25 +10,28 @@ export const sendUserInfo = (payload) => ({
   payload,
 });
 
-export const sendWalletInfo = (payload) => ({
-  type: WALLET_INFO,
+const loadingCurrency = () => ({
+  type: LOADING_COIN,
+});
+
+const successCurrency = (payload) => ({
+  type: SUCCESS_COIN,
   payload,
 });
 
-// const loadingCurrency = () => ({
-//   type: LOADING_COIN,
-// });
+const errorCurrency = (error) => ({
+  type: ERROR_COIN,
+  error,
+});
 
-// const successCurrency = (data) => ({
-//   type: SUCCESS_COIN,
-//   data,
-// });
-
-// const errorCurrency = (error) => ({
-//   type: ERROR_COIN,
-//   error,
-// });
-
-// export function fetchCoin() {
-
-// }
+export const fetchCoin = () => (dispatch) => {
+  dispatch(loadingCurrency());
+  return getCoins()
+    .then((result) => {
+      const filteredCoins = Object
+        .keys(result)
+        .filter((coin) => coin !== 'USDT');
+      return dispatch(successCurrency(filteredCoins));
+    },
+    (error) => dispatch(errorCurrency(error)));
+};

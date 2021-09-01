@@ -1,16 +1,22 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { fetchCoin } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
-    this.renderHeader = this.renderHeader.bind(this);
     this.renderForm = this.renderForm.bind(this);
+    this.renderHeader = this.renderHeader.bind(this); // bind das funções necessárias;
   }
 
-  renderHeader() {
-    const { emailInput } = this.props;
+  componentDidMount() {
+    const { fetchData } = this.props;
+    fetchData();
+  }
+
+  renderHeader() { // COMPONENTE 1
+    const { emailInput } = this.props; // puxa o email por props
     return (
       <header>
         <section data-testid="email-field">{emailInput}</section>
@@ -20,7 +26,8 @@ class Wallet extends React.Component {
     );
   }
 
-  renderForm() {
+  renderForm() { // COMPONENTE 2
+    const { carteira } = this.props;
     return (
       <article>
         <form>
@@ -35,7 +42,13 @@ class Wallet extends React.Component {
           <label htmlFor="currency">
             Moeda
             <select type="text" id="currency">
-              <option value="">Nada</option>
+              { carteira.map((coin) => (
+                <option
+                  key={ coin }
+                  value={ coin }
+                >
+                  { coin }
+                </option>))}
             </select>
           </label>
           <label htmlFor="payment">
@@ -61,7 +74,7 @@ class Wallet extends React.Component {
     );
   }
 
-  render() {
+  render() { // RENDERIZANDO OS DOIS COMPONENTES
     return (
       <main>
         {this.renderHeader()}
@@ -74,11 +87,21 @@ class Wallet extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  emailInput: state.user.email,
+  emailInput: state.user.email, // puxamos o email colocado pelo usuário no estado global, e o utilizamos no componente por props;
+  carteira: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchData: () => dispatch(fetchCoin()),
 });
 
 Wallet.propTypes = {
+  carteira: PropTypes.shape({
+    map: PropTypes.func,
+  }).isRequired,
   emailInput: PropTypes.string.isRequired,
+  fetchData: PropTypes.func.isRequired,
+  map: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
