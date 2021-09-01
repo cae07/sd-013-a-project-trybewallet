@@ -23,7 +23,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* min-height: 100vh; */
 }
 
 .form-header fieldset {
