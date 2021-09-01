@@ -10,11 +10,12 @@ class SelectPayment extends React.Component {
       >
         Método de pagamento:
         <select
+          required
           id="payment"
           onChange={ onChange }
           name="method"
         >
-          <option value="Dinheiro" selected>Dinheiro</option>
+          <option value="Dinheiro">Dinheiro</option>
           <option value="Cartão de crédito">Cartão de crédito</option>
           <option value="Cartão de débito">Cartão de débito</option>
         </select>

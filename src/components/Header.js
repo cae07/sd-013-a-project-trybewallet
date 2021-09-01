@@ -28,7 +28,7 @@ class Header extends React.Component {
         <h1
           data-testid="total-field"
         >
-          {total.reduce((acc, el) => acc + el, 0).toFixed(2) }
+          {total.toFixed(2) }
         </h1>
       </header>
     );
@@ -38,11 +38,11 @@ class Header extends React.Component {
 Header.propTypes = {
   // fetchCurrencies: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
-  total: PropTypes.arrayOf(Number),
+  total: PropTypes.number,
 };
 
 Header.defaultProps = {
-  total: [],
+  total: 0,
 };
 
 const mapStateToProps = (state) => ({

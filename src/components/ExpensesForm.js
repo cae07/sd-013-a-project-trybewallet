@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SelectPayment from './SelectPayment';
 import SelectTag from './SelectTag';
 import SelectCurrencies from './SelectCurrencies';
+import Table from './Table';
 import { setExpenses, setTotal, thunkCurrencies } from '../actions';
 
 class ExpensesForm extends React.Component {
@@ -101,6 +102,7 @@ class ExpensesForm extends React.Component {
         >
           Adicionar despesa
         </button>
+        <Table />
       </form>
     );
   }

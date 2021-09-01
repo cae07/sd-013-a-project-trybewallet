@@ -13,9 +13,10 @@ class SelectTag extends React.Component {
           id="tag"
           onChange={ onChange }
           name="tag"
+          required
         >
           <option value="Alimentação">Alimentação</option>
-          <option value="Lazer" selected>Lazer</option>
+          <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
           <option value="transporte">transporte</option>
           <option value="Saúde">Saúde</option>
