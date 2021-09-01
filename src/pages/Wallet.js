@@ -73,26 +73,13 @@ class Wallet extends React.Component {
   }
 
   totalExpenses() {
-    const returnDefault = (
-      <p className="despezas" data-testid="total-field">
-        Despesa Total: R$ 0
-      </p>
-    );
-
     const { wallet: { expenses } } = this.props;
-    if (expenses.length === 0) return returnDefault;
-    return (
-      <p className="despezas" data-testid="total-field">
-        Despesa Total: R$
-        {' '}
-        {
-          expenses.reduce((acc, cur) => {
-            acc += parseInt(cur.value, 10);
-            return acc;
-          }, 0)
-        }
-      </p>
-    );
+    if (expenses.length === 0) return (<p>0</p>);
+    return expenses.reduce((itemAcc, item) => {
+      const convertedValue = item.exchangeRates[item.currency].ask;
+      itemAcc += item.value * convertedValue;
+      return itemAcc;
+    }, 0).toFixed(2);
   }
 
   tagOptions() {
