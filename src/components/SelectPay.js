@@ -7,7 +7,7 @@ class SelectPay extends Component {
     return (
       <label htmlFor="pay">
         Método de Pagamento
-        <select onChange={ onChange } required="required" id="pay">
+        <select onChange={ onChange } name="method" required="required" id="pay">
           <option name="Dinheiro">Dinheiro</option>
           <option name="Credito">Cartão de crédito</option>
           <option name="Debito">Cartão de débito</option>
@@ -16,9 +16,7 @@ class SelectPay extends Component {
     );
   }
 }
-
 SelectPay.propTypes = {
   onChange: Proptypes.func,
 }.isrequired;
-
 export default SelectPay;

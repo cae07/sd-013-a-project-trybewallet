@@ -8,6 +8,7 @@ class Input extends React.Component {
       <label htmlFor={ name }>
         { label }
         <input
+          id={ name }
           type={ name }
           name={ name }
           data-testid={ datatestid }
@@ -17,12 +18,10 @@ class Input extends React.Component {
     );
   }
 }
-
 Input.propTypes = {
   onChange: Proptypes.func,
   datatestid: Proptypes.string,
   name: Proptypes.string,
   label: Proptypes.string,
 }.isrequired;
-
 export default Input;

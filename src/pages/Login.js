@@ -12,7 +12,6 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleNextPage = this.handleNextPage.bind(this);
   }
@@ -54,18 +53,16 @@ class Login extends React.Component {
         <Button
           onClick={ handleNextPage }
           disabled={ !(validateEmail() && passwordCorrect) }
+          name="Entrar"
         />
       </div>
     );
   }
 }
-
 const mapDispatchToProps = (dispatch) => ({
   changeValue: (state) => dispatch(emailLogin(state)) });
-
 Login.propTypes = {
   changeValue: Proptypes.func.isRequired,
   history: Proptypes.shape().isRequired,
 };
-
 export default connect(null, mapDispatchToProps)(Login);

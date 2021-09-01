@@ -16,4 +16,4 @@ class App extends Component {
 }
 export default App;
 
-// codigo inteiro baseado nos estudos da aluna Aline Eiko Hoshino e do Pedro Delicoli
+// codigo inteiro do projeto baseado nos estudos da aluna Aline Eiko Hoshino e do Pedro Delicoli
