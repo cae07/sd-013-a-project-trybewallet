@@ -29,17 +29,13 @@ export const loadingActionFail = (payload) => ({
 export const fetchData = () => (
   async (dispatch) => {
     dispatch(loadingAction());
-    const SUCCESS_CODE = 200;
 
     try {
       const res = await fetch(API_URL);
 
-      if (res.status !== SUCCESS_CODE) {
-        throw new Error('Error fetching data');
-      }
-
       const data = await res.json();
 
+      delete data.USDT;
       return dispatch(loadingActionSuccess(data));
     } catch (error) {
       return dispatch(loadingActionFail(error.message));
