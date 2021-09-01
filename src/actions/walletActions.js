@@ -3,6 +3,12 @@ export const ERROR_FETCH = 'ERROR_FETCH';
 export const SUCCESS_FETCH = 'SUCCESS_FETCH';
 export const ENVIA_SPENCES = 'ENVIA_SPENCES';
 export const SUCCESS_FETCH_EXPENSES = 'SUCCESS_FETCH_EXPENSES';
+export const REMOVE_LIST_TABLE = 'REMOVE_LIST_TABLE';
+
+export const removeList = (payload) => ({
+  type: REMOVE_LIST_TABLE,
+  payload,
+});
 
 export const successFetchEspenses = (stat, payload) => ({
   type: SUCCESS_FETCH_EXPENSES,

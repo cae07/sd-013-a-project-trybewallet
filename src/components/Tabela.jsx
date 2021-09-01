@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import HeaderTable from './HeaderTable';
+import { removeList } from '../actions/walletActions';
 
 class Tabela extends Component {
+  constructor() {
+    super();
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+
+  handleOnClick(id) {
+    const { remove } = this.props;
+    console.log(id);
+    remove(id);
+  }
+
   render() {
     const { despesas } = this.props;
     return (
       <table>
         <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Tag</th>
-            <th>Método de pagamento</th>
-            <th>Valor</th>
-            <th>Moeda</th>
-            <th>Câmbio utilizado</th>
-            <th>Valor convertido</th>
-            <th>Moeda de conversão</th>
-            <th>Editar/Excluir</th>
-          </tr>
+          <HeaderTable />
         </thead>
         <tbody>
           { despesas.map((desp, index) => (
@@ -26,7 +29,14 @@ class Tabela extends Component {
               <td>{desp.tag}</td>
               <td>{desp.method}</td>
               <td>{desp.value}</td>
-              <td>{desp.exchangeRates[desp.currency].name === 'Dólar Americano/Real Brasileiro' ? 'Dólar Comercial' : desp.exchangeRates[desp.currency].name.split('/', 1)}</td>
+              <td>
+                {
+                  desp.exchangeRates[desp.currency]
+                    .name === 'Dólar Americano/Real Brasileiro' ? 'Dólar Comercial' : desp
+                      .exchangeRates[desp.currency]
+                      .name.split('/', 1)
+                }
+              </td>
               <td>{Number(desp.exchangeRates[desp.currency].ask).toFixed(2)}</td>
               <td>
                 {
@@ -35,6 +45,15 @@ class Tabela extends Component {
                 }
               </td>
               <td>Real</td>
+              <td>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => this.handleOnClick(desp.id) }
+                >
+                  remove
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -47,4 +66,8 @@ const mapStateToProps = (state) => ({
   despesas: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps)(Tabela);
+const mapDispatchToProps = (dispatch) => ({
+  remove: (payload) => dispatch(removeList(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tabela);
