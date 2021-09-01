@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import { Login, Wallet } from './pages';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import './ReactToastify.css';
 
 function App() {
-  const notify = () => toast('Wow so easy!');
+  // const notify = () => toast('Wow so easy!');
 
   return (
     <div className="App">
@@ -18,10 +18,10 @@ function App() {
         <Route path="/carteira" component={ Wallet } />
 
       </Switch>
-      <div>
+      {/* <div>
         <button type="button" onClick={ notify }>Notify!</button>
         <ToastContainer />
-      </div>
+      </div> */}
     </div>
   );
 }

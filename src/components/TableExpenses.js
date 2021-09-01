@@ -3,7 +3,20 @@ import React from 'react';
 class TableExpenses extends React.Component {
   render() {
     return (
-      <div>OI</div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>wqewq</th>
+              <th>wqewq</th>
+              <th>wqewq</th>
+              <th>wqewq</th>
+              <th>wqewq</th>
+              <th>wqewq</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     );
   }
 }
