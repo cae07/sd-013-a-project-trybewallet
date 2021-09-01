@@ -1,7 +1,15 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
+import Login from './pages/Login';
 
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
+class App extends React.Component {
+  render() {
+    return (
+      <main>
+        <Route path="/" component={ Login } />
+      </main>
+    );
+  }
 }
 
 export default App;
