@@ -1,0 +1,22 @@
+#email {
+  display: flex;
+  padding: 5px;
+  margin: 5px;
+  flex-direction: column;
+}
+
+.password {
+  display: flex;
+  padding: 5px;
+  margin: 5px;
+}
+
+form {
+  display: flexbox;
+  align-items: center;
+}
+
+button {
+  display: flex;
+  background-color:#fff;
+}
