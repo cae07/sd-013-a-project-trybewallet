@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { saveUserEmail } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -6,14 +10,26 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      login: false,
     };
     this.handleInput = this.handleInput.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleInput(event) {
     this.setState({
       [event.target.name]: event.target.value,
     });
+  }
+
+  handleClick(event) {
+    const { email } = this.state;
+    const { saveUserPropEmail } = this.props;
+    saveUserPropEmail(email);
+    this.setState({
+      login: true,
+    });
+    event.preventDefault();
   }
 
   handleValidateEmail(email) {
@@ -34,8 +50,13 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, login } = this.state;
     const minLengthPassword = 6;
+
+    if (login) {
+      return <Redirect to="/carteira" />;
+    }
+
     return (
       <form>
         <label htmlFor="email-input">
@@ -63,6 +84,7 @@ class Login extends React.Component {
         <button
           type="submit"
           disabled={ !this.handleValidateButton(minLengthPassword) }
+          onClick={ this.handleClick }
         >
           Entrar
         </button>
@@ -71,4 +93,12 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  saveUserPropEmail: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveUserPropEmail: (email) => dispatch(saveUserEmail(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
