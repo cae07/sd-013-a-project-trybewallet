@@ -58,7 +58,7 @@ class Form extends React.Component {
     return (
       <select
         name="currency"
-        id="moeda"
+        id="currency"
         value={ currency }
         onChange={ this.handleChange }
       >
@@ -78,13 +78,13 @@ class Form extends React.Component {
     return (
       <select
         name="method"
-        id="pagamento"
+        id="method"
         value={ method }
         onChange={ this.handleChange }
       >
         <option value="Dinheiro">Dinheiro</option>
         <option value="Cartão de crédito">Cartão de crédito</option>
-        <option value="Cartão de Débito"> Cartão de débito</option>
+        <option value="Cartão de débito"> Cartão de débito</option>
       </select>
     );
   }
@@ -106,37 +106,37 @@ class Form extends React.Component {
     const { value, description, tag } = this.state;
     return (
       <form>
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor
           <input
             type="text"
             name="value"
-            id="valor"
+            id="value"
             value={ value }
             onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="descricao">
+        <label htmlFor="description">
           Descrição
           <input
             type="text"
             name="description"
-            id="descricao"
+            id="description"
             value={ description }
             onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="moeda">
+        <label htmlFor="currency">
           Moeda
           { this.currencieForm() }
         </label>
-        <label htmlFor="pagamento">
+        <label htmlFor="method">
           Método de pagamento
           { this.methodForm()}
         </label>
-        <label htmlFor="gastos">
+        <label htmlFor="tag">
           Tag
-          <select name="tag" value={ tag } id="gastos" onChange={ this.handleChange }>
+          <select name="tag" value={ tag } id="tag" onChange={ this.handleChange }>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>

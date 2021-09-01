@@ -55,3 +55,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Header);
+
+// com a ajuda da Julia consegui fazer a soma!!!
