@@ -1,7 +1,7 @@
-import GET_EMAIL from '../actions/actionTypes';
+import { GET_EMAIL } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  email: '',
+  email: 'Logue para visualizar o seu email',
 };
 
 const user = (state = INITIAL_STATE, action) => {

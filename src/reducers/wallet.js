@@ -1,3 +1,5 @@
+import { GET_API } from '../actions/actionTypes';
+
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
@@ -5,10 +7,10 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'GET_CURRENCIES':
+  case GET_API:
     return {
       ...state,
-      currencies: action.state.currencies,
+      currencies: action.payload,
     };
   default:
     return state;
