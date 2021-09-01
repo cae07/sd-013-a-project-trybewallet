@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Form extends React.Component {
   render() {
+    const { currencies } = this.props;
     return (
       <div className="form-header">
         <fieldset>
@@ -24,7 +26,7 @@ class Form extends React.Component {
           <label htmlFor="moeda">
             Moeda:
             <select name="moeda" id="moeda">
-              <option value="select">selecione</option>
+              {currencies.map(({ code }) => <option key={ code }>{code}</option>)}
             </select>
           </label>
           <label htmlFor="metodo-de-pgt">
@@ -50,5 +52,9 @@ class Form extends React.Component {
     );
   }
 }
+
+Form.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+};
 
 export default Form;
