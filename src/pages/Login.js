@@ -15,27 +15,9 @@ class Login extends Component {
         password: false,
       },
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.emailValidation = this.emailValidation.bind(this);
     this.passwordValidation = this.passwordValidation.bind(this);
   }
-
-  handleClick() {
-    const { history, loginName } = this.props;
-    loginName({ email, pass });
-    history.push('/carteira');
-  }
-
-  handleChange({ target: { name, value } }) {
-    if (name === 'email') {
-      return this.setState({ [name]: value },
-        () => { this.validateEmail(); });
-    }
-    this.setState({ [name]: value },
-      () => { this.validateSenha(); });
-  };
 
   emailValidation() {
     const { email, validate } = this.state;
@@ -65,8 +47,26 @@ class Login extends Component {
     return this.setState({ validate: { ...validate, password: true } });
   }
 
+  
   render() {
     const { email, password, validate } = this.state;
+
+    const handleChange = ({ target }) => {
+      const { name, value } = target;
+      if (name === 'email') {
+        return this.setState({ [name]: value },
+          () => { this.emailValidation(); });
+      }
+      this.setState({ [name]: value },
+        () => { this.passwordValidation(); });
+      };
+
+    const handleClick = () => {
+      const { history, loginName } = this.props;
+      loginName({ email, password });
+      history.push('/carteira');
+    }
+
     return (
       <main>
         <form>
@@ -74,20 +74,20 @@ class Login extends Component {
             type="text"
             name="email"
             value={ email }
-            onChange={ this.handleChange }
+            onChange={ handleChange }
             data-testid="email-input"
           />
           <input
             type="password"
             name="password"
             value={ password }
-            onChange={ this.handleChange }
+            onChange={ handleChange }
             data-testid="password-input"
           />
           <button
             type="submit"
             disabled={ validate.login === false || validate.password === false }
-            onClick={ this.handleClick }
+            onClick={ handleClick }
           >
             Entrar
           </button>
