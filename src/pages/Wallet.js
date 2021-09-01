@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import WalletForm from '../components/WalletForm';
-import { actionAddExpense, fetchExchangeRates } from '../actions';
+import { actionAddExpense, fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -21,6 +21,11 @@ class Wallet extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
   handleChange(event) {
     const { target: { id, value } } = event;
     this.setState({
@@ -29,10 +34,9 @@ class Wallet extends React.Component {
   }
 
   async handleClick() {
-    const { getExchangeRates, addExpense } = this.props;
+    const { addExpense, getCurrencies } = this.props;
     const { currency, value, description, method, tag } = this.state;
-    await getExchangeRates();
-    const { state: { wallet: { exchangeRates } } } = this.props;
+    const exchangeRates = await getCurrencies();
     const payload = {
       currency,
       value,
@@ -42,10 +46,6 @@ class Wallet extends React.Component {
       exchangeRates,
     };
     addExpense(payload);
-    this.setState((prevState) => ({
-      ...prevState,
-      expenses: prevState.expenses + parseInt(value, 10),
-    }));
   }
 
   render() {
@@ -66,8 +66,8 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   state: PropTypes.shape().isRequired,
+  getCurrencies: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
-  getExchangeRates: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -75,8 +75,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrencies()),
   addExpense: (payload) => dispatch(actionAddExpense(payload)),
-  getExchangeRates: () => dispatch(fetchExchangeRates()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

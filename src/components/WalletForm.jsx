@@ -1,18 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies } from '../actions';
 
 class WalletForm extends React.Component {
-  componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies();
-  }
-
   mapCurrenciesIntoOptions() {
     const { state } = this.props;
     const { wallet: { currencies } } = state;
-    return currencies.map((currency) => (
+    const filteredCurrencies = currencies
+      .filter((currency) => currency !== 'USDT');
+    return filteredCurrencies.map((currency) => (
       <option key={ currency } value={ currency }>{currency}</option>));
   }
 
@@ -67,7 +63,6 @@ class WalletForm extends React.Component {
 
 WalletForm.propTypes = {
   state: PropTypes.shape().isRequired,
-  getCurrencies: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
@@ -76,8 +71,4 @@ const mapStateToProps = (state) => ({
   state,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(fetchCurrencies()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
+export default connect(mapStateToProps)(WalletForm);
