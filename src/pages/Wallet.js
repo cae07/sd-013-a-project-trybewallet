@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { API_RESPONSE, addExpenses } from '../actions';
-// import SelectOptions from '../SelectOptions';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -14,16 +13,18 @@ class Wallet extends React.Component {
     this.state = {
       user,
       wallet,
-      coinCurrent: 'USD',
-      payment: 'Dinheiro',
-      destinedTo: 'Alimentação',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       value: '',
       description: '',
     };
 
     this.tagOptions = this.tagOptions.bind(this);
+    this.onClickBtn = this.onClickBtn.bind(this);
     this.paymentOptions = this.paymentOptions.bind(this);
     this.coinsOptions = this.coinsOptions.bind(this);
+    this.fetchAPI = this.fetchAPI.bind(this);
     this.totalExpenses = this.totalExpenses.bind(this);
     this.buttonSubmit = this.buttonSubmit.bind(this);
     // this.onClick = this.onClick.bind(this);
@@ -37,55 +38,40 @@ class Wallet extends React.Component {
       .then((response) => APIResponse(response));
   }
 
-  coinsOptions() {
-    const { wallet: { currencies } } = this.props;
-    const { coinCurrent } = this.state;
+  async onClickBtn() {
+    const { currency, method, tag, value, description } = this.state;
+    const { wallet: { expenses }, dispatchDados } = this.props;
+    const id = expenses.length;
+    // const { dispatchDados } = this.props;
 
-    return (
+    const valorMoedas = await this.fetchAPI();
 
-      <label htmlFor="Moeda">
-        Moeda:
-        <select
-          id="Moeda"
-          name="coinCurrent"
-          onChange={ this.handleChange }
-          value={ coinCurrent }
-        >
-          {Object.keys(currencies)
-            .filter((currencie) => currencie !== 'USDT')
-            .map((currencie) => (
-              <option
-                name="coinCurrent"
-                key={ currencie }
-                value={ currencie }
-              >
-                {currencie}
+    const dados = { id,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: valorMoedas };
 
-              </option>))}
-        </select>
-
-      </label>
-    );
+    return dispatchDados(dados);
   }
 
-  paymentOptions() {
-    const { payment } = this.state;
+  fetchAPI() {
+    return fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((data) => data.json())
+      .then((response) => (response));
+  }
 
+  buttonSubmit() {
     return (
-      <label htmlFor="paymentOptions">
-        Método de pagamento:
-        <select
-          name="payment"
-          id="paymentOptions"
-          onChange={ this.handleChange }
-          value={ payment }
-        >
-          {paymentOptions.map((paymentOption) => (
-            <option key={ paymentOption } value={ paymentOption }>
-              {paymentOption}
-            </option>))}
-        </select>
-      </label>
+      <button
+      // onClick={ dispatchDados(dados) }
+        onClick={ this.onClickBtn }
+        type="button"
+      >
+        ENVIAR
+      </button>
     );
   }
 
@@ -104,7 +90,7 @@ class Wallet extends React.Component {
         {' '}
         {
           expenses.reduce((acc, cur) => {
-            acc += cur.custo;
+            acc += cur.value;
             return acc;
           }, 0)
         }
@@ -113,38 +99,74 @@ class Wallet extends React.Component {
   }
 
   tagOptions() {
-    const { destinedTo } = this.state;
+    const { tag } = this.state;
     return (
       <label htmlFor="tagOptions">
         Tag:
         <select
-          name="destinedTo"
+          name="tag"
           id="tagOptions"
           onChange={ this.handleChange }
-          value={ destinedTo }
+          value={ tag }
         >
-          {tagOptions.map((tag) => (
-            <option key={ tag } value={ tag }>
-              {tag}
+          {tagOptions.map((option) => (
+            <option key={ option } value={ option }>
+              {option}
             </option>))}
         </select>
       </label>
     );
   }
 
-  buttonSubmit() {
-    const { coinCurrent, payment, destinedTo, value, description } = this.state;
-    // const { dispatchDados } = this.props;
-    const dados = { coinCurrent, payment, destinedTo, value, description };
+  paymentOptions() {
+    const { method } = this.state;
 
     return (
-      <button
-        // onClick={ dispatchDados(dados) }
-        onClick={ () => console.log(dados) }
-        type="button"
-      >
-        ENVIAR
-      </button>
+      <label htmlFor="paymentOptions">
+        Método de pagamento:
+        <select
+          name="method"
+          id="paymentOptions"
+          onChange={ this.handleChange }
+          value={ method }
+        >
+          {paymentOptions.map((paymentOption) => (
+            <option key={ paymentOption } value={ paymentOption }>
+              {paymentOption}
+            </option>))}
+        </select>
+      </label>
+    );
+  }
+
+  coinsOptions() {
+    const { wallet: { currencies } } = this.props;
+    const { currency } = this.state;
+
+    return (
+
+      <label htmlFor="Moeda">
+        Moeda:
+        <select
+          id="Moeda"
+          name="currency"
+          onChange={ this.handleChange }
+          value={ currency }
+        >
+          { currencies
+            .filter((currencie) => currencie !== 'USDT')
+            .map((currencie) => (
+              <option
+                name="currency"
+                key={ currencie }
+                value={ currencie }
+              >
+                {currencie}
+
+              </option>))}
+        </select>
+
+      </label>
     );
   }
 
@@ -223,7 +245,7 @@ Wallet.propTypes = {
     password: PropTypes.string,
   }).isRequired,
   APIResponse: PropTypes.func.isRequired,
-  // dispatchDados: PropTypes.func.isRequired,
+  dispatchDados: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

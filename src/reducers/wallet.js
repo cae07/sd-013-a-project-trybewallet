@@ -8,12 +8,10 @@ const INITIAL_STATE_WALLET = {
 
 function wallet(state = INITIAL_STATE_WALLET, action) {
   switch (action.type) {
-  case 'ADD_COINS':
-    return { ...state, currencies: [...action.payload] };
   case 'ADD_EXPENSE':
-    return { ...state, expenses: {} };
+    return { ...state, expenses: [...state.expenses, action.payload] };
   case 'ADD_API_RESPONSE':
-    return { ...state, currencies: action.payload };
+    return { ...state, currencies: Object.keys(action.payload) };
   default:
     return state;
   }
