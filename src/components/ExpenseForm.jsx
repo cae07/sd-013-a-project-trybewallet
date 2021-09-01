@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import economyAPI, { economySaveExpense } from '../actions/index';
+import { economySaveExpense } from '../actions/index';
+import getEconomyAwesome from '../services/economyAPI';
 
 class ExpenseForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
-      description: '',
-      currency: '',
-      method: '',
-      tag: '',
       id: 0,
+      value: 0,
+      method: 'Dinheiro',
+      currency: 'USD',
+      tag: 'Lazer',
+      description: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.renderInput = this.renderInput.bind(this);
+    this.renderSelect2 = this.renderSelect2.bind(this);
     this.renderSelect = this.renderSelect.bind(this);
     this.ButtonExpenses = this.ButtonExpenses.bind(this);
   }
@@ -26,16 +28,16 @@ class ExpenseForm extends Component {
 
   async ButtonExpenses(e) {
     e.preventDefault();
-    const exchangeRates = await economyAPI();
+    const exchangeRates = await getEconomyAwesome();
     const { AddExpense } = this.props;
     const { value, description, currency, method, tag, id } = this.state;
     const add = {
-      description,
+      id,
+      value,
       currency,
       method,
-      value,
       tag,
-      id,
+      description,
       exchangeRates,
     };
 
@@ -77,7 +79,10 @@ class ExpenseForm extends Component {
           {currencies.map((currency) => {
             if (currency === 'USDT') return '';
             return (
-              <option key={ currency } data-testid={ currency }>
+              <option
+                key={ currency }
+                data-testid={ currency }
+              >
                 {currency}
               </option>
             );
@@ -87,18 +92,41 @@ class ExpenseForm extends Component {
     );
   }
 
-  renderSelect(label, name, value, options) {
+  renderSelect2() {
+    const { method } = this.state;
+    const methodsOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     return (
-      <label htmlFor={ `${name}-input` }>
-        {`${label}: `}
+      <label htmlFor="methods-input">
+        Método de pagamento:
         <select
-          id={ `${name}-input` }
-          name={ name }
-          data-testid={ `${name}-input` }
+          id="methods-input"
+          name="method"
+          data-testid="methods-input"
           onChange={ this.handleChange }
-          value={ value }
+          value={ method }
         >
-          {options.map((option) => (
+          {methodsOptions.map((option) => (
+            <option key={ option }>{option}</option>
+          ))}
+        </select>
+      </label>
+    );
+  }
+
+  renderSelect() {
+    const tagsOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    const { tag } = this.state;
+    return (
+      <label htmlFor="tags-input">
+        Tag:
+        <select
+          id="tags-input"
+          name="tag"
+          data-testid="methods-input"
+          onChange={ this.handleChange }
+          value={ tag }
+        >
+          {tagsOptions.map((option) => (
             <option key={ option }>{option}</option>
           ))}
         </select>
@@ -107,17 +135,15 @@ class ExpenseForm extends Component {
   }
 
   render() {
-    const { value, description, currency, method, tag } = this.state;
-    const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const { value, description, currency } = this.state;
     return (
       <div>
         <form>
           {this.renderInput('Valor', 'number', 'value', value)}
           {this.renderInput('Descrição', 'text', 'description', description)}
           {this.renderSelectCurrencies(currency)}
-          {this.renderSelect(' Método de pagamento', 'methods', method, methods)}
-          {this.renderSelect(' Tag', 'tags', tag, tags)}
+          {this.renderSelect2()}
+          {this.renderSelect()}
           <button
             type="button"
             onClick={ this.ButtonExpenses }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import economyAPI from '../actions';
 import ExpenseForm from '../components/ExpenseForm';
 import Header from '../components/Header';
+import ExpenseTable from '../components/ExpenseTable';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -15,9 +16,8 @@ class Wallet extends React.Component {
     return (
       <main>
         <Header />
-        <div>
-          <ExpenseForm />
-        </div>
+        <ExpenseForm />
+        <ExpenseTable />
       </main>
     );
   }

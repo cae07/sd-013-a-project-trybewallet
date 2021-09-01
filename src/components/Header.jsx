@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import economyAPI from '../actions';
 
 class Header extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Header extends Component {
 
     const totalExpenses = expenses.reduce((previousValue, currentValue) => {
       const { value, currency, exchangeRates } = currentValue;
-      const expenseJson = parseFloat(exchangeRates[currency]);
+      const expenseJson = parseFloat(exchangeRates[currency].ask);
       return previousValue + parseFloat(value) * expenseJson;
     }, 0);
     return totalExpenses.toFixed(2);
@@ -36,6 +37,10 @@ class Header extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  startAPI: () => dispatch(economyAPI()),
+});
+
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
@@ -45,4 +50,4 @@ Header.propTypes = {
   email: PropTypes.string,
 }.isRequired;
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
