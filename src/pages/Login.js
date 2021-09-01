@@ -37,20 +37,19 @@ class Login extends React.Component {
   }
 
   checkUsernamePassword() {
-    const PASS_LENGTH = 5;
+    const PASS_LENGTH = 6;
+    const EMAIL_VALIDATION = /^[\w]+@([\w]+\.)+[\w]{2,4}$/gi;
     const { inputEmail, inputPassword } = this.state;
+    let buttonDisabled = true;
 
-    if (inputPassword.length > PASS_LENGTH
-      && inputEmail.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)
+    if (inputPassword.length >= PASS_LENGTH
+      && inputEmail.match(EMAIL_VALIDATION)
     ) {
-      this.setState({
-        buttonDisabled: false,
-      });
-    } else {
-      this.setState({
-        buttonDisabled: true,
-      });
+      buttonDisabled = false;
     }
+    this.setState({
+      buttonDisabled,
+    });
   }
 
   // botao precisa de uma funcao para o Dispatch(action) que altera o store
@@ -62,7 +61,7 @@ class Login extends React.Component {
     this.setState({
       login: true,
     });
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   render() {

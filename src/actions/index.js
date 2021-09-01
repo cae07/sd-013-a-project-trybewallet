@@ -1,4 +1,5 @@
 // Coloque aqui suas actions
-const LOGIN_SUCESS = 'LOGIN_SUCESS';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+// const CURRENCY_SUCCESS = 'CURRENCY_SUCCESS,';
 
-export default LOGIN_SUCESS;
+export default LOGIN_SUCCESS;
