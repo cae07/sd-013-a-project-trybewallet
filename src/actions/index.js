@@ -3,8 +3,6 @@
 import {
   LOGIN,
   ADD_EXPENSE,
-  /* SET_EXPENSE,
-  EDIT_EXPENSE, */
   ERROR_EXPENSE }
   from './actionTypes';
 
@@ -18,16 +16,6 @@ const addExpenseAction = (despesaAtual, currencies) => ({
   despesaAtual,
   currencies,
 });
-
-/* const setExpenseAction = (expenses) => ({
-  type: SET_EXPENSE,
-  expenses,
-});
-
-const editExpenseAction = (expenses) => ({
-  type: EDIT_EXPENSE,
-  expenses,
-}); */
 
 const addExpenseActionError = (expenses) => ({
   type: ERROR_EXPENSE,

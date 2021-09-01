@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { addExpenseThunk } from '../actions';
 import fetchCurrencies from '../requireAPI';
 
@@ -10,10 +11,11 @@ class Form extends React.Component {
     this.state = {
       data: [],
       despesaAtual: {
+        id: 0,
         value: 0,
         description: '',
         currency: 'USD',
-        payMethod: 'Dinheiro',
+        method: 'Dinheiro',
         tag: 'Alimentação',
       },
     };
@@ -92,19 +94,20 @@ class Form extends React.Component {
     );
   }
 
-  selectPayMethod(despesaAtual) {
+  selectedMethod(despesaAtual) {
     return (
-      <label htmlFor="payMethod">
+      <label htmlFor="method">
         Método de Pagamento:
         <select
-          id="payMethod"
-          value={ despesaAtual.payMethod }
-          name="payMethod"
+          id="method"
+          value={ despesaAtual.method }
+          name="method"
           onChange={ this.handleChange }
+          data-testid="method-input"
         >
-          <option id="payMethod">Dinheiro</option>
-          <option id="payMethod">Cartão de Crédito</option>
-          <option id="payMethod">Cartão de Débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de Crédito</option>
+          <option value="Cartão de débito">Cartão de Débito</option>
         </select>
       </label>
     );
@@ -118,13 +121,14 @@ class Form extends React.Component {
           id="tag"
           value={ despesaAtual.tag }
           name="tag"
-          onClick={ this.handleChange }
+          onChange={ this.handleChange }
+          data-testid="tag-input"
         >
-          <option id="tag" value="alimentação">Alimentação</option>
-          <option id="tag" value="lazer">Lazer</option>
-          <option id="tag" value="trabalho">Trabalho</option>
-          <option id="tag" value="transporte">Transporte</option>
-          <option id="tag" value="saúde">Saúde</option>
+          <option value="Alimentação">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
@@ -133,12 +137,13 @@ class Form extends React.Component {
   handleClick(despesaAtual, addExpense) {
     return (
       addExpense(despesaAtual),
-      this.setState(() => ({
+      this.setState((previouState) => ({
         despesaAtual: {
+          id: previouState.despesaAtual.id + 1,
           currency: 'USD',
           method: 'Dinheiro',
           tag: 'Alimentação',
-          value: '0',
+          value: 0,
           description: '',
         },
       }))
@@ -147,12 +152,19 @@ class Form extends React.Component {
 
   render() {
     const { data, despesaAtual } = this.state;
+    const { addExpense } = this.props;
     return (
       <form>
         { this.inputValue(despesaAtual) }
         { this.selectCurrency(data, despesaAtual) }
-        { this.selectPayMethod(despesaAtual) }
+        { this.selectedMethod(despesaAtual) }
         { this.selectTag(despesaAtual) }
+        <button
+          type="button"
+          onClick={ () => this.handleClick(despesaAtual, addExpense) }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
@@ -166,5 +178,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (despesaAtual) => dispatch(addExpenseThunk(despesaAtual)),
 });
+
+Form.propTypes = {
+  addExpense: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
