@@ -9,16 +9,16 @@ class LoginInput extends Component {
       <div className="login-input">
         <label htmlFor="login" className="login-label">
           Login
+          <input
+            type="text"
+            id="login"
+            className="log-inp"
+            name="email"
+            value={ login }
+            data-testid="email-input"
+            onChange={ func }
+            />
         </label>
-        <input
-          type="text"
-          id="login"
-          className="log-inp"
-          name="email"
-          value={ login }
-          data-testid="email-input"
-          onChange={ func }
-        />
       </div>
     );
   }

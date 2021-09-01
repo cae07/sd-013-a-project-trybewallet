@@ -13,7 +13,7 @@ class TagSelect extends Component {
           <option>Saúde</option>
         </select>
       </label>
-    )
+    );
   }
 }
 
