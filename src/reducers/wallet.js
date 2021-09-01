@@ -41,6 +41,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [
+        ...state.expenses,
         {
           id: state.expenses.length,
           value: action.value,
