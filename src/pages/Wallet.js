@@ -7,6 +7,7 @@ import SelectPay from '../components/SelectPay';
 import SelectTag from '../components/SelectTag';
 import { fetchCoin, expenseAdd } from '../actions';
 import Button from '../components/Button';
+import '../pages/Wallet.css'
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -110,25 +111,28 @@ class Wallet extends React.Component {
     const { email } = user;
     return (
       <div>
-        <header data-testid="email-field">
+        <header  className="email-field" data-testid="email-field">
           <span>
             { email }
           </span>
+          <div className="trybewallet">
           <span>
-            TrybeWallet
+            Trybe Wallet
           </span>
+          </div>
         </header>
-        <div data-testid="total-field">
-          { total }
+        <div className="total-field" data-testid="total-field">
+          Total: { total }
         </div>
-        <div data-testid="header-currency-field">
-          BRL
+        <div className="header-currency-field" data-testid="header-currency-field">
+          Resultados em reais (BRL)
         </div>
-        <form>
+        <form className="form">
           <Input
             label="Valor"
             onChange={ handleChange }
             name="value"
+            type="number"
           />
           <Input
             label="Descrição"
@@ -144,7 +148,7 @@ class Wallet extends React.Component {
           <SelectTag
             onChange={ handleChange }
           />
-          <Button
+          <Button 
             name="Adicionar despesa"
             onClick={ handleNextExpense }
           />

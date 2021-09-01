@@ -1,0 +1,36 @@
+.trybewallet {
+    background-color: #2BCC9E;
+    width: 100%;
+    padding: 20px;
+    color: black;
+    font-size: large;
+}
+
+.total-field {
+    width: 100%;
+    padding: 10px;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+.header-currency-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+.form {
+    margin: 2%;
+    padding: 5px;
+}
+
+.email-field {
+    background-color: #2BCC9E;
+    color: white;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 10px;
+    font-size: small;
+}

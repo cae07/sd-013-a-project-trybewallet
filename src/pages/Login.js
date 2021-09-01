@@ -4,6 +4,7 @@ import Proptypes from 'prop-types';
 import { emailLogin } from '../actions';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import './Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -38,24 +39,32 @@ class Login extends React.Component {
       return emailCorrect.test(email);
     };
     return (
-      <div>
+      <div className="container">
+        <div className="form-div">
+          <form>
         <Input
           label="Email:"
           name="email"
           datatestid="email-input"
+          placeholder="Email" 
+          type="text"
           onChange={ handleChange }
         />
         <Input
           label="Senha:"
+          placeholder="Senha" 
+          type="password"
           name="password"
           datatestid="password-input"
           onChange={ handleChange }
         />
-        <Button
+        <Button className="button-primary"
           onClick={ handleNextPage }
           disabled={ !(validateEmail() && passwordCorrect) }
           name="Entrar"
         />
+        </form>
+        </div>
       </div>
     );
   }
