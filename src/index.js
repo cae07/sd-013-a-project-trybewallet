@@ -2,17 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import { Reset } from 'styled-reset';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
 
+const theme = {
+  color: {
+    background: '#ffff',
+  },
+};
 ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={ store }>
-      <App />
-    </Provider>
-  </BrowserRouter>,
+  <ThemeProvider theme={ theme }>
+    <BrowserRouter>
+      <Provider store={ store }>
+        <Reset />
+        <App />
+      </Provider>
+    </BrowserRouter>
+  </ThemeProvider>,
   document.getElementById('root'),
 );
 
