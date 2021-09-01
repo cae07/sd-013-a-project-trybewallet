@@ -63,7 +63,6 @@ class Wallet extends React.Component {
   buttonSubmit() {
     return (
       <button
-      // onClick={ dispatchDados(dados) }
         onClick={ this.onClickBtn }
         type="button"
       >
