@@ -95,6 +95,7 @@ class Form extends Component {
 
 const mapStateToProps = (state) => ({
   listTokens: state.wallet.currencies,
+  valorAsk: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({

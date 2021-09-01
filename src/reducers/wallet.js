@@ -17,7 +17,7 @@ function wallet(state = initialState, { type, payload, stat }) {
       ...state,
       expenses:
       [...state.expenses,
-        { ...stat, exchangeRates: [{ ...payload }] }],
+        { ...stat, exchangeRates: { ...payload } }],
     };
   default:
     return state;

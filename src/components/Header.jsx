@@ -3,8 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
+  calculadora(array) {
+    const lailso = array.map((cash) => Number(cash.exchangeRates[cash.moeda].ask));
+    const yuri = lailso
+      .reduce((accmulator, currentValue) => accmulator + currentValue, 0);
+    console.log(yuri);
+    return yuri;
+  }
+
   render() {
-    const { infoHeaderEmail, despesaTotal, moeda } = this.props;
+    const { infoHeaderEmail, moeda, despesaTotal } = this.props;
     return (
       <div>
         <p
@@ -17,7 +25,7 @@ class Header extends Component {
           data-testid="total-field"
         >
           despesa total:
-          { despesaTotal }
+          { this.calculadora(despesaTotal) }
         </p>
         <p
           data-testid="header-currency-field"
@@ -32,19 +40,18 @@ class Header extends Component {
 
 Header.propTypes = {
   infoHeaderEmail: PropTypes.string.isRequired,
-  despesaTotal: PropTypes.number,
   moeda: PropTypes.string,
 };
 
 Header.defaultProps = {
-  despesaTotal: 0,
   moeda: 'BRL',
 };
 
 const mapStateToProps = (state) => ({
   infoHeaderEmail: state.user.email,
-  despesaTotal: state.expenses,
+  despesaTotal: state.wallet.expenses,
   moeda: state.wallet.currencies.code,
+  valor: state.wallet.expenses
 });
 
 export default connect(mapStateToProps)(Header);
