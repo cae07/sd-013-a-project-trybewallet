@@ -1,8 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { deleteExpense } from '../actions';
 
 class Expenses extends React.Component {
+  buttonDelete(id) {
+    const { deleteExpenseButton, expenses } = this.props;
+
+    const filteredExpenses = expenses.filter((expense) => expense.id !== id);
+
+    deleteExpenseButton(filteredExpenses);
+  }
+
   render() {
     const { expenses } = this.props;
 
@@ -19,7 +28,6 @@ class Expenses extends React.Component {
           <th>Moeda de conversão</th>
           <th>Editar/Excluir</th>
         </tr>
-
         {expenses.map((expense) => {
           const currencyExpense = expense.currency;
           const exchangeRatesObj = expense.exchangeRates[currencyExpense];
@@ -27,7 +35,6 @@ class Expenses extends React.Component {
           const correncyName = exchangeRatesObj.name.split('/')[0];
           const exchangeUsed = Number(exchangeRatesObj.ask).toFixed(2);
           const convertedValue = (valueNumber * exchangeRatesObj.ask).toFixed(2);
-
           return (
             <tr key={ expense.id }>
               <td>{ expense.description }</td>
@@ -40,7 +47,13 @@ class Expenses extends React.Component {
               <td>Real</td>
               <td>
                 <button type="button">Edit</button>
-                <button type="button">Excluir</button>
+                <button
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ () => this.buttonDelete(expense.id) }
+                >
+                  Excluir
+                </button>
               </td>
 
             </tr>
@@ -51,12 +64,17 @@ class Expenses extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpenseButton: (expenses) => dispatch(deleteExpense(expenses)),
+});
+
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
 Expenses.propTypes = ({
   expenses: PropTypes.arrayOf().isRequired,
+  deleteExpenseButton: PropTypes.func.isRequired,
 });
 
-export default connect(mapStateToProps)(Expenses);
+export default connect(mapStateToProps, mapDispatchToProps)(Expenses);

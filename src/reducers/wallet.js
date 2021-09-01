@@ -1,4 +1,4 @@
-import { REQUEST_API } from '../actions/actionTypes';
+import { REQUEST_API, DELETE_EXPENSE } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -15,6 +15,12 @@ function wallet(state = INITIAL_STATE, action) {
         { id: state.expenses.length, ...action.state, exchangeRates: action.payload }],
     };
 
+  case DELETE_EXPENSE: {
+    return {
+      ...state,
+      expenses: action.expenses,
+    };
+  }
   default:
     return state;
   }

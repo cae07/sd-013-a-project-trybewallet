@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.cointainer-login {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.cointainer-login:nth-child(1) img {
+  width: 700px;
+}
+
+.trybe-wallet {
+  color: #822748;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  height: 70px;
+  width: 300px;
+}
+
+.fieldset {
+  align-items: center;
+  background-color: #822748;
+  border-radius: 8px;
+  box-shadow: 0 0 1em #822748;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  justify-content: center;
+  padding: 80px;
+}
+
+.fieldset p {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
+.fieldset input {
+  margin-bottom: 40px;
+}
+
+.fieldset input:focus {
+  border: 0 none;
+  outline: 0;
+  box-shadow: 0 0 0 0;
+}

@@ -1,4 +1,4 @@
-import { USER, REQUEST_API } from './actionTypes';
+import { USER, REQUEST_API, DELETE_EXPENSE } from './actionTypes';
 
 export const userAction = (email) => ({
   type: USER,
@@ -17,3 +17,8 @@ export function fetchApi(state) {
     .then((response) => response.json())
     .then((json) => dispatch(requestApi(json, state)));
 }
+
+export const deleteExpense = (expenses) => ({
+  type: DELETE_EXPENSE,
+  expenses,
+});

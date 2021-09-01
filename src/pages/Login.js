@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { userAction } from '../actions';
+import digitalWallet from '../images/digitalWallet.jpg';
+import './Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -47,35 +49,48 @@ class Login extends React.Component {
     const { handleEmail } = this.props;
 
     return (
-      <fieldset>
-        <input
-          data-testid="email-input"
-          type="email"
-          placeholder="Digite seu e-mail"
-          name="email"
-          value={ email }
-          onChange={ this.handleChange }
-        />
+      <div className="cointainer-login">
+        <div>
+          <img src={ digitalWallet } alt="carteira" />
+        </div>
+        <div>
+          <div className="trybe-wallet">trybeWallet</div>
+          <fieldset className="fieldset">
+            <p>E-mail</p>
+            <input
+              data-testid="email-input"
+              type="email"
+              placeholder="Digite seu e-mail"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+              className="form-control"
+            />
 
-        <input
-          data-testid="password-input"
-          type="text"
-          placeholder="Digite sua senha"
-          name="senha"
-          value={ senha }
-          onChange={ this.handleChange }
-        />
+            <p>Senha</p>
+            <input
+              data-testid="password-input"
+              type="text"
+              placeholder="Digite sua senha"
+              name="senha"
+              value={ senha }
+              onChange={ this.handleChange }
+              className="form-control"
+            />
 
-        <Link to="/carteira">
-          <button
-            type="button"
-            disabled={ buttonDesabled }
-            onClick={ () => handleEmail(email) }
-          >
-            Entrar
-          </button>
-        </Link>
-      </fieldset>
+            <Link to="/carteira">
+              <button
+                type="button"
+                disabled={ buttonDesabled }
+                onClick={ () => handleEmail(email) }
+                className="btn btn-light"
+              >
+                Entrar
+              </button>
+            </Link>
+          </fieldset>
+        </div>
+      </div>
     );
   }
 }
