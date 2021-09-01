@@ -1,18 +1,18 @@
 .div-form-login {
   display: flex;
+  background-color: seagreen;
   margin-left: 45%;
   margin-top: 200px;
-  background-color: seagreen;
-  margin-right: 45%;
   border: 1px solid black;
+  margin-right: 45%;
   height: 115px;
   width: 200px;
 }
 
 .form-login {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
