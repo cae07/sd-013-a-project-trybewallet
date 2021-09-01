@@ -25,7 +25,6 @@ class ExpenseForm extends Component {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      expensesTotal: '0',
     };
 
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
@@ -87,27 +86,8 @@ class ExpenseForm extends Component {
       });
     });
 
-    // Passo 3: Calcular e adicionar ao estado local o valor total das despesas
-    this.calculateExpensesTotal();
-
-    // Passo 4: Mandar todas as informações necessárias para o estado global
+    // Passo 3: Mandar todas as informações necessárias para o estado global
     saveExpenseDispatcher(this.state);
-  }
-
-  calculateExpensesTotal() {
-    const { props: { exchangeRates }, state: { expenses } } = this;
-    console.log(exchangeRates);
-    let total = 0;
-
-    expenses.forEach(({ value, currency }) => {
-      const currentValue = parseInt(value, 0) * exchangeRates[currency].ask;
-
-      total += currentValue;
-    });
-
-    const totalString = (total.toFixed(2)).toString();
-
-    this.setState((prev) => ({ ...prev, expensesTotal: totalString }));
   }
 
   render() {

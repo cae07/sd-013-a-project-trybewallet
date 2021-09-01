@@ -12,7 +12,6 @@ const INITIAL_STATE = {
   loadingExchangeRates: false, // Buscando taxas de câmbio
   exchangeRates: {}, // Taxas de câmbio
   expenses: [], // Gastos
-  expensesTotal: '0', // Soma total dos gastos
 };
 
 // Esse reducer será responsável por tratar todas as informações relacionadas as despesas
@@ -41,10 +40,8 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [
-        ...state.expenses,
         ...action.expenses,
       ],
-      expensesTotal: action.expensesTotal,
     };
   }
   default: {
