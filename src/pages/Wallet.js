@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { API_RESPONSE } from '../actions';
+import { API_RESPONSE, addExpenses } from '../actions';
 // import SelectOptions from '../SelectOptions';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
@@ -25,6 +25,7 @@ class Wallet extends React.Component {
     this.paymentOptions = this.paymentOptions.bind(this);
     this.coinsOptions = this.coinsOptions.bind(this);
     this.totalExpenses = this.totalExpenses.bind(this);
+    this.buttonSubmit = this.buttonSubmit.bind(this);
     // this.onClick = this.onClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -131,15 +132,30 @@ class Wallet extends React.Component {
     );
   }
 
+  buttonSubmit() {
+    const { coinCurrent, payment, destinedTo, value, description } = this.state;
+    // const { dispatchDados } = this.props;
+    const dados = { coinCurrent, payment, destinedTo, value, description };
+
+    return (
+      <button
+        // onClick={ dispatchDados(dados) }
+        onClick={ () => console.log(dados) }
+        type="button"
+      >
+        ENVIAR
+      </button>
+    );
+  }
+
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value,
     });
-    console.log(e.target);
   }
 
   render() {
-    const { user, coinCurrent, value, description } = this.state;
+    const { user, value, description } = this.state;
     return (
       <div>
         <header>
@@ -148,9 +164,7 @@ class Wallet extends React.Component {
         <p data-testid="email-field">{user.email}</p>
         {this.totalExpenses()}
         <p data-testid="header-currency-field">
-          {' '}
-          {coinCurrent}
-          {' '}
+          BRL
         </p>
 
         {/* FORMULÁRIO DE DESPESAS ABAIXO */}
@@ -177,12 +191,11 @@ class Wallet extends React.Component {
               id="Form-Despesas-Descrição"
             />
           </label>
-
           {this.coinsOptions()}
-
           {this.paymentOptions()}
-
           {this.tagOptions()}
+          {this.buttonSubmit()}
+
         </form>
 
       </div>
@@ -192,6 +205,7 @@ class Wallet extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   APIResponse: (payload) => (dispatch(API_RESPONSE(payload))),
+  dispatchDados: (payload) => (dispatch(addExpenses(payload))),
 });
 
 const mapStateToProps = (state) => ({
@@ -209,6 +223,7 @@ Wallet.propTypes = {
     password: PropTypes.string,
   }).isRequired,
   APIResponse: PropTypes.func.isRequired,
+  // dispatchDados: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
