@@ -49,7 +49,6 @@ class Wallet extends React.Component {
     const { props: {
       addToExpenses, expenses, getCurrency, currencies }, state } = this;
     await getCurrency();
-
     addToExpenses({ ...state, exchangeRates: currencies, id: expenses.length });
   }
 
