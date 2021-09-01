@@ -2,12 +2,21 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { roundNumber } from '../data';
+import { deleteExpense } from '../actions';
 
 class ExpensesTable extends React.Component {
   constructor(props) {
     super(props);
 
     this.renderTableData = this.renderTableData.bind(this);
+    this.deleteExpense = this.deleteExpense.bind(this);
+  }
+
+  deleteExpense(id) {
+    const { expenses, updateExpenses } = this.props;
+
+    const updatedExpenses = [...expenses].filter((expense) => expense.id !== id);
+    updateExpenses(updatedExpenses);
   }
 
   renderTableData() {
@@ -22,17 +31,23 @@ class ExpensesTable extends React.Component {
 
       return (
         <tr key={ id }>
-          <td>{ description }</td>
-          <td>{ tag }</td>
-          <td>{ method }</td>
-          <td>{ `${roundNumber(value)}` }</td>
-          <td>{ name.split('/')[0] }</td>
-          <td>{ roundNumber(ask) }</td>
-          <td>{ roundNumber(Number(value) * Number(ask)) }</td>
+          <td>{description}</td>
+          <td>{tag}</td>
+          <td>{method}</td>
+          <td>{`${roundNumber(value)}`}</td>
+          <td>{name.split('/')[0]}</td>
+          <td>{roundNumber(ask)}</td>
+          <td>{roundNumber(Number(value) * Number(ask))}</td>
           <td>Real</td>
           <td>
             <button type="button">Editar</button>
-            <button type="button">Excluir</button>
+            <button
+              type="button"
+              onClick={ () => this.deleteExpense(id) }
+              data-testid="delete-btn"
+            >
+              Excluir
+            </button>
           </td>
         </tr>
       );
@@ -65,10 +80,15 @@ class ExpensesTable extends React.Component {
 
 ExpensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  updateExpenses: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(ExpensesTable);
+const mapDispatchToProps = (dispatch) => ({
+  updateExpenses: (payload) => dispatch(deleteExpense(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);

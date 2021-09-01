@@ -2,6 +2,7 @@
 import {
   REQUEST_API_SUCCESSFUL, REQUEST_API,
   REQUEST_API_FAILED, SAVE_CURRENCIES_INFO,
+  DELETE_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -36,6 +37,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       isLoading: false,
       error: true,
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: action.payload,
     };
   default:
     return state;
