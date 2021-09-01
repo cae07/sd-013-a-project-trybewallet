@@ -6,3 +6,5 @@ import rootReducer from '../reducers';
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 export default store;
+
+// Requisito 6: Passo 1: Configurar o thunk na store
