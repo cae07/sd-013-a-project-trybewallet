@@ -16,6 +16,31 @@
   min-height: 100vh;
 }
 
+.form-header {
+  align-items: center;
+  background-color: #23375f;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* min-height: 100vh; */
+}
+
+.form-header fieldset {
+  display: flex;
+}
+
+/* .form-content {
+  align-items: center;
+  background-color: #4e6799;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  margin-right: auto;
+  min-height: 80vh;
+} */
+
 .wallet-header {
   align-items: center;
   background-color: #1a1f27;

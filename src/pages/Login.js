@@ -39,7 +39,7 @@ class Login extends React.Component {
       <div className="App-header">
         <fieldset>
 
-          <h2>Trybe Wallet</h2>
+          <h2>Gus Wallet</h2>
           <div className="img" />
 
           <label htmlFor="email-input">
