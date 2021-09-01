@@ -16,7 +16,9 @@ class SelectPay extends Component {
     );
   }
 }
+
 SelectPay.propTypes = {
   onChange: Proptypes.func,
 }.isrequired;
+
 export default SelectPay;

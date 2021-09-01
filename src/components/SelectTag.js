@@ -18,7 +18,9 @@ class SelectTag extends Component {
     );
   }
 }
+
 SelectTag.propTypes = {
   onChange: Proptypes.func,
 }.isrequired;
+
 export default SelectTag;

@@ -27,7 +27,9 @@ class SelectCoin extends Component {
 const mapStateToProps = (state) => ({
   coins: state.wallet.currencies,
 });
+
 SelectCoin.propTypes = {
   onChange: Proptypes.func,
 }.isrequired;
+
 export default connect(mapStateToProps)(SelectCoin);

@@ -17,11 +17,11 @@ class Button extends React.Component {
     );
   }
 }
+
 Button.propTypes = {
   onClick: Proptypes.func,
   disabled: Proptypes.func,
   name: Proptypes.string,
-  type: Proptypes.string,
 }.isRequired;
 
 export default Button;

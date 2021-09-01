@@ -52,6 +52,24 @@ class Wallet extends React.Component {
     }));
   }
 
+  setValue() {
+    const { expense, total } = this.state;
+    const { exchangeRates, currency } = expense;
+    const array = Object.entries(exchangeRates);
+    function select(coin) {
+      if (coin[0] === currency) {
+        return coin;
+      }
+    }
+    const selected = Object.values(array.filter(select));
+    const selected2 = Object.values(selected[0]);
+    const { ask } = selected2[1];
+    const convert = expense.value * ask;
+    this.setState(() => ({
+      total: (Number(total, 0) + Number(convert, 0)).toFixed(2),
+    }));
+  }
+
   handleChange(e) {
     const { expense } = this.state;
     const { name } = e.target;
@@ -69,7 +87,7 @@ class Wallet extends React.Component {
     const { currencies } = wallet;
     const { getCoins } = this.props;
     getCoins();
-    const { expense, total, expenses } = this.state;
+    const { expense, expenses } = this.state;
     const { changeValue } = this.props;
     this.setState(() => ({
       expense: {
@@ -79,10 +97,10 @@ class Wallet extends React.Component {
           ...currencies,
         },
       },
-      total: (parseInt(total, 0) + parseInt(expense.value, 0)),
     }));
     expenses.push(expense);
     changeValue(expenses);
+    this.setValue();
   }
 
   render() {
@@ -135,6 +153,7 @@ class Wallet extends React.Component {
     );
   }
 }
+
 const mapStateToProps = (state) => ({
   user: state.user,
   wallet: state.wallet,
@@ -150,7 +169,7 @@ Wallet.propTypes = {
   getCoins: PropTypes.func.isRequired,
   changeValue: PropTypes.func.isRequired,
   wallet: PropTypes.objectOf(PropTypes.string).isRequired,
-  currencies: PropTypes.objectOf(PropTypes.string).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
