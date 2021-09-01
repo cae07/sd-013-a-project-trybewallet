@@ -3,6 +3,7 @@ import {
   USER_INFO,
   GET_CURRENTEXCHANGE_SUCCESS,
   GET_CURRENTEXCHANGE_FAIL,
+  DELETE_ITEMS,
 } from './actionTypes';
 
 export const actionUserInfo = (email) => ({
@@ -26,6 +27,11 @@ const actionGetCurrentExchangeSuccess = (
 const actionGetCurrentExchangeFail = (error) => ({
   type: GET_CURRENTEXCHANGE_FAIL,
   error,
+});
+
+export const actionDeletePurchaseItems = (payload) => ({
+  type: DELETE_ITEMS,
+  payload,
 });
 
 export const fetchCurrentExchange = (info) => (dispatch) => getApi()

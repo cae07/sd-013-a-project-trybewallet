@@ -1,6 +1,7 @@
 import {
   GET_CURRENTEXCHANGE_SUCCESS,
   GET_CURRENTEXCHANGE_FAIL,
+  DELETE_ITEMS,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -31,6 +32,12 @@ const wallet = (
     return {
       ...state,
       error,
+    };
+
+  case DELETE_ITEMS:
+    return {
+      ...state,
+      expenses: payload,
     };
   default:
     return state;

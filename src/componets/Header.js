@@ -4,9 +4,7 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
-    const { user, wallet } = this.props;
-    const { email } = user;
-    const { expenses } = wallet;
+    const { user: { email }, wallet: { expenses } } = this.props;
     return (
       <div>
         <span data-testid="email-field">{email}</span>

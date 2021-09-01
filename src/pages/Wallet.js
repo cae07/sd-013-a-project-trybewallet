@@ -86,10 +86,11 @@ class Wallet extends React.Component {
           <Button name="Adicionar despesa" state={ this.state } onClick={ this.setID } />
         </div>
         <table>
-          <HeaderTable />
-          {expenses.length > 0
-            && expenses
+          <tbody>
+            <HeaderTable />
+            {expenses.length > 0 && expenses
               .map((expanse, index) => <ExpanseTable key={ index } data={ expanse } />)}
+          </tbody>
         </table>
       </div>
     );
