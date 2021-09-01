@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { emailAction } from '../actions';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       loginEmail: '',
       loginPass: '',
@@ -29,8 +30,14 @@ class Login extends React.Component {
 
   render() {
     const { loginEmail, loginPass, disabled } = this.state;
+    const click = () => {
+      const { login, history } = this.props;
+      login(loginEmail);
+      history.push('/carteira');
+    };
+    // const { email } = this.props;
     // console.log(this.state);
-    // console.log(email);
+    // console.log(this.props);
     return (
       <form>
         <input
@@ -49,19 +56,24 @@ class Login extends React.Component {
           placeholder="senha"
           value={ loginPass }
         />
-        <button type="button" disabled={ disabled }>Entrar</button>
+        <button
+          type="button"
+          disabled={ disabled }
+          onClick={ () => click() }
+        >
+          Entrar
+        </button>
       </form>
     );
   }
 }
-const mapStateToProps = (state) => ({ email: state.email });
 
-/* Login.propTypes = {
-  email: PropTypes.string,
-};
+const mapDispatchToProps = (dispatch) => ({
+  login: (payload) => dispatch(emailAction(payload)),
+});
 
-Login.defaultProps = {
-  email: '',
-}; */
+Login.propTypes = {
+  login: PropTypes.func,
+}.isRequired;
 
-export default connect(mapStateToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

@@ -6,6 +6,7 @@ const INITIAL = {
 };
 
 const user = (state = INITIAL, action) => {
+  // const { email } = state;
   switch (action.type) {
   case EMAIL:
     return {
