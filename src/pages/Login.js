@@ -53,3 +53,6 @@ class Login extends React.Component {
 }
 
 export default Login;
+
+/* Referências: Exercício dia 16.3
+Link consultado: https://github.com/FabiolaMoutinho/exercise-forms-redux/tree/gabarito */
