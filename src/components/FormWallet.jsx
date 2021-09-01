@@ -1,7 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { valueCambio } from '../actions';
 
 class FormWallet extends React.Component {
+
+  componentDidMount() {
+    const { fetchAPI } = this.props;
+    fetchAPI();
+  }
+
   render() {
+    const { currencies } = this.props;
+    const arrayCurrencies = Object.keys(currencies);
+
     return (
       <form>
         <label>
@@ -14,7 +25,16 @@ class FormWallet extends React.Component {
         </label>
         <label>
           Moeda
-            <select></select>
+            <select>
+              { arrayCurrencies.map((state, index) => (
+                <option
+                  key={ arrayCurrencies[index] }
+                  value={ arrayCurrencies[index] }
+                >
+                  { arrayCurrencies[index] }
+                </option>
+              ))} 
+            </select>
         </label>
         <label>
           Método de pagamento
@@ -39,4 +59,12 @@ class FormWallet extends React.Component {
   }
 }
 
-export default FormWallet;
+const mapStateToProps = (state) => ({
+  currencies: state.walletReducer.currencies,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchAPI: (wallet) => dispatch(valueCambio(wallet)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
