@@ -2,7 +2,7 @@ const INITIAL_STATE = {
   user: {
     email: '',
   },
-  waller: {
+  wallet: {
     currencies: [],
     expenses: [],
   },
