@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-// import 'react-toastify/dist/ReactToastify.css';
-
 class Header extends React.Component {
   render() {
     const { email, total } = this.props;
