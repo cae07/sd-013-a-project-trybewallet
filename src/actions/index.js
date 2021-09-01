@@ -2,6 +2,6 @@
 export const EMAIL = 'EMAIL';
 export const WALLET = 'WALLET';
 
-export const emailAction = () => ({ type: EMAIL });
+export const emailAction = (payload) => ({ type: EMAIL, email: payload });
 
 export const walletAction = () => ({ type: WALLET });

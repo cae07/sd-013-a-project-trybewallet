@@ -9,7 +9,7 @@ const user = (state = INITIAL, action) => {
   switch (action.type) {
   case EMAIL:
     return {
-      ...state,
+      ...state, email: action.payload,
     };
   default:
     return state;
