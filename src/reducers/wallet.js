@@ -5,6 +5,7 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
+  idNewItem: 0,
   currencies: [],
   expenses: [],
   isLoading: false,
@@ -26,8 +27,9 @@ const wallet = (state = INITIAL_STATE, action) => {
   case REQUEST_API_SUCCESSFUL:
     return {
       ...state,
+      idNewItem: state.idNewItem + 1,
       isLoading: false,
-      // currencies: action.payload,
+      expenses: [...state.expenses, action.payload],
     };
   case REQUEST_API_FAILED:
     return {

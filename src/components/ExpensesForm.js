@@ -6,7 +6,7 @@ import SelectCurrency from './SelectCurrency';
 import SelectInput from './SelectInput';
 import { payMethodOptions, expenseCategoryOptions } from '../data';
 import fetchAPI from '../services/api';
-import { saveCurrenciesInfo } from '../actions';
+import { requestAPISuccessful, saveCurrenciesInfo } from '../actions';
 
 class ExpensesForm extends React.Component {
   constructor(props) {
@@ -25,6 +25,7 @@ class ExpensesForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.fetchCoins = this.fetchCoins.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -39,7 +40,6 @@ class ExpensesForm extends React.Component {
     });
     try {
       const response = await fetchAPI();
-      console.log(response);
       const data = await Object.entries(response);
       const currencies = data.map(([name]) => name);
 
@@ -54,6 +54,31 @@ class ExpensesForm extends React.Component {
         isLoadingCoins: false,
       });
     }
+  }
+
+  async handleClick() {
+    const {
+      value, description, currency,
+      paymentMethod, expenseCategory,
+    } = this.state;
+
+    const { saveExpensesInRedux, expenses, id } = this.props;
+    // const id = expenses.length;
+    console.log(id);
+
+    const data = await fetchAPI();
+
+    const payload = {
+      id,
+      value,
+      description,
+      currency,
+      method: paymentMethod,
+      tag: expenseCategory,
+      exchangeRates: data,
+    };
+
+    saveExpensesInRedux(payload);
   }
 
   handleChange({ target: { name, value } }) {
@@ -102,7 +127,7 @@ class ExpensesForm extends React.Component {
             labelValue="Tag"
             changeEvent={ this.handleChange }
           />
-          <button type="button">Adicionar despesa</button>
+          <button onClick={ this.handleClick } type="button">Adicionar despesa</button>
         </form>
       </section>
     );
@@ -113,8 +138,14 @@ ExpensesForm.propTypes = {
   saveCurrenciesInRedux: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  saveCurrenciesInRedux: (payload) => dispatch(saveCurrenciesInfo(payload)),
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+  id: state.wallet.idNewItem,
 });
 
-export default connect(null, mapDispatchToProps)(ExpensesForm);
+const mapDispatchToProps = (dispatch) => ({
+  saveCurrenciesInRedux: (payload) => dispatch(saveCurrenciesInfo(payload)),
+  saveExpensesInRedux: (payload) => dispatch(requestAPISuccessful(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);

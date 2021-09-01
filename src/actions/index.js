@@ -1,4 +1,4 @@
-// import fetchAPI from '../services/api';
+import fetchAPI from '../services/api';
 
 // Coloque aqui suas actions
 export const SAVE_USER_INFO = 'SAVE_USER_INFO';
@@ -29,6 +29,13 @@ export const requestAPISuccessful = (payload) => ({
 export const requestAPIFailed = () => ({
   type: REQUEST_API_FAILED,
 });
+
+export function getCotations() {
+  return async (dispatch) => {
+    const data = await fetchAPI();
+    dispatch(requestAPISuccessful(data));
+  };
+}
 
 // export function getCurrencies() {
 //   return async (dispatch) => {
