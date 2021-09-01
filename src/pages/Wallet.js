@@ -73,15 +73,28 @@ class Wallet extends React.Component {
   }
 
   totalExpenses() {
+    const returnDefault = (
+      <p className="despezas" data-testid="total-field">
+        Despesa Total: R$ 0
+      </p>
+    );
+
     const { wallet: { expenses } } = this.props;
-    if (expenses.length === 0) return (0);
-    return expenses.reduce((itemAcc, item) => {
-      const convertedValue = item.exchangeRates[item.currency].ask;
-      itemAcc += item.value * convertedValue;
-      return itemAcc;
-    }, 0).toFixed(2);
+    if (expenses.length === 0) return returnDefault;
+    return (
+      <p className="despezas" data-testid="total-field">
+        Despesa Total: R$
+        {' '}
+        {
+          expenses.reduce((itemAcc, item) => {
+            const convertedValue = item.exchangeRates[item.currency].ask;
+            itemAcc += item.value * convertedValue;
+            return itemAcc;
+          }, 0).toFixed(2)
+        }
+      </p>
+    );
   }
-  // https://github.com/tryber/sd-013-a-project-trybewallet/pull/114/files PEDROMUNIZ AJUDA
 
   tagOptions() {
     const { tag } = this.state;
@@ -166,17 +179,16 @@ class Wallet extends React.Component {
     return (
       <div>
         <header>
-          <p data-testid="email-field">
-            Email:
-            {user.email}
-          </p>
-          <p data-testid="header-currency-field">
-            Despesa Total:
-            {this.totalExpenses()}
-            BRL
-          </p>
+          Trybe Wallet
         </header>
+        <p data-testid="email-field">{user.email}</p>
+        {this.totalExpenses()}
+        <p data-testid="header-currency-field">
+          BRL
+        </p>
+
         {/* FORMULÁRIO DE DESPESAS ABAIXO */}
+
         <form>
           <label htmlFor="Form-Despesas-Valor">
             Valor:
