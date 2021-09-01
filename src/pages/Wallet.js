@@ -9,57 +9,78 @@ import { fetchCoin, expenseAdd } from '../actions';
 import Button from '../components/Button';
 
 class Wallet extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      expenses: {
+      expenses: [],
+      expense: {
         id: 0,
         value: '',
         description: '',
-        currency: '',
-        method: '',
-        tag: '',
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
       },
       total: 0,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleNextExpense = this.handleNextExpense.bind(this);
+    this.setCoinsState = this.setCoinsState.bind(this);
   }
 
   componentDidMount() {
-    const { getCoins } = this.props;
-    getCoins();
+    this.setCoinsState();
   }
 
-  handleChange(e) {
-    const { expenses } = this.state;
-    const { name } = e.target;
-    const { value } = e.target;
+  async setCoinsState() {
+    const { getCoins } = this.props;
+    await getCoins();
+    const { wallet } = this.props;
+    const { currencies } = wallet;
+    const idexpens = this.state;
+    const { id, method, currency, tag } = idexpens.expense;
     this.setState(() => ({
-      expenses: {
-        ...expenses,
-        [name]: value,
+      expense: {
+        id,
+        method,
+        currency,
+        tag,
+        exchangeRates: {
+          ...currencies,
+        },
       },
     }));
   }
 
+  handleChange(e) {
+    const { expense } = this.state;
+    const { name } = e.target;
+    const { value } = e.target;
+    this.setState(() => ({
+      expense: {
+        ...expense,
+        [name]: value,
+      },
+    }));
+  }
   handleNextExpense() {
     const { wallet } = this.props;
     const { currencies } = wallet;
     const { getCoins } = this.props;
     getCoins();
-    const { expenses, total } = this.state;
+    const { expense, total, expenses } = this.state;
     const { changeValue } = this.props;
     this.setState(() => ({
-      expenses: {
-        ...expenses,
-        id: expenses.id + 1,
-        exchengesRate: {
+      expense: {
+        ...expense,
+        id: expense.id + 1,
+        exchangeRates: {
           ...currencies,
         },
       },
-      total: (parseInt(total, 0) + parseInt(expenses.value, 0)),
+      total: (parseInt(total, 0) + parseInt(expense.value, 0)),
     }));
+    expenses.push(expense);
     changeValue(expenses);
   }
 
@@ -93,7 +114,7 @@ class Wallet extends React.Component {
           <Input
             label="Descrição"
             onChange={ handleChange }
-            name="descrição"
+            name="description"
           />
           <SelectCoin
             onChange={ handleChange }
@@ -116,16 +137,3 @@ class Wallet extends React.Component {
 const mapStateToProps = (state) => ({
   user: state.user,
   wallet: state.wallet,
-});
-const mapDispatchToProps = (dispatch) => ({
-  getCoins: () => dispatch(fetchCoin()),
-  changeValue: (state) => dispatch(expenseAdd(state)),
-});
-Wallet.propTypes = {
-  user: PropTypes.objectOf(PropTypes.string).isRequired,
-  getCoins: PropTypes.func.isRequired,
-  changeValue: PropTypes.func.isRequired,
-  wallet: PropTypes.objectOf(PropTypes.string).isRequired,
-  currencies: PropTypes.objectOf(PropTypes.string).isRequired,
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
