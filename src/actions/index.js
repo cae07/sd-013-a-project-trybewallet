@@ -32,7 +32,7 @@ const spentSucc = (payload, exchangeRates) => ({
 });
 
 const fetchAPI = async () => {
-  const apiResp = await fetch('http://economia.awesomeapi.com.br/json/all');
+  const apiResp = await fetch('https://economia.awesomeapi.com.br/json/all');
   const apiLabel = await apiResp.json();
   delete apiLabel.USDT;
   return apiLabel;

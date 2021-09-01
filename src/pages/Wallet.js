@@ -60,7 +60,7 @@ class Wallet extends React.Component {
   checkInputs() {
     const { expenses: { value, description } } = this.state;
     return value && description
-      ? this.setState({ addButton: false }) : this.setState({ addButton });
+      ? this.setState({ addButton: false }) : this.setState({ addButton: true });
   }
 
   handleChange({ target }) {
@@ -127,8 +127,8 @@ class Wallet extends React.Component {
           Método de pagamento:
           <select
             aria-label="método de pagamento"
-            id="payment-method"
-            onChange="method"
+            id="method"
+            onChange={ this.handleChange }
           >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>

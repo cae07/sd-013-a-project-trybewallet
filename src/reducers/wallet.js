@@ -16,7 +16,7 @@ const wallet = (state = FIRST_STATE, action) => {
     return {
       ...state,
       isLoading: false,
-      currencies: action.coins,
+      currencies: action.coin,
     };
   case COIN_FAIL:
     return {
@@ -27,7 +27,7 @@ const wallet = (state = FIRST_STATE, action) => {
   case SPENT_SUCC:
     return {
       ...state,
-      expenses: [...state.expenses, { ...action.spent, id: state.expenses.lengtg }],
+      expenses: [...state.expenses, { ...action.spent, id: state.expenses.length }],
       isLoading: false,
     };
   default:
