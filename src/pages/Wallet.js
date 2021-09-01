@@ -2,53 +2,92 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Input, InputSelect, Header } from '../components';
-import { walletFetch } from '../actions';
+import { walletFetch, setExpenses } from '../actions';
 import './wallet.css';
 
 class Wallet extends React.Component {
-  componentDidMount() {
-    const { fetchApi } = this.props;
-    fetchApi();
-  }
-
-  render() {
-    const { currencies } = this.props;
-
-    const lestSelecCurrencies = Object.keys(currencies)
-      .filter((currencie) => currencie !== 'USDT');
-
-    const listTag = [
+  constructor(props) {
+    super(props);
+    this.cont = 0;
+    this.listTag = [
       'Alimentação',
       'Lazer',
       'Trabalho',
       'Transporte',
       'Saúde',
     ];
-    const paymentMethods = [
+
+    this.paymentMethods = [
       'Dinheiro',
       'Cartão de crédito',
       'Cartão de débito',
     ];
-    const { email } = this.props;
+
+    this.addDismissal = this.addDismissal.bind(this);
+  }
+
+  componentDidMount() {
+    const { fetchApi } = this.props;
+    fetchApi();
+  }
+
+  addDismissal() {
+    const { fetchApi, setExpensess } = this.props;
+    fetchApi();
+    const { currencies } = this.props;
+    const { value } = document.getElementById('value');
+    const description = document.getElementById('description').value;
+    const currency = document.getElementById('currency').value;
+    const method = document.getElementById('method').value;
+    const tag = document.getElementById('tag').value;
+
+    setExpensess({
+      id: this.cont,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      exchangeRates: currencies,
+    });
+    this.cont += 1;
+  }
+
+  render() {
+    const { currencies, email } = this.props;
+    const lestSelecCurrencies = Object.keys(currencies)
+      .filter((currencie) => currencie !== 'USDT');
+
     return (
       <>
         <Header email={ email } />
         <section>
           <form className="pure-form">
-            <Input label="Valor" />
-            <Input label="Descrição" />
+            <Input label="Valor" id="value" />
+            <Input label="Descrição" id="description" />
             <InputSelect
+              id="currency"
               label="Moeda"
               listSelect={ lestSelecCurrencies }
             />
             <InputSelect
+              id="method"
               label="Método de pagamento"
-              listSelect={ paymentMethods }
+              listSelect={ this.paymentMethods }
+
             />
             <InputSelect
+              id="tag"
               label="Tag"
-              listSelect={ listTag }
+              listSelect={ this.listTag }
             />
+            <button
+              onClick={ this.addDismissal }
+              type="button"
+              className="button-success pure-button"
+            >
+              Adicionar despesa
+            </button>
           </form>
         </section>
       </>
@@ -62,12 +101,14 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchApi: () => dispatch(walletFetch()),
+  setExpensess: (payload) => dispatch(setExpenses(payload)),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   fetchApi: PropTypes.func.isRequired,
   currencies: PropTypes.shape(),
+  setExpensess: PropTypes.func.isRequired,
 };
 Wallet.defaultProps = {
   currencies: {},

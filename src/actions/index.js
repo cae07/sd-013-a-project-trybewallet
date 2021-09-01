@@ -3,9 +3,11 @@ export const SET_WALLET = 'SET_WALLET';
 export const REQUEST_FETCH = 'REQUEST_FECTH';
 export const RECEIVE_FETCH = 'RECEIVE_FETCH,';
 export const FAILL_FETCH = 'FAILL_FECTH';
+export const SET_EXPENSE = 'SET_EXPENSE';
 
 export const userAction = (payload) => ({ type: SET_USER, payload });
 export const walletAction = (payload) => ({ type: SET_WALLET, payload });
+export const setExpenses = (payload) => ({ type: SET_EXPENSE, payload });
 
 // iniciar a requisição.
 export const requestFetch = () => ({

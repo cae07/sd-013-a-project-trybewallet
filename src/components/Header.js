@@ -1,8 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import digitalWallet from '../image/digital-wallet.png';
 
-function Header({ email }) {
+function Header({ email, expenses }) {
+  // Função que calcular o total.
+  const total = expenses.reduce((acc, expense) => {
+    const { ask } = expense.exchangeRates[expense.currency];
+    return acc + Number(expense.value * ask);
+  }, 0);
+
   return (
     <header className="flex container-header">
       <section className="image-header">
@@ -17,7 +24,8 @@ function Header({ email }) {
           { ` ${email} ` }
         </span>
         <span data-testid="total-field">
-          Dispesa Total: R$ 0,00
+          Dispesa Total: R$
+          <span>{total.toFixed(2)}</span>
           <span data-testid="header-currency-field">BRL</span>
         </span>
       </section>
@@ -27,6 +35,10 @@ function Header({ email }) {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf().isRequired,
+
 };
 
-export default Header;
+const mapStateToProps = (state) => ({ expenses: state.wallet.expenses });
+
+export default connect(mapStateToProps, null)(Header);

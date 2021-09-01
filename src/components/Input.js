@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Input({ label }) {
+function Input({ label, id }) {
   return (
-    <label htmlFor="teste">
+    <label htmlFor={ id }>
       {`${label}`}
-      <input type="text" name="valor" id="teste" />
+      <input type="text" name="valor" id={ id } />
     </label>
 
   );
@@ -13,5 +13,6 @@ function Input({ label }) {
 
 Input.propTypes = {
   label: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 export default Input;
