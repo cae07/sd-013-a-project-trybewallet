@@ -1,12 +1,8 @@
-import LOGIN_SUCESS from "./index"
+import LOGIN_SUCESS from './index';
 
-export default function loginAction(user) {
-//   return
-    //   {
-    //     type: LOGIN_SUCESS,
-    //     payload: {
-    //         user
-    //     }
-    //   };
-
-};
+export default function loginAction(payload) {
+  return {
+    type: LOGIN_SUCESS,
+    payload,
+  };
+}

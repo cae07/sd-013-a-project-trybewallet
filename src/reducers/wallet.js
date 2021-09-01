@@ -2,10 +2,11 @@
 import LOGIN_SUCESS from '../actions';
 
 const INITIAL_STATE = {
-  wallet: {},
+  currency: [],
+  expenses: [],
 };
 
-export default function user(state = INITIAL_STATE, action) {
+export default function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case LOGIN_SUCESS:
     return {

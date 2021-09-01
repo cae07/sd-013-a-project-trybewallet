@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 // import user from '../reducers/user';
 import loginAction from '../actions/loginAction';
-import {withRouter} from 'react-router-dom'
+// import {withRouter} from 'react-router-dom'
 
 class Login extends React.Component {
   constructor(props) {
@@ -12,13 +13,17 @@ class Login extends React.Component {
       inputEmail:'',
       inputPassword: '',
       buttonEnable: false,
-      user: {
-        email: '',
-      },
+      login:false,
+      // user: {
+      //   email: '',
+      // },
     };
   }
 
   emailChange = (e, type) => {
+    this.setState({
+      inputEmail: e.target.value,
+    });
     if (e.target.value.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/) &&
     this.state.inputPassword.length > 5){
       this.setState({
@@ -30,14 +35,14 @@ class Login extends React.Component {
         buttonEnable: false,
       });
   };
-    this.setState({
-      inputEmail: e.target.value,
-    });
     // console.log(e.target.value)
   };
 
   passwordChange = (e, type) => {
-    console.log();
+    this.setState({
+      inputPassword: e.target.value,
+    });
+    // console.log();
     if (e.target.value.length > 5 && 
       this.state.inputEmail.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)
       ){
@@ -50,23 +55,26 @@ class Login extends React.Component {
       buttonEnable: false,
     });
   };
-    this.setState({
-      inputPassword: e.target.value,
-    });
 }
 
   // botao precisa de uma funcao para o Dispatch(action) que altera o store
   entrarOnClick = () => {
+    // this.setState({
+    //   user:{email:this.inputEmail,
+    //   }
+    // });
+    const {handleLoginEmail} = this.props;
+    handleLoginEmail(this.state.inputEmail);
+    // this.props.history.push('/carteira')
     this.setState({
-      user:{email:this.inputEmail,
-      }
-    });
+      login:true,
+    })
     console.log(this.state)
-    this.props.history.push('/carteira')
   }
     
 
   render() {
+    const {login} = this.state
     return (
       <div>
 
@@ -80,6 +88,8 @@ class Login extends React.Component {
         <div>
           <button type="button" onClick={this.entrarOnClick} disabled={!this.state.buttonEnable}>Entrar</button>
         </div>
+        {login ? <Redirect to='/carteira' />:''}
+      
       </div>
     );
   }
@@ -90,9 +100,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  email: (payload) => dispatch(loginAction(payload))
+  handleLoginEmail: (payload) => dispatch(loginAction(payload))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
 
 // export default Login;
