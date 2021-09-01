@@ -5,6 +5,7 @@ import Input from '../components/Input';
 import SelectCoin from '../components/SelectCoin';
 import SelectPay from '../components/SelectPay';
 import SelectTag from '../components/SelectTag';
+import Table from '../components/Table';
 import { fetchCoin, expenseAdd } from '../actions';
 import Button from '../components/Button';
 
@@ -15,7 +16,7 @@ class Wallet extends React.Component {
       expenses: [],
       expense: {
         id: 0,
-        value: '',
+        value: 0,
         description: '',
         currency: 'USD',
         method: 'Dinheiro',
@@ -66,7 +67,7 @@ class Wallet extends React.Component {
     const { ask } = selected2[1];
     const convert = expense.value * ask;
     this.setState(() => ({
-      total: (Number(total, 0) + Number(convert, 0)).toFixed(2),
+      total: (Number(total) + Number(convert)).toFixed(2),
     }));
   }
 
@@ -98,9 +99,9 @@ class Wallet extends React.Component {
         },
       },
     }));
+    this.setValue();
     expenses.push(expense);
     changeValue(expenses);
-    this.setValue();
   }
 
   render() {
@@ -111,12 +112,8 @@ class Wallet extends React.Component {
     return (
       <div>
         <header data-testid="email-field">
-          <span>
-            { email }
-          </span>
-          <span>
-            TrybeWallet
-          </span>
+          <span>{ email }</span>
+          <span>TrybeWallet</span>
         </header>
         <div data-testid="total-field">
           { total }
@@ -149,6 +146,7 @@ class Wallet extends React.Component {
             onClick={ handleNextExpense }
           />
         </form>
+        <Table />
       </div>
     );
   }
