@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Login, Wallet } from './pages';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './ReactToastify.css';
+// import './ReactToastify.css';
 
 function App() {
   const notify = () => toast('Wow so easy!');
