@@ -87,12 +87,12 @@ class Form extends Component {
     const { email } = this.props;
     return (
       <div>
-        <div>
+        <div className="header">
           <h4 data-testid="email-field">{ email }</h4>
           <div data-testid="total-field">{ totalExpenses }</div>
           <div data-testid="header-currency-field">BRL</div>
         </div>
-        <form>
+        <form className="form-inputs">
           <InputsForm
             value={ value }
             description={ description }

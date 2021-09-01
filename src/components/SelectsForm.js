@@ -14,7 +14,7 @@ class SelectsForm extends Component {
             value={ currency }
             onChange={ onChange }
           >
-            { currencies.map((coin) => <option key={ coin }>{ coin }</option>)}
+            { currencies.map((coin) => <option key={ coin }>{ coin }</option>) }
           </select>
         </label>
         <label htmlFor="pay-method">
@@ -55,7 +55,7 @@ SelectsForm.propTypes = {
   method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  currencies: PropTypes.shape({
+  currencies: PropTypes.arrayOf({
     coin: PropTypes.string,
   }).isRequired,
 };
