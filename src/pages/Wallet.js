@@ -74,13 +74,14 @@ class Wallet extends React.Component {
 
   totalExpenses() {
     const { wallet: { expenses } } = this.props;
-    if (expenses.length === 0) return (<p>0</p>);
+    if (expenses.length === 0) return (0);
     return expenses.reduce((itemAcc, item) => {
       const convertedValue = item.exchangeRates[item.currency].ask;
       itemAcc += item.value * convertedValue;
       return itemAcc;
     }, 0).toFixed(2);
   }
+  // https://github.com/tryber/sd-013-a-project-trybewallet/pull/114/files PEDROMUNIZ AJUDA
 
   tagOptions() {
     const { tag } = this.state;
@@ -165,16 +166,17 @@ class Wallet extends React.Component {
     return (
       <div>
         <header>
-          Trybe Wallet
+          <p data-testid="email-field">
+            Email:
+            {user.email}
+          </p>
+          <p data-testid="header-currency-field">
+            Despesa Total:
+            {this.totalExpenses()}
+            BRL
+          </p>
         </header>
-        <p data-testid="email-field">{user.email}</p>
-        {this.totalExpenses()}
-        <p data-testid="header-currency-field">
-          BRL
-        </p>
-
         {/* FORMULÁRIO DE DESPESAS ABAIXO */}
-
         <form>
           <label htmlFor="Form-Despesas-Valor">
             Valor:
