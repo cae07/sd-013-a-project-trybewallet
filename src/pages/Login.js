@@ -14,9 +14,6 @@ class Login extends React.Component {
       inputPassword: '',
       buttonEnable: false,
       login:false,
-      // user: {
-      //   email: '',
-      // },
     };
   }
 
@@ -24,17 +21,7 @@ class Login extends React.Component {
     this.setState({
       inputEmail: e.target.value,
     });
-    if (e.target.value.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/) &&
-    this.state.inputPassword.length > 5){
-      this.setState({
-        buttonEnable: true,
-      });
-  };
-  if (!e.target.value.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)){
-      this.setState({
-        buttonEnable: false,
-      });
-  };
+    this.checkUsernamePassword();
     // console.log(e.target.value)
   };
 
@@ -43,26 +30,28 @@ class Login extends React.Component {
       inputPassword: e.target.value,
     });
     // console.log();
-    if (e.target.value.length > 5 && 
-      this.state.inputEmail.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)
+    this.checkUsernamePassword();
+}
+  checkUsernamePassword = () => {
+    const { inputEmail, inputPassword} = this.state;
+
+    if (inputPassword > 5 && 
+      inputEmail.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/)
       ){
       this.setState({
         buttonEnable: true,
       });
-  };
-  if(e.target.value.length < 6 ) {
+      
+    }else {
     this.setState({
       buttonEnable: false,
     });
-  };
+  }
 }
 
   // botao precisa de uma funcao para o Dispatch(action) que altera o store
   entrarOnClick = () => {
-    // this.setState({
-    //   user:{email:this.inputEmail,
-    //   }
-    // });
+
     const {handleLoginEmail} = this.props;
     handleLoginEmail(this.state.inputEmail);
     // this.props.history.push('/carteira')
@@ -95,14 +84,14 @@ class Login extends React.Component {
   }
 };
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-})
+// const mapStateToProps = (state) => ({
+//   user: state.user,
+// })
 
 const mapDispatchToProps = (dispatch) => ({
   handleLoginEmail: (payload) => dispatch(loginAction(payload))
 })
 
 export default connect(null, mapDispatchToProps)(Login);
-
 // export default Login;
+
