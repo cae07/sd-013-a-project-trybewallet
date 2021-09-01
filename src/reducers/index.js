@@ -4,7 +4,7 @@ import wallet from './wallet';
 
 const rootReducer = combineReducers({
   user, // userReducer
-  wallet,
+  wallet, // walletReducer
 });
 
 export default rootReducer;

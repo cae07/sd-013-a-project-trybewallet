@@ -1,9 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { apiWithThunk } from '../actions';
 import Input from './Input';
 import Select from './Select';
 
 class Expenses extends React.Component {
+  componentDidMount() {
+    const { json } = this.props;
+    json();
+  }
+
   render() {
+    const { currencies } = this.props;
+    const getCurrencies = Object.keys(currencies);
+    const filterCurrencies = getCurrencies.filter((item) => item !== 'USDT');
+
     return (
       <section>
         <form>
@@ -26,6 +38,7 @@ class Expenses extends React.Component {
             name="expense-currency"
             labelText="Moeda"
             id="expense-currency"
+            options={ filterCurrencies }
           />
           <Select
             name="expense-payment"
@@ -45,4 +58,16 @@ class Expenses extends React.Component {
   }
 }
 
-export default Expenses;
+Expenses.propTypes = {
+  json: PropTypes.func,
+}.isRequired;
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  json: () => dispatch(apiWithThunk()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Expenses);
