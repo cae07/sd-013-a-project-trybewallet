@@ -1,0 +1,41 @@
+.div-form-login {
+  display: flex;
+  margin-top: 200px;
+  margin-left: 45%;
+  margin-right: 45%;
+  background-color: seagreen;
+  border: 1px solid black;
+  width: 200px;
+  height: 115px;
+}
+
+.form-login {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.label-email {
+  text-align: center;
+}
+
+.email-input {
+ text-align: center;
+}
+
+
+.label-senha {
+  text-align: center;
+  margin-top: 2px;
+}
+
+.input-senha {
+  text-align: center;
+}
+
+.btn-login {
+  margin-top: 4px;
+  align-content: center;
+
+}
