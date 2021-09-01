@@ -15,6 +15,7 @@ a {
   align-items: center;
   background-color: rgb(231, 231, 231);
   border: rgb(158, 158, 158);
+  border-radius: 25%;
   border-style: dashed;
   border-width: 5px;
   display: flex;
@@ -24,7 +25,6 @@ a {
   margin: auto;
   margin-top: 100px;
   width: 400px;
-  border-radius: 25%;
 }
 
 .login-component {
