@@ -4,7 +4,7 @@ import SelectWallet from './SelectWallet';
 
 class SelectGroup extends React.Component {
   render() {
-    const { handleChange, currency, payment, tag, propCurrencies } = this.props;
+    const { handleChange, currency, method, tag, propCurrencies } = this.props;
     return (
       <>
         <SelectWallet
@@ -20,9 +20,9 @@ class SelectGroup extends React.Component {
         </SelectWallet>
         <SelectWallet
           label="Método de pagamento"
-          name="payment"
-          id="payment"
-          value={ payment }
+          name="method"
+          id="method"
+          value={ method }
           onChange={ handleChange }
         >
           <option>Dinheiro</option>
@@ -50,7 +50,7 @@ class SelectGroup extends React.Component {
 SelectGroup.propTypes = {
   handleChange: PropTypes.func.isRequired,
   currency: PropTypes.string.isRequired,
-  payment: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
   tag: PropTypes.string.isRequired,
   propCurrencies: PropTypes.arrayOf(PropTypes.any).isRequired,
 };

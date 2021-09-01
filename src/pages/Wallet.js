@@ -4,33 +4,44 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import InputWallet from '../components/InputWallet';
 import SelectGroup from '../components/SelectGroup';
-import { fetchAPI } from '../actions';
+import { fetchAPI, addAPIExpense } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
+      id: 0,
       value: '',
       description: '',
-      currency: 'Teste',
-      payment: 'Dinheiro',
+      currency: 'USD',
+      method: 'Dinheiro',
       tag: 'Alimentação',
-      loading: true,
+      // loading: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.localGetCurrencies = this.localGetCurrencies.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
   }
 
   componentDidMount() {
     this.localGetCurrencies();
   }
 
+  async onSubmitForm(event) {
+    event.preventDefault();
+    const { addExpenses } = this.props;
+    await addExpenses(this.state);
+    this.setState((previousState) => ({
+      id: previousState.id + 1,
+    }));
+  }
+
   async localGetCurrencies() {
     const { getCurrencies } = this.props;
     await getCurrencies();
-    this.setState({
-      loading: false,
-    });
+    // this.setState({
+    //   loading: false,
+    // });
   }
 
   handleChange({ target }) {
@@ -40,8 +51,7 @@ class Wallet extends React.Component {
 
   render() {
     const { email, propCurrencies } = this.props;
-    console.log(propCurrencies);
-    const { value, description, currency, payment, tag, loading } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <>
         <Header email={ email } />
@@ -62,17 +72,18 @@ class Wallet extends React.Component {
             value={ description }
             onChange={ this.handleChange }
           />
-          {loading === false
+          {propCurrencies.length !== 0
             ? (
               <SelectGroup
                 currency={ currency }
-                payment={ payment }
+                method={ method }
                 tag={ tag }
                 handleChange={ this.handleChange }
                 propCurrencies={ propCurrencies }
               />
             )
             : null}
+          <button type="submit" onClick={ this.onSubmitForm }>Adicionar despesa</button>
         </form>
       </>
     );
@@ -83,6 +94,7 @@ Wallet.propTypes = {
   email: PropTypes.string,
   getCurrencies: PropTypes.func.isRequired,
   propCurrencies: PropTypes.arrayOf(PropTypes.any).isRequired,
+  addExpenses: PropTypes.func.isRequired,
 };
 
 Wallet.defaultProps = {
@@ -91,6 +103,7 @@ Wallet.defaultProps = {
 
 const mapDispatchToProps = (dispatch) => ({
   getCurrencies: () => dispatch(fetchAPI()),
+  addExpenses: (payload) => dispatch(addAPIExpense(payload)),
 });
 
 const mapStateToProps = (state) => ({
@@ -100,4 +113,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 
-// https://github.com/facebook/prop-types/issues/212
+// Prevent Default
+// https://stackoverflow.com/questions/8664486/javascript-code-to-stop-form-submission
