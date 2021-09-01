@@ -11,7 +11,13 @@ class Header extends React.Component {
         <div>
           <p data-testid="email-field">{ user }</p>
           <p data-testid="total-field">
-            { totalExpenses.length === 0 && 0 }
+            { totalExpenses.length === 0 ? 0
+              : totalExpenses
+                .reduce((acc, { value, currency, exchangeRates }) => (
+                  acc + Number(value) * Number(Object
+                    .entries(exchangeRates)
+                    .find(([name]) => name === currency)[1].ask)
+                ), 0) }
             <span data-testid="header-currency-field">BRL</span>
           </p>
         </div>

@@ -30,10 +30,10 @@ export const requestAPIFailed = () => ({
   type: REQUEST_API_FAILED,
 });
 
-export function getCotations() {
+export function getCotations(payload) {
   return async (dispatch) => {
     const data = await fetchAPI();
-    dispatch(requestAPISuccessful(data));
+    dispatch(requestAPISuccessful({ ...payload, exchangeRates: data }));
   };
 }
 

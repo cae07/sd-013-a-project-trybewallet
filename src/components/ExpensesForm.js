@@ -6,7 +6,7 @@ import SelectCurrency from './SelectCurrency';
 import SelectInput from './SelectInput';
 import { payMethodOptions, expenseCategoryOptions } from '../data';
 import fetchAPI from '../services/api';
-import { requestAPISuccessful, saveCurrenciesInfo } from '../actions';
+import { getCotations, saveCurrenciesInfo } from '../actions';
 
 class ExpensesForm extends React.Component {
   constructor(props) {
@@ -41,7 +41,8 @@ class ExpensesForm extends React.Component {
     try {
       const response = await fetchAPI();
       const data = await Object.entries(response);
-      const currencies = data.map(([name]) => name);
+      const currencies = data.filter((([name]) => name !== 'USDT' && name !== 'DOGE'))
+        .map(([name]) => name);
 
       this.setState({
         isLoadingCoins: false,
@@ -62,11 +63,9 @@ class ExpensesForm extends React.Component {
       paymentMethod, expenseCategory,
     } = this.state;
 
-    const { saveExpensesInRedux, expenses, id } = this.props;
+    const { saveExpensesInRedux, id } = this.props;
     // const id = expenses.length;
     console.log(id);
-
-    const data = await fetchAPI();
 
     const payload = {
       id,
@@ -75,7 +74,6 @@ class ExpensesForm extends React.Component {
       currency,
       method: paymentMethod,
       tag: expenseCategory,
-      exchangeRates: data,
     };
 
     saveExpensesInRedux(payload);
@@ -136,16 +134,17 @@ class ExpensesForm extends React.Component {
 
 ExpensesForm.propTypes = {
   saveCurrenciesInRedux: PropTypes.func.isRequired,
+  saveExpensesInRedux: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  expenses: state.wallet.expenses,
   id: state.wallet.idNewItem,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   saveCurrenciesInRedux: (payload) => dispatch(saveCurrenciesInfo(payload)),
-  saveExpensesInRedux: (payload) => dispatch(requestAPISuccessful(payload)),
+  saveExpensesInRedux: (payload) => dispatch(getCotations(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
