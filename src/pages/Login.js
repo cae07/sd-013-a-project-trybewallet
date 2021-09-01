@@ -48,12 +48,14 @@ class Login extends React.Component {
             name="email"
             page="login"
             type="text"
+            label="E-mail"
             onHandleChange={ this.handleChange }
           />
           <Inputs
             name="password"
             page="login"
             type="password"
+            label="Senha"
             onHandleChange={ this.handleChange }
           />
           <Button
