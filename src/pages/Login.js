@@ -69,12 +69,16 @@ class Login extends React.Component {
     return (
       <div>
 
-        <div data-testid="email-input">
-          <input type="email" onChange={ this.emailChange } />
+        <div>
+          <input data-testid="email-input" type="email" onChange={ this.emailChange } />
         </div>
 
-        <div data-testid="password-input" onChange={ this.passwordChange }>
-          <input type="password" />
+        <div>
+          <input
+            data-testid="password-input"
+            type="password"
+            onChange={ this.passwordChange }
+          />
         </div>
         <div>
           <button
