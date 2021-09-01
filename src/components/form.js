@@ -46,10 +46,9 @@ class Form extends React.Component {
     const { expenseApi } = this.props;
     const { value, id, description, currency, method, tag } = this.state;
     const all = { value, id, description, currency, method, tag };
+    expenseApi(all);
     this.setState({
       id: id + 1,
-    }, () => {
-      expenseApi(all);
     });
   }
 
