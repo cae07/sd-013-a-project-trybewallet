@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 
 function InputSelect({ label, listSelect }) {
   return (
-    <label htmlFor="item">
+    <label>
       {`${label}`}
-      <select>
+      <select name="select">
         {listSelect.map(
           (item) => <option key={ item }>{ item }</option>,
         )}
       </select>
     </label>
-
   );
 }
 
