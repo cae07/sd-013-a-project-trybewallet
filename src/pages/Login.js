@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setUserValue } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -7,7 +10,16 @@ class Login extends React.Component {
       email: '',
       senha: '',
     };
+    this.onSubmitForm = this.onSubmitForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.validateEmailSenha = this.validateEmailSenha.bind(this);
+  }
+
+  onSubmitForm() {
+    const { email } = this.state;
+    const { history, dispatchSetValue } = this.props;
+    dispatchSetValue(email);
+    history.push('/carteira');
   }
 
   // função para salvar no estado email e senha
@@ -59,6 +71,7 @@ class Login extends React.Component {
         <button
           type="button"
           disabled={ this.validateEmailSenha(email, senha) }
+          onClick={ this.onSubmitForm }
         >
           Entrar
         </button>
@@ -67,7 +80,18 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatchSetValue: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSetValue: (state) => dispatch(setUserValue(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
 
 /* Referências: Exercício dia 16.3
 Link consultado: https://github.com/FabiolaMoutinho/exercise-forms-redux/tree/gabarito
