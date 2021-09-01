@@ -10,17 +10,15 @@ const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
-    const { user, wallet } = this.props;
+    const { user } = this.props;
     this.state = {
       user,
-      wallet,
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
       value: '',
       description: '',
     };
-
     this.tagOptions = this.tagOptions.bind(this);
     this.onClickBtn = this.onClickBtn.bind(this);
     this.paymentOptions = this.paymentOptions.bind(this);
@@ -28,7 +26,6 @@ class Wallet extends React.Component {
     this.fetchAPI = this.fetchAPI.bind(this);
     this.totalExpenses = this.totalExpenses.bind(this);
     this.buttonSubmit = this.buttonSubmit.bind(this);
-    // this.onClick = this.onClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -43,7 +40,6 @@ class Wallet extends React.Component {
     const { currency, method, tag, value, description } = this.state;
     const { wallet: { expenses }, dispatchDados } = this.props;
     const id = expenses.length;
-    // const { dispatchDados } = this.props;
 
     const valorMoedas = await this.fetchAPI();
 
