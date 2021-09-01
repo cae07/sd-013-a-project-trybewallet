@@ -59,3 +59,11 @@ export function fetchExchangeRates() {
       });
   };
 }
+
+/* Deletar uma despesa salva */
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+
+export const deleteExpense = (id) => ({
+  type: DELETE_EXPENSE,
+  id,
+});

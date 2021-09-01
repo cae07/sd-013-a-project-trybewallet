@@ -150,8 +150,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrenciesDispatcher: (data) => dispatch(setCurrencies(data)),
-  saveExpenseDispatcher: (data) => dispatch(saveExpense(data)),
+  setCurrenciesDispatcher: (payload) => dispatch(setCurrencies(payload)),
+  saveExpenseDispatcher: (payload) => dispatch(saveExpense(payload)),
   fetchExchangeRatesDispatcher: () => dispatch(fetchExchangeRates()),
 });
 

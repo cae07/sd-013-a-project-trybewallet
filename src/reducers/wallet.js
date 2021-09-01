@@ -4,6 +4,7 @@ import {
   REQUEST_EXCHANGE_RATES,
   SET_EXCHANGE_RATES,
   SAVE_EXPENSE,
+  DELETE_EXPENSE,
 } from '../actions';
 
 // Estado inicial
@@ -44,6 +45,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       ],
     };
   }
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter(({ id }) => id !== action.id),
+    };
   default: {
     return state;
   }
