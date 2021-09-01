@@ -6,6 +6,7 @@ export const loginAction = (email) => ({
   payload: email,
 });
 
-export const login = () => ({
+export const walletAction = () => ({
   type: WALLET,
+  payload,
 });
