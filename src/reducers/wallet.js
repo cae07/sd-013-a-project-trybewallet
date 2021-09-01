@@ -1,5 +1,6 @@
 import { error } from 'loglevel';
-import { LOADING_COIN, SUCESS_COIN, FAIL_COIN, WALLET_INFO, SUCESS_ATUAL } from '../actions';
+import {
+  LOADING_COIN, SUCESS_COIN, FAIL_COIN, SUCESS_ATUAL } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
