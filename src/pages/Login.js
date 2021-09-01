@@ -22,13 +22,14 @@ class Login extends Component {
     this.setState({
       [name]: value,
     });
-    const ONE_SECOND_HALF = 500;
-    setTimeout(this.activateButton, ONE_SECOND_HALF);
+    // const ONE_SECOND_HALF = 100;
+    // setTimeout(this.activateButton, ONE_SECOND_HALF);
+    this.activateButton();
   }
 
   activateButton() {
     const { email, password } = this.state;
-    const PASSWORD_LENGTH = 6;
+    const PASSWORD_LENGTH = 5;
     const REGEX_EMAIL = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
     if (REGEX_EMAIL.exec(email)
     && password.length >= PASSWORD_LENGTH) {

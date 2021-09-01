@@ -1,19 +1,17 @@
 import { LOGIN } from '../actions';
 
 const USER_INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 export const BLA_BLA = 'BLABLA';
 
-export const userLogin = (state = USER_INITIAL_STATE, action) => {
+export const user = (state = USER_INITIAL_STATE, action) => {
   switch (action.type) {
   case LOGIN:
-    return ({
+    return {
       ...state,
-      email: action.payload.email });
+      email: action.payload };
   default:
     return state;
   }
