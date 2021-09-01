@@ -11,9 +11,12 @@ class Header extends React.Component {
     // const {options} = this.state;
     return (
       <div>
-        <h4 data-testid="email-field">
-          {email}
-        </h4>
+        <header>
+          <h4 data-testid="email-field">
+            {email}
+          </h4>
+          <h4>Despesa Total</h4>
+        </header>
 
         <form>
           <label htmlFor="value">

@@ -17,19 +17,17 @@ class Login extends React.Component {
     };
   }
 
-  emailChange = (e, type) => {
+  emailChange = (e) => {
     this.setState({
       inputEmail: e.target.value,
     });
     this.checkUsernamePassword();
-    // console.log(e.target.value)
   };
 
-  passwordChange = (e, type) => {
+  passwordChange = (e) => {
     this.setState({
       inputPassword: e.target.value,
     });
-    // console.log();
     this.checkUsernamePassword();
 }
   checkUsernamePassword = () => {
