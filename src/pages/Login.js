@@ -41,7 +41,7 @@ class Login extends Component {
         },
       });
     }
-    this.state({ validate: { ...validate, login: false } })
+    this.state({ validate: { ...validate, login: false } });
   }
 
   passwordValidation() {
