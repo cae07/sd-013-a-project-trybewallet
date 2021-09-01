@@ -7,7 +7,6 @@ function App() {
   return (
 
     <Switch>
-
       <Route exact path="/" render={ ({ history }) => <Login history={ history } /> } />
       <Route exact path="/carteira" component={ Wallet } />
     </Switch>
