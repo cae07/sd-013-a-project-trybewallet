@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 function Input({ label }) {
   return (
-    <label>
+    <label htmlFor="teste">
       {`${label}`}
-      <input type="text" name="valor" />
+      <input type="text" name="valor" id="teste" />
     </label>
 
   );

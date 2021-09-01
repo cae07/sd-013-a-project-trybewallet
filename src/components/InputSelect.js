@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 function InputSelect({ label, listSelect }) {
   return (
-    <label>
+    <label htmlFor="#">
       {`${label}`}
-      <select name="select">
+      <select name="select" id="#">
         {listSelect.map(
           (item) => <option key={ item }>{ item }</option>,
         )}
