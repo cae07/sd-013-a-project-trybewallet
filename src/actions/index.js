@@ -1,6 +1,6 @@
 // Coloque aqui suas actions
 import { GET_EXCHANGE_RATE, ADD_USER, IS_FETCHING,
-  ADD_EXPENSE, REFRESH_EXPENSES } from './actionTypes';
+  REFRESH_EXPENSES, EDIT_EXPENSE } from './actionTypes';
 
 export const addUser = (payload) => ({
   type: ADD_USER,
@@ -16,13 +16,13 @@ export const isFetching = () => ({
   type: IS_FETCHING,
 });
 
-export const addExpense = (payload) => ({
-  type: ADD_EXPENSE,
+export const refreshItems = (payload) => ({
+  type: REFRESH_EXPENSES,
   payload,
 });
 
-export const refreshItems = (payload) => ({
-  type: REFRESH_EXPENSES,
+export const editExpense = (payload) => ({
+  type: EDIT_EXPENSE,
   payload,
 });
 

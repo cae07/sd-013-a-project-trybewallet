@@ -35,8 +35,8 @@ const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
 
-// ContentTable.propTypes = {
-//   expenses: PropTypes.arrayOf(PropTypes.object),
-// };
+ContentTable.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default connect(mapStateToProps)(ContentTable);

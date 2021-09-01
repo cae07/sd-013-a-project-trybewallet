@@ -48,6 +48,7 @@ class Login extends React.Component {
 
   render() {
     const { handleChange, state: { disabled }, addEmail } = this;
+
     return (
       <div>
         <input
