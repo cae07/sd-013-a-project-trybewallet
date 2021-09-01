@@ -6,7 +6,7 @@ export const userAction = (email) => ({
   email,
 });
 
-export const walletAction = (state) => ({
+export const walletAction = (currentWalletState) => ({
   type: WALLET_ACTION,
-  state,
+  currentWalletState,
 });
