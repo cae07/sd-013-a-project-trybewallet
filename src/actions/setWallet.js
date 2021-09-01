@@ -23,7 +23,7 @@ export const fetchAddExpense = (payload) => (dispatch) => {
     delete data.USDT;
     const expense = {
       ...payload,
-      exchangeRates: [data],
+      exchangeRates: data,
     };
     dispatch(addExpense(expense));
   });

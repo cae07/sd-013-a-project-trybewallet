@@ -12,15 +12,13 @@ class Wallet extends React.Component {
     this.ifMap = this.ifMap.bind(this);
     this.onChange = this.onChange.bind(this);
     this.submitExpense = this.submitExpense.bind(this);
-    this.calculateTotalExpenses = this.calculateTotalExpenses.bind(this);
 
     this.state = {
       value: '',
       description: '',
       currency: 'USD',
-      method: 'dinheiro',
-      tag: 'alimentacao',
-      currencies: [],
+      method: '',
+      tag: '',
     };
   }
 
@@ -49,9 +47,9 @@ class Wallet extends React.Component {
     const { method } = this.state;
     return (
       <select value={ method } name="method" id="pagamento" onChange={ this.onChange }>
-        <option value="dinheiro">Dinheiro</option>
-        <option value="debito">Cartão de crédito</option>
-        <option value="credito">Cartão de débito</option>
+        <option>Dinheiro</option>
+        <option>Cartão de crédito</option>
+        <option>Cartão de débito</option>
       </select>
     );
   }
@@ -60,11 +58,11 @@ class Wallet extends React.Component {
     const { tag } = this.state;
     return (
       <select value={ tag } name="tag" id="tag" onChange={ this.onChange }>
-        <option value="alimentacao">Alimentação</option>
-        <option value="lazer">Lazer</option>
-        <option value="trabalho">Trabalho</option>
-        <option value="transporte">Transporte</option>
-        <option value="saude">Saúde</option>
+        <option>Alimentação</option>
+        <option>Lazer</option>
+        <option>Trabalho</option>
+        <option>Transporte</option>
+        <option>Saúde</option>
       </select>
     );
   }
@@ -75,7 +73,7 @@ class Wallet extends React.Component {
     }
   }
 
-  calculateTotalExpenses() {
+  /* calculateTotalExpenses() {
     const { expenses } = this.props;
 
     return expenses.reduce((acc, { exchangeRates, currency, value }) => {
@@ -83,7 +81,7 @@ class Wallet extends React.Component {
       acc += value * valueConverted;
       return acc;
     }, 0).toFixed(2);
-  }
+  } */
 
   submitExpense(event) {
     event.preventDefault();
@@ -92,13 +90,13 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email, currencies, expenses = 0 } = this.props;
+    const { email, currencies, totalExpense = 0 } = this.props;
     const { value, description, currency } = this.state;
     return (
       <div>
         <header>
           <h3 data-testid="email-field">{email}</h3>
-          <span data-testid="total-field">{expenses}</span>
+          <span data-testid="total-field">{totalExpense}</span>
           <span data-testid="header-currency-field">BRL</span>
         </header>
         <form action="get">
@@ -139,7 +137,7 @@ Wallet.propTypes = {
   getCurrencies: PropTypes.func.isRequired,
   currencies: PropTypes.shape({}).isRequired,
   newExpense: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  totalExpense: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
