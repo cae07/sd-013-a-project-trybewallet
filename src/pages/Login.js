@@ -18,6 +18,16 @@ class Login extends React.Component {
     });
   }
 
+  // função para validar email e senha
+  validateEmailSenha(eMail, pass) {
+    const NUM = 6;
+    const valid = eMail.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+    if (!valid || eMail.length === 0 || pass.length < NUM) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const { email, senha } = this.state;
     return (
@@ -46,7 +56,12 @@ class Login extends React.Component {
           />
         </label>
 
-        <button type="button">Entrar</button>
+        <button
+          type="button"
+          disabled={ this.validateEmailSenha(email, senha) }
+        >
+          Entrar
+        </button>
       </fieldset>
     );
   }
@@ -55,4 +70,6 @@ class Login extends React.Component {
 export default Login;
 
 /* Referências: Exercício dia 16.3
-Link consultado: https://github.com/FabiolaMoutinho/exercise-forms-redux/tree/gabarito */
+Link consultado: https://github.com/FabiolaMoutinho/exercise-forms-redux/tree/gabarito
+Aula ao vivo dia 16.2
+Link consultado: https://github.com/tryber/sd-013-a-live-lectures/pull/38/files */
