@@ -46,7 +46,7 @@ class Expenses extends React.Component {
               <td>{ convertedValue }</td>
               <td>Real</td>
               <td>
-                <button type="button">Edit</button>
+                <button type="button" data-testid="edit-btn">Edit</button>
                 <button
                   type="button"
                   data-testid="delete-btn"
