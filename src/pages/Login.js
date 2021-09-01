@@ -1,11 +1,10 @@
-/* eslint-disable no-alert */
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import LoginInputs from '../components/loginInput';
 import actionUser from '../actions/index';
 
-class Login extends React.Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -54,8 +53,8 @@ class Login extends React.Component {
 
   handleSubmit() {
     const { handleLogin, history } = this.props;
-    // const { email } = this.state;
-    handleLogin(this.state);
+    const { email } = this.state;
+    handleLogin(email);
     history.push('/carteira');
   }
 
