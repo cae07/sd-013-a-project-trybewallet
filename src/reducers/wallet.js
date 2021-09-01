@@ -1,13 +1,19 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-import INITIAL_STATE from '../helpers/initialState';
-import { GET_CURRENCIES, FAILED_REQUEST } from '../actions';
+import { GET_CURRENCIES, FAILED_REQUEST, GET_RATES } from '../actions';
 
-const wallet = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
+const INITIAL_STATE = {
+  currencies: [],
+  expenses: [],
+};
+
+const wallet = (state = INITIAL_STATE, { type, payload }) => {
+  switch (type) {
   case GET_CURRENCIES:
-    return { ...state, currencies: action.payload };
+    return { ...state, currencies: payload };
   case FAILED_REQUEST:
-    return { ...state, error: action.payload };
+    return { ...state, error: payload };
+  case GET_RATES:
+    return { ...state, expenses: [...state.expenses, { ...payload }] };
   default:
     return state;
   }
