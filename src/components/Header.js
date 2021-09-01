@@ -1,25 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { thunkCurrencies } from '../actions';
 
 class Header extends React.Component {
   constructor() {
     super();
     this.state = {
       currency: 'BRL',
-      expenses: 0,
     };
   }
 
-  componentDidMount() {
-    const { fetchCurrencies } = this.props;
-    fetchCurrencies();
-  }
-
   render() {
-    const { email } = this.props;
-    const { currency, expenses } = this.state;
+    const { email, total } = this.props;
+    const { currency } = this.state;
     return (
       <header>
         <h1
@@ -35,7 +28,7 @@ class Header extends React.Component {
         <h1
           data-testid="total-field"
         >
-          {expenses}
+          {total.reduce((acc, el) => acc + el, 0).toFixed(2) }
         </h1>
       </header>
     );
@@ -43,16 +36,22 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  fetchCurrencies: PropTypes.func.isRequired,
+  // fetchCurrencies: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
+  total: PropTypes.arrayOf(Number),
+};
+
+Header.defaultProps = {
+  total: [],
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  total: state.wallet.total,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchCurrencies: () => dispatch(thunkCurrencies()),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   fetchCurrencies: () => dispatch(thunkCurrencies()),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, null)(Header);

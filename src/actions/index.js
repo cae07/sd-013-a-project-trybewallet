@@ -2,12 +2,22 @@ export const LOGIN = 'LOGIN';
 export const REQUEST_API = 'REQUEST_API';
 export const SUCCESFUL_RESPONSE = 'SUCCESFUL_RESPONSE';
 export const FAILED_RESPONSE = 'FAILED_RESPONSE';
+export const EXPENSES = 'EXPENSES';
+export const TOTAL = 'TOTAL';
 
-const setLogin = (email, password) => ({
+export const setLogin = (email, password) => ({
   type: LOGIN, email, password,
 });
 
 export default setLogin;
+
+export const setExpenses = (payload) => ({
+  type: EXPENSES, payload,
+});
+
+export const setTotal = (amount) => ({
+  type: TOTAL, amount,
+});
 
 export const requestAPI = () => ({
   type: REQUEST_API, loading: true,
@@ -26,7 +36,7 @@ export const thunkCurrencies = () => async (dispatch) => {
     dispatch(requestAPI());
     const request = await fetch('https://economia.awesomeapi.com.br/json/all');
     const response = await request.json();
-    dispatch(getCurrencies(response));
+    await dispatch(getCurrencies(response));
   } catch (error) {
     dispatch(failedAPI(error));
   }
