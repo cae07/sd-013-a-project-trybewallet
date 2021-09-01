@@ -29,12 +29,6 @@ class Form extends Component {
     tokens();
   }
 
-  funcSetState(param) {
-    this.setState({
-      moeda: param,
-    });
-  }
-
   HandleOnChange({ target }) {
     const { name, value } = target;
     this.setState({
