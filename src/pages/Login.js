@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginAction } from '../actions';
+import '../styles/login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -41,25 +42,30 @@ class Login extends React.Component {
     const { disableButton, login, password } = this.state;
     const { dispatchLogin } = this.props;
     return (
-      <div>
-        <h1>Login</h1>
-        <input
-          type="text"
-          name="login"
-          value={ login }
-          placeholder="E-mail"
-          data-testid="email-input"
-          onChange={ this.handleChange }
-        />
-        <h1>Password</h1>
-        <input
-          type="email"
-          name="password"
-          value={ password }
-          placeholder="Senha"
-          data-testid="password-input"
-          onChange={ this.handleChange }
-        />
+      <div className="login-page">
+        <img src="https://i.imgur.com/7NDHqah.png" alt="Wallet" />
+        <div className="login-component ">
+          <h1>Login</h1>
+          <input
+            type="text"
+            name="login"
+            value={ login }
+            placeholder="E-mail"
+            data-testid="email-input"
+            onChange={ this.handleChange }
+          />
+        </div>
+        <div className="login-component ">
+          <h1>Password</h1>
+          <input
+            type="email"
+            name="password"
+            value={ password }
+            placeholder="Senha"
+            data-testid="password-input"
+            onChange={ this.handleChange }
+          />
+        </div>
         <button
           type="button"
           disabled={ disableButton }
