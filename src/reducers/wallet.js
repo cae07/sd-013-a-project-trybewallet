@@ -1,20 +1,32 @@
-import { TOTAL_FIELD } from '../actions/actionTypes';
+import { GET_CURRENCY, LOADING_FETCH, GET_EXPENSES } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-    total: 0,
-  },
-
+  currencies: [],
+  expenses: [],
+  total: 0,
 };
 
-const wallet = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-  case TOTAL_FIELD:
+const wallet = (state = INITIAL_STATE, { type, json, payload, id }) => {
+  switch (type) {
+  case GET_CURRENCY:
     return {
       ...state,
-      total: action,
+      currencies: json,
+      loading: false,
+    };
+  case LOADING_FETCH:
+    return {
+      ...state,
+      loading: true,
+    };
+  case GET_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, {
+        id,
+        ...payload,
+        exchangeRates: json,
+      }],
     };
   default:
     return state;
