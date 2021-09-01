@@ -4,6 +4,8 @@ import {
   FAILED_REQUEST,
   ADD_EXPENSE,
   REMOVE_EXPENSE,
+  EDIT_MODE,
+  EDIT_EXPENSE,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -13,6 +15,8 @@ const INITIAL_STATE = {
   error: '',
   expenseId: 0,
   totalExpenses: 0,
+  isEditing: false,
+  editedId: 0,
 };
 
 function calculateTotalExpenses(expenses) {
@@ -26,25 +30,27 @@ function calculateTotalExpenses(expenses) {
   return total;
 }
 
+function changeExpense(expenses, id, expense) {
+  let index;
+  expenses.forEach((item, i) => {
+    if (item.id === id) {
+      index = i;
+    }
+  });
+  return expenses
+    .slice(0, index)
+    .concat(expense)
+    .concat(expenses.slice(index + 1));
+}
+
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case REQUEST_CURRENCIES:
-    return {
-      ...state,
-      isLoading: true,
-    };
+    return { ...state, isLoading: true };
   case GET_CURRENCIES:
-    return {
-      ...state,
-      currencies: action.payload,
-      isLoading: false,
-    };
+    return { ...state, currencies: Object.keys(action.payload), isLoading: false };
   case FAILED_REQUEST:
-    return {
-      ...state,
-      error: action.payload,
-      isLoading: false,
-    };
+    return { ...state, error: action.payload, isLoading: false };
   case ADD_EXPENSE:
     return {
       ...state,
@@ -64,6 +70,16 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: state.expenses.filter((expense) => expense.id !== action.payload),
       totalExpenses: calculateTotalExpenses(
         state.expenses.filter((expense) => expense.id !== action.payload),
+      ),
+    };
+  case EDIT_MODE:
+    return { ...state, isEditing: true, editedId: action.payload };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      isEditing: false,
+      expenses: changeExpense(
+        state.expenses, action.id, action.expense,
       ),
     };
   default:

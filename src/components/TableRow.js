@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { removeExpense } from '../actions';
+import { editMode, removeExpense } from '../actions';
 
 function round2Digits(number) {
   return Math.round((Number(number) + Number.EPSILON) * 100) / 100;
@@ -15,7 +15,7 @@ function convertCurrency(expense) {
 
 class TableRow extends Component {
   render() {
-    const { expense, removeRow } = this.props;
+    const { expense, removeRow, editRow } = this.props;
     const {
       value,
       description,
@@ -36,7 +36,7 @@ class TableRow extends Component {
         <td>{ method }</td>
         <td>{ value }</td>
         <td>{ targetCurrency }</td>
-        <td>{ round2Digits(ask) }</td>
+        <td>{ parseFloat(ask).toFixed(2) }</td>
         <td>{ convertCurrency(expense) }</td>
         <td>{ baseCurrency }</td>
         <td>
@@ -47,6 +47,13 @@ class TableRow extends Component {
           >
             x
           </button>
+          <button
+            data-testid="edit-btn"
+            type="button"
+            onClick={ () => editRow(id) }
+          >
+            /
+          </button>
         </td>
       </tr>
     );
@@ -55,7 +62,7 @@ class TableRow extends Component {
 
 TableRow.propTypes = {
   expense: PropTypes.shape({
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     description: PropTypes.string,
     tag: PropTypes.string,
     currency: PropTypes.string,
@@ -67,10 +74,12 @@ TableRow.propTypes = {
     }),
   }).isRequired,
   removeRow: PropTypes.func.isRequired,
+  editRow: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   removeRow: (id) => dispatch(removeExpense(id)),
+  editRow: (id) => dispatch(editMode(id)),
 });
 
 export default connect(null, mapDispatchToProps)(TableRow);

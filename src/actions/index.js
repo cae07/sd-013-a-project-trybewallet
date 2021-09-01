@@ -5,6 +5,8 @@ import {
   FAILED_REQUEST,
   ADD_EXPENSE,
   REMOVE_EXPENSE,
+  EDIT_MODE,
+  EDIT_EXPENSE,
 } from './actionTypes';
 
 function requestCurrencies() {
@@ -69,5 +71,20 @@ export function removeExpense(id) {
   return {
     type: REMOVE_EXPENSE,
     payload: id,
+  };
+}
+
+export function editMode(id) {
+  return {
+    type: EDIT_MODE,
+    payload: id,
+  };
+}
+
+export function editExpense(id, expense) {
+  return {
+    type: EDIT_EXPENSE,
+    id,
+    expense,
   };
 }

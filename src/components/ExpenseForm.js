@@ -68,14 +68,14 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 ExpenseForm.defaultProps = {
-  currencies: [],
+  currencies: PropTypes.object,
 };
 
 ExpenseForm.propTypes = {
   loadCurrencies: PropTypes.func.isRequired,
   addNewExpense: PropTypes.func.isRequired,
-  currencies: PropTypes.shape(
-    {},
+  currencies: PropTypes.oneOfType(
+    [PropTypes.objectOf(PropTypes.object), PropTypes.array],
   ),
 };
 
