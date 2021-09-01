@@ -1,4 +1,4 @@
-import { LOADING_COIN, SUCCESS_COIN, ERROR_COIN } from '../actions';
+import { LOADING_COIN, SUCCESS_COIN, ERROR_COIN, SEND_EXPENSES } from '../actions';
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
   currencies: [],
@@ -16,6 +16,10 @@ function reducer(state = INITIAL_STATE, action) {
   case ERROR_COIN:
     return { ...state, error: action.error.message };
   default: return state;
+  case SEND_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload] };
   }
 }
 

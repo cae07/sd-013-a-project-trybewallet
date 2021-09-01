@@ -21,5 +21,4 @@ const getCoins = () => (
         .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
     ))
 );
-console.log(getCoins());
 export default getCoins;
