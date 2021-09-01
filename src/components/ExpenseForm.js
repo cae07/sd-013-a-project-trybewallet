@@ -19,7 +19,6 @@ class ExpenseForm extends Component {
     super(props);
 
     this.state = {
-      expenses: [],
       value: '',
       description: '',
       currency: 'USD',
@@ -54,7 +53,7 @@ class ExpenseForm extends Component {
     });
   }
 
-  async saveExpense() {
+  async saveExpense(evt) {
     const {
       props: {
         saveExpenseDispatcher,
@@ -62,28 +61,20 @@ class ExpenseForm extends Component {
       },
     } = this;
 
+    evt.preventDefault();
+
     // Passo 1: Pegar e setar as taxas de câmbio
     await fetchExchangeRatesDispatcher();
 
-    // Passo 2: Criar o objeto da despesa
+    // Passo 2: Adicionar as taxas de câmbio ao estado local
     this.setState((previous) => {
       const { props: { exchangeRates } } = this;
-
-      return ({
-        ...previous,
-        expenses: [
-          ...previous.expenses,
-          {
-            id: previous.expenses.length,
-            value: previous.value,
-            description: previous.description,
-            currency: previous.currency,
-            method: previous.method,
-            tag: previous.tag,
-            exchangeRates,
-          },
-        ],
-      });
+      return (
+        {
+          ...previous,
+          exchangeRates,
+        }
+      );
     });
 
     // Passo 3: Mandar todas as informações necessárias para o estado global
@@ -130,7 +121,7 @@ class ExpenseForm extends Component {
             defaultValue={ tag }
           />
         </fieldset>
-        <button type="button" onClick={ () => this.saveExpense() }>
+        <button type="submit" onClick={ (evt) => this.saveExpense(evt) }>
           Adicionar despesa
         </button>
       </form>
