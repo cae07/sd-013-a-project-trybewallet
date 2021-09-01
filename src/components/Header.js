@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { roundNumber } from '../data';
 
 class Header extends React.Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class Header extends React.Component {
           .find(([name]) => name === currency)[1].ask)
       ), 0);
 
-    return totalExpenses;
+    return roundNumber(totalExpenses);
   }
 
   render() {
@@ -30,7 +31,7 @@ class Header extends React.Component {
         <div>
           <p data-testid="email-field">{ user }</p>
           <p data-testid="total-field">
-            { expenses.length === 0 ? 0 : this.getTotalExpensesInBRL() }
+            { expenses.length === 0 ? roundNumber(0) : this.getTotalExpensesInBRL() }
             <span data-testid="header-currency-field">BRL</span>
           </p>
         </div>
@@ -46,7 +47,7 @@ const mapStateToProps = (state) => ({
 
 Header.propTypes = {
   user: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.number).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, null)(Header);

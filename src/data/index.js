@@ -10,3 +10,7 @@ export const expenseCategoryOptions = [
   'Transporte',
   'Saúde',
 ];
+
+export const roundNumber = (number) => (
+  (Math.round(number * 100) / 100).toFixed(2)
+);
