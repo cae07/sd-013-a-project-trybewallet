@@ -6,6 +6,7 @@ export const WALLET_INFO = 'SEND_PASSWORD';
 export const LOADING_COIN = 'LOADING_COIN';
 export const SUCESS_COIN = 'SUCESS_COIN';
 export const FAIL_COIN = 'FAIL_COIN';
+export const SEND_EXPENSES = 'SEND_EXPENSES';
 
 export const sendUserInfo = (payload) => ({
   type: USER_INFO,
@@ -31,6 +32,11 @@ export const failFetchCoin = (error) => ({
   error,
 });
 
+export const sendExpenses = (payload) => ({
+  type: SEND_EXPENSES,
+  payload,
+});
+
 export const fetchCoin = () => (dispatch) => {
   dispatch(loadingFetchCoin());
   return actionGetCoins()
@@ -39,7 +45,24 @@ export const fetchCoin = () => (dispatch) => {
         const filteredCoins = Object
           .keys(data)
           .filter((coin) => coin !== 'USDT');
-        dispatch(sucessFetchCoin(filteredCoins));
+        return dispatch(sucessFetchCoin(filteredCoins));
+      },
+      (error) => dispatch(failFetchCoin(error)),
+    );
+};
+
+export const fetchExchangesRates = (userForm) => (dispatch) => {
+  dispatch(loadingFetchCoin());
+  return actionGetCoins()
+    .then(
+      (data) => {
+        const userInfo = {
+          ...userForm,
+          exchangeRates: {
+            ...data,
+          },
+        };
+        return dispatch(sendExpenses(userInfo));
       },
       (error) => dispatch(failFetchCoin(error)),
     );
