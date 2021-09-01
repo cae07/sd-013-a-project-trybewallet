@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Reset } from 'styled-reset';
 import { Login, Wallet } from './pages';
-import './App.css';
 
 const theme = {
   color: {
