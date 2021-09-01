@@ -30,10 +30,10 @@ class Wallet extends React.Component {
   }
 
   componentDidMount() {
-    const { API_RESPONSE } = this.props;
+    const { APIResponse } = this.props;
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((data) => data.json())
-      .then((response) => API_RESPONSE(response));
+      .then((response) => APIResponse(response));
   }
 
   coinsOptions() {
@@ -191,7 +191,7 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  API_RESPONSE: (payload) => (dispatch(API_RESPONSE(payload))),
+  APIResponse: (payload) => (dispatch(API_RESPONSE(payload))),
 });
 
 const mapStateToProps = (state) => ({
@@ -208,7 +208,7 @@ Wallet.propTypes = {
     email: PropTypes.string,
     password: PropTypes.string,
   }).isRequired,
-  API_RESPONSE: PropTypes.func.isRequired,
+  APIResponse: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
