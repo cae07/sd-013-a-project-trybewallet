@@ -1,33 +1,29 @@
 import React, { Component } from 'react';
-import { Inputs, Select } from '.';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Inputs, Select, Button } from '.';
+import { requestExchange, requestCurrencies } from '../actions';
 
 class FormWallet extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currencyOptions: [],
-      // value: '',
-      // description: '',
-      // currency: '',
-      // payment: '',
-      // tag: '',
+      id: 0,
+      value: 0,
+      description: '',
+      currency: '',
+      payment: '',
+      categorie: '',
     };
 
-    this.fetchAPI = this.fetchAPI.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
-    this.fetchAPI();
-  }
-
-  async fetchAPI() {
-    const obj = await (await fetch('https://economia.awesomeapi.com.br/json/all')).json();
-    const result = Object.keys(obj).filter((item) => item !== 'USDT');
-    this.setState({
-      currencyOptions: result,
-    });
+    const { setCurrencies } = this.props;
+    setCurrencies();
   }
 
   handleChange({ target: { name, value } }) {
@@ -36,10 +32,17 @@ class FormWallet extends Component {
     });
   }
 
+  handleClick() {
+    const { setExpenses } = this.props;
+    const { id } = this.state;
+    setExpenses(this.state);
+    this.setState({ id: id + 1 });
+  }
+
   render() {
     const payment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     const tag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const { currencyOptions } = this.state;
+    const { currencies } = this.props;
 
     return (
       <form>
@@ -63,7 +66,7 @@ class FormWallet extends Component {
             page="wallet"
             label="Moeda"
             onHandleChange={ this.handleChange }
-            options={ currencyOptions }
+            options={ currencies }
           />
           <Select
             name="payment"
@@ -79,10 +82,26 @@ class FormWallet extends Component {
             onHandleChange={ this.handleChange }
             options={ tag }
           />
+          <Button name="Adicionar despesa" onHandleClick={ this.handleClick } />
         </fieldset>
       </form>
     );
   }
 }
 
-export default FormWallet;
+FormWallet.propTypes = {
+  setCurrencies: PropTypes.func.isRequired,
+  setExpenses: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrencies: () => dispatch(requestCurrencies()),
+  setExpenses: (payload) => dispatch(requestExchange(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
