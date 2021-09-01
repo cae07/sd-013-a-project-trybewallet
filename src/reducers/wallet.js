@@ -10,8 +10,8 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case WALLET_ACTION:
     return { ...state,
-      currencies: action.currencies,
-      expenses: action.expenses,
+      currencies: action.state,
+      expenses: action.state,
     };
   default:
     return state;

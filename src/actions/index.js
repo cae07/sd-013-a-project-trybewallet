@@ -10,8 +10,3 @@ export const walletAction = (state) => ({
   type: WALLET_ACTION,
   state,
 });
-
-// export const fetchAction = () => (dispatch) => {
-//   dispatch(walletAction());
-
-// };
