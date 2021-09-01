@@ -21,13 +21,7 @@ class Login extends React.Component {
   onclick() {
     const { email } = this.state;
     const { userLogin } = this.props;
-    const emailValue = document.getElementById('email');
-    const passwordValue = document.getElementById('senha');
-    this.setState({
-      email: emailValue.value,
-      password: passwordValue.value,
-      redirectToCarteira: true,
-    });
+    this.setState({ redirectToCarteira: true });
     userLogin(email);
   }
 

@@ -1,14 +1,42 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+/* import PropTypes from 'prop-types'; */
+import { connect } from 'react-redux';
 /* import fetchMoeda from '../services/APIMoeda'; */
 
-export class expensesForm extends React.Component {
+class ExpensesForm extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      /* currency: fetchMoeda */
+      /* currency: 'USD', */
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
+
+  renderSelectCurrency(value, handleChange) {
+    /* const { currencies } = this.props; */
+    return (
+      <select
+        id="currency-input"
+        name="currency"
+        data-testid="currency-input"
+        onChange={ handleChange }
+        value={ value }
+      >
+        { currencies.map((currency) => {
+          if (currency === 'USDT') return '';
+          return (
+            <option key={ currency } data-testid={ currency }>
+              { currency }
+            </option>
+          );
+        })}
+      </select>
+    );
   }
 
   render() {
@@ -53,16 +81,18 @@ export class expensesForm extends React.Component {
   }
 }
 
-mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
   email: state.user.email,
-  gastos: state.wallet.gastos,
-  cambio: state.wallet.cambio,
+  currencies: state.wallet.currencies,
 });
 
-Header.propTypes = {
+/* const mapDispatchToProps = (dispatch) => {
+  currencies
+}; */
+/* expensesForm.propTypes = {
   email: PropTypes.string.isRequired,
   gastos: PropTypes.number.isRequired,
   cambio: PropTypes.string.isRequired,
-};
+}; */
 
-export default expensesForm;
+export default connect(mapStateToProps)(ExpensesForm);
