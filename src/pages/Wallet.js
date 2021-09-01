@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { putCoins } from '../actions';
+import { API_RESPONSE } from '../actions';
 // import SelectOptions from '../SelectOptions';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
@@ -10,47 +10,78 @@ const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
-    const { wallet, user } = this.props;
-    this.state = { wallet, user };
+    const { user, wallet } = this.props;
+    this.state = {
+      user,
+      wallet,
+      coinCurrent: 'USD',
+      payment: 'Dinheiro',
+      destinedTo: 'Alimentação',
+      value: '',
+      description: '',
+    };
 
     this.tagOptions = this.tagOptions.bind(this);
     this.paymentOptions = this.paymentOptions.bind(this);
     this.coinsOptions = this.coinsOptions.bind(this);
     this.totalExpenses = this.totalExpenses.bind(this);
     // this.onClick = this.onClick.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const { pushCoins } = this.props;
+    const { API_RESPONSE } = this.props;
     fetch('https://economia.awesomeapi.com.br/json/all')
       .then((data) => data.json())
-      .then((response) => pushCoins(Object.keys(response)));
+      .then((response) => API_RESPONSE(response));
   }
 
   coinsOptions() {
     const { wallet: { currencies } } = this.props;
+    const { coinCurrent } = this.state;
+
     return (
+
       <label htmlFor="Moeda">
         Moeda:
-        <select id="Moeda" name="Moeda">
-          {currencies
+        <select
+          id="Moeda"
+          name="coinCurrent"
+          onChange={ this.handleChange }
+          value={ coinCurrent }
+        >
+          {Object.keys(currencies)
             .filter((currencie) => currencie !== 'USDT')
             .map((currencie) => (
-              <option key={ currencie } value={ currencie }>{currencie}</option>))}
+              <option
+                name="coinCurrent"
+                key={ currencie }
+                value={ currencie }
+              >
+                {currencie}
+
+              </option>))}
         </select>
+
       </label>
     );
   }
 
   paymentOptions() {
+    const { payment } = this.state;
+
     return (
       <label htmlFor="paymentOptions">
         Método de pagamento:
-        <select name="paymentOptions" id="paymentOptions">
-          {paymentOptions.map((payment) => (
-            <option key={ payment } value={ payment }>
-              {payment}
+        <select
+          name="payment"
+          id="paymentOptions"
+          onChange={ this.handleChange }
+          value={ payment }
+        >
+          {paymentOptions.map((paymentOption) => (
+            <option key={ paymentOption } value={ paymentOption }>
+              {paymentOption}
             </option>))}
         </select>
       </label>
@@ -58,24 +89,39 @@ class Wallet extends React.Component {
   }
 
   totalExpenses() {
+    const returnDefault = (
+      <p className="despezas" data-testid="total-field">
+        Despesa Total: R$ 0
+      </p>
+    );
+
     const { wallet: { expenses } } = this.state;
+    if (expenses.length === 0) return returnDefault;
     return (
       <p className="despezas" data-testid="total-field">
         Despesa Total: R$
         {' '}
-        { expenses.reduce((acc, cur) => {
-          acc += cur;
-          return acc;
-        }, 0) }
+        {
+          expenses.reduce((acc, cur) => {
+            acc += cur.custo;
+            return acc;
+          }, 0)
+        }
       </p>
     );
   }
 
   tagOptions() {
+    const { destinedTo } = this.state;
     return (
       <label htmlFor="tagOptions">
         Tag:
-        <select name="tagOptions" id="tagOptions">
+        <select
+          name="destinedTo"
+          id="tagOptions"
+          onChange={ this.handleChange }
+          value={ destinedTo }
+        >
           {tagOptions.map((tag) => (
             <option key={ tag } value={ tag }>
               {tag}
@@ -85,8 +131,15 @@ class Wallet extends React.Component {
     );
   }
 
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+    console.log(e.target);
+  }
+
   render() {
-    const { user } = this.state;
+    const { user, coinCurrent, value, description } = this.state;
     return (
       <div>
         <header>
@@ -94,19 +147,35 @@ class Wallet extends React.Component {
         </header>
         <p data-testid="email-field">{user.email}</p>
         {this.totalExpenses()}
-        <p data-testid="header-currency-field"> BRL </p>
+        <p data-testid="header-currency-field">
+          {' '}
+          {coinCurrent}
+          {' '}
+        </p>
 
         {/* FORMULÁRIO DE DESPESAS ABAIXO */}
 
         <form>
           <label htmlFor="Form-Despesas-Valor">
             Valor:
-            <input type="text" name="Valor" id="Form-Despesas-Valor" />
+            <input
+              value={ value }
+              onChange={ this.handleChange }
+              type="text"
+              name="value"
+              id="Form-Despesas-Valor"
+            />
           </label>
 
           <label htmlFor="Form-Despesas-Descrição">
             Descrição:
-            <input type="text" name="Descrição" id="Form-Despesas-Descrição" />
+            <input
+              value={ description }
+              onChange={ this.handleChange }
+              type="text"
+              name="description"
+              id="Form-Despesas-Descrição"
+            />
           </label>
 
           {this.coinsOptions()}
@@ -122,7 +191,7 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  pushCoins: (state) => (dispatch(putCoins(state))),
+  API_RESPONSE: (payload) => (dispatch(API_RESPONSE(payload))),
 });
 
 const mapStateToProps = (state) => ({
@@ -139,7 +208,7 @@ Wallet.propTypes = {
     email: PropTypes.string,
     password: PropTypes.string,
   }).isRequired,
-  pushCoins: PropTypes.func.isRequired,
+  API_RESPONSE: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
