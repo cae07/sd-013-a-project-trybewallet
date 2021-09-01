@@ -17,21 +17,21 @@ class WalletForm extends React.Component {
     return (
       <form>
         <label htmlFor="value">
-          Valor:
+          Valor
           <input id="value" type="number" onChange={ handleChange } />
         </label>
         <label htmlFor="description">
-          Descrição:
+          Descrição
           <input id="description" type="text" onChange={ handleChange } />
         </label>
         <label htmlFor="currency">
-          Moeda:
+          Moeda
           <select id="currency" onChange={ handleChange }>
             { this.mapCurrenciesIntoOptions() }
           </select>
         </label>
         <label htmlFor="method">
-          Método de pagamento:
+          Método de pagamento
           <select id="method" onChange={ handleChange }>
             <option value="money">Dinheiro</option>
             <option value="credit">Cartão de crédito</option>
@@ -39,7 +39,7 @@ class WalletForm extends React.Component {
           </select>
         </label>
         <label htmlFor="category">
-          Tag:
+          Tag
           <select id="category" onChange={ handleChange }>
             <option value="food">Alimentação</option>
             <option value="leisure">Lazer</option>

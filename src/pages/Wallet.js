@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import WalletForm from '../components/WalletForm';
 import { actionAddExpense, fetchCurrencies } from '../actions';
+import currenciesAPI from '../services';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -34,9 +35,9 @@ class Wallet extends React.Component {
   }
 
   async handleClick() {
-    const { addExpense, getCurrencies } = this.props;
+    const { addExpense } = this.props;
     const { currency, value, description, method, tag } = this.state;
-    const exchangeRates = await getCurrencies();
+    const exchangeRates = await currenciesAPI();
     const payload = {
       currency,
       value,

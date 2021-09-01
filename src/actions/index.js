@@ -1,3 +1,5 @@
+import currenciesAPI from '../services';
+
 // Coloque aqui suas actions
 export const LOG_IN = 'log_in';
 export const GET_CURRENCIES_SUCESS = 'get_currencies_sucess';
@@ -27,13 +29,12 @@ export const actionAddExpense = (payload) => ({
 
 export const fetchCurrencies = () => async (dispatch) => {
   try {
-    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const currencies = await api.json();
+    const currencies = await currenciesAPI();
     // Estava usando Object.values, a renderização estava funcionando porém o avaliador não passava
     // acredito por serem objetos e ele esperar simples strings
     // olhando o código do Gabriel Lenz https://github.com/tryber/sd-013-a-project-trybewallet/blob/gabriellenz-trybewallet/src/actions/index.js
     // fiz o teste usando keys e funcionou
-    return dispatch(actionGetCurrenciesSucess(currencies));
+    dispatch(actionGetCurrenciesSucess(currencies));
   } catch (err) {
     console.log(err);
     dispatch(actionGetCurrenciesFailed);
