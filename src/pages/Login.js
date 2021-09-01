@@ -15,11 +15,11 @@ class Login extends React.Component {
   }
 
   onSubmitForm() {
-    const { history, EmailKey } = this.props;
+    const { history, emailKey } = this.props;
     // Disparamos a nossa action através da função importada
     // de actions.js, que apelidamos de EmailKey
     const { email } = this.state;
-    EmailKey(email);
+    emailKey(email);
     history.push('/carteira');
   }
 
@@ -67,14 +67,14 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  EmailKey: PropTypes.func.isRequired,
+  emailKey: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  EmailKey: (email) => dispatch(saveEmail(email)),
+  emailKey: (email) => dispatch(saveEmail(email)),
 }
 );
 

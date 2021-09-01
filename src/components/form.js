@@ -1,11 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { requestExpenseAndApi } from '../actions';
 
 class Form extends React.Component {
   constructor() {
     super();
     this.fetchApi = this.fetchApi.bind(this);
+    this.currencieForm = this.currencieForm.bind(this);
+    this.methodForm = this.methodForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.renderSubmitButton = this.renderSubmitButton.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       currencies: [],
+      value: 0,
+      id: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
@@ -23,37 +37,106 @@ class Form extends React.Component {
     });
   }
 
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit() {
+    const { expenseApi } = this.props;
+    const { value, id, description, currency, method, tag } = this.state;
+    const all = { value, id, description, currency, method, tag };
+    this.setState({
+      id: id + 1,
+    }, () => {
+      expenseApi(all);
+    });
+  }
+
+  currencieForm() {
+    const { currencies, currency } = this.state;
+    return (
+      <select
+        name="currency"
+        id="moeda"
+        value={ currency }
+        onChange={ this.handleChange }
+      >
+        {currencies.map((currencie, index) => (
+          <option
+            key={ index }
+          >
+            {currencie}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
+  methodForm() {
+    const { method } = this.state;
+    return (
+      <select
+        name="method"
+        id="pagamento"
+        value={ method }
+        onChange={ this.handleChange }
+      >
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão de crédito">Cartão de crédito</option>
+        <option value="Cartão de Débito"> Cartão de débito</option>
+      </select>
+    );
+  }
+
+  renderSubmitButton() {
+    return (
+      <div>
+        <button
+          type="button"
+          onClick={ this.handleSubmit }
+        >
+          Adicionar despesa
+        </button>
+      </div>
+    );
+  }
+
   render() {
-    const { currencies } = this.state;
+    const { value, description, tag } = this.state;
     return (
       <form>
         <label htmlFor="valor">
           Valor
-          <input type="text" name="valor" id="valor" />
+          <input
+            type="text"
+            name="value"
+            id="valor"
+            value={ value }
+            onChange={ this.handleChange }
+          />
         </label>
         <label htmlFor="descricao">
           Descrição
-          <input type="text" name="descricao" id="descricao" />
+          <input
+            type="text"
+            name="description"
+            id="descricao"
+            value={ description }
+            onChange={ this.handleChange }
+          />
         </label>
         <label htmlFor="moeda">
           Moeda
-          <select name="moeda" id="moeda">
-            {currencies.map((currencie, index) => (
-              <option key={ index }>{currencie}</option>
-            ))}
-          </select>
+          { this.currencieForm() }
         </label>
         <label htmlFor="pagamento">
           Método de pagamento
-          <select name="pagamento" id="pagamento">
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de Débito"> Cartão de débito</option>
-          </select>
+          { this.methodForm()}
         </label>
         <label htmlFor="gastos">
           Tag
-          <select name="pagamento" id="gastos">
+          <select name="tag" value={ tag } id="gastos" onChange={ this.handleChange }>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
@@ -61,10 +144,20 @@ class Form extends React.Component {
             <option value="Saúde">Saúde</option>
           </select>
         </label>
+        {this.renderSubmitButton()}
       </form>
 
     );
   }
 }
+Form.propTypes = {
+  expenseApi: PropTypes.func.isRequired,
+};
 
-export default Form;
+const mapDispatchToProps = (dispatch) => ({
+  expenseApi: (expenses) => dispatch(requestExpenseAndApi(expenses)),
+});
+
+export default connect(null, mapDispatchToProps)(Form);
+
+// com a ajuda do Edu, segundo parametro do setState, puxando arrow function espera atualizar para chamar o state.
