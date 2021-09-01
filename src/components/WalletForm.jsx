@@ -17,7 +17,7 @@ class WalletForm extends React.Component {
   }
 
   render() {
-    const { handleChange } = this.props;
+    const { handleChange, handleClick } = this.props;
     return (
       <form>
         <label htmlFor="value">
@@ -56,7 +56,7 @@ class WalletForm extends React.Component {
           <input
             id="add-expense"
             type="button"
-            onClick={ this.handleClick }
+            onClick={ handleClick }
             value="Adicionar Despesa"
           />
         </label>
@@ -69,6 +69,7 @@ WalletForm.propTypes = {
   state: PropTypes.shape().isRequired,
   getCurrencies: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
