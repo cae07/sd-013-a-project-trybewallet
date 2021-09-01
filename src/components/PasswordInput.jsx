@@ -17,7 +17,7 @@ class PasswordInput extends Component {
             value={ pass }
             data-testid="password-input"
             onChange={ func }
-            />
+          />
         </label>
       </div>
     );
