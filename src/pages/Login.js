@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginSubmit } from '../actions';
+import { loginAction } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -22,10 +22,11 @@ class Login extends React.Component {
   // Por enquanto vai exibir um console.log com as informações
   // do estado e vai redirecionar para a página seguinte
   onSubmitForm() {
-    const { history, dispatchSetValue } = this.props;
+    const { history, dispatchLogin } = this.props;
+    const { email } = this.state;
     // Disparamos a nossa action através da função importada
-    // de actions.js, que apelidamos de dispatchSetValue
-    dispatchSetValue(this.state);
+    // de actions.js, que apelidamos de dispatchLogin
+    dispatchLogin(email);
     history.push('/carteira');
   }
 
@@ -93,7 +94,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  dispatchSetValue: PropTypes.func.isRequired,
+  dispatchLogin: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -108,9 +109,9 @@ const mapDispatchToProps = (dispatch) => ({
   // aqui estamos apenas avisando que vai existir um parâmetro
   // mas o estado do componente é passado no momento da execução
   // nesse caso, dentro da função onSubmitForm
-  dispatchSetValue: (email, password) => dispatch(loginSubmit(email, password)),
+  dispatchLogin: (email) => dispatch(loginAction(email)),
 }
 );
 
-export default connect(null, mapDispatchToProps)(Login);
 // a função connect conversa com o Provider, um avisa o outro quando há alterações.
+export default connect(null, mapDispatchToProps)(Login);

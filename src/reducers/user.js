@@ -1,18 +1,20 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 
 // importar as actions
-import { LOGIN_SUBMIT } from '../actions';
+import { LOGIN_ACTION } from '../actions/actionTypes';
 
 // declarar o estado inicial
 const initialState = {
   email: '',
-  password: '',
 };
 
 function user(state = initialState, action) {
   switch (action.type) {
-  case LOGIN_SUBMIT:
-    return { ...state };
+  case LOGIN_ACTION:
+    return {
+      ...state,
+      email: action.email,
+    };
   default:
     return state;
   }
