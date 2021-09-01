@@ -13,8 +13,9 @@ class Login extends React.Component {
       disableButton: true,
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.verificaEmail = this.verificaEmail.bind(this);
   }
 
   // Função executada ao clicar no botão
@@ -28,10 +29,34 @@ class Login extends React.Component {
     history.push('/carteira');
   }
 
+  // Função para verificar o e-mail
+  verificaEmail() {
+    const { email, password } = this.state;
+    // console.log(`E-mail:${email} - ${password}`);
+    // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
+    const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+?$/;
+    const passwordLength = 6;
+    // console.log(regexEmail.test(email));
+    if (password.length >= passwordLength && regexEmail.test(email)) {
+      // console.log('Passou na validação');
+      this.setState({
+        disableButton: false,
+      });
+    } else {
+      // console.log('Não passou na validação');
+      this.setState({
+        disableButton: true,
+      });
+    }
+  }
+
   // Função genérica para salvar o que é digitado no input dentro do estado
   handleChange({ target }) {
     const { name, value } = target;
-    this.setState({ [name]: value });
+    this.setState(
+      { [name]: value },
+      () => this.verificaEmail(),
+    );
   }
 
   render() {
