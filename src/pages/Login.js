@@ -8,7 +8,8 @@ class Login extends React.Component {
           <label htmlFor="input-email" className="label-email">
             e-mail
             <input
-              className="email-input"
+              id="input-email"
+              className="input-email"
               data-testid="email-input"
               type="text"
               placeholder="Digite o email"
@@ -17,6 +18,7 @@ class Login extends React.Component {
           <label htmlFor="label-senha" className="label-senha">
             senha
             <input
+              id="input-senha"
               className="input-senha"
               placeholder="Digite a senha"
               data-testid="password-input"
