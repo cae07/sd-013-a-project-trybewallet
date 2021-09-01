@@ -67,7 +67,7 @@ class Wallet extends React.Component {
         onClick={ this.onClickBtn }
         type="button"
       >
-        ENVIAR
+        Adicionar despesa
       </button>
     );
   }
@@ -194,7 +194,7 @@ class Wallet extends React.Component {
             <input
               value={ value }
               onChange={ this.handleChange }
-              type="text"
+              type="number"
               name="value"
               id="Form-Despesas-Valor"
             />

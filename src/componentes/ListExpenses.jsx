@@ -10,20 +10,24 @@ class ListExpenses extends React.Component {
   // }
 
   render() {
-    const { wallet: { expenses } } = this.props;
-    if (expenses.length === 0) return <div>DEFAULT</div>;
+    // const { wallet: { expenses } } = this.props;
+    // if (expenses.length === 0) return <div>DEFAULT</div>;
     return (
-      <div>
-        {expenses.map(({ value, description, currency, method, tag, id }) => (
-          <div style={ { display: 'flex' } } key={ id }>
-            <p>{value}</p>
-            <p>{description}</p>
-            <p>{currency}</p>
-            <p>{method}</p>
-            <p>{tag}</p>
-          </div>
-        ))}
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+      </table>
     );
   }
 }
