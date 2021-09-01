@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import InputWallet from '../components/InputWallet';
 import SelectGroup from '../components/SelectGroup';
 import { fetchAPI, addAPIExpense } from '../actions';
+import Table from '../components/Table';
 
 class Wallet extends React.Component {
   constructor() {
@@ -33,6 +34,8 @@ class Wallet extends React.Component {
     await addExpenses(this.state);
     this.setState((previousState) => ({
       id: previousState.id + 1,
+      value: '',
+      description: '',
     }));
   }
 
@@ -85,6 +88,9 @@ class Wallet extends React.Component {
             : null}
           <button type="submit" onClick={ this.onSubmitForm }>Adicionar despesa</button>
         </form>
+        <section>
+          <Table />
+        </section>
       </>
     );
   }
