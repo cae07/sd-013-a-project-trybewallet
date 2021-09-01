@@ -8,7 +8,15 @@ const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 class Expense extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      valueExpense: 0,
+      currencie: '',
+      method: '',
+      tag: '',
+      description: '',
+    };
     this.handleChange = this.handleChange.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
   }
 
   componentDidMount() {
@@ -16,32 +24,39 @@ class Expense extends React.Component {
     dispatchCurrencies();
   }
 
-  handleChange({ target: { id, value } }) {
+  onSubmitForm() {
+    const { dispatchExpense } = this.props;
+    // Disparamos a nossa action através da função importada
+    // de actions.js, que apelidamos de dispatchExpense
+    dispatchExpense(this.state);
+  }
+
+  handleChange({ target: { name, value } }) {
     this.setState({
-      [id]: value,
+      [name]: value,
     });
   }
 
   render() {
-    const { wallet, dispatchExpense } = this.props;
+    const { wallet } = this.props;
     return (
       <div className="formExpense">
         <form>
-          <label htmlFor="Valor">
+          <label htmlFor="valor">
             Valor:
-            <input type="text" id="Valor" label="Valor" onChange={ this.handleChange } />
+            <input type="text" id="valor" name="valueExpense" onChange={ this.handleChange } />
           </label>
-          <label htmlFor="Moeda">
+          <label htmlFor="moeda">
             Moeda:
-            <select type="text" id="Moeda" label="Moeda" onChange={ this.handleChange }>
+            <select type="text" name="currencie" id="moeda" onChange={ this.handleChange }>
               { Object.keys(wallet)
                 .filter((index) => index !== 'USDT')
                 .map((coin) => (<option key={ coin }>{ coin }</option>)) }
             </select>
           </label>
-          <label htmlFor="method">
+          <label htmlFor="método de pagamento">
             Método de pagamento:
-            <select id="method" onChange={ this.handleChange } className="form__field">
+            <select id="método de pagamento" name="method" onChange={ this.handleChange } className="form__field">
               { paymentMethods.map((method) => (
                 <option key={ method }>{ method }</option>)) }
             </select>
@@ -50,21 +65,21 @@ class Expense extends React.Component {
             Tag:
             <select
               onChange={ this.handleChange }
-              data-testid="method-input"
               id="tag"
+              name="tag"
               className="form__field"
             >
               { tags.map((tag) => (<option key={ tag }>{ tag }</option>)) }
             </select>
           </label>
-          <label htmlFor="Descrição">
+          <label htmlFor="descrição">
             Descrição:
-            <input type="text" id="Descrição" onChange={ this.handleChange } />
+            <input type="text" id="descrição" name="description" onChange={ this.handleChange } />
           </label>
           <button
             type="button"
             className="btn float-right despesa_btn"
-            onClick={ dispatchExpense }
+            onClick={ this.onSubmitForm }
           >
             Adicionar despesa
           </button>

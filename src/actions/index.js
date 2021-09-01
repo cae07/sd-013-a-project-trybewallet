@@ -8,10 +8,10 @@ export const saveLogin = (state) => (
     state,
   });
 
-export const saveExpense = (state) => (
+export const saveExpense = (expense) => (
   {
     type: SAVE_EXPENSE,
-    state,
+    expense,
   });
 
 // action responsável pelo envio do json com as moedas após a requisição na api.
@@ -21,7 +21,7 @@ export const saveCurrencies = (jsonCurrencies) => (
     jsonCurrencies, // jsonCurrencies é o valor recebido pelo dispatch realizado pela função getCurrencies, com o resultado do fetch, que é um json com as moedas.
   });
 
-export function fetchApiCurrencies() {
+export function fetchApiCurrencies() { // este é o thunk
   // este primeiro return com dispatch é necessário pois o thunk sempre retorna uma função.
   // caso queira ADICIONAR alguma ação ANTES do resultado da api, chama a action ANTES, e faz a lógica no reducer para alterar alguma chave. Ex.: ADICIONAR componente loading na tela.
   // dispatch(novaAction1(true));
