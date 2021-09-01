@@ -21,8 +21,11 @@ export const fetchCurrencies = () => async (dispatch) => {
   try {
     const api = await fetch('https://economia.awesomeapi.com.br/json/all');
     const json = await api.json();
-    const currencies = Object.values(json);
-    dispatch(actionGetCurrenciesSucess(currencies));
+    const currencies = Object.keys(json);
+    console.log(currencies);
+    const filteredCurrencies = currencies
+      .filter((currency) => currency !== 'USDT');
+    return dispatch(actionGetCurrenciesSucess(filteredCurrencies));
   } catch (err) {
     console.log(err);
     dispatch(actionGetCurrenciesFailed);

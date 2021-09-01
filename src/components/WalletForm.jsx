@@ -12,10 +12,8 @@ class WalletForm extends React.Component {
   mapCurrenciesIntoOptions() {
     const { state } = this.props;
     const { wallet: { currencies } } = state;
-    const filteredCurrencies = currencies
-      .filter((currency) => currency.name !== 'Dólar Americano/Real Brasileiro Turismo');
-    return filteredCurrencies.map((currency) => (
-      <option key={ currency.name } value={ currency.code }>{currency.code}</option>));
+    return currencies.map((currency) => (
+      <option key={ currency } value={ currency }>{currency}</option>));
   }
 
   render() {
