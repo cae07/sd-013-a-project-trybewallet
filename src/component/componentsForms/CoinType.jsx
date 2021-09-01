@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MapSelect from '../../Helpers/MapSelect';
 
 class CoinType extends React.Component {
   render() {
@@ -13,7 +14,7 @@ class CoinType extends React.Component {
           value={ value }
           id="input-change"
         >
-          <option value="empty">0</option>
+          <MapSelect />
         </select>
       </label>
     );
