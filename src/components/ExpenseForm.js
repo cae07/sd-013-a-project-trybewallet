@@ -133,8 +133,8 @@ ExpenseForm.propTypes = {
   setCurrenciesDispatcher: PropTypes.func.isRequired,
   saveExpenseDispatcher: PropTypes.func.isRequired,
   fetchExchangeRatesDispatcher: PropTypes.func.isRequired,
-  exchangeRates: PropTypes.objectOf(PropTypes.object).isRequired,
-};
+  exchangeRates: PropTypes.objectOf(PropTypes.object),
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   exchangeRates: state.wallet.exchangeRates,
