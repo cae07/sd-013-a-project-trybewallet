@@ -7,12 +7,16 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      disabled: true,
+      validate: {
+        login: false,
+        password: false,
+      }
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.loginValidation = this.loginValidation.bind(this);
+    this.emailValidation = this.emailValidation.bind(this);
+    this.passwordValidation = this.passwordValidation.bind(this);
   }
 
   handleClick(event) {
@@ -26,17 +30,36 @@ class Login extends Component {
     });
   }
 
-  loginValidation() {
-    const { email, password } = this.state;
-    let disabled = false;
+  emailValidation() {
+    const { email, validate } = this.state;
     const EMAIL_VALIDATION = /^[\w]+@([\w]+\.)+[\w]{2,4}$/gi;
+    if (EMAIL_VALIDATION.test(email)) {
+      return this.state({
+        validate: {
+          ...validate,
+          login: true
+        }
+      })
+    }
+    this.state({ validate: { ...validate, login: false } })
+  }
+
+  passwordValidation() {
+    const { password, validate } = this.state;
     const MIN_PASSWORD_LENGTH = 6;
-    disabled = !(EMAIL_VALIDATION.test(email) && password.length >= MIN_PASSWORD_LENGTH);
-    this.setState({ disabled });
+    if (password.length >= MIN_PASSWORD_LENGTH) {
+      return this.setState({
+        validate: {
+          ...validate,
+          password: true
+        }
+      });
+    };
+    return this.setState({ validate: { ...validate, password: true } });
   }
 
   render() {
-    const { email, password, disabled } = this.state;
+    const { email, password, validate } = this.state;
     return (
       <main>
         <form>
@@ -56,7 +79,7 @@ class Login extends Component {
           />
           <button
             type="submit"
-            disabled={ disabled }
+            disabled={ validate.login === false || validate.password === false }
             onClick={ this.handleClick }
           >
             Entrar
