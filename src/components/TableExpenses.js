@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
+import { deleteExpense } from '../actions';
 
 class TableExpenses extends React.Component {
-  test() {
-    const { listExpenses } = this.props;
+  addList() {
+    const { listExpenses, deleteExp } = this.props;
 
     return listExpenses
       .map(({ description, tag, method, value, currency, exchangeRates, id }) => {
@@ -22,6 +23,21 @@ class TableExpenses extends React.Component {
             <td>{atualValue.toFixed(2)}</td>
             <td>{currencyConvert}</td>
             <td>Real</td>
+            <td>
+              <input
+                type="button"
+                data-testid="edit-btn"
+                className="btn btn-small btn-primary mr-3"
+                value="Editar"
+              />
+              <input
+                type="button"
+                data-testid="delete-btn"
+                className="btn btn-small btn-danger"
+                value="Excluir"
+                onClick={ () => deleteExp(id) }
+              />
+            </td>
           </tr>
         );
       });
@@ -46,7 +62,7 @@ class TableExpenses extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {this.test()}
+            {this.addList()}
           </tbody>
         </table>
       </div>
@@ -54,9 +70,14 @@ class TableExpenses extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  deleteExp: (id) => dispatch(deleteExpense(id)),
+});
+
 const mapStateToProps = ({ wallet }) => ({ listExpenses: wallet.expenses });
 
 TableExpenses.propTypes = {
+  deleteExp: PropTypes.func.isRequired,
   listExpenses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     value: PropTypes.string.isRequired,
@@ -64,8 +85,8 @@ TableExpenses.propTypes = {
     currency: PropTypes.string.isRequired,
     method: PropTypes.string.isRequired,
     tag: PropTypes.string.isRequired,
-    exchangeRates: PropTypes.objectOf(PropTypes.string).isRequired,
+    exchangeRates: PropTypes.objectOf(PropTypes.object).isRequired,
   })).isRequired,
 };
 
-export default connect(mapStateToProps)(TableExpenses);
+export default connect(mapStateToProps, mapDispatchToProps)(TableExpenses);
