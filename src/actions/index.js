@@ -6,7 +6,8 @@ export const SAVE_CURRENCIES_INFO = 'SAVE_CURRENCIES_INFO';
 export const REQUEST_API = 'REQUEST_API';
 export const REQUEST_API_SUCCESSFUL = 'REQUEST_API_SUCCESSFUL';
 export const REQUEST_API_FAILED = 'REQUEST_API_FAILED';
-export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';
+export const SET_EXPENSE_TO_EDIT = 'SET_EXPENSE_TO_EDIT';
 
 export const saveUserInfo = (payload) => ({
   type: SAVE_USER_INFO,
@@ -31,8 +32,13 @@ export const requestAPIFailed = () => ({
   type: REQUEST_API_FAILED,
 });
 
-export const deleteExpense = (payload) => ({
-  type: DELETE_EXPENSE,
+export const updateExpenses = (payload) => ({
+  type: UPDATE_EXPENSES,
+  payload,
+});
+
+export const setExpenseToEdit = (payload) => ({
+  type: SET_EXPENSE_TO_EDIT,
   payload,
 });
 

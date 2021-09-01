@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { roundNumber } from '../data';
-import { deleteExpense } from '../actions';
+import { updateExpenses, setExpenseToEdit } from '../actions';
 
 class ExpensesTable extends React.Component {
   constructor(props) {
@@ -10,13 +10,21 @@ class ExpensesTable extends React.Component {
 
     this.renderTableData = this.renderTableData.bind(this);
     this.deleteExpense = this.deleteExpense.bind(this);
+    this.editExpense = this.editExpense.bind(this);
+  }
+
+  editExpense(id) {
+    const { expenses, sendEditableExpenseToRedux } = this.props;
+
+    const editableExpense = expenses.find((expense) => expense.id === id);
+    sendEditableExpenseToRedux(editableExpense);
   }
 
   deleteExpense(id) {
-    const { expenses, updateExpenses } = this.props;
+    const { expenses, updateTheExpenses } = this.props;
 
-    const updatedExpenses = [...expenses].filter((expense) => expense.id !== id);
-    updateExpenses(updatedExpenses);
+    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
+    updateTheExpenses(updatedExpenses);
   }
 
   renderTableData() {
@@ -40,7 +48,12 @@ class ExpensesTable extends React.Component {
           <td>{roundNumber(Number(value) * Number(ask))}</td>
           <td>Real</td>
           <td>
-            <button type="button">Editar</button>
+            <button
+              type="button"
+              onClick={ () => this.editExpense(id) }
+            >
+              Editar
+            </button>
             <button
               type="button"
               onClick={ () => this.deleteExpense(id) }
@@ -80,7 +93,8 @@ class ExpensesTable extends React.Component {
 
 ExpensesTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
-  updateExpenses: PropTypes.func.isRequired,
+  updateTheExpenses: PropTypes.func.isRequired,
+  sendEditableExpenseToRedux: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -88,7 +102,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateExpenses: (payload) => dispatch(deleteExpense(payload)),
+  updateTheExpenses: (payload) => dispatch(updateExpenses(payload)),
+  sendEditableExpenseToRedux: (payload) => dispatch(setExpenseToEdit(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesTable);

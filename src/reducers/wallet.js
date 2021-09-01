@@ -2,10 +2,11 @@
 import {
   REQUEST_API_SUCCESSFUL, REQUEST_API,
   REQUEST_API_FAILED, SAVE_CURRENCIES_INFO,
-  DELETE_EXPENSE,
+  UPDATE_EXPENSES, SET_EXPENSE_TO_EDIT,
 } from '../actions';
 
 const INITIAL_STATE = {
+  expenseToEdit: {},
   idNewItem: 0,
   currencies: [],
   expenses: [],
@@ -38,10 +39,15 @@ const wallet = (state = INITIAL_STATE, action) => {
       isLoading: false,
       error: true,
     };
-  case DELETE_EXPENSE:
+  case UPDATE_EXPENSES:
     return {
       ...state,
       expenses: action.payload,
+    };
+  case SET_EXPENSE_TO_EDIT:
+    return {
+      ...state,
+      expenseToEdit: action.payload,
     };
   default:
     return state;
