@@ -1,9 +1,10 @@
-export const LOADING_TYPE = 'LOADING_TYPE';
+export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const SUCCESS_TYPE = 'SUCCESS_TYPE';
 export const ERROR_TYPE = 'ERROR_TYPE';
 
-export const loadingAction = () => ({
-  type: LOADING_TYPE,
+export const saveEmailAction = (payload) => ({
+  type: SAVE_EMAIL,
+  payload,
 });
 
 export const successAction = (payload) => ({

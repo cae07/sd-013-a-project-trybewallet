@@ -1,21 +1,19 @@
-import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
+import { SAVE_EMAIL, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
 
 const initialState = {
-  loading: false,
-  data: '',
-  error: '',
+  email: '',
 };
 
 function user(state = initialState, { type, payload }) {
   switch (type) {
-  case LOADING_TYPE:
-    return { ...state, loading: true };
+  case SAVE_EMAIL:
+    return { ...state, email: payload.email };
 
   case SUCCESS_TYPE:
-    return { ...state, data: payload, loading: false };
+    return { ...state, data: payload };
 
   case ERROR_TYPE:
-    return { ...state, error: payload, loading: false };
+    return { ...state, error: payload };
 
   default:
     return state;

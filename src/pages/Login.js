@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { saveEmailAction } from '../actions';
 
 class Login extends Component {
   constructor() {
@@ -12,7 +13,7 @@ class Login extends Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
   }
@@ -22,11 +23,11 @@ class Login extends Component {
     this.setState({ [name]: value });
   }
 
-  // handleClick() {
-  //   const { changeInputValue, history } = this.props;
-  //   changeInputValue(this.state);
-  //   history.push('./');
-  // }
+  handleClick() {
+    const { changeInputValue, history } = this.props;
+    changeInputValue(this.state);
+    history.push('./carteira');
+  }
 
   // Email validation reference: Aline Hoshino's code
   validateEmail() {
@@ -78,15 +79,13 @@ class Login extends Component {
   }
 }
 
-// const mapDispatchToProps = (dispatch) => ({
-//   changeInputValue: (state) => dispatch(login(state)),
-// });
+const mapDispatchToProps = (dispatch) => ({
+  changeInputValue: (state) => dispatch(saveEmailAction(state)),
+});
 
 Login.propTypes = {
   changeInputValue: Proptypes.func,
   history: Proptypes.shape(),
 }.isRequired;
 
-// export default connect(null, mapDispatchToProps)(Login);
-
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
