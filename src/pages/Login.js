@@ -1,21 +1,23 @@
 import React from 'react';
 
 class Login extends React.Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       email: '',
       senha: '',
     };
     this.handleChange = this.handleChange.bind(this);
-  };
-// função para salvar o email
+  }
+
+  // função para salvar no estado email e senha
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({
       [name]: value,
-     });
+    });
   }
+
   render() {
     const { email, senha } = this.state;
     return (
@@ -28,7 +30,7 @@ class Login extends React.Component {
             onChange={ this.handleChange }
             data-testid="email-input"
             name="email"
-            value= { email }
+            value={ email }
           />
         </label>
 
