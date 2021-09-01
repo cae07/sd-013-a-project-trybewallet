@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { loginEmail } from '../actions';
 
-export class Login extends React.Component {
+class Login extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -26,6 +26,7 @@ export class Login extends React.Component {
     this.setState({
       email: emailValue.value,
       password: passwordValue.value,
+      redirectToCarteira: true,
     });
     userLogin(email);
   }

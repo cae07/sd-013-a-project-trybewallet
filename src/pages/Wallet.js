@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-export class Wallet extends React.Component {
+class Wallet extends React.Component {
   render() {
     const { email, gastos, cambio } = this.props;
     return (
