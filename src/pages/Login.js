@@ -81,8 +81,11 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(null, mapDispatchToProps)(Login);
 
 // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+// o codigo de validacao do email veio do stackoverflow.
 // Nesse link acima o regex significa anystring@anystring.anystring código do stackoverflow
 // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test
 // o test retorna um booleano se o email for válido com o regex da true
 // colocando a exclamação nega e daí fica falso com isso o botao ativa.
 // https://medium.com/front-end-weekly/react-tips-disable-buttons-formdata-types-for-function-6c8f23d13b64
+// do link medium veio a ideia de negar o botao.
+// Baseado no exercício 16.2 usesi o history.push.

@@ -9,13 +9,14 @@ class Header extends React.Component {
   }
 
   total() {
-    let totalExpense = 0;
     const { expenses } = this.props;
-    expenses.forEach(({ value, currency, exchangeRates }) => {
-      totalExpense += (parseFloat(value) * parseFloat(exchangeRates[currency].ask));
-    });
-
-    return totalExpense.toFixed(2);
+    const total = expenses.reduce((acc, curr) => {
+      const { value, currency, exchangeRates } = curr;
+      const rate = exchangeRates[currency].ask;
+      acc += (parseFloat(value) * parseFloat(rate));
+      return acc;
+    }, 0);
+    return total.toFixed(2);
   }
 
   render() {
@@ -52,7 +53,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps)(Header);
 
-// com a ajuda da Julia consegui fazer a soma!!!
+// com a ajuda da Julia consegui fazer a soma!!!Código da Júlia!
 // referenciar uma chave , ao colocar com o colchete, ao passar uma variavel como chave, ele pega o valor da variavel
 // const obj = {
 //   nome: 'matheus,',
@@ -60,4 +61,4 @@ export default connect(mapStateToProps)(Header);
 // };
 // let name = 'nome'
 // obj[name]
-// explicação do Matheus
+// explicação do Matheus, com a ajuda dele refatoramos a funcao de soma
