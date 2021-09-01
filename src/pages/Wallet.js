@@ -92,7 +92,7 @@ class Wallet extends React.Component {
         <span data-testid="total-field">
           {this.totalExpenses()}
         </span>
-        <span data-test="header-currency-field">
+        <span data-testid="header-currency-field">
           BRL
         </span>
       </header>
