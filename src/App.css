@@ -1,7 +1,7 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 .App {
@@ -48,7 +48,7 @@
 
 body {
   display: grid;
-  place-items: center;
   height: 100vh;
+  place-items: center;
   width: 100vw;
 }
