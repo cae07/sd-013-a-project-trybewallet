@@ -7,11 +7,11 @@ class ExpenseForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '0',
+      value: '',
       description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
+      currency: '',
+      method: '',
+      tag: '',
       id: 0,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -139,7 +139,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCurrencies: () => dispatch(economyAPI()),
   AddExpense: (payload) => dispatch(economySaveExpense(payload)),
 });
 
