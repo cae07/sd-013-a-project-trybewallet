@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(250, 250, 250);
+}
+
 .trybewallet {
     background-color: #2BCC9E;
     width: 100%;
@@ -6,31 +12,66 @@
     font-size: large;
 }
 
+.email-field span {
+    padding-right: 30px;
+    background-color: #2BCC9E;
+}
+
 .total-field {
-    width: 100%;
+    width: 30%;
     padding: 10px;
-    margin-left: 2%;
-    margin-top: 2%;
 }
 
 .header-currency-field {
-    width: 100%;
+    width: 30%;
     padding: 10px;
-    margin-bottom: 20px;
-    margin-left: 2%;
-    margin-bottom: 2%;
 }
 
 .form {
+    border-radius: 10px;
     margin: 2%;
     padding: 5px;
+    background-color:white;
 }
 
 .email-field {
+    position: absolute;
     background-color: #2BCC9E;
     color: white;
     display: flex;
     flex-direction: row-reverse;
-    padding: 10px;
+    align-items: center;
     font-size: small;
+    width: 100%;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
+    height: 80px;
+}
+
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(250, 250, 250);
+    padding-top: 100px;
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+label {
+    background-color: white;
+    padding: 10px;
+    width: 90px;
+}
+
+section {
+    background-color: white;
+    /* margin-left: 150px; */
+}
+
+/* select {
+    margin-left: 30px;
+} */
+
+button {
+    margin-left: 350px;
 }

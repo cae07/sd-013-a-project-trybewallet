@@ -121,6 +121,7 @@ class Wallet extends React.Component {
             </span>
           </div>
         </header>
+        <div className="menu">
         <div className="total-field" data-testid="total-field">
           Total:
           {' '}
@@ -129,8 +130,10 @@ class Wallet extends React.Component {
         <div className="header-currency-field" data-testid="header-currency-field">
           Resultados em reais (BRL)
         </div>
+        </div>
         <form className="form">
           <Input
+            id="valor"
             label="Valor"
             onChange={ handleChange }
             name="value"

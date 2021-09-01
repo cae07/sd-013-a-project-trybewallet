@@ -6,7 +6,8 @@
   margin: 30vh auto;  
   background-color: #2BCC9E;
   padding: 50px;
-  border-radius: 10px; 
+  border-radius: 10px;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
 }
 .form-div {
   z-index: 1;
@@ -14,21 +15,38 @@
 .form-div, .button-div {
   transition: .5s ease-out;
 }
+
 form {
-  border: 1px solid lightgray;
-  border-radius: 5px;  
+  border-radius: 2px;  
   display: flex;
   flex-direction: column;
   background-color: white;
   padding: 25px;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.5);
 }
+
 input, button {
   margin: 5px;
 }
 
+#email {
+  margin-left: 26px;
+}
+
+input {
+  margin-left: 22px;
+  width: 200px;
+}
+
+button {
+  margin-left: 150px;
+}
+
+
 /*SKELETON CSS*/
 
 /*INPUT STYLING*/
+input,
 input[type="text"],
 input[type="password"],
 textarea,
@@ -87,6 +105,7 @@ button.button-primary,
 input[type="submit"].button-primary,
 input[type="reset"].button-primary,
 input[type="button"].button-primary {
+  margin-left: 100px;
   color: #FFF;
   background-color: #2BCC9E;
   border-color: #2BCC9E; }
