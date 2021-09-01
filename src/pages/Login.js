@@ -10,7 +10,7 @@ class Login extends Component {
       validate: {
         login: false,
         password: false,
-      }
+      },
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,9 +37,9 @@ class Login extends Component {
       return this.state({
         validate: {
           ...validate,
-          login: true
-        }
-      })
+          login: true,
+        },
+      });
     }
     this.state({ validate: { ...validate, login: false } })
   }
@@ -51,10 +51,10 @@ class Login extends Component {
       return this.setState({
         validate: {
           ...validate,
-          password: true
-        }
+          password: true,
+        },
       });
-    };
+    }
     return this.setState({ validate: { ...validate, password: true } });
   }
 
