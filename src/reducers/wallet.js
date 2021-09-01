@@ -1,1 +1,38 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+import { COIN_LOAD, COIN_SUCCESS, COIN_FAIL, SPENT_SUCC } from '../actions';
+
+const FIRST_STATE = {
+  currencies: [],
+  expenses: [],
+};
+
+const wallet = (state = FIRST_STATE, action) => {
+  switch (action.type) {
+  case COIN_LOAD:
+    return {
+      ...state,
+      isLoading: true,
+    };
+  case COIN_SUCCESS:
+    return {
+      ...state,
+      isLoading: false,
+      currencies: action.coins,
+    };
+  case COIN_FAIL:
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error,
+    };
+  case SPENT_SUCC:
+    return {
+      ...state,
+      expenses: [...state.expenses, { ...action.spent, id: state.expenses.lengtg }],
+      isLoading: false,
+    };
+  default:
+    return state;
+  }
+};
+
+export default wallet;
