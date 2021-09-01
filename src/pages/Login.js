@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import './login.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setUser } from '../actions';
-import LoginInput from '../components/LoginInput';
-import PasswordInput from '../components/PasswordInput';
+import { LoginInput, PasswordInput } from '../components';
 
 class Login extends Component {
   constructor() {
@@ -51,17 +51,20 @@ class Login extends Component {
     const { loginValid, passwordValid, email, password } = this.state;
 
     return (
-      <form action="">
-        <LoginInput func={ this.validateLogin } login={ email } />
-        <PasswordInput func={ this.validatePassword } pass={ password } />
-        <button
-          type="submit"
-          disabled={ !loginValid || !passwordValid }
-          onClick={ this.handleSubmit }
-        >
-          Entrar
-        </button>
-      </form>
+      <main className="login-screen">
+        <form action="" className="login-form">
+          <LoginInput func={ this.validateLogin } login={ email } />
+          <PasswordInput func={ this.validatePassword } pass={ password } />
+          <button
+            type="submit"
+            className="btn-form"
+            disabled={ !loginValid || !passwordValid }
+            onClick={ this.handleSubmit }
+          >
+            Entrar
+          </button>
+        </form>
+      </main>
     );
   }
 }

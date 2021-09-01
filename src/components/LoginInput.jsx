@@ -6,17 +6,18 @@ class LoginInput extends Component {
     const { func, login } = this.props;
 
     return (
-      <label htmlFor="login">
-        Login
-        <input
-          type="text"
-          id="login"
-          name="email"
-          value={ login }
-          data-testid="email-input"
-          onChange={ func }
-        />
-      </label>
+      <div className="login-input">
+        <label htmlFor="login" className="login-label">Login</label>
+          <input
+            type="text"
+            id="login"
+            className="log-inp"
+            name="email"
+            value={ login }
+            data-testid="email-input"
+            onChange={ func }
+          />
+        </div>
     );
   }
 }

@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.login-screen {
+  background-image: url('../img/teste1.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  height: 994px;
+  margin: auto;
+}
+
+.login-form {
+  border: 3px rgb(74, 214, 46) solid;
+  border-radius: 15px;
+  display: flex;
+  flex-flow: column wrap;
+  height: 250px;
+  margin: auto;
+  padding: 30px;
+  width: 350px;
+}
+
+.login-input {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  margin: 32px 0;
+}
+
+.login-label {
+  color: white;
+  display: inline-block;
+  font-size: large;
+  font-weight: 900;
+  width: 70px;
+}
+
+.log-inp {
+  border-radius: 5px;
+  height: 20px;
+}
+
+.password-input {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+}
+
+.password-label {
+  color: white;
+  display: inline-block;
+  font-size: large;
+  font-weight: 900;
+  margin-bottom: 32px;
+  width: 70px;
+}
+
+.pass-inp {
+  border-radius: 5px;
+  height: 20px;
+}
+
+.btn-form {
+  background-color: rgb(74, 214, 46);
+  border-radius: 5px;
+  border-style: none;
+  height: 30px;
+}
