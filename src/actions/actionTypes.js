@@ -1,3 +1,2 @@
-const USER_ACTION = 'USER_ACTION';
-
-export default USER_ACTION;
+export const LOGIN = 'LOGIN';
+export const WALLET_ACTION = 'WALLET_ACTION';

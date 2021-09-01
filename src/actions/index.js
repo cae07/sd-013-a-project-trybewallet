@@ -1,14 +1,10 @@
 // Coloque aqui suas actions
 
-/* import { USER_ACTION } from "./actionTypes";
+import { LOGIN } from './actionTypes';
 
-export const userAction = () => ({
-  type: USER_ACTION,
-  user: {
-    email,
-    password,
-    disableButton: false,
-  },
-}); */
+const login = (email) => ({
+  type: LOGIN,
+  email,
+});
 
-// Descomentar depois
+export default login;
