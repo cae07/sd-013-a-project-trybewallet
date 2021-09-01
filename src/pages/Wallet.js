@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { API_RESPONSE, addExpenses } from '../actions';
+import ListExpenses from '../componentes/ListExpenses';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -82,7 +83,7 @@ class Wallet extends React.Component {
       </p>
     );
 
-    const { wallet: { expenses } } = this.state;
+    const { wallet: { expenses } } = this.props;
     if (expenses.length === 0) return returnDefault;
     return (
       <p className="despezas" data-testid="total-field">
@@ -90,7 +91,7 @@ class Wallet extends React.Component {
         {' '}
         {
           expenses.reduce((acc, cur) => {
-            acc += cur.value;
+            acc += parseInt(cur.value, 10);
             return acc;
           }, 0)
         }
@@ -219,6 +220,7 @@ class Wallet extends React.Component {
           {this.buttonSubmit()}
 
         </form>
+        <ListExpenses />
 
       </div>
     );
