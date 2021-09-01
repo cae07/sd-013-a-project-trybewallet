@@ -9,10 +9,10 @@ import {
 // Estado inicial
 const INITIAL_STATE = {
   currencies: [], // Moedas
-  expenses: [], // Gastos
-  expensesTotal: 0, // Soma total dos gastos
   loadingExchangeRates: false, // Buscando taxas de câmbio
   exchangeRates: {}, // Taxas de câmbio
+  expenses: [], // Gastos
+  expensesTotal: '0', // Soma total dos gastos
 };
 
 // Esse reducer será responsável por tratar todas as informações relacionadas as despesas
@@ -42,17 +42,9 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [
         ...state.expenses,
-        {
-          id: state.expenses.length,
-          value: action.value,
-          description: action.description,
-          currency: action.currency,
-          method: action.method,
-          tag: action.tag,
-          exchangeRates: state.exchangeRates,
-        },
+        ...action.expenses,
       ],
-      expensesTotal: state.expensesTotal + parseInt(action.value, 0),
+      expensesTotal: action.expensesTotal,
     };
   }
   default: {

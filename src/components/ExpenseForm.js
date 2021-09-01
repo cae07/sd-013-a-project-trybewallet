@@ -6,11 +6,7 @@ import PropTypes from 'prop-types';
 
 // Redux
 import { connect } from 'react-redux';
-import {
-  setCurrencies,
-  saveExpense,
-  fetchExchangeRates,
-} from '../actions';
+import { setCurrencies, saveExpense, fetchExchangeRates } from '../actions';
 
 // Children
 import CurrencySelect from './CurrencySelect';
@@ -23,11 +19,13 @@ class ExpenseForm extends Component {
     super(props);
 
     this.state = {
+      expenses: [],
       value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      expensesTotal: '0',
     };
 
     this.fetchCurrencies = this.fetchCurrencies.bind(this);
@@ -65,13 +63,51 @@ class ExpenseForm extends Component {
       },
     } = this;
 
+    // Passo 1: Pegar e setar as taxas de câmbio
     await fetchExchangeRatesDispatcher();
-    /*
-      Toda vez que uma nova despesa for salva no estado, um fetch retornará
-      um objeto com as taxas de câmbio, e salvará essa informação dentro da chave
-      "exchangeRates" da despesa criada abaixo
-    */
+
+    // Passo 2: Criar o objeto da despesa
+    this.setState((previous) => {
+      const { props: { exchangeRates } } = this;
+
+      return ({
+        ...previous,
+        expenses: [
+          ...previous.expenses,
+          {
+            id: previous.expenses.length,
+            value: previous.value,
+            description: previous.description,
+            currency: previous.currency,
+            method: previous.method,
+            tag: previous.tag,
+            exchangeRates,
+          },
+        ],
+      });
+    });
+
+    // Passo 3: Calcular e adicionar ao estado local o valor total das despesas
+    this.calculateExpensesTotal();
+
+    // Passo 4: Mandar todas as informações necessárias para o estado global
     saveExpenseDispatcher(this.state);
+  }
+
+  calculateExpensesTotal() {
+    const { props: { exchangeRates }, state: { expenses } } = this;
+    console.log(exchangeRates);
+    let total = 0;
+
+    expenses.forEach(({ value, currency }) => {
+      const currentValue = parseInt(value, 0) * exchangeRates[currency].ask;
+
+      total += currentValue;
+    });
+
+    const totalString = (total.toFixed(2)).toString();
+
+    this.setState((prev) => ({ ...prev, expensesTotal: totalString }));
   }
 
   render() {
@@ -126,7 +162,12 @@ ExpenseForm.propTypes = {
   setCurrenciesDispatcher: PropTypes.func.isRequired,
   saveExpenseDispatcher: PropTypes.func.isRequired,
   fetchExchangeRatesDispatcher: PropTypes.func.isRequired,
+  exchangeRates: PropTypes.objectOf(PropTypes.object).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  exchangeRates: state.wallet.exchangeRates,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrenciesDispatcher: (data) => dispatch(setCurrencies(data)),
@@ -134,4 +175,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchExchangeRatesDispatcher: () => dispatch(fetchExchangeRates()),
 });
 
-export default connect(null, mapDispatchToProps)(ExpenseForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

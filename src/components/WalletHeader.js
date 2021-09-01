@@ -34,7 +34,7 @@ class WalletHeader extends Component {
 
 WalletHeader.propTypes = {
   userEmail: PropTypes.string.isRequired,
-  expensesTotal: PropTypes.number.isRequired,
+  expensesTotal: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (store) => ({

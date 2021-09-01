@@ -21,10 +21,13 @@ export const setCurrencies = (payload) => (
 /* Salvar uma nova despesa */
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 
-export const saveExpense = (payload) => ({
-  type: SAVE_EXPENSE,
-  ...payload,
-});
+export const saveExpense = (payload) => {
+  console.log(payload);
+  return ({
+    type: SAVE_EXPENSE,
+    ...payload,
+  });
+};
 
 // _Exchange_Rates_
 
@@ -38,13 +41,10 @@ export const requestExchangeRates = () => ({
 /* Colocar as taxas de câmbio de moeda no estado */
 export const SET_EXCHANGE_RATES = 'SET_EXCHANGE_RATES';
 
-export const setExchangeRates = (exchangeRates) => {
-  console.log(exchangeRates);
-  return ({
-    type: SET_EXCHANGE_RATES,
-    exchangeRates,
-  });
-};
+export const setExchangeRates = (exchangeRates) => ({
+  type: SET_EXCHANGE_RATES,
+  exchangeRates,
+});
 
 /* Requisitar as taxas de câmbio de moeda */
 export function fetchExchangeRates() {
