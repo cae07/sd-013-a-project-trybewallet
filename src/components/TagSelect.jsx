@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 class TagSelect extends Component {
   render() {
     return (
-      <label>
+      <label htmlFor="tags">
         Tag
-        <select>
+        <select id="tags">
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>

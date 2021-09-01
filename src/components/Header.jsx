@@ -22,6 +22,6 @@ const mapStateToProps = (state) => ({
 
 Header.propTypes = {
   user: PropTypes.arrayOf(),
-}.isRequired
+}.isRequired;
 
 export default connect(mapStateToProps)(Header);
