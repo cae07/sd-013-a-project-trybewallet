@@ -13,9 +13,9 @@ class Header extends Component {
     const { expenses } = this.props;
     let total = 0;
     expenses.forEach(({ value, currency, exchangeRates }) => {
-        total += (parseFloat(value) * parseFloat(exchangeRates[currency].ask));
+      total += (parseFloat(value) * parseFloat(exchangeRates[currency].ask));
     });
-    
+
     return total.toFixed(2);
   }
 
@@ -34,6 +34,11 @@ class Header extends Component {
 
 Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object),
+};
+
+Header.defaultProps = {
+  expenses: [],
 };
 
 const mapStateToProps = ({ user, wallet }) => ({
