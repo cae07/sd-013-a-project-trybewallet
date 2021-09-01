@@ -23,14 +23,14 @@ class Login extends Component {
     const { email, validate } = this.state;
     const EMAIL_VALIDATION = /^[\w]+@([\w]+\.)+[\w]{2,4}$/gi;
     if (EMAIL_VALIDATION.test(email)) {
-      return this.state({
+      return this.setState({ // bug achado com ajuda de rogerio p. da silva
         validate: {
           ...validate,
           login: true,
         },
       });
     }
-    this.state({ validate: { ...validate, login: false } });
+    this.setState({ validate: { ...validate, login: false } });
   }
 
   passwordValidation() {
@@ -44,10 +44,9 @@ class Login extends Component {
         },
       });
     }
-    return this.setState({ validate: { ...validate, password: true } });
+    this.setState({ validate: { ...validate, password: false } });
   }
 
-  
   render() {
     const { email, password, validate } = this.state;
 
@@ -59,13 +58,13 @@ class Login extends Component {
       }
       this.setState({ [name]: value },
         () => { this.passwordValidation(); });
-      };
+    };
 
     const handleClick = () => {
       const { history, loginName } = this.props;
       loginName({ email, password });
       history.push('/carteira');
-    }
+    };
 
     return (
       <main>
