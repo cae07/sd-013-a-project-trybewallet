@@ -5,22 +5,6 @@ import Wallet from './pages/Wallet';
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super();    
-    
-    this.state = {form: 'login'};   
-    
-    // I like using objects to toggle values. We could just use true/false and just set to !self value as well. 
-    this.toggle = {
-      login: 'Cadastro',
-      register: 'login'
-    };
-  }
-  
-  onSubmit(e) {
-    e.preventDefault();
-  }
-
   render() {
     return (
       <Switch>
