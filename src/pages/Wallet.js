@@ -63,6 +63,7 @@ class Wallet extends React.Component {
       },
     }));
   }
+
   handleNextExpense() {
     const { wallet } = this.props;
     const { currencies } = wallet;
