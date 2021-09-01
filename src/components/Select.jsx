@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 function Select(props) {
   const { name, labelText, id, options } = props;
+  // console.log(options);
 
   return (
     <label htmlFor={ name }>
@@ -12,14 +13,14 @@ function Select(props) {
         id={ id }
       >
         {
-          options.map((item, index) => (
+          options ? options.map((item, index) => (
             <option
               key={ index }
               value={ item }
             >
               { item }
             </option>
-          ))
+          )) : null
         }
       </select>
     </label>

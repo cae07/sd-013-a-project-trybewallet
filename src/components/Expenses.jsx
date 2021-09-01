@@ -33,6 +33,12 @@ class Expenses extends React.Component {
             id="expense-payment"
             options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
           />
+          <Select
+            name="expense-category"
+            labelText="Tag"
+            id="expense-category"
+            options={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+          />
         </form>
       </section>
     );
