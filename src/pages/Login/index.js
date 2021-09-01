@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import { sendUserInfo } from '../../actions';
 import { Input } from '../../components';
-import { validateEmail, validatePassword } from './functions';
+import { validateEmail, validatePassword } from './utils';
 import { Form, Main } from './styles';
 
 class Login extends React.Component {

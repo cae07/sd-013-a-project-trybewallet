@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { fetchCoins } from '../../actions';
 import { Input, Select } from '../../components';
 import { Form, Main } from './styles';
+import { coinsSelect, paymentMethods, tags } from './utils';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -30,19 +31,6 @@ class Wallet extends React.Component {
 
   renderForm() {
     const { coins } = this.props;
-    const coinsSelect = coins.map((coin) => ({ value: coin, label: coin }));
-    const paymentMethods = [
-      { value: 'money', label: 'Dinheiro' },
-      { value: 'credit', label: 'Cartão de crédito' },
-      { value: 'money', label: 'Cartão de débito' },
-    ];
-    const tags = [
-      { value: 'food', label: 'Alimentação' },
-      { value: 'leisure', label: 'Lazer' },
-      { value: 'work', label: 'Trabalho' },
-      { value: 'transport', label: 'Transporte' },
-      { value: 'health', label: 'Saúde' },
-    ];
     return (
       <article>
         <Form>
@@ -57,7 +45,7 @@ class Wallet extends React.Component {
           <Select
             id="currency"
             placeholder="Moeda"
-            options={ coinsSelect }
+            options={ coinsSelect(coins) }
           />
           <Select
             id="payment"
