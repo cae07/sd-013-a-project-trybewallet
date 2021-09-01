@@ -2,7 +2,7 @@
 export const USER_ACTION = 'USER_ACTION';
 export const WALLET_ACTION = 'WALLET_ACTION';
 
-export const sendUserInfo = (payload) => ({
+export const salvarStore = (payload) => ({
   type: USER_ACTION,
   payload,
 });
