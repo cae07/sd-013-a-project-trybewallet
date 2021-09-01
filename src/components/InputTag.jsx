@@ -11,11 +11,11 @@ class InputTag extends Component {
         >
           Tag
           <select name="tag" value={ tag } onChange={ onChange } id="tag">
-            <option value="alimentacao">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trasbalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
+            <option value="Alimentacao">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saude">Saúde</option>
           </select>
         </label>
       </div>

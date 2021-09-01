@@ -14,11 +14,11 @@ class Form extends Component {
     super();
     this.state = {
       id: 0,
-      valor: 0,
-      pay: '',
-      tag: '',
-      moeda: '',
-      descricao: '',
+      value: 0,
+      method: 'Dinheiro',
+      tag: 'Alimentacao',
+      currency: 'USD',
+      description: '',
     };
     this.HandleOnChange = this.HandleOnChange.bind(this);
     this.contadorClick = this.contadorClick.bind(this);
@@ -51,29 +51,29 @@ class Form extends Component {
 
   render() {
     const { listTokens, enviaSpence, tokens } = this.props;
-    const { valor, pay, tag, moeda, descricao } = this.state;
+    const { value, method, tag, currency, description } = this.state;
     return (
       <div>
         <form>
           <InputValor
             onChange={ this.HandleOnChange }
-            valor={ valor }
+            valor={ value }
           />
           <br />
           <InputDescricao
             onChange={ this.HandleOnChange }
-            descricao={ descricao }
+            descricao={ description }
           />
           <br />
           <InputMoeda
             onChange={ this.HandleOnChange }
-            moeda={ moeda }
+            moeda={ currency }
             tokens={ listTokens }
           />
           <br />
           <InputMethod
             onChange={ this.HandleOnChange }
-            pay={ pay }
+            pay={ method }
           />
           <br />
           <InputTag

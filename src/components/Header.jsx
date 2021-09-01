@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   calculadora(array) {
-    const lailso = array.map((cash) => Number(cash.exchangeRates[cash.moeda].ask));
+    const lailso = array.map((cash) => (Number(cash.exchangeRates[cash.currency].ask) * Number(cash.value)));
     const yuri = lailso
       .reduce((accmulator, currentValue) => accmulator + currentValue, 0);
-    console.log(yuri);
-    return yuri;
+    return yuri.toFixed(2);
   }
+  // feito com ajuda do meu grande amigo lailson
 
   render() {
     const { infoHeaderEmail, moeda, despesaTotal } = this.props;
@@ -51,7 +51,7 @@ const mapStateToProps = (state) => ({
   infoHeaderEmail: state.user.email,
   despesaTotal: state.wallet.expenses,
   moeda: state.wallet.currencies.code,
-  valor: state.wallet.expenses
+  valor: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);

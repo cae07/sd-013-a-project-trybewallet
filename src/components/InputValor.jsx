@@ -14,7 +14,7 @@ class InputValor extends Component {
             type="text"
             id="input-valor"
             value={ valor }
-            name="valor"
+            name="value"
             onChange={ onChange }
           />
         </label>

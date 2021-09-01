@@ -12,7 +12,7 @@ class InputMoeda extends Component {
         >
           Moeda
           <select
-            name="moeda"
+            name="currency"
             value={ moeda }
             onChange={ onChange }
             id="input-moeda"

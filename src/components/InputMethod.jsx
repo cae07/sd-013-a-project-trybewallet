@@ -10,7 +10,7 @@ class InputMethod extends Component {
           htmlFor="pay"
         >
           Método de pagamento
-          <select name="pay" value={ pay } onChange={ onChange } id="pay">
+          <select name="method" value={ pay } onChange={ onChange } id="pay">
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
