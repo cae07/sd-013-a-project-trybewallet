@@ -21,6 +21,7 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     }, () => this.validadeLoginButton());
+    // console.log(this.state);
   }
 
   validadeLoginButton() {
@@ -34,7 +35,8 @@ class Login extends React.Component {
   loginIn() {
     const { history, dispatchLogin } = this.props;
 
-    dispatchLogin(this.state);
+    const { email } = this.state;
+    dispatchLogin(email);
     history.push('/carteira');
   }
 
@@ -42,38 +44,40 @@ class Login extends React.Component {
     const { email, password, disable } = this.state;
     return (
       <div>
-        <h1>Login</h1>
-        <label htmlFor="email">
-          Email:
-          <input
-            id="email"
-            data-testid="email-input"
-            type="text"
-            value={ email }
-            onChange={ this.handleChange }
-            name="email"
-            required
-          />
-        </label>
-        <label htmlFor="password">
-          Password:
-          <input
-            id="password"
-            data-testid="password-input"
-            type="password"
-            value={ password }
-            onChange={ this.handleChange }
-            name="password"
-            required
-          />
-        </label>
-        <button
-          type="button"
-          onClick={ this.loginIn }
-          disabled={ disable }
-        >
-          Entrar
-        </button>
+        <form>
+          <h1>Login</h1>
+          <label htmlFor="email">
+            Email:
+            <input
+              id="email"
+              data-testid="email-input"
+              type="text"
+              value={ email }
+              onChange={ this.handleChange }
+              name="email"
+              required
+            />
+          </label>
+          <label htmlFor="password">
+            Password:
+            <input
+              id="password"
+              data-testid="password-input"
+              type="password"
+              value={ password }
+              onChange={ this.handleChange }
+              name="password"
+              required
+            />
+          </label>
+          <button
+            type="button"
+            onClick={ this.loginIn }
+            disabled={ disable }
+          >
+            Entrar
+          </button>
+        </form>
       </div>
     );
   }
@@ -87,7 +91,7 @@ Login.propTypes = {
 };
 
 const mapDispatchToPros = (dispatch) => ({
-  dispatchLogin: (payload) => dispatch(setPersonalInfo(payload)),
+  dispatchLogin: (email) => dispatch(setPersonalInfo(email)),
 });
 
 export default connect(null, mapDispatchToPros)(Login);
