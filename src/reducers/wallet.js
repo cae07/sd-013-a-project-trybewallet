@@ -16,7 +16,7 @@
 //     return { ...state, data: action.payload, loading: false };
 
 //   case ERROR_TYPE:
-//     return { ...state, error: action.payload, loading: false };
+//     return { ...state, error: payload, loading: false };
 
 //   default:
 //     return state;
