@@ -15,11 +15,11 @@ class MapSelect extends React.Component {
 }
 
 MapSelect.propTypes = {
-  allCoinsFromStore: PropTypes.objectOf(PropTypes.shape).isRequired,
+  allCoinsFromStore: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  allCoinsFromStore: state.wallet.coinsJson,
+  allCoinsFromStore: state.wallet.currencies,
 });
 
 export default connect(mapStateToProps)(MapSelect);

@@ -1,7 +1,8 @@
 import { GET_COINS, GET_COINS_FAIL, SAVE_COINS } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  coinsJson: {},
+  exchangeRates: [],
+  currencies: [],
   isLoading: true,
   erro: null,
 };
@@ -16,7 +17,7 @@ const saveCoins = (state = INITIAL_STATE, action) => {
     return ({
       ...state,
       isLoading: false,
-      coinsJson: action.payload,
+      currencies: action.payload,
     });
   case GET_COINS_FAIL:
     return ({
