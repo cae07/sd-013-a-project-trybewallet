@@ -1,6 +1,8 @@
 .App {
+  background-color: #282c34;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   text-align: center;
 }
 
@@ -12,6 +14,15 @@
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+}
+
+.wallet-header {
+  align-items: center;
+  background-color: #1a1f27;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .App-header label {
@@ -45,4 +56,8 @@
   position: relative;
   text-align: center;
   width: 300px;
+}
+
+h2 {
+  text-align: center;
 }
