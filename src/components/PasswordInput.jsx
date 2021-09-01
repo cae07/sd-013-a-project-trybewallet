@@ -7,18 +7,18 @@ class PasswordInput extends Component {
 
     return (
       <div className="password-input">
-      <label htmlFor="password" className="password-label">
-        Password
-        <input
-          type="password"
-          id="password"
-          className="pass-inp"
-          name="password"
-          value={ pass }
-          data-testid="password-input"
-          onChange={ func }
-          />
-      </label>
+        <label htmlFor="password" className="password-label">
+          Password
+          <input
+            type="password"
+            id="password"
+            className="pass-inp"
+            name="password"
+            value={ pass }
+            data-testid="password-input"
+            onChange={ func }
+            />
+        </label>
       </div>
     );
   }

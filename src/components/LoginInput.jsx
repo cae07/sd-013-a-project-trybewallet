@@ -17,7 +17,7 @@ class LoginInput extends Component {
             value={ login }
             data-testid="email-input"
             onChange={ func }
-            />
+          />
         </label>
       </div>
     );
