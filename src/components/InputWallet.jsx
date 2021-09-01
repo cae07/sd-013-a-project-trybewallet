@@ -4,16 +4,16 @@ class InputWallet extends Component {
   render() {
     return (
       <div>
-        <label>
+        <label htmlFor="valor">
           Valor
-          <input type="text" />
+          <input type="text" name="valor" id="valor" />
         </label>
-        <label>
+        <label htmlFor="descricao">
           Descrição
-          <input type="text" />
+          <input type="text" name="descricao" id="descricao" />
         </label>
       </div>
-    )
+    );
   }
 }
 

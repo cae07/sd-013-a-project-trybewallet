@@ -7,17 +7,17 @@ class LoginInput extends Component {
 
     return (
       <div className="login-input">
-        <label htmlFor="login" className="login-label">Login</label>
-          <input
-            type="text"
-            id="login"
-            className="log-inp"
-            name="email"
-            value={ login }
-            data-testid="email-input"
-            onChange={ func }
-          />
-        </div>
+      <label htmlFor="login" className="login-label">Login</label>
+        <input
+          type="text"
+          id="login"
+          className="log-inp"
+          name="email"
+          value={ login }
+          data-testid="email-input"
+          onChange={ func }
+        />
+      </div>
     );
   }
 }

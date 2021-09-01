@@ -3,15 +3,15 @@ import React, { Component } from 'react';
 class Payment extends Component {
   render() {
     return (
-      <label>
+      <label htmlFor="payment">
         Método de pagamento
-        <select>
+        <select name="payment" id="payment">
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
           <option>Cartão de débito</option>
         </select>
       </label>
-    )
+    );
   }
 }
 
