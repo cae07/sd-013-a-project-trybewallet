@@ -1,6 +1,11 @@
-const Login = (email) => ({
-  type: 'LOGIN',
+const USER = 'USER';
+const WALLET = 'WALLET';
+
+export const loginAction = (email) => ({
+  type: USER,
   payload: email,
 });
 
-export default Login;
+export const login = () => ({
+  type: WALLET,
+});
