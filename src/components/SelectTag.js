@@ -6,7 +6,7 @@ class SelectTag extends Component {
     const { onChange } = this.props;
     return (
       <label htmlFor="tag">
-        TAG
+        Tag
         <select onChange={ onChange } name="tag" required="required" id="tag">
           <option name="Alimentação">Alimentação</option>
           <option name="Lazer">Lazer</option>
