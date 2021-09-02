@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { deleteExpense } from '../actions';
+import { deleteExpense, editMode } from '../actions';
 
 class TableExpenses extends React.Component {
   addList() {
-    const { listExpenses, deleteExp } = this.props;
-
+    const { listExpenses, deleteExp, editExp, status } = this.props;
     return listExpenses
       .map(({ description, tag, method, value, currency, exchangeRates, id }) => {
         const valNumber = parseFloat(value);
@@ -29,12 +28,15 @@ class TableExpenses extends React.Component {
                 data-testid="edit-btn"
                 className="btn btn-small btn-primary mr-3"
                 value="Editar"
+                // disabled={ status }
+                onClick={ () => editExp(status.status, id) }
               />
               <input
                 type="button"
                 data-testid="delete-btn"
                 className="btn btn-small btn-danger"
                 value="Excluir"
+                disabled={ status }
                 onClick={ () => deleteExp(id) }
               />
             </td>
@@ -72,9 +74,14 @@ class TableExpenses extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   deleteExp: (id) => dispatch(deleteExpense(id)),
+  editExp: (status, id) => dispatch(editMode(status, id)),
 });
 
-const mapStateToProps = ({ wallet }) => ({ listExpenses: wallet.expenses });
+const mapStateToProps = ({ wallet }) => (
+  {
+    listExpenses: wallet.expenses,
+    status: wallet.edit,
+  });
 
 TableExpenses.propTypes = {
   deleteExp: PropTypes.func.isRequired,

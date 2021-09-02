@@ -1,18 +1,32 @@
 import React from 'react';
-import FormAddExpenditure from '../components/FormAddExpenditure';
-import Header from '../components/Header';
-import TableExpenses from '../components/TableExpenses';
+import { connect } from 'react-redux';
+import { PropTypes } from 'prop-types';
+import {
+  Header, FormEditExpenditure, TableExpenses } from '../components';
+import FormAdd from '../components/FormAdd';
 
 class Wallet extends React.Component {
   render() {
+    const { status } = this.props;
+    console.log(status);
     return (
       <div>
         <Header />
-        <FormAddExpenditure />
+        { status.status ? <FormEditExpenditure /> : <FormAdd /> }
         <TableExpenses />
       </div>
     );
   }
 }
 
-export default Wallet;
+const mapStateToProps = ({ wallet }) => ({ status: wallet.edit });
+
+Wallet.propTypes = {
+  status: PropTypes.bool,
+};
+
+Wallet.defaultProps = {
+  status: false,
+};
+
+export default connect(mapStateToProps)(Wallet);

@@ -5,6 +5,8 @@ export const UPDATE_CURRENCIES = 'UPDATE_CURRENCIES';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const ADD_TOTAL = 'ADD_TOTAL';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_MODE = 'EDIT_MODE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const actionEmail = (payload) => ({
   type: ADD_USER,
@@ -24,6 +26,17 @@ export const addExpenseToState = (payload) => ({
 export const totalUpdate = () => ({ type: ADD_TOTAL });
 
 export const deleteExpense = (payload) => ({ type: DELETE_EXPENSE, payload });
+
+export const editMode = (status, id) => ({
+  type: EDIT_MODE,
+  status: !status,
+  id,
+});
+
+export const updtExpense = (payload) => ({
+  type: EDIT_EXPENSE,
+  payload,
+});
 
 export const fetchCurrencies = () => (
   async (dispatch) => {

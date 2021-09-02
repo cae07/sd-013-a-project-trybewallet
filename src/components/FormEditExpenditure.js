@@ -3,29 +3,27 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
 import { Input, Select } from './index';
-import { fetchCurrencies, addExpense, totalUpdate } from '../actions';
+import { updtExpense, totalUpdate } from '../actions';
 
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
-class FormAddExpenditure extends React.Component {
+class FormEditExpenditure extends React.Component {
   constructor() {
     super();
     this.state = {
       value: '',
       description: '',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-      currency: 'USD',
+      method: '',
+      tag: '',
+      currency: '',
     };
-
     this.changeHandler = this.changeHandler.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
   }
 
   componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies();
+    this.updateState();
   }
 
   componentDidUpdate() {
@@ -35,8 +33,8 @@ class FormAddExpenditure extends React.Component {
 
   onSubmitForm(event) {
     event.preventDefault();
-    const { handleSubmit, expenses } = this.props;
     const { value, description, tag, method, currency } = this.state;
+    const { id, handleSubmitUpate, totalDidUpdate } = this.props;
 
     if (!value || !description) {
       return 'Por favor preencha todos os campos!';
@@ -55,7 +53,7 @@ class FormAddExpenditure extends React.Component {
     }
 
     const data = {
-      id: expenses.length === 0 ? 0 : expenses[expenses.length - 1].id + 1,
+      id,
       value,
       description,
       currency,
@@ -63,8 +61,22 @@ class FormAddExpenditure extends React.Component {
       tag,
     };
 
-    handleSubmit(data);
-    return 'adicionado com sucesso';
+    handleSubmitUpate(data);
+    totalDidUpdate();
+    return 'Editado com sucesso';
+  }
+
+  updateState() {
+    const { list, expense, id } = this.props;
+    const test = expense.find((exp) => exp.id === id);
+    const { value, currency, method, tag, description } = test;
+    this.setState({
+      value,
+      description,
+      currency,
+      tag,
+      method,
+    });
   }
 
   changeHandler({ target }) {
@@ -73,11 +85,11 @@ class FormAddExpenditure extends React.Component {
   }
 
   render() {
-    const { value, description, method, currency, tag } = this.state;
+    const { value, currency, method, tag, description } = this.state;
     const { list } = this.props;
-
     return (
       <div>
+        EDITAR
         <form onSubmit={ this.onSubmitForm }>
           <Input
             label="Valor: "
@@ -121,27 +133,20 @@ class FormAddExpenditure extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  handleSubmitUpate: (data) => dispatch(updtExpense(data)),
+  totalDidUpdate: () => dispatch(totalUpdate()),
+});
 const mapStateToProps = ({ wallet }) => (
   {
     list: wallet.currencies,
-    expenses: wallet.expenses,
+    expense: wallet.expenses,
+    id: wallet.edit.id,
   }
 );
 
-const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(fetchCurrencies()),
-  handleSubmit: (data) => dispatch(addExpense(data)),
-  totalDidUpdate: () => dispatch(totalUpdate()),
-});
-
-FormAddExpenditure.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  totalDidUpdate: PropTypes.func.isRequired,
-  getCurrencies: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-  })).isRequired,
+FormEditExpenditure.propTypes = {
   list: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormAddExpenditure);
+export default connect(mapStateToProps, mapDispatchToProps)(FormEditExpenditure);
