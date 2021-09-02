@@ -1,6 +1,7 @@
 // Coloque aqui suas actions
 import {
   REGISTER_USER,
+  UPDATE_EXPENSES,
   LOADING_ACTION,
   LOADING_ACTION_SUCCESS,
   LOADING_ACTION_FAIL,
@@ -10,6 +11,11 @@ import {
 export const registerUser = (user) => ({
   type: REGISTER_USER,
   payload: user,
+});
+
+export const updateExpenses = (expense) => ({
+  type: UPDATE_EXPENSES,
+  payload: expense,
 });
 
 export const loadingAction = () => ({
