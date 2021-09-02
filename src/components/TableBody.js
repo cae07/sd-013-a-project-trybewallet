@@ -16,8 +16,15 @@ class TableBody extends Component {
     return (
       <>
         {expenses.map((expense) => {
-          const { paymentId, currency, description,
-            tag, type, value, exchangeRates } = expense;
+          const {
+            paymentId,
+            currency,
+            description,
+            tag,
+            type,
+            value,
+            exchangeRates,
+          } = expense;
           return (
             <tr key={ paymentId }>
               <td>{description}</td>
@@ -56,8 +63,6 @@ class TableBody extends Component {
 
 TableBody.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
-  removeExpense: PropTypes.func,
-  selectExpenseAct: PropTypes.func,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
