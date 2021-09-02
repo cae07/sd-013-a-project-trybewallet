@@ -22,8 +22,19 @@ export const makeSumExpenses = (expenses) => expenses
     return acc;
   }, 0);
 
-export const makeSumExpense = ({
-  value,
-  currency,
-  exchangeRates,
-}) => (Number(value) * Number(exchangeRates[currency].ask)).toFixed(2);
+export const makeObjExpense = (expense) => {
+  const { value, currency, exchangeRates } = expense;
+  const sumExpense = (Number(value) * Number(exchangeRates[currency].ask)).toFixed(2);
+
+  return {
+    id: expense.id,
+    description: expense.description,
+    tag: expense.tag,
+    method: expense.method,
+    value: Number(value),
+    coin: expense.exchangeRates[currency].name,
+    cambio: Number(exchangeRates[currency].ask).toFixed(2),
+    newValue: sumExpense,
+    conversion: 'Real',
+  };
+};

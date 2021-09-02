@@ -3,7 +3,9 @@ import getCoin from '../services';
 
 export const USER_INFO = 'USER_INFO';
 export const WALLET_INFO = 'WALLET_INFO';
-export const SEND_EXPENSES = 'SEND_EXPENSES';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 // Actions Creators
 export const sendUserInfo = (payload) => ({
@@ -11,8 +13,18 @@ export const sendUserInfo = (payload) => ({
   payload,
 });
 
-export const sendExpenses = (payload) => ({
-  type: SEND_EXPENSES,
+export const sendExpense = (payload) => ({
+  type: ADD_EXPENSE,
+  payload,
+});
+
+export const editExpense = (payload) => ({
+  type: EDIT_EXPENSE,
+  payload,
+});
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
   payload,
 });
 
@@ -50,7 +62,7 @@ export const fetchCoins = () => (dispatch) => {
     );
 };
 
-export const fetchExchangeRatesWithUserInfo = (userForm) => (dispatch) => {
+export const addExpense = (userForm) => (dispatch) => {
   dispatch(actionGetCoin());
   return getCoin()
     .then(
@@ -61,7 +73,7 @@ export const fetchExchangeRatesWithUserInfo = (userForm) => (dispatch) => {
             ...data,
           },
         };
-        return dispatch(sendExpenses(userInfo));
+        return dispatch(sendExpense(userInfo));
       },
       () => dispatch(actionGetCoinFail()),
     );

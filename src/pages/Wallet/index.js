@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchCoins, fetchExchangeRatesWithUserInfo } from '../../actions';
-import { Input, Select } from '../../components';
+import { addExpense, deleteExpense, editExpense, fetchCoins } from '../../actions';
+import { Expense, Input, Select } from '../../components';
 import style from './style.module.css';
 import { coinsSelect,
-  makeSumExpense, makeSumExpenses, paymentMethods, tags } from './utils';
+  makeObjExpense, makeSumExpenses, paymentMethods, tags } from './utils';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -18,7 +18,10 @@ class Wallet extends React.Component {
       method: '',
       tag: '',
     };
+    this.baseState = this.state;
     this.handleChange = this.handleChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderHeader = this.renderHeader.bind(this);
     this.renderForm = this.renderForm.bind(this);
@@ -41,13 +44,22 @@ class Wallet extends React.Component {
   }
 
   handleSubmit(e) {
-    const { sendUserExpenses } = this.props;
+    const { addUserExpense } = this.props;
     const { id, description, value, currency, method, tag } = this.state;
     e.preventDefault();
-    sendUserExpenses(({ id, value, description, currency, method, tag }));
+    addUserExpense(({ id, value, description, currency, method, tag }));
     this.setState((prevState) => ({
       id: prevState.id + 1,
     }));
+  }
+
+  handleDelete(id) {
+    const { deleteUserExpense } = this.props;
+    deleteUserExpense(id);
+  }
+
+  handleEdit() {
+
   }
 
   renderHeader() {
@@ -124,28 +136,13 @@ class Wallet extends React.Component {
           </tr>
         </tfoot> */}
         <tbody>
-          {expenses.map((expense) => {
-            const {
-              id, value, description, currency, exchangeRates, method, tag,
-            } = expense;
-            return (
-              <tr key={ id }>
-                <td>{description}</td>
-                <td>{tag}</td>
-                <td>{method}</td>
-                <td>{Number(value)}</td>
-                <td>{exchangeRates[currency].name}</td>
-                <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
-                <td>{makeSumExpense(expense)}</td>
-                <td>Real</td>
-                <td>
-                  <button type="button" data-testid="edit-btn">Editar</button>
-                  <button type="button" data-testid="delete-btn">Deletar</button>
-                </td>
-              </tr>
-            );
-          })}
-
+          {expenses.map((expense) => (
+            <Expense
+              key={ expense.id }
+              expense={ makeObjExpense(expense) }
+              handleDelete={ this.handleDelete }
+            />
+          ))}
         </tbody>
       </table>
     );
@@ -171,14 +168,18 @@ class Wallet extends React.Component {
 Wallet.propTypes = {
   expenses: PropTypes.arrayOf(Object).isRequired,
   fetchData: PropTypes.func.isRequired,
-  sendUserExpenses: PropTypes.func.isRequired,
+  addUserExpense: PropTypes.func.isRequired,
+  deleteUserExpense: PropTypes.func.isRequired,
+  editUserExpense: PropTypes.func.isRequired,
   userEmail: PropTypes.string.isRequired,
   coins: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   fetchData: () => dispatch(fetchCoins()),
-  sendUserExpenses: (data) => dispatch(fetchExchangeRatesWithUserInfo(data)),
+  addUserExpense: (data) => dispatch(addExpense(data)),
+  deleteUserExpense: (id) => dispatch(deleteExpense(id)),
+  editUserExpense: (data) => dispatch(editExpense(data)),
 });
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,
