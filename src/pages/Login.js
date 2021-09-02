@@ -59,7 +59,6 @@ class Login extends React.Component {
         <input
           type="text"
           name="email"
-          value={ email }
           placeholder="Digite seu E-mail"
           data-testid="email-input"
           onChange={ handleChange }
@@ -67,7 +66,6 @@ class Login extends React.Component {
         <input
           type="password"
           name="pass"
-          value={ pass }
           placeholder="Digite sua Senha"
           data-testid="password-input"
           onChange={ handleChange }
@@ -85,7 +83,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  userState: (state) => dispatch(userAct(state)),
+  userState: (payload) => dispatch(userAct(payload)),
 });
 
 Login.propTypes = {
