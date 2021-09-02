@@ -37,6 +37,7 @@ class ExpenseForm extends React.Component {
     const dblTotal = expenses.reduce((acc, curr) => {
       const { value, currency, exchangeRates } = curr; // expenses[index];
       const { ask } = exchangeRates[currency];
+      // const valueWithDot = value.replace(/,/g, '.');
       const expenseBRL = parseFloat(value) * parseFloat(ask);
       return acc + expenseBRL;
     }, 0);

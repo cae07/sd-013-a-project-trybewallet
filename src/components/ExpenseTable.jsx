@@ -15,15 +15,15 @@ class ExpenseTable extends React.Component {
   fncEdit() {}
 
   renderRows(array) {
-    // console.log(array);
     // Além do return do map, o map é o retorno da função, logo,
     // importante lembrar que é necessário colocar o "return" na linha 18, retornando o retorno do map.
     return array.map((expense) => {
       const { value, currency, method, tag, description, exchangeRates } = expense;
       const { ask, name } = exchangeRates[currency];
       const nameCurrency = name.split('/')[0];
-      // const brlCurrency = name.split('/')[1];
-      const valorConvertido = parseFloat(value) * parseFloat(ask);
+      // const brlCurrency = name.split('/')[1]; //Apesar de possível não passa no teste.
+      const valueWithDot = value.replace(/,/g, '.');
+      const valorConvertido = parseFloat(valueWithDot) * parseFloat(ask);
       return (
         <tr key={ `${value}-${currency}-${description}` }>
           <td>{ description }</td>
@@ -31,7 +31,7 @@ class ExpenseTable extends React.Component {
           <td>{ method }</td>
           <td>{ value }</td>
           <td>{nameCurrency}</td>
-          <td>{Number(ask).toFixed(2)}</td>
+          <td>{parseFloat(ask).toFixed(2)}</td>
           <td>{ valorConvertido.toFixed(2) }</td>
           <td>Real</td>
           <td>
@@ -51,7 +51,6 @@ class ExpenseTable extends React.Component {
 
   render() {
     const { wallet: { expenses } } = this.props;
-    // console.log(expenses);
     return (
       <table>
         <thead>
@@ -68,9 +67,7 @@ class ExpenseTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {/* {expenses.map(())} */}
           { this.renderRows(expenses)}
-          {/* {console.log(this.renderRows(expenses))} */}
         </tbody>
       </table>
     );
