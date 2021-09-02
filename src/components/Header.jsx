@@ -17,9 +17,9 @@ class Header extends Component {
     return (
       <header>
         <h4>Carteira Digital</h4>
-        <span data-testid="email-field" id="email">{ email }</span>
+        <span data-testid="email-field">{ email }</span>
         <div>
-          <span data-testid="total-field" id="total-value">{total.toFixed(2)}</span>
+          <span data-testid="total-field">{ total.toFixed(2) }</span>
           <span data-testid="header-currency-field" id="coin">BRL</span>
         </div>
       </header>

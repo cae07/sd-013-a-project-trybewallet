@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './wallet.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { InputWallet, SelectCoin, Payment, Header,
+import { InputWallet, SelectCoin, Payment, Header, 
   TagSelect, WalletTable } from '../components';
 import { fetchAPI, setExpense } from '../actions';
 
@@ -25,8 +25,8 @@ class Wallet extends Component {
     const { getAPI, expenses } = this.props;
     getAPI();
     const { currencies } = this.props;
-    const { value } = document.querySelector('.valor');
-    const description = document.querySelector('.descricao').value;
+    const value = document.querySelector('#valor').value;
+    const description = document.querySelector('#descricao').value;
     const currency = document.querySelector('#currency').value;
     const method = document.querySelector('#payment').value;
     const tag = document.querySelector('#tags').value;

@@ -5,12 +5,12 @@ class InputWallet extends Component {
     return (
       <div>
         <label htmlFor="valor">
-          Valor:
-          <input type="text" name="valor" className="valor" />
+          Valor
+          <input type="text" name="valor" id="valor" />
         </label>
-        <label htmlFor="descricao">
-          Descrição:
-          <input type="text" name="descricao" className="descricao" />
+        <label htmlFor="valor">
+          Descrição
+          <input type="text" name="valor" id="descricao" />
         </label>
       </div>
     );
