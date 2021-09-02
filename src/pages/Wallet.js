@@ -8,6 +8,7 @@ class Wallet extends React.Component {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.fetchAPI = this.fetchAPI.bind(this);
+    this.filterOptions = this.filterOptions.bind(this);
     this.state = {
       quotation: [],
     };
@@ -17,16 +18,28 @@ class Wallet extends React.Component {
     this.fetchAPI();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { quotation } = this.state;
+    if (!prevState.quotation.length && quotation !== []) {
+      const FILTER = ['USDT'];
+      this.filterOptions(quotation, FILTER);
+    }
+  }
+
   onChange({ target: { value, name } }) {
     this.setState({ [name]: value });
+  }
+
+  filterOptions(quotationOptions = {}, properties = []) {
+    properties.forEach((property) => delete quotationOptions[property]);
+    this.setState({ quotation: Object.values(quotationOptions) });
   }
 
   async fetchAPI() {
     try {
       const request = await fetch('https://economia.awesomeapi.com.br/json/all');
-      const quotation = await request.json();
-      await delete quotation.USDT;
-      this.setState({ quotation: Object.values(quotation) });
+      const quotations = await request.json();
+      this.setState({ quotation: quotations });
     } catch (error) {
       console.log(error);
     }
