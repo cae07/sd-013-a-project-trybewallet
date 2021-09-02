@@ -9,16 +9,16 @@ class Form extends Component {
     super();
 
     this.state = {
-      valor: '',
-      descricao: '',
-      moeda: 'USD',
-      pagamento: 'Dinheiro',
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.sumTotal = this.sumTotal.bind(this);
+    this.sumExpenses = this.sumExpenses.bind(this);
   }
 
   componentDidMount() {
@@ -33,53 +33,52 @@ class Form extends Component {
     });
   }
 
-  sumTotal() {
+  sumExpenses() {
+    let count = 0;
     const { expenses } = this.props;
-    console.log(expenses);
-    return expenses.reduce((acc, item) => {
-      const convertValue = item.exchangeRates[item.moeda].ask;
-      acc += item.moeda * convertValue;
-      return acc;
-    }, 0);
+    expenses.forEach(({ value, currency, exchangeRates }) => {
+      count += (Number(value) * Number(exchangeRates[currency].ask));
+    });
+    return count;
   }
 
   handleClick() {
-    const { fetchExp, expenses } = this.props;
+    const { fetchExp, expenses, totalSum } = this.props;
     const id = expenses.length;
     fetchExp(this.state, id);
-    this.sumTotal();
+    totalSum(this.sumExpenses());
   }
 
   render() {
-    const { valor, descricao, pagamento, moeda, tag } = this.state;
+    const { value, description, method, currency, tag } = this.state;
     return (
       <form>
         <label
-          htmlFor="valor"
+          htmlFor="value"
         >
           Valor
           <input
             type="number"
             min="0"
-            id="valor"
-            value={ valor }
+            id="value"
+            value={ value }
             onChange={ this.handleChange }
           />
         </label>
         <Select
           handleChange={ this.handleChange }
-          pagamento={ pagamento }
-          moeda={ moeda }
+          method={ method }
+          currency={ currency }
           tag={ tag }
         />
         <label
-          htmlFor="descricao"
+          htmlFor="description"
         >
           Descrição
           <input
             type="text"
-            id="descricao"
-            value={ descricao }
+            id="description"
+            value={ description }
             onChange={ this.handleChange }
           />
         </label>
@@ -110,6 +109,7 @@ Form.propTypes = {
   fetchCur: PropTypes.func.isRequired,
   fetchExp: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  totalSum: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
