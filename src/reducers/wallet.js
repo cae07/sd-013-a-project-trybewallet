@@ -1,1 +1,7 @@
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
+// import INSER_EMAIL from '../actions';
+
+// const INITAL_STATE = {
+//   email: '',
+// };
+
+// export const wallet = () =>

@@ -9,7 +9,8 @@ class InputText extends Component {
 
   render() {
     const {
-      idName,
+      id,
+      name,
       type,
       placeholder,
       value,
@@ -21,7 +22,7 @@ class InputText extends Component {
       <label htmlFor={ id }>
         <input
           id={ id }
-          name={ idName }
+          name={ name }
           type={ type }
           value={ value }
           data-testid={ testid }
@@ -34,9 +35,10 @@ class InputText extends Component {
 }
 
 InputText.propTypes = {
+  name: PropTypes.string,
   type: PropTypes.string,
   value: PropTypes.string,
-  idName: PropTypes.string,
+  id: PropTypes.string,
   testid: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
