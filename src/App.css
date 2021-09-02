@@ -21,12 +21,19 @@
   background-color: #23375f;
   color: white;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
 }
 
 .form-header fieldset {
   display: flex;
+  flex-direction: row;
+}
+
+.form-header label {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
 }
 
 /* .form-content {
@@ -68,6 +75,17 @@
   padding: 10px;
 }
 
+.add-button {
+  align-items: center;
+  background-color: seagreen;
+  border-radius: 10px;
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 10px;
+}
+
 .img {
   background-image: url('./Wallet-PNG-Transparent-Images.png');
   background-position: center;
@@ -80,6 +98,34 @@
   position: relative;
   text-align: center;
   width: 300px;
+}
+
+.img2 {
+  background-image: url('./openWallet.jpg');
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 65vw;
+  justify-content: center;
+  margin: auto;
+  opacity: 50%;
+  width: 100vw;
+}
+
+.eraLi {
+  align-items:flex-start;
+  background-color: #282c34;
+  border: solid black;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 5px 0 5px 0;
+}
+
+.vlr {
+  width: 70px;
 }
 
 h2 {

@@ -38,10 +38,8 @@ class Login extends React.Component {
     return (
       <div className="App-header">
         <fieldset>
-
           <h2>Gus Wallet</h2>
           <div className="img" />
-
           <label htmlFor="email-input">
             E-mail:
             <input
@@ -52,7 +50,6 @@ class Login extends React.Component {
               value={ email }
             />
           </label>
-
           <label htmlFor="password-input">
             PassWord:
             <input
@@ -63,7 +60,6 @@ class Login extends React.Component {
               value={ password }
             />
           </label>
-
           <button
             disabled={ !(emailValid() && passwordAllow) }
             className="button"
@@ -72,7 +68,6 @@ class Login extends React.Component {
           >
             Entrar
           </button>
-
         </fieldset>
       </div>
     );
