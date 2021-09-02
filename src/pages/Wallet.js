@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import InputField from '../components/InputField';
+import SelectField from '../components/SelectField';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -33,6 +34,9 @@ class Wallet extends React.Component {
             onChange={ this.onChange }
             value="0"
           />
+          <SelectField
+          name="Moeda"
+          
         </form>
       </div>
     );

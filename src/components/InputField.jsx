@@ -4,23 +4,20 @@ import htmlID from './util/util';
 
 class InputField extends React.Component {
   render() {
-    const { name, options, onChange, value } = this.props;
+    const { name, testid, type, placeholder, onChange, value } = this.props;
     const id = htmlID(this.props);
     return (
       <label htmlFor={ id }>
         { name }
-        <select
-          name={ name }
+        <input
           id={ id }
-          value={ value }
+          name={ name }
+          data-testid={ testid }
+          type={ type }
+          placeholder={ placeholder }
           onChange={ onChange }
-        >
-          {options.map((option) => (
-            <option key={ option + id } value={ option }>
-              { option }
-            </option>
-          ))}
-        </select>
+          value={ value }
+        />
       </label>
     );
   }
@@ -30,7 +27,7 @@ InputField.propTypes = {
   name: PropTypes.string.isRequired,
   testid: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  placeholder: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
 };
