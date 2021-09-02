@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { userLoggedIn } from '../actions';
 
 const MINIMAL_PASSWORD_LENGTH = 6;
@@ -96,6 +97,12 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  email: PropTypes.string.isRequired,
+  logUserIn: PropTypes.func.isRequired,
+  history: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   logUserIn: (email) => dispatch(userLoggedIn(email)),
