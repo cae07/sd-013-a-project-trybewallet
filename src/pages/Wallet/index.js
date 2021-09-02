@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { addExpense, deleteExpense, editExpense, fetchCoins } from '../../actions';
+import { addExpense, deleteExpense, fetchCoins } from '../../actions';
 import { Expense, Input, Select } from '../../components';
 import style from './style.module.css';
 import { coinsSelect,
@@ -141,6 +141,7 @@ class Wallet extends React.Component {
               key={ expense.id }
               expense={ makeObjExpense(expense) }
               handleDelete={ this.handleDelete }
+              handleEdit={ this.handleEdit }
             />
           ))}
         </tbody>
@@ -170,7 +171,7 @@ Wallet.propTypes = {
   fetchData: PropTypes.func.isRequired,
   addUserExpense: PropTypes.func.isRequired,
   deleteUserExpense: PropTypes.func.isRequired,
-  editUserExpense: PropTypes.func.isRequired,
+  // editUserExpense: PropTypes.func.isRequired,
   userEmail: PropTypes.string.isRequired,
   coins: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
@@ -179,7 +180,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchData: () => dispatch(fetchCoins()),
   addUserExpense: (data) => dispatch(addExpense(data)),
   deleteUserExpense: (id) => dispatch(deleteExpense(id)),
-  editUserExpense: (data) => dispatch(editExpense(data)),
+  // editUserExpense: (data) => dispatch(editExpense(data)),
 });
 const mapStateToProps = (state) => ({
   userEmail: state.user.email,

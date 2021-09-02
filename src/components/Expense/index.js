@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Expense = ({ expense, handleDelete }) => {
+const Expense = ({ expense, handleDelete, handleEdit }) => {
   const {
     id, description, tag, method, value, coin, cambio, newValue, conversion,
   } = expense;
@@ -16,7 +16,13 @@ const Expense = ({ expense, handleDelete }) => {
       <td>{newValue}</td>
       <td>{conversion}</td>
       <td>
-        <button type="button" data-testid="edit-btn">Editar</button>
+        <button
+          onClick={ () => handleEdit(expense) }
+          type="button"
+          data-testid="edit-btn"
+        >
+          Editar
+        </button>
         <button
           onClick={ () => handleDelete(id) }
           type="button"
@@ -42,6 +48,7 @@ Expense.propTypes = {
     value: PropTypes.string,
   }).isRequired,
   handleDelete: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
 };
 
 export default Expense;

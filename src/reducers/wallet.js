@@ -20,9 +20,16 @@ const userReducer = (state = INITIAL_STATE, action) => {
   case ADD_EXPENSE:
     return { ...state, expenses: [...state.expenses, action.payload] };
   case DELETE_EXPENSE:
-    return { ...state, expenses: [...state.expenses].filter((expense) => expense.id !== action.payload) };
+    return {
+      ...state,
+      expenses: [...state.expenses]
+        .filter((expense) => expense.id !== action.payload),
+    };
   case EDIT_EXPENSE:
-    return { ...state, expenses: [...state.expenses] };
+    return {
+      ...state,
+      expenses: [...state.expenses],
+    };
   default:
     return state;
   }
