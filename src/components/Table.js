@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionDeleteExpense } from '../actions';
+import { Button } from './index';
 
 class Table extends Component {
   constructor(props) {
     super(props);
 
     this.createTable = this.createTable.bind(this);
+    this.deleteButton = this.deleteButton.bind(this);
+  }
+
+  deleteButton(id) {
+    const { expenses, deleteExpense } = this.props;
+    console.log(id);
+    const expensesUpdate = expenses.filter((item) => (item.id !== id));
+    deleteExpense(expensesUpdate);
   }
 
   createTable() {
@@ -23,7 +33,13 @@ class Table extends Component {
           <td>{parseFloat(currencyInfo.ask).toFixed(2)}</td>
           <td>{(parseFloat(item.value) * parseFloat(currencyInfo.ask)).toFixed(2)}</td>
           <td>Real</td>
-          <td>ok</td>
+          <td>
+            <Button
+              name="Excluir"
+              testid="delete-btn"
+              onHandleClick={ () => this.deleteButton(item.id) }
+            />
+          </td>
         </tr>
       );
     });
@@ -32,18 +48,22 @@ class Table extends Component {
   render() {
     return (
       <table>
-        <tr className="table-header">
-          <th>Descrição</th>
-          <th>Tag</th>
-          <th>Método de pagamento</th>
-          <th>Valor</th>
-          <th>Moeda</th>
-          <th>Câmbio utilizado</th>
-          <th>Valor convertido</th>
-          <th>Moeda de conversão</th>
-          <th>Editar/Excluir</th>
-        </tr>
-        {this.createTable()}
+        <thead>
+          <tr className="table-header">
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.createTable()}
+        </tbody>
       </table>
     );
   }
@@ -51,6 +71,7 @@ class Table extends Component {
 
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object),
+  deleteExpense: PropTypes.func.isRequired,
 };
 
 Table.defaultProps = {
@@ -61,4 +82,8 @@ const mapStateToProps = ({ wallet }) => ({
   expenses: wallet.expenses,
 });
 
-export default connect(mapStateToProps)(Table);
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (payload) => dispatch(actionDeleteExpense(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

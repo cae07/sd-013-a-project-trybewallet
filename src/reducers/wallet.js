@@ -1,7 +1,8 @@
 import {
   SUBMIT_WALLET_EXPENSES,
   SUBMIT_WALLET_CURRENCIES,
-  REQUEST_API } from '../actions';
+  REQUEST_API,
+  DELETE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -27,6 +28,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       loading: true,
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: action.payload,
     };
   default:
     return state;

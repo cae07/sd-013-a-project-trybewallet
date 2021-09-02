@@ -1,5 +1,6 @@
 import React from 'react';
-import { Header, Table } from '../components';
+import { Header } from '../components';
+import Table from '../components/Table';
 import FormWallet from '../components/FormWallet';
 
 class Wallet extends React.Component {
