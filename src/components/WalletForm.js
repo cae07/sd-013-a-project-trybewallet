@@ -1,6 +1,35 @@
 import React from 'react';
 
 class WalletForm extends React.Component {
+  constructor() {
+    super();
+    this.fetchApi = this.fetchApi.bind(this);
+    this.state = {
+      apiResponse: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
+  fetchApi() {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({
+          apiResponse: json,
+        });
+      });
+  }
+
+  filterCurrency() {
+    const { apiResponse } = this.state;
+    const init = Object.keys(apiResponse);
+    const filteredCurrencys = init.filter((initial) => initial !== 'USDT');
+    return filteredCurrencys;
+  }
+
   render() {
     return (
       <div>
@@ -18,9 +47,8 @@ class WalletForm extends React.Component {
           <label htmlFor="currency">
             Moeda
             <select name="currency" id="currency">
-              <option>
-                Vazio
-              </option>
+              { this.filterCurrency()
+                .map((option, index) => (<option key={ index }>{ option }</option>)) }
             </select>
           </label>
 
