@@ -11,15 +11,17 @@ class Header extends Component {
 
     const total = expenses.reduce((acc, curr) => {
       const { ask } = curr.exchangeRates[curr.currency];
-      console.log(curr);
       return acc + Number(curr.value * ask);
     }, 0);
 
     return (
       <header>
-        <span data-testid="email-field">{ email }</span>
-        <span data-testid="total-field" id="total-value">{total.toFixed(2)}</span>
-        <span data-testid="header-currency-field">BRL</span>
+        <h4>Carteira Digital</h4>
+        <span data-testid="email-field" id="email">{ email }</span>
+        <div>
+          <span data-testid="total-field" id="total-value">{total.toFixed(2)}</span>
+          <span data-testid="header-currency-field" id="coin">BRL</span>
+        </div>
       </header>
     );
   }

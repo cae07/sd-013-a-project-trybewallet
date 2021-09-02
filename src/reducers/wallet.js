@@ -1,5 +1,5 @@
 import { SET_WALLET, REQUEST_API, GET_CURRENCY,
-  SET_EXPENSE, REQUEST_FAIL } from '../actions';
+  SET_EXPENSE, REQUEST_FAIL, DELETE_ITEM } from '../actions';
 
 const wallets = {
   currencies: [],
@@ -20,6 +20,11 @@ const wallet = (state = wallets, action) => {
     return { ...state, expenses: [...state.expenses, action.state] };
   case REQUEST_FAIL:
     return { ...state, statues: action.status };
+  case DELETE_ITEM:
+    return { ...state,
+      expenses: [...state.expenses.filter(
+        (index) => index.id !== action.state,
+      )] };
   default:
     return state;
   }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import './wallet.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { InputWallet, SelectCoin, Payment, Header, TagSelect } from '../components';
+import { InputWallet, SelectCoin, Payment, Header,
+  TagSelect, WalletTable } from '../components';
 import { fetchAPI, setExpense } from '../actions';
 
 class Wallet extends Component {
@@ -45,13 +47,14 @@ class Wallet extends Component {
     return (
       <main>
         <Header />
-        <form>
+        <form className="form-wallet">
           <InputWallet />
           <SelectCoin />
           <Payment />
           <TagSelect />
           <button type="submit" onClick={ this.handleClick }>Adicionar despesa</button>
         </form>
+        <WalletTable />
       </main>
     );
   }

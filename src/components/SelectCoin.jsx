@@ -9,7 +9,7 @@ class SelectCoin extends Component {
       .filter((currencie) => currencie !== 'USDT');
     return (
       <label htmlFor="currency">
-        Moeda
+        Moeda:
         <select name="currency" id="currency">
           {anything.map(
             (each) => <option key={ each }>{ each }</option>,

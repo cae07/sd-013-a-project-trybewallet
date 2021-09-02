@@ -4,7 +4,7 @@ class Payment extends Component {
   render() {
     return (
       <label htmlFor="payment">
-        Método de pagamento
+        Método de pagamento:
         <select name="payment" id="payment">
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>

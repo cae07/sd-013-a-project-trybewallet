@@ -4,7 +4,7 @@ class TagSelect extends Component {
   render() {
     return (
       <label htmlFor="tags">
-        Tag
+        Tag:
         <select id="tags">
           <option>Alimentação</option>
           <option>Lazer</option>
