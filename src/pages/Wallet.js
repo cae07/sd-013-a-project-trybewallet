@@ -5,6 +5,7 @@ import InputForm from '../inputForm';
 
 class Wallet extends React.Component {
   render() {
+    const { email } = this.props;
     return (
       <header>
         <p>
