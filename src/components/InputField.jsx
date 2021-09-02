@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import nextId, { setPrefix } from "react-id-generator";
+import nextId, { setPrefix } from 'react-id-generator';
+
 class InputField extends React.Component {
   constructor(props) {
     super(props);
