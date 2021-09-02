@@ -17,7 +17,7 @@ class TableBody extends Component {
   }
 
   render() {
-    const { expenses } = this.props;
+    const { expenses, editing } = this.props;
     return (
       <>
         {expenses.map((expense) => {
@@ -45,7 +45,7 @@ class TableBody extends Component {
                   type="button"
                   data-testid="edit-btn"
                   name="edit"
-                  onClick={ ({ target }) => this.handleClick(target, expense) }
+                  onClick={ () => editing(id) }
                 >
                   Editar
                 </button>
