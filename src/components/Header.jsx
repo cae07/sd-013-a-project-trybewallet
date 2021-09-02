@@ -8,7 +8,7 @@ class Header extends Component {
     const { email } = user;
 
     // Feito com ajuda do Rogério
-    
+
     const total = expenses.reduce((acc, curr) => {
       const { ask } = curr.exchangeRates[curr.currency];
       console.log(curr);
