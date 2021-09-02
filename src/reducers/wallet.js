@@ -3,7 +3,7 @@ import { SAVE_EXPENSE, SAVE_CURRENCIES } from '../actions';
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  total: 0,
+  arrayValueExpenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -11,7 +11,9 @@ const wallet = (state = INITIAL_STATE, action) => {
   case SAVE_EXPENSE:
     return {
       ...state,
-      expenses: [...state.expenses, action.expense],
+      expenses: [...state.expenses,
+        { ...action.obj, id: state.expenses.length }],
+      arrayValueExpenses: [...state.arrayValueExpenses, action.convertValueExpense],
     };
   case SAVE_CURRENCIES:
     return {

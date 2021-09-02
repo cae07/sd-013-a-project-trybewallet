@@ -1,6 +1,7 @@
 export const SAVE_LOGIN = 'SAVE_LOGIN';
 export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
+export const SAVE_CAMBIO = 'SAVE_CAMBIO';
 
 export const saveLogin = (state) => (
   {
@@ -24,20 +25,28 @@ export function fetchApiCurrencies() { // este é o thunk
   return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
     // then (então) converte o retorno para json
     .then((response) => response.json())
-    // envia o json para a action setCurrencies.
-    .then((currencies) => dispatch(saveCurrencies(currencies)));
+    // envia o json para a action setCurrencies, já filtrado sem a moeda USDT, com todas as outras moedas.
+    .then((currencies) => dispatch(saveCurrencies(Object.keys(currencies))));
 
   // caso queira RETIRAR alguma ação DEPOIS do resultado da api, chama a action DEPOIS, e faz a lógica no reducer para alterar alguma chave. Ex.: RETIRAR componente loading na tela.
   // dispatch(novaAction2(false));
 }
 
-export const saveExpense = (expense) => {
-  const receivedExpense = {
-    type: SAVE_EXPENSE,
-    expense,
-  };
-  return (dispatch) => {
-    dispatch(fetchApiCurrencies);
-    return (() => dispatch(receivedExpense));
-  };
+const requestFetchAPI = async (url) => {
+  const request = await fetch(url);
+  const json = await request.json();
+  return json;
 };
+
+export function saveExpenseSuccess(obj) {
+  const convertValueExpense = obj.exchangeRates[obj.currency].ask * obj.value;
+  console.log(convertValueExpense);
+  return {
+    type: SAVE_EXPENSE,
+    obj,
+    convertValueExpense,
+  };
+}
+
+export const saveExpense = (state) => (dispatch) => requestFetchAPI('https://economia.awesomeapi.com.br/json/all')
+  .then((json) => { dispatch(saveExpenseSuccess({ ...state, exchangeRates: json })); });

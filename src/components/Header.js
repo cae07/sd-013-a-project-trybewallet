@@ -3,9 +3,22 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+    this.totalExpenses = this.totalExpenses.bind(this);
+  }
+
+  totalExpenses() {
+    const { wallet } = this.props;
+    const arrayValueExp = wallet.arrayValueExpenses.map((expense) => parseFloat(expense));
+    const sumExpenses = arrayValueExp.reduce((acc, curr) => acc + curr, 0).toFixed(2);
+    return sumExpenses;
+  }
+
   render() {
-    // const { user } = this.props;
-    const { user, wallet } = this.props;
+    const { user } = this.props;
     return (
       <div className="topo">
         <h1>TrybeWallet</h1>
@@ -16,7 +29,7 @@ class Header extends React.Component {
             Despesa Total: R$
             { ' ' }
             <span data-testid="total-field">
-              { wallet.total || 0 }
+              { `${this.totalExpenses()}` }
             </span>
           </p>
 
