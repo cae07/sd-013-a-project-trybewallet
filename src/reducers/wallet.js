@@ -14,6 +14,10 @@ function wallet(state = INITIAL_STATE, action) {
   case GET_CURRENCIES_SUCESS:
     return ({
       ...state,
+      // Estava usando Object.values, a renderização estava funcionando porém o avaliador não passava
+      // acredito por serem objetos e ele esperar simples strings
+      // olhando o código do Gabriel Lenz https://github.com/tryber/sd-013-a-project-trybewallet/blob/gabriellenz-trybewallet/src/actions/index.js
+      // fiz o teste usando keys e funcionou
       currencies: [...Object.keys(action.payload)],
     });
   case GET_CURRENCIES_FAILED:

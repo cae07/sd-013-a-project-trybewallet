@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 
 class WalletForm extends React.Component {
   mapCurrenciesIntoOptions() {
-    const { state } = this.props;
-    const { wallet: { currencies } } = state;
+    const { state: { wallet: { currencies } } } = this.props;
     const filteredCurrencies = currencies
-      .filter((currency) => currency !== 'USDT');
+      .filter((currencie) => currencie !== 'USDT');
     return filteredCurrencies.map((currency) => (
       <option key={ currency } value={ currency }>{currency}</option>));
   }
@@ -33,29 +32,22 @@ class WalletForm extends React.Component {
         <label htmlFor="method">
           Método de pagamento
           <select id="method" onChange={ handleChange }>
-            <option value="money">Dinheiro</option>
-            <option value="credit">Cartão de crédito</option>
-            <option value="debit">Cartão de débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
-        <label htmlFor="category">
+        <label htmlFor="tag">
           Tag
-          <select id="category" onChange={ handleChange }>
-            <option value="food">Alimentação</option>
-            <option value="leisure">Lazer</option>
-            <option value="job">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
+          <select id="tag" onChange={ handleChange }>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
-        <label htmlFor="add-expense">
-          <input
-            id="add-expense"
-            type="button"
-            onClick={ handleClick }
-            value="Adicionar Despesa"
-          />
-        </label>
+        <button type="button" onClick={ handleClick }>Adicionar despesa</button>
       </form>
     );
   }

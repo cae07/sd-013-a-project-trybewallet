@@ -10,7 +10,6 @@ class Wallet extends React.Component {
     super(props);
 
     this.state = {
-      expenses: 0,
       currency: 'USD',
       value: 0,
       description: '',
@@ -49,15 +48,22 @@ class Wallet extends React.Component {
     addExpense(payload);
   }
 
+  sumExpenses() {
+    const { state: { wallet: { expenses } } } = this.props;
+    return expenses.reduce((acc, curr) => {
+      const { ask } = curr.exchangeRates[curr.currency];
+      return acc + parseFloat(curr.value * ask);
+    }, 0);
+  }
+
   render() {
     const { state } = this.props;
     const { user: { email } } = state;
-    const { expenses } = this.state;
     return (
       <div>
         <header>
           <h2 data-testid="email-field">{ email }</h2>
-          <h3 id="expenses" data-testid="total-field">{ expenses }</h3>
+          <h3 id="expenses" data-testid="total-field">{ this.sumExpenses() }</h3>
           <h3 data-testid="header-currency-field">BRL</h3>
         </header>
         <WalletForm handleChange={ this.handleChange } handleClick={ this.handleClick } />
