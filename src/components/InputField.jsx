@@ -13,7 +13,7 @@ class InputField extends React.Component {
     const KEY_LENGTH = 40;
     let id = name;
     for (let i = 0; i < KEY_LENGTH; i += 1) {
-      id += hexIdChars[Math.floor(Math.random() * 16)];
+      id += hexIdChars[Math.floor(Math.random() * hexIdChars.length)];
     }
     return id;
   }
