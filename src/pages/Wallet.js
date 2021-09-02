@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Form from '../inputForm';
+import InputForm from '../inputForm';
 
 class Wallet extends React.Component {
   render() {
-    // const { email } = this.props;
-    // console.log(email);
     return (
       <header>
         <p>
@@ -27,7 +25,7 @@ class Wallet extends React.Component {
             BRL
           </span>
         </p>
-        <Form />
+        <InputForm />
       </header>
     );
   }
