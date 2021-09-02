@@ -114,14 +114,14 @@
 }
 
 .eraLi {
-  align-items:flex-start;
+  align-items: flex-start;
   background-color: #282c34;
   border: solid black;
   color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 5px 0 5px 0;
+  margin: 5px 0;
 }
 
 .vlr {
