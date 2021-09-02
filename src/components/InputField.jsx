@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import nextId, { setPrefix } from 'react-id-generator';
 
 class InputField extends React.Component {
   constructor(props) {
@@ -10,8 +9,12 @@ class InputField extends React.Component {
 
   htmlID() {
     const { name } = this.props;
-    setPrefix(name);
-    const id = nextId();
+    const hexIdChars = '0123456789ABCDEF';
+    const KEY_LENGTH = 40;
+    let id = name;
+    for (let i = 0; i < KEY_LENGTH; i += 1) {
+      id += hexIdChars[Math.floor(Math.random() * 16)];
+    }
     return id;
   }
 
