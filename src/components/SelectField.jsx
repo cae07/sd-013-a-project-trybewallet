@@ -28,8 +28,6 @@ class SelectField extends React.Component {
 
 SelectField.propTypes = {
   name: PropTypes.string.isRequired,
-  testid: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,

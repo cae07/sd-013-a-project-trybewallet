@@ -35,8 +35,23 @@ class Wallet extends React.Component {
             value="0"
           />
           <SelectField
-          name="Moeda"
-          
+            name="Moeda"
+            options={ [] }
+            onChange={ this.onChange }
+            value=""
+          />
+          <SelectField
+            name="Método de pagamento"
+            options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+            onChange={ this.onChange }
+            value=""
+          />
+          <SelectField
+            name="Tag"
+            options={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+            onChange={ this.onChange }
+            value=""
+          />
         </form>
       </div>
     );
