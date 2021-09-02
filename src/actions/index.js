@@ -3,6 +3,7 @@ import getCoin from '../services';
 
 export const USER_INFO = 'USER_INFO';
 export const WALLET_INFO = 'WALLET_INFO';
+export const SEND_EXPENSES = 'SEND_EXPENSES';
 
 // Actions Creators
 export const sendUserInfo = (payload) => ({
@@ -10,7 +11,12 @@ export const sendUserInfo = (payload) => ({
   payload,
 });
 
-// Thunk
+export const sendExpenses = (payload) => ({
+  type: SEND_EXPENSES,
+  payload,
+});
+
+// Thunks
 // LINK https://github.dev/tryber/sd-013-a-live-lectures/tree/lecture/16.4/isslocation
 export const GET_COIN = 'GET_COIN';
 export const GET_COIN_SUCCESS = 'GET_COIN_SUCCESS';
@@ -39,6 +45,26 @@ export const fetchCoins = () => (dispatch) => {
           .keys(data)
           .filter((coin) => coin !== 'USDT');
         return dispatch(actionGetCoinSuccess(filteredCoins));
+      },
+      () => dispatch(actionGetCoinFail()),
+    );
+};
+
+export const fetchExchangeRatesWithUserInfo = (userForm) => (dispatch) => {
+  dispatch(actionGetCoin());
+  return getCoin()
+    .then(
+      (data) => {
+        const filteredCoins = Object
+          .entries(data)
+          .filter((coin) => coin !== 'USDT');
+        const userInfo = {
+          ...userForm,
+          exchangeRates: {
+            ...Object.fromEntries(filteredCoins),
+          },
+        };
+        return dispatch(sendExpenses(userInfo));
       },
       () => dispatch(actionGetCoinFail()),
     );

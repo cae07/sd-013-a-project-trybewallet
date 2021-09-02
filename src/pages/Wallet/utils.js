@@ -1,7 +1,7 @@
 export const paymentMethods = [
   { value: 'money', label: 'Dinheiro' },
   { value: 'credit', label: 'Cartão de crédito' },
-  { value: 'money', label: 'Cartão de débito' },
+  { value: 'debit', label: 'Cartão de débito' },
 ];
 export const tags = [
   { value: 'food', label: 'Alimentação' },
@@ -14,3 +14,9 @@ export const tags = [
 export const coinsSelect = (coins) => (
   coins.map((coin) => ({ value: coin, label: coin }))
 );
+
+export const makeSumExpenses = (expenses) => expenses
+  .reduce((acc, { value, currency = 'USD', exchangeRates }) => {
+    acc += (Number(value) * Number(exchangeRates[currency].ask));
+    return acc;
+  }, 0);

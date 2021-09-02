@@ -3,11 +3,12 @@ import React from 'react';
 import style from './style.module.css';
 
 const InputComponent = ({
-  id, testId, placeholder, type, onChange,
+  id, testId, placeholder, type, onChange, name,
 }) => (
   <label className={ style.label } htmlFor={ id }>
     {placeholder}
     <input
+      name={ name }
       className={ style.input }
       onChange={ onChange }
       placeholder={ placeholder }
@@ -23,6 +24,7 @@ InputComponent.defaultProps = {
   type: 'text',
   testId: null,
   onChange: null,
+  name: '',
 };
 
 InputComponent.propTypes = {
@@ -31,6 +33,7 @@ InputComponent.propTypes = {
   placeholder: PropTypes.string,
   testId: PropTypes.string,
   type: PropTypes.string,
+  name: PropTypes.string,
 };
 
 export default InputComponent;
