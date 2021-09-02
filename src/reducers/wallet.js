@@ -4,12 +4,14 @@ import {
   GET_INFO,
   FAILED_REQUEST,
   ADD_EXPENSE,
+  DISPLAY_TOTAL_EXPENSES,
 } from '../actions';
 
 // declarar o estado inicial do reducer
 const initialState = {
   currencies: [],
   expenses: [],
+  totalExpensesBRL: 0,
   resultData: {},
   loading: false,
   error: '',
@@ -30,6 +32,8 @@ function walletReducer(state = initialState, action) {
     return { ...state, error: action.payload, loading: false };
   case ADD_EXPENSE:
     return { ...state, expenses: [...state.expenses, action.payload] };
+  case DISPLAY_TOTAL_EXPENSES:
+    return { ...state, totalExpensesBRL: action.payload };
   default:
     return state;
   }

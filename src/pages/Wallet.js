@@ -7,9 +7,8 @@ import { fetchCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
-    const { getExchangeRates } = this.props;
     // dispara a action que vai consultar a api
-    // Espera-se o retorno de um objeto
+    const { getExchangeRates } = this.props;
     getExchangeRates();
   }
 
