@@ -3,7 +3,36 @@ import React from 'react';
 // import { connect } from 'react-redux';
 
 class Form extends React.Component {
+  constructor() {
+    super();
+    this.fetchApi = this.fetchApi.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      currencies: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchApi();
+  }
+
+  handleChange({ target }) {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  }
+
+  async fetchApi() {
+    const api = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const json = await api.json();
+    const allCurrencie = Object.keys(json);
+    const currenciesWithoutUsdt = allCurrencie.filter((currency) => currency !== 'USDT');
+    this.setState({
+      currencies: currenciesWithoutUsdt,
+    });
+  }
+
   render() {
+    const { currencies } = this.state;
     return (
       <form>
         <label htmlFor="value">
@@ -20,7 +49,9 @@ class Form extends React.Component {
           <label htmlFor="currency">
             Moeda
             <select name="currency" id="currency">
-              <option value="currency">oi</option>
+              {currencies.map((currency) => (
+                <option key={ currency } value={ currency }>{ currency }</option>
+              ))}
             </select>
           </label>
         </div>
