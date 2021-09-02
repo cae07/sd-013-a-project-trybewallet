@@ -13,8 +13,8 @@ class AddPayment extends Component {
     this.state = {
       value: '',
       description: '',
-      tag: 'Alimentação',
-      type: 'Dinheiro',
+      tag: '',
+      method: '',
       currency: 'USD',
     };
 
@@ -38,7 +38,7 @@ class AddPayment extends Component {
       description,
       currency,
       tag,
-      type,
+      method,
     } = this.state;
 
     const { currencies } = this.props;
@@ -49,6 +49,7 @@ class AddPayment extends Component {
           value={ value }
           label="Valor"
           id="value"
+          name="value"
           type="text"
           placeholder="$0,00"
           onChange={ this.onChange }
@@ -57,6 +58,7 @@ class AddPayment extends Component {
           value={ description }
           label="Descrição"
           id="description"
+          name="description"
           type="text"
           placeholder="Descrição do pgto."
           onChange={ this.onChange }
@@ -66,7 +68,7 @@ class AddPayment extends Component {
           currencies={ currencies }
           onChange={ this.onChange }
         />
-        <SelectMethod value={ type } onChange={ this.onChange } />
+        <SelectMethod value={ method } onChange={ this.onChange } />
         <SelectType value={ tag } onChange={ this.onChange } />
         <button type="submit">
           Adicionar despesa

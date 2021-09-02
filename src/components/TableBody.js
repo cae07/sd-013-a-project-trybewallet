@@ -26,7 +26,7 @@ class TableBody extends Component {
             currency,
             description,
             tag,
-            type,
+            method,
             value,
             exchangeRates,
           } = expense;
@@ -34,7 +34,7 @@ class TableBody extends Component {
             <tr key={ paymentId }>
               <td>{description}</td>
               <td>{tag}</td>
-              <td>{type}</td>
+              <td>{method}</td>
               <td>{value}</td>
               <td>{(exchangeRates[currency].name).split('/')[0]}</td>
               <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>

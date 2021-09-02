@@ -23,8 +23,8 @@ export default function wallet(state = INITIAL_STATE, action) {
         ...state.expenses,
         {
           ...action.paymentInfo,
+          id: state.expenses.length,
           exchangeRates: action.result,
-          paymentId: state.expenses.length,
         },
       ],
     };

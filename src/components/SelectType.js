@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 class SelectType extends Component {
   render() {
     const {
+      value,
       onChange,
     } = this.props;
 
     return (
       <label htmlFor="tag">
         Tag
-        <select id="tag" onChange={ onChange }>
+        <select value={ value } id="tag" onChange={ onChange }>
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>
@@ -24,6 +25,7 @@ class SelectType extends Component {
 
 SelectType.propTypes = {
   onChange: PropTypes.func,
+  value: PropTypes.string,
 }.isRequired;
 
 export default SelectType;

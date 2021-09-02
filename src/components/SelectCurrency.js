@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class SelectMethod extends Component {
   render() {
     const {
+      value,
       onChange,
       currencies,
     } = this.props;
@@ -11,7 +12,7 @@ class SelectMethod extends Component {
     return (
       <label htmlFor="currency">
         Moeda
-        <select id="currency" onChange={ onChange }>
+        <select value={ value } id="currency" onChange={ onChange }>
           {currencies.map((currency, index) => (
             <option key={ index }>
               {currency}
@@ -26,6 +27,7 @@ class SelectMethod extends Component {
 SelectMethod.propTypes = {
   onChange: PropTypes.func,
   currencies: PropTypes.array,
+  value: PropTypes.string,
 }.isRequired;
 
 export default SelectMethod;
