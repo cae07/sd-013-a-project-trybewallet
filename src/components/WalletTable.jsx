@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteItem } from '../actions';
+import PropTypes from 'prop-types';
 
 class WalletTable extends Component {
   constructor() {
@@ -16,38 +17,42 @@ class WalletTable extends Component {
   render() {
     const { expenses } = this.props;
     return (
-    <table className="table-wallet">
-      <tr>
-        <th>Descrição</th>
-        <th>Tag</th>
-        <th>Método de pagamento</th>
-        <th>Valor</th>
-        <th>Moeda</th>
-        <th>Câmbio utilizado</th>
-        <th>Valor convertido</th>
-        <th>Moeda de conversão</th>
-        <th>Editar/Excluir</th>
-      </tr>
-
-      {/* Rogério deu a moral de como fazer esse map com o table. */}
-
-      {expenses.map((each) => (
-        <tr key={ each.id }>
-          <td>{each.description}</td>
-          <td>{each.tag}</td>
-          <td>{each.method}</td>
-          <td>{each.value}</td>
-          <td>{each.exchangeRates[each.currency].name}</td>
-          <td>{(each.exchangeRates[each.currency].ask * 1).toFixed(2)}</td>
-          <td>{(each.exchangeRates[each.currency].ask * each.value).toFixed(2)}</td>
-          <td>Real</td>
-          <td>
-            <button>Editar</button>
-            <button data-testid="delete-btn" onClick={ () => this.handleClick(each.id)}>Excluir</button>
-          </td>
+      <table className="table-wallet">
+        <tr>
+          <th>Descrição</th>
+          <th>Tag</th>
+          <th>Método de pagamento</th>
+          <th>Valor</th>
+          <th>Moeda</th>
+          <th>Câmbio utilizado</th>
+          <th>Valor convertido</th>
+          <th>Moeda de conversão</th>
+          <th>Editar/Excluir</th>
         </tr>
-      ))}
-    </table> 
+
+        {/* Rogério deu a moral de como fazer esse map com o table. */}
+
+        {expenses.map((each) => (
+          <tr key={ each.id }>
+            <td>{each.description}</td>
+            <td>{each.tag}</td>
+            <td>{each.method}</td>
+            <td>{each.value}</td>
+            <td>{each.exchangeRates[each.currency].name}</td>
+            <td>{(each.exchangeRates[each.currency].ask * 1).toFixed(2)}</td>
+            <td>{(each.exchangeRates[each.currency].ask * each.value).toFixed(2)}</td>
+            <td>Real</td>
+            <td>
+              <button>Editar</button>
+              <button data-testid="delete-btn"
+              onClick={ () => this.handleClick(each.id)}
+              >
+                Excluir
+              </button>
+            </td>
+          </tr>
+        ))}
+      </table>
     );
   }
 }
@@ -59,5 +64,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   deleteEach: (state) => dispatch(deleteItem(state)),
 });
+
+WalletTable.propTypes = {
+  deleteEach: PropTypes.func,
+  expenses: PropTypes.arrayOf(),
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletTable);

@@ -6,11 +6,11 @@ class InputWallet extends Component {
       <div>
         <label htmlFor="valor">
           Valor:
-          <input type="text" name="valor" id="valor" />
+          <input type="text" name="valor" className="valor" />
         </label>
         <label htmlFor="descricao">
           Descrição:
-          <input type="text" name="descricao" id="descricao" />
+          <input type="text" name="descricao" className="descricao" />
         </label>
       </div>
     );

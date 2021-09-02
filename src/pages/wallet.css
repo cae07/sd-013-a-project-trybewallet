@@ -5,31 +5,31 @@
 }
 
 header {
+  background-color: cornsilk;
   display: flex;
   justify-content: space-evenly;
-  padding: 10px 500px;
   margin: auto;
-  background-color: cornsilk;
+  padding: 10px 500px;
 }
 
 .form-wallet {
   display: flex;
   justify-content: space-evenly;
-  width: 1200px;
   margin: 15px auto;
+  width: 1200px;
 }
 
-#valor, #descricao {
+.valor , .descricao {
   border-radius: 5px;
   margin: 0 3px;
 }
 
 .table-wallet {
-  width: 1250px;
   margin: auto;
+  width: 1250px;
 }
 
-.table-wallet, th, td {
+.table-wallet , th , td {
   border: 1px solid black;
 }
 
