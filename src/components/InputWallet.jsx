@@ -8,9 +8,9 @@ class InputWallet extends Component {
           Valor
           <input type="text" name="valor" id="valor" />
         </label>
-        <label htmlFor="valor">
+        <label htmlFor="descricao">
           Descrição
-          <input type="text" name="valor" id="descricao" />
+          <input type="text" name="descricao" id="descricao" />
         </label>
       </div>
     );
