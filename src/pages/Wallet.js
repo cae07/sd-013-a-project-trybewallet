@@ -7,13 +7,38 @@ class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.fetchAPI = this.fetchAPI.bind(this);
+    this.state = {
+      quotation: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchAPI();
   }
 
   onChange({ target: { value, name } }) {
     this.setState({ [name]: value });
   }
 
+  async fetchAPI() {
+    try {
+      const request = await fetch('https://economia.awesomeapi.com.br/json/all');
+      const quotation = await request.json();
+      await delete quotation.USDT;
+      console.log(quotation);
+      this.setState({ quotation: Object.values(quotation) });
+      console.log('32', Object.values(quotation));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
+    const { quotation } = this.state;
+    if (!quotation.length) {
+      return <div> waiting ...</div>;
+    }
     return (
       <div>
         <Header />
@@ -36,7 +61,7 @@ class Wallet extends React.Component {
           />
           <SelectField
             name="Moeda"
-            options={ [] }
+            options={ quotation }
             onChange={ this.onChange }
             value=""
           />

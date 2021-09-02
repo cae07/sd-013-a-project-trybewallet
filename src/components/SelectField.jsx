@@ -6,6 +6,7 @@ class SelectField extends React.Component {
   render() {
     const { name, options, onChange, value } = this.props;
     const id = htmlID(this.props);
+    console.log('Select Linha9', options);
     return (
       <label htmlFor={ id }>
         { name }
@@ -15,9 +16,9 @@ class SelectField extends React.Component {
           value={ value }
           onChange={ onChange }
         >
-          {options.map((option) => (
-            <option key={ option + id } value={ option }>
-              { option }
+          {options.map((option, index) => (
+            <option key={ index + id } value={ option.code || option }>
+              { option.code || option }
             </option>
           ))}
         </select>
@@ -27,10 +28,15 @@ class SelectField extends React.Component {
 }
 
 SelectField.propTypes = {
-  name: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType(
+      [PropTypes.object, PropTypes.string],
+    ),
+  ).isRequired,
+
 };
 
 export default SelectField;
