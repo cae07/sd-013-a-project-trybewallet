@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { userEmail } from '../actions/index';
 
 class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       email: '',
@@ -47,10 +47,9 @@ class Login extends React.Component {
 
   validBtn() {
     const { email, password } = this.state;
-    const isValidEmail = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
-    const isValidPass = /^(?=.*[a-za-z])(?=.*\d)[a-za-z\d]{6,}$/i;
-
-    if (isValidEmail.test(email) && isValidPass.test(password)) {
+    const isValidEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    const isValidPass = 6;
+    if (password.length >= isValidPass && isValidEmail.test(email)) {
       this.setState({
         disabled: false,
       });
@@ -65,7 +64,7 @@ class Login extends React.Component {
     const { email, password, disabled } = this.state;
     return (
       <section>
-        <form action="">
+        <form>
           <label htmlFor="email">
             Email:
             <input
@@ -92,7 +91,7 @@ class Login extends React.Component {
             />
             <span className="">{this.validatePassword(password)}</span>
           </label>
-          <button type="button" disabled={ disabled } onClick={ this.onSubmitLogin }>
+          <button type="submit" disabled={ disabled } onClick={ this.onSubmitLogin }>
             Entrar
           </button>
         </form>
