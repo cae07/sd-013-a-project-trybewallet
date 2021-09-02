@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deletePayment } from '../actions';
 
 class TableBody extends Component {
   constructor() {
@@ -8,7 +9,11 @@ class TableBody extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(target, handleData) {
+  handleClick(target, paymentData) {
+    const { remove } = this.props;
+    if (target.name === 'delete') {
+      remove(paymentData);
+    }
   }
 
   render() {
@@ -67,6 +72,11 @@ TableBody.propTypes = {
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
+  remove: PropTypes.func,
 });
 
-export default connect(mapStateToProps)(TableBody);
+const mapDispatchToProps = (dispatch) => ({
+  remove: (id) => dispatch(deletePayment(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableBody);

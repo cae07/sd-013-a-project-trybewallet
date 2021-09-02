@@ -1,6 +1,7 @@
 import {
   GET_CURRENCIES,
   ADD_PAYMENT,
+  DELETE_PAYMENT,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -26,6 +27,12 @@ export default function wallet(state = INITIAL_STATE, action) {
           paymentId: state.expenses.length,
         },
       ],
+    };
+  case DELETE_PAYMENT:
+    return {
+      ...state,
+      expenses: state.expenses
+        .filter((payment) => payment.paymentId !== action.paymentId),
     };
   default:
     return state;

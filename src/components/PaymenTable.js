@@ -8,7 +8,7 @@ class ExpensesTable extends Component {
       <table>
         <thead>
           <tr>
-            {tableHeaders.map((head) => <th key={ head }>{head}</th>)}
+            {tableHeaders.map((title) => <th key={ title }>{title}</th>)}
           </tr>
         </thead>
         <tbody>
