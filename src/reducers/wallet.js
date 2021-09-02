@@ -1,4 +1,4 @@
-import { WALLET } from '../actions';
+import { WALLET_SUCCESS, WALLET_ERROR } from '../actions';
 
 const WALLET_INICIAL_STATE = {
   currencies: [],
@@ -7,11 +7,15 @@ const WALLET_INICIAL_STATE = {
 
 const wallet = (state = WALLET_INICIAL_STATE, action) => {
   switch (action.type) {
-  case WALLET:
+  case WALLET_SUCCESS:
     return {
       ...state,
       currencies: action.wallet.currencies,
-      expenses: action.wallet.expenses,
+    };
+  case WALLET_ERROR:
+    return {
+      ...state,
+      error: action.payload,
     };
   default:
     return state;
