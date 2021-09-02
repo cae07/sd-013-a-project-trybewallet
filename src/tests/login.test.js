@@ -36,14 +36,14 @@ describe('1 - Crie uma página inicial de login com os seguintes campos e caract
 });
 
 describe('2 - Realize as seguintes verificações nos campos de email, senha e botão:', () => {
-  test.skip('O botão de "Entrar" está desabilitado ao entrar na página', () => {
+  test('O botão de "Entrar" está desabilitado ao entrar na página', () => {
     renderWithRouterAndStore(<App />, '/');
 
     const button = screen.getByText(/Entrar/i);
     expect(button).toBeDisabled();
   });
 
-  test.skip('O botão de "Entrar está desabilitado quando um email inválido é digitado', () => {
+  test('O botão de "Entrar está desabilitado quando um email inválido é digitado', () => {
     renderWithRouterAndStore(<App />, '/');
 
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
@@ -67,7 +67,7 @@ describe('2 - Realize as seguintes verificações nos campos de email, senha e b
     expect(button).toBeDisabled();
   });
 
-  test.skip('O botão de "Entrar está desabilitado quando uma senha inválida é digitada', () => {
+  test('O botão de "Entrar está desabilitado quando uma senha inválida é digitada', () => {
     renderWithRouterAndStore(<App />, '/');
 
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
@@ -79,7 +79,7 @@ describe('2 - Realize as seguintes verificações nos campos de email, senha e b
     expect(button).toBeDisabled();
   });
 
-  test.skip('O botão de "Entrar" está habilitado quando um email e uma senha válidos são passados', () => {
+  test('O botão de "Entrar" está habilitado quando um email e uma senha válidos são passados', () => {
     renderWithRouterAndStore(<App />, '/');
 
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
