@@ -15,6 +15,8 @@ export const addPayment = (result, paymentInfo) => ({
   result,
 });
 
+export const deletePayment = (id) => ({ type: DELETE_PAYMENT, id });
+
 export const fetchAwsome = (action, paymentInfo) => async (dispatch) => {
   const response = await fetch(AWSOME_ENDPOINT);
   const result = await response.json();
