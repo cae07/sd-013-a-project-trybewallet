@@ -13,6 +13,7 @@ class Select extends Component {
           id={ name }
           onChange={ onHandleChange }
         >
+          <option selected disabled>Selecione</option>
           {options.map((option, index) => (
             <option key={ index } value={ option }>
               {option}
