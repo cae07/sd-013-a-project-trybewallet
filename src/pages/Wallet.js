@@ -7,8 +7,8 @@ import { walletFetch } from '../actions';
 
 class Wallet extends React.Component {
   componentDidMount() {
-    const { walletFetch } = this.props;
-    walletFetch();
+    const { walleetFetch } = this.props;
+    walleetFetch();
   }
 
   render() {
@@ -26,7 +26,7 @@ Wallet.propTypes = {
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
-  walletFetch: (payload) => dispatch(walletFetch(payload)),
+  walleetFetch: (payload) => dispatch(walletFetch(payload)),
 });
 
 export default connect(null, mapDispatchToProps)(Wallet);
