@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { registerUser } from '../actions';
+// import PropTypes from 'prop-types';
+// import { registerUser } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
