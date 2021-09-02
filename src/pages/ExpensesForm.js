@@ -6,7 +6,14 @@ class ExpensesForm extends React.Component {
     super();
     this.state = {
       results: [],
+      value: 0,
+      description: '',
+      coin: '',
+      payMethod: '',
+      tag: '',
     };
+    this.onChange = this.onChange.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
@@ -15,29 +22,38 @@ class ExpensesForm extends React.Component {
         this.setState({
           results: data,
         });
-        // console.log(data.length);
+        console.log(data);
       });
   }
 
+  onChange({ target }) {
+    const { id, value } = target;
+    // console.log(id);
+    this.setState({
+      [id]: value,
+    });
+  }
+
   render() {
-    const { results } = this.state;
+    const { results, value, description, coin, payMethod, tag } = this.state;
+    // const { onChange } = this.state;
     console.log(results);
     return (
       <form>
 
         <label htmlFor="value">
           Valor
-          <input type="text" className="value" />
+          <input type="number" id="value" value={ value } onChange={ this.onChange } />
         </label>
 
-        <label htmlFor="description">
+        <label htmlFor="des">
           Descrição
-          <textarea type="text" className="description" />
+          <textarea id="description" value={ description } onChange={ this.onChange } />
         </label>
 
         <label htmlFor="coin">
           Moeda
-          <select className="coin">
+          <select id="coin" value={ coin } onChange={ this.onChange }>
             <option value=""> </option>
             {/* {results.map(({ r }) => (<option key={ r.code }>{r.code }</option>))} */}
           </select>
@@ -45,7 +61,7 @@ class ExpensesForm extends React.Component {
 
         <label htmlFor="payMethod">
           Método de Pagamento:
-          <select className="payMethod">
+          <select id="payMethod" value={ payMethod } onChange={ this.onChange }>
             <option value="cash">Dinheiro</option>
             <option value="credicard">Cartão de Crédito</option>
             <option value="card">Cartão de Débito</option>
@@ -53,8 +69,8 @@ class ExpensesForm extends React.Component {
         </label>
 
         <label htmlFor="tag">
-          Tag:
-          <select className="tag">
+          Tag
+          <select id="tag" value={ tag } onChange={ this.onChange }>
             <option value="food">Alimentação</option>
             <option value="leisure">Lazer</option>
             <option value="work">Trabalho</option>
