@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 class HeaderWallet extends React.Component {
   render() {
-    const { user } = this.props;
+    const { user, sum } = this.props;
+    const INITIAL_VALUE = 0;
     return (
       <header>
         <h1>TrybeWallet</h1>
@@ -15,7 +16,11 @@ class HeaderWallet extends React.Component {
           </div>
           <div data-testid="header-currency-field">
             Despesa Total:
-            <span data-testid="total-field">0</span>
+            <span
+              data-testid="total-field"
+            >
+              { sum > INITIAL_VALUE ? sum : INITIAL_VALUE }
+            </span>
             {' '}
             BRL
           </div>
@@ -27,12 +32,16 @@ class HeaderWallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+  sum: state.wallet.sum,
 });
 
 HeaderWallet.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
   }).isRequired,
+  sum: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(HeaderWallet);
