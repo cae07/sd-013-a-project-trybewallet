@@ -100,6 +100,10 @@ class walletForm extends Component {
           Valor:
           { this.renderInput('number', 'value', 'input-value', value) }
         </label>
+        <label htmlFor="input-description">
+          Descrição:
+          { this.renderInput('text', 'description', 'input-description', description) }
+        </label>
         <label htmlFor="select-currency">
           Moeda:
           <select
@@ -127,10 +131,6 @@ class walletForm extends Component {
           <select name="tag" id="select-tag" value={ tag } onChange={ handleChange }>
             { this.renderTagOptions() }
           </select>
-        </label>
-        <label htmlFor="input-description">
-          Descrição:
-          { this.renderInput('text', 'description', 'input-description', description) }
         </label>
         <button type="submit">Adicionar Despesas</button>
       </form>
