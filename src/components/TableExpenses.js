@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { deleteExpense, editMode } from '../actions';
+import { deleteExpense, editMode, totalUpdate } from '../actions';
 
 class TableExpenses extends React.Component {
+  componentDidUpdate() {
+    const { totalDidUpdate } = this.props;
+    totalDidUpdate();
+  }
+
   addList() {
-    const { listExpenses, deleteExp, editExp, status } = this.props;
+    const { listExpenses, deleteExp, editExp, edit } = this.props;
     return listExpenses
       .map(({ description, tag, method, value, currency, exchangeRates, id }) => {
         const valNumber = parseFloat(value);
@@ -27,16 +32,16 @@ class TableExpenses extends React.Component {
                 type="button"
                 data-testid="edit-btn"
                 className="btn btn-small btn-primary mr-3"
-                value="Editar despesa"
-                // disabled={ status }
-                onClick={ () => editExp(status.status, id) }
+                value="Editar"
+                disabled={ edit.status }
+                onClick={ () => editExp(edit.status, id) }
               />
               <input
                 type="button"
                 data-testid="delete-btn"
                 className="btn btn-small btn-danger"
                 value="Excluir"
-                disabled={ status }
+                disabled={ edit.status }
                 onClick={ () => deleteExp(id) }
               />
             </td>
@@ -75,15 +80,18 @@ class TableExpenses extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   deleteExp: (id) => dispatch(deleteExpense(id)),
   editExp: (status, id) => dispatch(editMode(status, id)),
+  totalDidUpdate: () => dispatch(totalUpdate()),
 });
 
 const mapStateToProps = ({ wallet }) => (
   {
     listExpenses: wallet.expenses,
-    status: wallet.edit,
+    edit: wallet.edit,
   });
 
 TableExpenses.propTypes = {
+  totalDidUpdate: PropTypes.func.isRequired,
+  editExp: PropTypes.func.isRequired,
   deleteExp: PropTypes.func.isRequired,
   listExpenses: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -94,9 +102,12 @@ TableExpenses.propTypes = {
     tag: PropTypes.string.isRequired,
     exchangeRates: PropTypes.objectOf(PropTypes.object).isRequired,
   })).isRequired,
+  edit: PropTypes.shape({
+    status: PropTypes.bool,
+  }),
 };
 
 TableExpenses.defaultProps = {
-  status: false,
+  edit: { status: false },
 };
 export default connect(mapStateToProps, mapDispatchToProps)(TableExpenses);

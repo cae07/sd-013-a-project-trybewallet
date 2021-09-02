@@ -2,31 +2,35 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import {
-  Header, FormEditExpenditure, TableExpenses } from '../components';
+  Header, TableExpenses } from '../components';
 import FormAdd from '../components/FormAdd';
+import FormEdit from '../components/FormEdit';
 
 class Wallet extends React.Component {
   render() {
-    const { status } = this.props;
-    console.log(status);
+    const { edit } = this.props;
+
     return (
       <div>
         <Header />
-        { status.status ? <FormEditExpenditure /> : <FormAdd /> }
+        { edit.status ? <FormEdit /> : <FormAdd /> }
         <TableExpenses />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ wallet }) => ({ status: wallet.edit });
+const mapStateToProps = ({ wallet }) => ({
+  edit: wallet.edit,
+});
 
 Wallet.propTypes = {
-  status: PropTypes.bool,
+  edit: PropTypes.shape({
+    status: PropTypes.bool,
+  }),
 };
 
 Wallet.defaultProps = {
-  status: false,
+  edit: { status: false },
 };
-
 export default connect(mapStateToProps)(Wallet);

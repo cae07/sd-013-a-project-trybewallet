@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   total: 0,
   currencies: [],
   expenses: [],
-  edit: { status: false, id: 9999 },
+  edit: { status: false, id: null },
 };
 
 const editExpense = ({ expenses }, payload) => {

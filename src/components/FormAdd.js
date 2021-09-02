@@ -5,8 +5,9 @@ import { PropTypes } from 'prop-types';
 import { Input, Select } from './index';
 import { fetchCurrencies, addExpense, totalUpdate } from '../actions';
 
+const Alimentação = 'Alimentação';
 const paymentOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+const tagOptions = [Alimentação, 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class FormAdd extends React.Component {
   constructor() {
@@ -15,7 +16,7 @@ class FormAdd extends React.Component {
       value: '',
       description: '',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: Alimentação,
       currency: 'USD',
     };
 
@@ -26,11 +27,6 @@ class FormAdd extends React.Component {
   componentDidMount() {
     const { getCurrencies } = this.props;
     getCurrencies();
-  }
-
-  componentDidUpdate() {
-    const { totalDidUpdate } = this.props;
-    totalDidUpdate();
   }
 
   onSubmitForm(event) {
@@ -69,7 +65,7 @@ class FormAdd extends React.Component {
       value: '',
       description: '',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: Alimentação,
       currency: 'USD',
     });
     return 'adicionado com sucesso';
