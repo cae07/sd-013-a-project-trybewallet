@@ -17,7 +17,7 @@ class Wallet extends Component {
   }
 
   // Feito com ajuda do Rogério.
-  
+
   handleClick(e) {
     e.preventDefault();
     const { getAPI, expenses } = this.props;
