@@ -40,7 +40,7 @@ class ExpenseForm extends React.Component {
       const expenseBRL = parseFloat(value) * parseFloat(ask);
       return acc + expenseBRL;
     }, 0);
-    updateDisplayTotalExpenses(dblTotal);
+    updateDisplayTotalExpenses(dblTotal.toFixed(2));
   }
 
   async handleClick() {

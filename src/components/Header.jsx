@@ -3,36 +3,18 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
 class Header extends React.Component {
-  constructor() {
-    super();
-    this.renderTotalField = this.renderTotalField.bind(this);
-  }
-
-  renderTotalField() {
-    const { wallet: { totalExpensesBRL } } = this.props;
-    if (totalExpensesBRL) {
-      return (
-        <span data-testid="total-field">
-          {`Despesa Total: R$ ${totalExpensesBRL}`}
-        </span>
-      );
-    }
-    return (
-      <span data-testid="total-field">
-        Despesa Total: R$ 0
-      </span>
-    );
-  }
-
   render() {
-    const { user: { email } } = this.props;
+    const { user: { email }, wallet: { totalExpensesBRL } } = this.props;
     const headerCurrency = 'BRL';
     return (
       <header>
         <span data-testid="email-field">
           {`Email: ${email}`}
         </span>
-        {this.renderTotalField()}
+        <span data-testid="total-field">
+          {totalExpensesBRL ? `Despesa Total: R$ ${totalExpensesBRL}`
+            : 'Despesa Total: R$ 0' }
+        </span>
         <span data-testid="header-currency-field">
           {` ${headerCurrency}`}
         </span>

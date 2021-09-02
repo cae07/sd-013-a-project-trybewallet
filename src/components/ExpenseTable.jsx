@@ -1,0 +1,80 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import propTypes from 'prop-types';
+
+class ExpenseTable extends React.Component {
+  constructor() {
+    super();
+    this.renderRows = this.renderRows.bind(this);
+  }
+
+  fncDelete() {}
+
+  fncEdit() {}
+
+  renderRows(array) {
+    // console.log(array);
+    // Além do return do map, o map é o retorno da função, logo,
+    // importante lembrar que é necessário colocar o "return" na linha 18, retornando o retorno do map.
+    return array.map((expense) => {
+      const { value, currency, method, tag, description, exchangeRates } = expense;
+      const { ask, name } = exchangeRates[currency];
+      const nameCurrency = name.split('/')[0];
+      // const brlCurrency = name.split('/')[1];
+      const valorConvertido = parseFloat(value) * parseFloat(ask);
+      return (
+        <tr key={ `${value}-${currency}-${description}` }>
+          <td>{ description }</td>
+          <td>{ tag }</td>
+          <td>{ method }</td>
+          <td>{ value }</td>
+          <td>{nameCurrency}</td>
+          <td>{Number(ask).toFixed(2)}</td>
+          <td>{ valorConvertido.toFixed(2) }</td>
+          <td>Real</td>
+          <td>
+            <button type="button" onClick={ this.fncEdit }>Editar</button>
+            <button type="button" onClick={ this.fncDelete }>Excluir</button>
+          </td>
+        </tr>
+      );
+    });
+  }
+
+  render() {
+    const { wallet: { expenses } } = this.props;
+    // console.log(expenses);
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* {expenses.map(())} */}
+          { this.renderRows(expenses)}
+          {/* {console.log(this.renderRows(expenses))} */}
+        </tbody>
+      </table>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({ ...state });
+
+ExpenseTable.propTypes = {
+  wallet: propTypes.shape({
+    expenses: propTypes.objectOf(propTypes.string),
+  }).isRequired,
+};
+
+export default connect(mapStateToProps)(ExpenseTable);
