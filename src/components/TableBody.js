@@ -22,7 +22,7 @@ class TableBody extends Component {
       <>
         {expenses.map((expense) => {
           const {
-            paymentId,
+            id,
             currency,
             description,
             tag,
@@ -31,7 +31,7 @@ class TableBody extends Component {
             exchangeRates,
           } = expense;
           return (
-            <tr key={ paymentId }>
+            <tr key={ id }>
               <td>{description}</td>
               <td>{tag}</td>
               <td>{method}</td>
@@ -53,7 +53,7 @@ class TableBody extends Component {
                   type="button"
                   name="delete"
                   data-testid="delete-btn"
-                  onClick={ ({ target }) => this.handleClick(target, paymentId) }
+                  onClick={ ({ target }) => this.handleClick(target, id) }
                 >
                   Excluir
                 </button>

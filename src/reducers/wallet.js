@@ -32,7 +32,7 @@ export default function wallet(state = INITIAL_STATE, action) {
     return {
       ...state,
       expenses: state.expenses
-        .filter((payment) => payment.paymentId !== action.paymentId),
+        .filter((payment) => payment.id !== action.id),
     };
   default:
     return state;

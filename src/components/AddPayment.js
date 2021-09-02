@@ -13,8 +13,8 @@ class AddPayment extends Component {
     this.state = {
       value: '',
       description: '',
-      tag: '',
-      method: '',
+      tag: 'Alimentação',
+      method: 'Dinheiro',
       currency: 'USD',
     };
 
