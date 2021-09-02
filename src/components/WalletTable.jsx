@@ -44,7 +44,8 @@ class WalletTable extends Component {
             <td>Real</td>
             <td>
               <button type="submit">Editar</button>
-              <button data-testid="delete-btn"
+              <button
+                data-testid="delete-btn"
                 type="submit"
                 onClick={ () => this.handleClick(each.id) }
               >
