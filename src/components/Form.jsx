@@ -99,7 +99,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 Form.propTypes = {
   tokens: PropTypes.func.isRequired,
-  // listTokens: PropTypes.arrayOf(PropTypes.object).isRequired,
+  listTokens: PropTypes.arrayOf(PropTypes.object).isRequired,
+  enviaSpence: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

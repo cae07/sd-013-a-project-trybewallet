@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HeaderTable from './HeaderTable';
 import { removeList } from '../actions/walletActions';
@@ -61,6 +62,11 @@ class Tabela extends Component {
     );
   }
 }
+
+Tabela.propTypes = {
+  remove: PropTypes.func.isRequired,
+  despesas: PropTypes.objectOf().isRequired,
+};
 
 const mapStateToProps = (state) => ({
   despesas: state.wallet.expenses,

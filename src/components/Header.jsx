@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 class Header extends Component {
   calculadora(array) {
-    const lailso = array.map((cash) => (Number(cash.exchangeRates[cash.currency].ask) * Number(cash.value)));
+    const lailso = array.map((cash) => (
+      Number(cash.exchangeRates[cash.currency].ask) * Number(cash.value)));
     const yuri = lailso
       .reduce((accmulator, currentValue) => accmulator + currentValue, 0);
     return yuri.toFixed(2);
@@ -41,6 +42,7 @@ class Header extends Component {
 Header.propTypes = {
   infoHeaderEmail: PropTypes.string.isRequired,
   moeda: PropTypes.string,
+  despesaTotal: PropTypes.arrayOf().isRequired,
 };
 
 Header.defaultProps = {

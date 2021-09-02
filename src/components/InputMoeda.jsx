@@ -34,7 +34,7 @@ class InputMoeda extends Component {
 InputMoeda.propTypes = {
   onChange: PropTypes.func.isRequired,
   moeda: PropTypes.string.isRequired,
-  // tokens: PropTypes.objectOf(PropTypes.shape()).isRequired,
+  tokens: PropTypes.objectOf(PropTypes.shape()).isRequired,
 };
 
 export default InputMoeda;

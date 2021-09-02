@@ -29,6 +29,14 @@ class InputButton extends Component {
     );
   }
 }
+
+InputButton.propTypes = {
+  state: PropTypes.objectOf().isRequired,
+  sendSpences: PropTypes.func.isRequired,
+  contadorClick: PropTypes.func.isRequired,
+  fazOFetch: PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => ({
   sendSpences: (payload) => dispatch(enviaSpences(payload)),
   fazOFetch: (state) => dispatch(fetchExpenses(state)),
