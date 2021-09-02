@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { actionDeletePurchaseItems } from '../actions';
+import { actionDeletePurchaseItems, actionUpadateMode } from '../actions';
 
 class ExpanseTable extends Component {
   constructor() {
@@ -13,6 +13,12 @@ class ExpanseTable extends Component {
     const { expenses, deletePurchase } = this.props;
     const newList = expenses.filter((a) => a.id !== id);
     deletePurchase(newList);
+  }
+
+  updateMode(id) {
+    const { updateMode } = this.props;
+    document.getElementById('valor').value = '';
+    updateMode(id);
   }
 
   render() {
@@ -37,6 +43,12 @@ class ExpanseTable extends Component {
         <td>Real</td>
         <td>
           <input
+            data-testid="edit-btn"
+            type="button"
+            value="editar"
+            onClick={ () => this.updateMode(id) }
+          />
+          <input
             data-testid="delete-btn"
             type="button"
             value="excluir"
@@ -60,6 +72,7 @@ ExpanseTable.propTypes = {
   }).isRequired,
   expenses: PropTypes.arrayOf(PropTypes.string).isRequired,
   deletePurchase: PropTypes.func.isRequired,
+  updateMode: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ wallet: { expenses } }) => ({
@@ -68,6 +81,7 @@ const mapStateToProps = ({ wallet: { expenses } }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   deletePurchase: (newList) => dispatch(actionDeletePurchaseItems(newList)),
+  updateMode: (id) => dispatch(actionUpadateMode(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpanseTable);

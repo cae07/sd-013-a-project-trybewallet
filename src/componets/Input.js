@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Input extends React.Component {
-  render() {
+  renderInput() {
     const { name, type, onChange, id } = this.props;
-    return (
+
+    const AddInput = (
       <label htmlFor={ name }>
         {name}
         <input
@@ -15,6 +16,12 @@ class Input extends React.Component {
         />
       </label>
     );
+
+    return AddInput;
+  }
+
+  render() {
+    return this.renderInput();
   }
 }
 

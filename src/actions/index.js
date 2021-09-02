@@ -4,6 +4,8 @@ import {
   GET_CURRENTEXCHANGE_SUCCESS,
   GET_CURRENTEXCHANGE_FAIL,
   DELETE_ITEMS,
+  UPDATE_ITEMS_MODE,
+  UPDATE_ITEMS,
 } from './actionTypes';
 
 export const actionUserInfo = (email) => ({
@@ -39,3 +41,13 @@ export const fetchCurrentExchange = (info) => (dispatch) => getApi()
     (data) => dispatch(actionGetCurrentExchangeSuccess(data, info)),
     (error) => dispatch(actionGetCurrentExchangeFail(error)),
   );
+
+export const actionUpadateMode = (id) => ({
+  type: UPDATE_ITEMS_MODE,
+  id,
+});
+
+export const actionUpadatePurchase = (payload) => ({
+  type: UPDATE_ITEMS,
+  payload,
+});
