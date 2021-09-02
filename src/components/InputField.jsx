@@ -1,22 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { setPrefix, nextID } from 'react-id-generator';
-
+import nextId, { setPrefix } from "react-id-generator";
 class InputField extends React.Component {
+  constructor(props) {
+    super(props);
+    this.htmlID = this.htmlID.bind(this);
+  }
+
   htmlID() {
     const { name } = this.props;
     setPrefix(name);
-    const id = nextID();
+    const id = nextId();
     return id;
   }
 
   render() {
     const { name, testid, type, placeholder, onChange, value } = this.props;
+    const id = this.htmlID();
     return (
-      <label htmlFor={ this.htmlID }>
+      <label htmlFor={ id }>
         { name }
         <input
-          id={ this.htmlID }
+          id={ id }
           name={ name }
           data-testid={ testid }
           type={ type }
