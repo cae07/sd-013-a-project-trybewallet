@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../css/table.css';
 
 class HeaderTable extends Component {
   render() {

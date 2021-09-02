@@ -8,6 +8,7 @@ import InputValor from './InputValor';
 import { fetchName } from '../actions/walletActions';
 import InputDescricao from './InputDescricao';
 import InputButton from './InputButton';
+import '../css/form.css';
 
 class Form extends Component {
   constructor() {
@@ -47,7 +48,7 @@ class Form extends Component {
     const { listTokens, enviaSpence, tokens } = this.props;
     const { value, method, tag, currency, description } = this.state;
     return (
-      <div>
+      <div className="container-form">
         <form>
           <InputValor
             onChange={ this.HandleOnChange }

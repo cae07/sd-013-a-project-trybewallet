@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import clickEnter from '../actions/userActions';
+import '../css/login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -46,41 +47,48 @@ class Login extends React.Component {
     const { email, senha } = this.state;
     const { disabled } = this.state;
     return (
-      <form>
-        <label
-          htmlFor="email-input"
-        >
-          Email
-          <input
-            data-testid="email-input"
-            type="email"
-            id="email-input"
-            name="email"
-            value={ email }
-            onChange={ this.HandleOnChange }
-          />
-        </label>
-        <label
-          htmlFor="password-input"
-        >
-          Senha
-          <input
-            data-testid="password-input"
-            id="password-input"
-            name="senha"
-            onChange={ this.HandleOnChange }
-            type="password"
-            value={ senha }
-          />
-        </label>
-        <button
-          type="button"
-          disabled={ disabled }
-          onClick={ this.onClick }
-        >
-          Entrar
-        </button>
-      </form>
+      <div className="container-login">
+        <form className="form-login">
+          <div className="info-login">
+            <label
+              htmlFor="email-input"
+            >
+              Email :
+              <input
+                data-testid="email-input"
+                type="email"
+                id="email-input"
+                name="email"
+                value={ email }
+                onChange={ this.HandleOnChange }
+                placeholder=" digite seu email..."
+              />
+            </label>
+            <label
+              htmlFor="password-input"
+            >
+              Senha :
+              <input
+                data-testid="password-input"
+                id="password-input"
+                name="senha"
+                onChange={ this.HandleOnChange }
+                type="password"
+                value={ senha }
+                placeholder=" digite sua senha..."
+              />
+            </label>
+          </div>
+          <button
+            className="button-login"
+            type="button"
+            disabled={ disabled }
+            onClick={ this.onClick }
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
     );
   }
 }

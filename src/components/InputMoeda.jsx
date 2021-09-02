@@ -6,7 +6,7 @@ class InputMoeda extends Component {
     const { onChange, moeda, tokens } = this.props;
     const keys = Object.keys(tokens);
     return (
-      <div>
+      <div className="input-form">
         <label
           htmlFor="input-moeda"
         >

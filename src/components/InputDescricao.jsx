@@ -5,15 +5,16 @@ class InputDescricao extends Component {
   render() {
     const { onChange, descricao } = this.props;
     return (
-      <div>
+      <div className="input-form">
         <label htmlFor="input-descricao">
-          Descrição
+          Descrição :
           <input
             type="text"
             onChange={ onChange }
             value={ descricao }
             id="input-descricao"
             name="description"
+            placeholder="  gastou com o que?😬"
           />
         </label>
       </div>

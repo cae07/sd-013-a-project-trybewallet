@@ -1,0 +1,25 @@
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: #036b52;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  margin-top: 0px;
+}
+
+.container-header p {
+  font-style: italic;
+  font-size: 20px;
+  margin-right: 50px;
+}
+
+.container-header h1 {
+  font-style: italic;
+  font-size: 22px;
+}
+.apagar {
+  display: none;
+}
+

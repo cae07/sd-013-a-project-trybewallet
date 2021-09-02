@@ -18,7 +18,7 @@ class InputButton extends Component {
 
   render() {
     return (
-      <div>
+      <div className="input-form button">
         <button
           type="button"
           onClick={ this.onClick }

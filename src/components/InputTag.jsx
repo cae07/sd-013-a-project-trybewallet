@@ -5,11 +5,11 @@ class InputTag extends Component {
   render() {
     const { tag, onChange } = this.props;
     return (
-      <div>
+      <div className="input-form tag">
         <label
           htmlFor="tag"
         >
-          Tag
+          Tag :
           <select name="tag" value={ tag } onChange={ onChange } id="tag">
             <option value="Alimentacao">Alimentação</option>
             <option value="Lazer">Lazer</option>

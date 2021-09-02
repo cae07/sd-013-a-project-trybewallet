@@ -1,0 +1,61 @@
+* {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+.container-table {
+  background-color: #036b52;
+  display: flex;
+  justify-content: center;
+  width: 1400px;
+  box-shadow: 0px 10px 10px rgb(115, 109, 119) ;
+  margin: 0 auto;
+  border-radius: 5px;
+}
+
+.table-header {
+  color: aliceblue;
+  height: 45px;
+}
+
+th {
+  padding: 20px;
+  font-size: 20px;
+  width: 225px;
+}
+
+td {
+  width: 210px;
+  height: 30px;
+  padding: 5px;
+  color: aliceblue;
+  text-align: center;
+}
+
+.table-boddy {
+  
+}
+
+table {
+  padding-bottom: 25px;
+}
+
+.divisor {
+  color: aliceblue;
+  border: 2px solid black;
+  width: 1395px;
+  position: absolute;
+  background-color: rgb(0, 0, 0);
+}
+
+.bttn-remove {
+  width: 70px;
+  font-size: 30px;
+  background-color: #036b52;
+}
+
+.valor {
+  color: rgb(63, 1, 1);
+  font-weight: 700;
+}
