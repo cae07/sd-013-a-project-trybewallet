@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { fetchAwsome, getCurrencies } from '../actions';
 
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = { };
+    this.state = {
+    };
+  }
+
+  componentDidMount() {
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
   }
 
   render() {
-    const { email } = this.props;
-
-    const valorTotal = (Math.round(acumulado * 100) / 100).toFiexed(2);
+    const { email, totalAmount } = this.props;
 
     return (
       <header className="mainHeader">
@@ -19,7 +24,7 @@ class Header extends Component {
         <div>
           <span data-testid="total-field">
             Despesa total: R$
-            { valorTotal }
+            { parseFloat(totalAmount).toFixed(2) }
           </span>
           <span data-testid="header-currency-field">
             BRL
@@ -36,10 +41,20 @@ class Header extends Component {
 
 Header.propTypes = {
   email: PropTypes.string,
+  fetchCurrencies: PropTypes.func,
 }.isRequired;
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  totalAmount: state.wallet.expenses
+    .reduce((
+      accumulator,
+      { value, currency, exchangeRates },
+    ) => accumulator + (parseFloat(exchangeRates[currency].ask) * value), 0),
 });
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrencies: () => dispatch(fetchAwsome(getCurrencies)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

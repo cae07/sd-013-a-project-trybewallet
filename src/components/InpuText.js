@@ -16,10 +16,12 @@ class InputText extends Component {
       value,
       testid,
       onChange,
+      label,
     } = this.props;
 
     return (
       <label htmlFor={ id }>
+        {label}
         <input
           id={ id }
           name={ name }
@@ -42,6 +44,7 @@ InputText.propTypes = {
   testid: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  label: PropTypes.string,
 }.isRequired;
 
 export default InputText;
