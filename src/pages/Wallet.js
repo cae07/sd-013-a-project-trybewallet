@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './wallet.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { InputWallet, SelectCoin, Payment, Header, 
+import { InputWallet, SelectCoin, Payment, Header,
   TagSelect, WalletTable } from '../components';
 import { fetchAPI, setExpense } from '../actions';
 
