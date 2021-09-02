@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 class Header extends React.Component {
   constructor(props) {
     super(props);
+
     const { state: { email } } = this.props;
-    const { total: { total } } = this.props;
+    const { total: { total = 0 } } = this.props;
     this.state = {
       emailWallet: email,
       priceTotal: total,

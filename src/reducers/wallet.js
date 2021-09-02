@@ -3,7 +3,7 @@ import { GET_API, GET_DESPENSES } from '../actions/actionTypes';
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  total: 0,
+  total: 187.12,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
