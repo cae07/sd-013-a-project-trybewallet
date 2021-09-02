@@ -39,7 +39,6 @@ class Form extends Component {
     });
   }
 
-  // Código copiado do Gabriel Gaspar;
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
@@ -58,6 +57,10 @@ class Form extends Component {
     const fetchExpenses = await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((data) => data);
+    Object.values(fetchExpenses).forEach((cur) => {
+      const newName = cur.name.split('/');
+      [cur.name] = newName;
+    });
     const currentWalletState = {
       id,
       value,
