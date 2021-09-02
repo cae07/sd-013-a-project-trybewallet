@@ -11,12 +11,12 @@ class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: 0,
+      id: -1,
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Cartão de crédito',
+      tag: 'Alimentação',
       exchangeRates: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -33,18 +33,20 @@ class Wallet extends React.Component {
 
   handleChange(event) {
     const { target: { name, value } } = event;
-    const { moedas } = this.props;
     this.setState({
       [name]: value,
-      exchangeRates: [moedas],
     });
   }
 
-  handleClick(event) {
+  async handleClick(event) {
     event.preventDefault();
     const { dispatchExpenses } = this.props;
     let { id } = this.state;
     this.setState(({ id: id += 1 }));
+    const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await fetchApi.json();
+    delete response.USDT;
+    this.setState({ exchangeRates: response });
     dispatchExpenses(this.state);
   }
 
@@ -70,7 +72,6 @@ class Wallet extends React.Component {
               onChange={ this.handleChange }
               value={ method }
             >
-              <option value="">Escolha uma opção</option>
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
               <option value="Cartão de débito">Cartão de débito</option>
@@ -84,7 +85,6 @@ class Wallet extends React.Component {
               onChange={ this.handleChange }
               value={ tag }
             >
-              <option value="">Escolha uma opção</option>
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
               <option value="Trabalho">Trabalho</option>

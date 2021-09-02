@@ -13,7 +13,6 @@ class FormCurrency extends React.Component {
           onChange={ handleChange }
           value={ value }
         >
-          <option value="">Escolha uma opção</option>
           {Object.values(moedas)
             .map(
               ({ code }) => <option key={ code } value={ code }>{ code }</option>,

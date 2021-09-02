@@ -9,7 +9,9 @@ class Header extends React.Component {
       .reduce(
         (
           acc, { value, exchangeRates, currency },
-        ) => acc + (parseFloat(value) * parseFloat(exchangeRates[0][currency].ask)), 0,
+        ) => acc + (
+          parseFloat(value) * parseFloat(exchangeRates[currency].ask)
+        ), 0,
       );
   }
 
@@ -20,9 +22,10 @@ class Header extends React.Component {
         <span data-testid="email-field">
           { email }
         </span>
-        <span> - Despesas Total: R$ </span>
-        <span data-testid="total-field">
-          { this.convertValues() }
+        <span
+          data-testid="total-field"
+        >
+          { `Despesa total: R$${this.convertValues().toFixed(2)}` }
         </span>
         <span data-testid="header-currency-field"> BRL</span>
       </header>
