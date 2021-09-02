@@ -11,6 +11,9 @@ class Wallet extends React.Component {
       editing: false,
       id: '',
     };
+
+    this.onSubmit = this.onSubmit.bind(this);
+    this.handleEdition = this.handleEdition.bind(this);
   }
 
   onSubmit() {
@@ -32,8 +35,8 @@ class Wallet extends React.Component {
     return (
       <>
         <Header />
-        {editing ? <EditPayment onClick={ this.onSubmit } id={ id } /> : <AddPayment />}
-        <PaymenTable editing={ this.handleEdition } />
+        {editing ? <EditPayment onSubmit={ this.onSubmit } id={ id } /> : <AddPayment />}
+        <PaymenTable handleEdition={ this.handleEdition } />
       </>
     );
   }

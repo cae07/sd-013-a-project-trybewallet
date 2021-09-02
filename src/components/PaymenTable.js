@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import tableHeaders from './helpers/tableHeaders';
 import TableBody from './TableBody';
 
 class ExpensesTable extends Component {
   render() {
+    const { handleEdition } = this.props;
     return (
       <table>
         <thead>
@@ -12,11 +14,15 @@ class ExpensesTable extends Component {
           </tr>
         </thead>
         <tbody>
-          <TableBody />
+          <TableBody handleEdition={ handleEdition } />
         </tbody>
       </table>
     );
   }
 }
+
+ExpensesTable.propTypes = {
+  handleEdition: PropTypes.func,
+}.isRequired;
 
 export default ExpensesTable;
