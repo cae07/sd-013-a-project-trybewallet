@@ -1,23 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import { loginAction } from '../actions';
 
 class Login extends React.Component {
-  constructor(props) {
-    super (props);
-    this.state ={
+  constructor() {
+    super();
+    this.state = {
       email: '',
       password: '',
       disableButton: true,
       redirectToWallet: false,
-    }
+    };
     this.onClick = this.onClick.bind(this);
     this.activateButton = this.activateButton.bind(this);
     this.onChange = this.onChange.bind(this);
   }
-  
+
   onClick() {
     const { email } = this.state;
     const { userLogin } = this.props;
-    this.setState({ redirectToCarteira: true });
+    this.setState({ redirectToWallet: true });
     userLogin(email);
   }
 
@@ -47,36 +51,46 @@ class Login extends React.Component {
   }
 
   render() {
-    const { disableButton } = this.state
+    const { disableButton, redirectToWallet } = this.state;
     return (
       <div>
         <input
-            id="email"
-            onChange={ this.onChange }
-            data-testid="email-input"
-            type="email"
-            placeholder="Email"
-            required
-          />
-          <input
-            id="senha"
-            onChange={ this.onChange }
-            minLength="5"
-            data-testid="password-input"
-            type="password"
-            placeholder="senha"
-            required
-          />
+          id="email"
+          onChange={ this.onChange }
+          data-testid="email-input"
+          type="email"
+          placeholder="Email"
+          required
+        />
+        <input
+          id="senha"
+          onChange={ this.onChange }
+          minLength="5"
+          data-testid="password-input"
+          type="password"
+          placeholder="senha"
+          required
+        />
+        <div>
           <button
-              onClick={ this.onclick }
-              disabled={ disableButton }
-              type="button"
-            >
-              Entrar
-            </button>
+            onClick={ this.onClick }
+            disabled={ disableButton }
+            type="button"
+          >
+            Entrar
+          </button>
+        </div>
+        { redirectToWallet ? <Redirect to="/carteira" /> : '' }
       </div>
-    )
+    );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (payload) => dispatch(loginAction(payload)),
+});
+export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  userLogin: PropTypes.func.isRequired,
+};
