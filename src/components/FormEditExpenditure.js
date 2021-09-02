@@ -17,6 +17,7 @@ class FormEditExpenditure extends React.Component {
       method: '',
       tag: '',
       currency: '',
+      exchangeRates: '',
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
@@ -33,7 +34,7 @@ class FormEditExpenditure extends React.Component {
 
   onSubmitForm(event) {
     event.preventDefault();
-    const { value, description, tag, method, currency } = this.state;
+    const { value, description, tag, method, currency, exchangeRates } = this.state;
     const { id, handleSubmitUpate, totalDidUpdate } = this.props;
 
     if (!value || !description) {
@@ -59,6 +60,7 @@ class FormEditExpenditure extends React.Component {
       currency,
       method,
       tag,
+      exchangeRates,
     };
 
     handleSubmitUpate(data);
@@ -69,13 +71,14 @@ class FormEditExpenditure extends React.Component {
   updateState() {
     const { list, expense, id } = this.props;
     const test = expense.find((exp) => exp.id === id);
-    const { value, currency, method, tag, description } = test;
+    const { value, currency, method, tag, description, exchangeRates } = test;
     this.setState({
       value,
       description,
       currency,
       tag,
       method,
+      exchangeRates,
     });
   }
 
@@ -89,7 +92,6 @@ class FormEditExpenditure extends React.Component {
     const { list } = this.props;
     return (
       <div>
-        EDITAR
         <form onSubmit={ this.onSubmitForm }>
           <Input
             label="Valor: "
@@ -126,7 +128,7 @@ class FormEditExpenditure extends React.Component {
             value={ description }
             name="description"
           />
-          <input type="submit" value="Adicionar Despesa" />
+          <button data-testid="edit-btn" type="submit" value="Adicionar Despesa" />
         </form>
       </div>
     );

@@ -10,6 +10,7 @@ const INITIAL_STATE = {
 
 const editExpense = ({ expenses }, payload) => {
   const index = expenses.findIndex((exp) => exp.id === payload.id);
+  console.log(index);
   expenses[index] = payload;
   return expenses;
 };

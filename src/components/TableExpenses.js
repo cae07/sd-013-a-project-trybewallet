@@ -27,7 +27,7 @@ class TableExpenses extends React.Component {
                 type="button"
                 data-testid="edit-btn"
                 className="btn btn-small btn-primary mr-3"
-                value="Editar"
+                value="Editar despesa"
                 // disabled={ status }
                 onClick={ () => editExp(status.status, id) }
               />
@@ -96,4 +96,7 @@ TableExpenses.propTypes = {
   })).isRequired,
 };
 
+TableExpenses.defaultProps = {
+  status: false,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(TableExpenses);
