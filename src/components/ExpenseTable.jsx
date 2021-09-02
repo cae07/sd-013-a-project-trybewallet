@@ -6,6 +6,8 @@ class ExpenseTable extends React.Component {
   constructor() {
     super();
     this.renderRows = this.renderRows.bind(this);
+    this.fncDelete = this.fncDelete.bind(this);
+    this.fncEdit = this.fncEdit.bind(this);
   }
 
   fncDelete() {}
@@ -34,7 +36,13 @@ class ExpenseTable extends React.Component {
           <td>Real</td>
           <td>
             <button type="button" onClick={ this.fncEdit }>Editar</button>
-            <button type="button" onClick={ this.fncDelete }>Excluir</button>
+            <button
+              type="button"
+              data-testid="delete-btn"
+              onClick={ this.fncDelete }
+            >
+              Excluir
+            </button>
           </td>
         </tr>
       );
