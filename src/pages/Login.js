@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { signIn } from '../actions';
+import '../style/Login.css';
+import '../style/Button.css';
 
 function validateEmail(email) {
   const re = /\S+@\S+\.\S+/;
@@ -55,25 +57,32 @@ class Login extends React.Component {
   render() {
     const { disabledButton } = this.state;
     return (
-      <div>
-        <form>
-          <label htmlFor="email">
-            <input
-              data-testid="email-input"
-              name="email"
-              type="email"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="email">
-            <input
-              data-testid="password-input"
-              name="password"
-              type="password"
-              onChange={ this.handleChange }
-            />
-          </label>
+      <div className="login-container">
+        <form className="login-form" autoComplete="off">
+          <h1>WALLET</h1>
+          <img src="https://i.imgur.com/K5eEoXI.png" alt="wallet logo" />
+          <div className="login-input-container">
+            <label className="labe-email" htmlFor="email">
+              <input
+                data-testid="email-input"
+                name="email"
+                type="email"
+                placeholder="Type your email"
+                onChange={ this.handleChange }
+              />
+            </label>
+            <label htmlFor="password">
+              <input
+                data-testid="password-input"
+                name="password"
+                type="password"
+                placeholder="Type your password"
+                onChange={ this.handleChange }
+              />
+            </label>
+          </div>
           <button
+            className="btn-login"
             disabled={ disabledButton }
             type="submit"
             onClick={ this.submitLogin }
