@@ -61,7 +61,7 @@ class Login extends React.Component {
           <Button
             name="Entrar"
             onHandleClick={ this.handleClick }
-            disable={ disabled }
+            disabled={ disabled }
           />
         </fieldset>
       </form>

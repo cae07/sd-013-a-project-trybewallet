@@ -9,11 +9,11 @@ class FormWallet extends Component {
     super(props);
     this.state = {
       id: 0,
-      value: 0,
+      value: '',
       description: '',
-      currency: '',
-      payment: '',
-      categorie: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -38,8 +38,8 @@ class FormWallet extends Component {
   }
 
   render() {
-    const payment = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-    const tag = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
+    const methodOptions = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
+    const tagOptions = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     const { currencies } = this.props;
     return (
       <form>
@@ -66,18 +66,18 @@ class FormWallet extends Component {
             options={ currencies }
           />
           <Select
-            name="payment"
+            name="method"
             page="wallet"
             label="Método de pagamento"
             onHandleChange={ this.handleChange }
-            options={ payment }
+            options={ methodOptions }
           />
           <Select
-            name="categorie"
+            name="tag"
             page="wallet"
             label="Tag"
             onHandleChange={ this.handleChange }
-            options={ tag }
+            options={ tagOptions }
           />
           <Button name="Adicionar despesa" onHandleClick={ this.handleClick } />
         </fieldset>
