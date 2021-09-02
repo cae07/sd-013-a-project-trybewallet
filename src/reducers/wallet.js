@@ -3,6 +3,7 @@ import {
   GET_CURRENCIES,
   ADD_EXPENSE,
   UPDATE_TOTAL,
+  DELETE_EXPENSE,
 } from '../actions';
 
 import sumExpenses from '../helpers/sumExpenses';
@@ -32,6 +33,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     };
   case UPDATE_TOTAL:
     return { ...state, total: sumExpenses(state) };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((exp) => exp.id !== action.payload),
+    };
   default:
     return state;
   }
