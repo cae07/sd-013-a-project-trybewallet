@@ -25,7 +25,7 @@ class Wallet extends Component {
     const { getAPI, expenses } = this.props;
     getAPI();
     const { currencies } = this.props;
-    const value = document.querySelector('#valor').value;
+    const { value } = document.querySelector('#valor');
     const description = document.querySelector('#descricao').value;
     const currency = document.querySelector('#currency').value;
     const method = document.querySelector('#payment').value;
