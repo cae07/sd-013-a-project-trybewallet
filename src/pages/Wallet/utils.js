@@ -3,6 +3,7 @@ export const paymentMethods = [
   { value: 'credit', label: 'Cartão de crédito' },
   { value: 'debit', label: 'Cartão de débito' },
 ];
+
 export const tags = [
   { value: 'food', label: 'Alimentação' },
   { value: 'leisure', label: 'Lazer' },
@@ -20,3 +21,9 @@ export const makeSumExpenses = (expenses) => expenses
     acc += (Number(value) * Number(exchangeRates[currency].ask));
     return acc;
   }, 0);
+
+export const makeSumExpense = ({
+  value,
+  currency,
+  exchangeRates,
+}) => (Number(value) * Number(exchangeRates[currency].ask)).toFixed(2);

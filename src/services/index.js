@@ -1,6 +1,6 @@
-const ECONOMIA_API = 'https://economia.awesomeapi.com.br';
-
-export const getCoins = () => fetch(`${ECONOMIA_API}/json/all`)
+// const URL = 'https://economia.awesomeapi.com.br/json/all';
+const URL = 'http://localhost:4003/coins';
+export const getCoins = () => fetch(URL)
   .then((response) => (
     response
       .json()

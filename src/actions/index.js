@@ -55,13 +55,10 @@ export const fetchExchangeRatesWithUserInfo = (userForm) => (dispatch) => {
   return getCoin()
     .then(
       (data) => {
-        const filteredCoins = Object
-          .entries(data)
-          .filter((coin) => coin !== 'USDT');
         const userInfo = {
           ...userForm,
           exchangeRates: {
-            ...Object.fromEntries(filteredCoins),
+            ...data,
           },
         };
         return dispatch(sendExpenses(userInfo));

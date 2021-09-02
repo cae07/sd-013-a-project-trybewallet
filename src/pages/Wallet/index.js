@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { fetchCoins, fetchExchangeRatesWithUserInfo } from '../../actions';
 import { Input, Select } from '../../components';
 import style from './style.module.css';
-import { coinsSelect, makeSumExpenses, paymentMethods, tags } from './utils';
+import { coinsSelect,
+  makeSumExpense, makeSumExpenses, paymentMethods, tags } from './utils';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -14,8 +15,8 @@ class Wallet extends React.Component {
       description: '',
       value: 0,
       currency: 'USD',
-      method: null,
-      tag: null,
+      method: '',
+      tag: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,15 +44,7 @@ class Wallet extends React.Component {
     const { sendUserExpenses } = this.props;
     const { id, description, value, currency, method, tag } = this.state;
     e.preventDefault();
-    const expense = {
-      id,
-      value,
-      description,
-      currency,
-      method,
-      tag,
-    };
-    sendUserExpenses(expense);
+    sendUserExpenses(({ id, value, description, currency, method, tag }));
     this.setState((prevState) => ({
       id: prevState.id + 1,
     }));
@@ -108,7 +101,54 @@ class Wallet extends React.Component {
   }
 
   renderExpenses() {
+    const { expenses } = this.props;
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Tag</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        {/*         <tfoot>
+          <tr>
+            <td>Footer content 1</td>
+            <td>Footer content 2</td>
+          </tr>
+        </tfoot> */}
+        <tbody>
+          {expenses.map((expense) => {
+            const {
+              id, value, description, currency, exchangeRates, method, tag,
+            } = expense;
+            return (
+              <tr key={ id }>
+                <td>{description}</td>
+                <td>{tag}</td>
+                <td>{method}</td>
+                <td>{Number(value)}</td>
+                <td>{exchangeRates[currency].name}</td>
+                <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
+                <td>{makeSumExpense(expense)}</td>
+                <td>Real</td>
+                <td>
+                  <button type="button" data-testid="edit-btn">Editar</button>
+                  <button type="button" data-testid="delete-btn">Deletar</button>
+                </td>
+              </tr>
+            );
+          })}
 
+        </tbody>
+      </table>
+    );
   }
 
   render() {
@@ -116,7 +156,12 @@ class Wallet extends React.Component {
       <main className={ style.main }>
         {this.renderHeader()}
         <section>
-          {this.renderForm()}
+          <article>
+            {this.renderForm()}
+          </article>
+          <article>
+            {this.renderExpenses()}
+          </article>
         </section>
       </main>
     );
