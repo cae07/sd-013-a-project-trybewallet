@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deleteItem } from '../actions';
-import PropTypes from 'prop-types';
 
 class WalletTable extends Component {
   constructor() {
@@ -43,9 +43,10 @@ class WalletTable extends Component {
             <td>{(each.exchangeRates[each.currency].ask * each.value).toFixed(2)}</td>
             <td>Real</td>
             <td>
-              <button>Editar</button>
+              <button type="submit">Editar</button>
               <button data-testid="delete-btn"
-              onClick={ () => this.handleClick(each.id)}
+                type="submit"
+                onClick={ () => this.handleClick(each.id) }
               >
                 Excluir
               </button>
