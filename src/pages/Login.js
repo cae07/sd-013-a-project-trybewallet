@@ -11,52 +11,90 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      inputEmail: '',
-      inputPassword: '',
+      email: '',
+      password: '',
       buttonDisabled: true,
       login: false,
+      validEmail: false,
+      validPassword: false,
     };
-    this.emailChange = this.emailChange.bind(this);
-    this.passwordChange = this.passwordChange.bind(this);
-    this.checkUsernamePassword = this.checkUsernamePassword.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.checkPassword = this.checkPassword.bind(this);
+    this.checkUser = this.checkUser.bind(this);
+    // this.passwordChange = this.passwordChange.bind(this);
+    // this.checkUsernamePassword = this.checkUsernamePassword.bind(this);
     this.entrarOnClick = this.entrarOnClick.bind(this);
   }
 
-  emailChange(e) {
-    this.setState({
-      inputEmail: e.target.value,
-    });
-    this.checkUsernamePassword();
-  }
+  // emailChange(e) {
+  //   this.setState({
+  //     inputEmail: e.target.value,
+  //   });
+  //   this.checkUsernamePassword();
+  // }
 
-  passwordChange(e) {
-    this.setState({
-      inputPassword: e.target.value,
-    });
-    this.checkUsernamePassword();
-  }
+  // passwordChange(e) {
+  //   this.setState({
+  //     inputPassword: e.target.value,
+  //   });
+  //   this.checkUsernamePassword();
+  // }
 
-  checkUsernamePassword() {
-    const PASS_LENGTH = 6;
-    const EMAIL_VALIDATION = /^[\w]+@([\w]+\.)+[\w]{2,4}$/gi;
-    const { inputEmail, inputPassword } = this.state;
-    let buttonDisabled = true;
-
-    if (inputPassword.length >= PASS_LENGTH
-      && inputEmail.match(EMAIL_VALIDATION)
-    ) {
-      buttonDisabled = false;
+  checkUser(value) {
+    const MAIL_REQUIREMENT = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (value.match(MAIL_REQUIREMENT)) {
+      this.setState({ validEmail: true }, () => this.checkLogin());
     }
-    this.setState({
-      buttonDisabled,
-    });
   }
+
+  checkPassword(value) {
+    const PASS_REQUIREMENT = 6;
+    if (value.length >= PASS_REQUIREMENT) {
+      this.setState({ validPassword: true }, () => this.checkLogin());
+    }
+  }
+
+  checkLogin() {
+    const { validEmail, validPassword } = this.state;
+    const checkIfValid = !(validEmail && validPassword);
+    this.setState({ buttonDisabled: checkIfValid });
+  }
+
+  handleChange({ target }) {
+    const { id, value } = target;
+
+    this.setState({ [id]: value });
+
+    if (id === 'email') {
+      this.checkUser(value);
+    }
+
+    if (id === 'password') {
+      this.checkPassword(value);
+    }
+  }
+
+  // checkUsernamePassword() {
+  //   const PASS_LENGTH = 6;
+  //   const EMAIL_VALIDATION = /^[\w]+@([\w]+\.)+[\w]{2,4}$/gi;
+  //   const { inputEmail, inputPassword } = this.state;
+  //   let buttonDisabled = true;
+
+  //   if (inputPassword.length >= PASS_LENGTH
+  //     && inputEmail.match(EMAIL_VALIDATION)
+  //   ) {
+  //     buttonDisabled = false;
+  //   }
+  //   this.setState({
+  //     buttonDisabled,
+  //   });
+  // }
 
   // botao precisa de uma funcao para o Dispatch(action) que altera o store
   entrarOnClick() {
     const { handleLoginEmail } = this.props;
-    const { inputEmail } = this.state;
-    handleLoginEmail(inputEmail);
+    const { email } = this.state;
+    handleLoginEmail(email);
     // this.props.history.push('/carteira')
     this.setState({
       login: true,
@@ -66,18 +104,27 @@ class Login extends React.Component {
 
   render() {
     const { login, buttonDisabled } = this.state;
+    const { email, password } = this.state;
     return (
       <div>
 
         <div>
-          <input data-testid="email-input" type="email" onChange={ this.emailChange } />
+          <input
+            data-testid="email-input"
+            id="email"
+            type="email"
+            value={ email }
+            onChange={ this.handleChange }
+          />
         </div>
 
         <div>
           <input
             data-testid="password-input"
+            id="password"
             type="password"
-            onChange={ this.passwordChange }
+            value={ password }
+            onChange={ this.handleChange }
           />
         </div>
         <div>
