@@ -1,5 +1,6 @@
 import USER_LOGIN,
-{ FAILED_REQUEST, GET_CURRENCY, LOADING_FETCH, GET_EXPENSES } from './actionTypes';
+{ FAILED_REQUEST, GET_CURRENCY,
+  LOADING_FETCH, GET_EXPENSES, TOTAL_SUM } from './actionTypes';
 
 export const actionUser = (payload) => ({
   type: USER_LOGIN,
@@ -25,6 +26,11 @@ const getExpenses = (json, payload, id) => ({
   json,
   payload,
   id,
+});
+
+export const getSum = (payload) => ({
+  type: TOTAL_SUM,
+  payload,
 });
 
 export function fetchCurrencies() {

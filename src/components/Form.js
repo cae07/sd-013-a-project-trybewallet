@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchCurrencies, fetchExpenses } from '../actions';
+import { fetchCurrencies, fetchExpenses, getSum } from '../actions';
 import Select from './Select';
 
 class Form extends Component {
@@ -18,6 +18,7 @@ class Form extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.sumTotal = this.sumTotal.bind(this);
   }
 
   componentDidMount() {
@@ -32,10 +33,21 @@ class Form extends Component {
     });
   }
 
+  sumTotal() {
+    const { expenses } = this.props;
+    console.log(expenses);
+    return expenses.reduce((acc, item) => {
+      const convertValue = item.exchangeRates[item.moeda].ask;
+      acc += item.moeda * convertValue;
+      return acc;
+    }, 0);
+  }
+
   handleClick() {
     const { fetchExp, expenses } = this.props;
     const id = expenses.length;
     fetchExp(this.state, id);
+    this.sumTotal();
   }
 
   render() {
@@ -85,10 +97,13 @@ class Form extends Component {
 const mapDispatchToProps = (dispatch) => ({
   fetchCur: () => dispatch(fetchCurrencies()),
   fetchExp: (payload, id) => dispatch(fetchExpenses(payload, id)),
+  totalSum: (payload) => dispatch(getSum(payload)),
 });
 
 const mapStateToProps = ({ wallet }) => ({
   expenses: wallet.expenses,
+  total: wallet.total,
+  currencies: wallet.currencies,
 });
 
 Form.propTypes = {

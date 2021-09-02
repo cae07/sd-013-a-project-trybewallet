@@ -1,4 +1,5 @@
-import { GET_CURRENCY, LOADING_FETCH, GET_EXPENSES } from '../actions/actionTypes';
+import { GET_CURRENCY, LOADING_FETCH,
+  GET_EXPENSES, TOTAL_SUM } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -27,6 +28,11 @@ const wallet = (state = INITIAL_STATE, { type, json, payload, id }) => {
         ...payload,
         exchangeRates: json,
       }],
+    };
+  case TOTAL_SUM:
+    return {
+      ...state,
+      total: payload,
     };
   default:
     return state;
