@@ -3,6 +3,5 @@ const fetchApi = async () => {
   const result = await data.json();
   return result;
 };
-console.log(fetchApi().then());
 
 export default fetchApi;
