@@ -3,7 +3,7 @@ const INITIAL_STATE_WALLET = {
   expenses: [],
 };
 
-const walletReducer = (state = INITIAL_STATE_WALLET) => {
+const wallet = (state = INITIAL_STATE_WALLET) => {
   switch (action.type) {
   case value:
   default:
@@ -11,4 +11,4 @@ const walletReducer = (state = INITIAL_STATE_WALLET) => {
   }
 };
 
-export default walletReducer;
+export default wallet;
