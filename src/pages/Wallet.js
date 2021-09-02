@@ -26,9 +26,7 @@ class Wallet extends React.Component {
       const request = await fetch('https://economia.awesomeapi.com.br/json/all');
       const quotation = await request.json();
       await delete quotation.USDT;
-      console.log(quotation);
       this.setState({ quotation: Object.values(quotation) });
-      console.log('32', Object.values(quotation));
     } catch (error) {
       console.log(error);
     }
@@ -37,7 +35,7 @@ class Wallet extends React.Component {
   render() {
     const { quotation } = this.state;
     if (!quotation.length) {
-      return <div> waiting ...</div>;
+      return <Header />;
     }
     return (
       <div>

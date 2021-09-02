@@ -6,7 +6,6 @@ class SelectField extends React.Component {
   render() {
     const { name, options, onChange, value } = this.props;
     const id = htmlID(this.props);
-    console.log('Select Linha9', options);
     return (
       <label htmlFor={ id }>
         { name }
