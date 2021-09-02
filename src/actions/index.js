@@ -42,6 +42,7 @@ export const fetchCoin = () => (dispatch) => {
   return actionGetCoins()
     .then(
       (data) => {
+        // ou pode ser usado o comando (delete data.USDT) que delta a chave USDT do data
         const filteredCoins = Object
           .keys(data)
           .filter((coin) => coin !== 'USDT');

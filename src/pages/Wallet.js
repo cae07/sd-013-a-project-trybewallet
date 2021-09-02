@@ -42,10 +42,15 @@ class Wallet extends React.Component {
     const { id, value, description, currency, method, tag } = this.state;
     const { buttonExpenses } = this.props;
     const estado = { id, value, description, currency, method, tag };
-    buttonExpenses(estado);
+
     this.setState({
       id: id + 1,
-    });
+      value: '',
+      description: '',
+      currency: 'BRL',
+      method: '',
+      tag: '',
+    }, () => buttonExpenses(estado));
   }
 
   sumExpenses() {
