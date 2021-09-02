@@ -11,7 +11,7 @@ export const setWallet = (state) => ({
   type: SET_WALLET, state,
 });
 
-export const expenseState = (state) => ({
+export const setExpense = (state) => ({
   type: SET_EXPENSE, state,
 });
 

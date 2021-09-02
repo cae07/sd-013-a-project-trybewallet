@@ -7,8 +7,8 @@ class LoginInput extends Component {
 
     return (
       <div className="login-input">
-        <label htmlFor="login" className="login-label">
-          Login
+        <label htmlFor="login">
+          <p className="login-label">Login</p>
           <input
             type="text"
             id="login"
@@ -17,7 +17,7 @@ class LoginInput extends Component {
             value={ login }
             data-testid="email-input"
             onChange={ func }
-          />
+            />
         </label>
       </div>
     );

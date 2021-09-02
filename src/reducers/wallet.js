@@ -3,7 +3,7 @@ import { SET_WALLET, REQUEST_API, GET_CURRENCY,
 
 const wallets = {
   currencies: [],
-  amount: [],
+  expenses: [],
 };
 
 // Feito com ajuda do Rogério.
@@ -17,7 +17,7 @@ const wallet = (state = wallets, action) => {
   case GET_CURRENCY:
     return { ...state, currencies: [{ ...action.state }] };
   case SET_EXPENSE:
-    return { ...state, amount: [{ ...action.state }] };
+    return { ...state, expenses: [...state.expenses, action.state] };
   case REQUEST_FAIL:
     return { ...state, statues: action.status };
   default:
