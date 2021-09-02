@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { userLoggedIn } from '../actions';
 
 const MINIMAL_PASSWORD_LENGTH = 6;
-/* eslint max-len: ["error", { "ignoreRegExpLiterals": true }] */
-const RE_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const RE_EMAIL = /^[a-z0-9_.-]+@[a-z]+\.[a-z]{2,3}(?:\.[a-z]{2})?$/;
 
 class Login extends React.Component {
   constructor() {
