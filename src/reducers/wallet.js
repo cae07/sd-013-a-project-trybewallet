@@ -1,8 +1,9 @@
-import { GET_API } from '../actions/actionTypes';
+import { GET_API, GET_DESPENSES } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
+  total: 0,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -11,6 +12,12 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       currencies: action.payload,
+    };
+  case GET_DESPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses,
+        { ...action.state, id: state.expenses.length, exchangeRates: state.currencies }],
     };
   default:
     return state;

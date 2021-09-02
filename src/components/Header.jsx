@@ -6,34 +6,32 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     const { state: { email } } = this.props;
+    const { total: { total } } = this.props;
     this.state = {
       emailWallet: email,
-      price: 0,
-      moeda: 'BRL',
+      priceTotal: total,
     };
   }
 
   render() {
-    const { emailWallet, price, moeda } = this.state;
+    const { emailWallet, priceTotal } = this.state;
     return (
       <header>
         <div className="header-icon">Trybe Wallet</div>
         <div>
           <span data-testid="email-field">
-            Email:
+            Login:
             {' '}
             {emailWallet}
           </span>
         </div>
         <div>
           <span data-testid="total-field">
-            Despesas Totais :
-            {' '}
-            {price}
-            {' '}
+            {priceTotal}
           </span>
           <span data-testid="header-currency-field">
-            {moeda}
+            {' '}
+            BRL
           </span>
         </div>
       </header>
@@ -43,6 +41,7 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => ({
   state: { email: state.user.email },
+  total: { total: state.wallet.total },
 });
 
 Header.propTypes = {
