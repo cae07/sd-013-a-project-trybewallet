@@ -42,7 +42,7 @@ class ExpensesTable extends React.Component {
           <td>{description}</td>
           <td>{tag}</td>
           <td>{method}</td>
-          <td>{`${roundNumber(value)}`}</td>
+          <td>{value}</td>
           <td>{name.split('/')[0]}</td>
           <td>{roundNumber(ask)}</td>
           <td>{roundNumber(Number(value) * Number(ask))}</td>
@@ -51,6 +51,7 @@ class ExpensesTable extends React.Component {
             <button
               type="button"
               onClick={ () => this.editExpense(id) }
+              data-testid="edit-btn"
             >
               Editar
             </button>

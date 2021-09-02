@@ -3,9 +3,11 @@ import {
   REQUEST_API_SUCCESSFUL, REQUEST_API,
   REQUEST_API_FAILED, SAVE_CURRENCIES_INFO,
   UPDATE_EXPENSES, SET_EXPENSE_TO_EDIT,
+  EDIT_EXPENSE_SUCCESFUL,
 } from '../actions';
 
 const INITIAL_STATE = {
+  edit: false,
   expenseToEdit: {},
   idNewItem: 0,
   currencies: [],
@@ -48,6 +50,13 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenseToEdit: action.payload,
+      edit: true,
+    };
+  case EDIT_EXPENSE_SUCCESFUL:
+    return {
+      ...state,
+      expenses: action.payload,
+      edit: false,
     };
   default:
     return state;

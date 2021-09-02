@@ -8,6 +8,7 @@ export const REQUEST_API_SUCCESSFUL = 'REQUEST_API_SUCCESSFUL';
 export const REQUEST_API_FAILED = 'REQUEST_API_FAILED';
 export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';
 export const SET_EXPENSE_TO_EDIT = 'SET_EXPENSE_TO_EDIT';
+export const EDIT_EXPENSE_SUCCESFUL = 'EDIT_EXPENSE_SUCCESFUL';
 
 export const saveUserInfo = (payload) => ({
   type: SAVE_USER_INFO,
@@ -39,6 +40,11 @@ export const updateExpenses = (payload) => ({
 
 export const setExpenseToEdit = (payload) => ({
   type: SET_EXPENSE_TO_EDIT,
+  payload,
+});
+
+export const editExpenseSuccessful = (payload) => ({
+  type: EDIT_EXPENSE_SUCCESFUL,
   payload,
 });
 

@@ -6,7 +6,7 @@ import SelectCurrency from './SelectCurrency';
 import SelectInput from './SelectInput';
 import { payMethodOptions, expenseCategoryOptions } from '../data';
 import fetchAPI from '../services/api';
-import { getCotations, saveCurrenciesInfo } from '../actions';
+import { editExpenseSuccessful, saveCurrenciesInfo } from '../actions';
 
 class ExpensesForm extends React.Component {
   constructor(props) {
@@ -26,10 +26,24 @@ class ExpensesForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.fetchCoins = this.fetchCoins.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.getEditExpense = this.getEditExpense.bind(this);
   }
 
   componentDidMount() {
     this.fetchCoins();
+    this.getEditExpense();
+  }
+
+  getEditExpense() {
+    const { editableExpense: { value, description, currency, method, tag } } = this.props;
+
+    this.setState({
+      value,
+      description,
+      currency,
+      paymentMethod: method,
+      expenseCategory: tag,
+    });
   }
 
   async fetchCoins() {
@@ -57,26 +71,27 @@ class ExpensesForm extends React.Component {
     }
   }
 
-  async handleClick() {
+  handleClick() {
     const {
-      value, description, currency,
-      paymentMethod, expenseCategory,
-    } = this.state;
+      editableExpense: { id, exchangeRates }, expenses, updateTheExpenses,
+    } = this.props;
+    const { value, description, currency, paymentMethod, expenseCategory } = this.state;
 
-    const { saveExpensesInRedux, id } = this.props;
-    // const id = expenses.length;
-    console.log(id);
-
-    const payload = {
+    const expensesWithoutEditableExpense = expenses
+      .filter((expense) => expense.id !== id);
+    const editedExpense = {
       id,
       value,
       description,
       currency,
       method: paymentMethod,
       tag: expenseCategory,
+      exchangeRates,
     };
+    const updatedExpenses = [...expensesWithoutEditableExpense, editedExpense]
+      .sort((a, b) => a.id - b.id);
 
-    saveExpensesInRedux(payload);
+    updateTheExpenses(updatedExpenses);
   }
 
   handleChange({ target: { name, value } }) {
@@ -88,7 +103,6 @@ class ExpensesForm extends React.Component {
   render() {
     const { value, description, currency, paymentMethod, expenseCategory,
       currencies, errorFetchCoins, isLoadingCoins } = this.state;
-
     return (
       <section>
         <form action="">
@@ -125,7 +139,12 @@ class ExpensesForm extends React.Component {
             labelValue="Tag"
             changeEvent={ this.handleChange }
           />
-          <button onClick={ this.handleClick } type="button">Adicionar despesa</button>
+          <button
+            onClick={ this.handleClick }
+            type="button"
+          >
+            Editar despesa
+          </button>
         </form>
       </section>
     );
@@ -134,18 +153,27 @@ class ExpensesForm extends React.Component {
 
 ExpensesForm.propTypes = {
   saveCurrenciesInRedux: PropTypes.func.isRequired,
-  saveExpensesInRedux: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
+  updateTheExpenses: PropTypes.func.isRequired,
+  editableExpense: PropTypes.shape({
+    id: PropTypes.number,
+    value: PropTypes.string,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    method: PropTypes.string,
+    tag: PropTypes.string,
+    exchangeRates: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  id: state.wallet.idNewItem,
-  editIsCalled: state.wallet.edit,
+  editableExpense: state.wallet.expenseToEdit,
+  expenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   saveCurrenciesInRedux: (payload) => dispatch(saveCurrenciesInfo(payload)),
-  saveExpensesInRedux: (payload) => dispatch(getCotations(payload)),
+  updateTheExpenses: (payload) => dispatch(editExpenseSuccessful(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesForm);
