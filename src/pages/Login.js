@@ -99,3 +99,4 @@ Login.propTypes = {
 };
 
 export default connect(null, mapDispatchToProps)(Login);
+// feito com ajuda do Rogerio P. da Silva
