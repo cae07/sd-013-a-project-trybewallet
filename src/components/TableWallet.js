@@ -1,18 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { delExpenses } from '../actions';
 
-// expenses: [
-//   {
-//     id: 0,
-//     value: '',
-//     description: '',
-//     currency: 'USD',
-//     method: 'Dinheiro',
-//     tag: 'Alimentação',
-//     exchangeRates: {}
-//   }]
-function TableWallet({ expenses }) {
+function TableWallet({ expenses, deleteExpense }) {
   return (
     <table className="pure-table pure-table-horizontal" width="100%">
       <thead>
@@ -30,7 +21,7 @@ function TableWallet({ expenses }) {
       </thead>
       <tbody>
         {expenses.map((item) => (
-          <tr key={ item.id }>
+          <tr id={ item.id } key={ item.id }>
             <td>{item.description}</td>
             <td>{item.tag}</td>
             <td>{item.method}</td>
@@ -41,7 +32,18 @@ function TableWallet({ expenses }) {
               {(item.exchangeRates[item.currency].ask * item.value).toFixed(2)}
             </td>
             <td>Real</td>
-            <td>Editar/Excluir</td>
+            <td>
+              <button type="button">Editar</button>
+              <button
+                data-testid="delete-btn"
+                id={ item.id }
+                type="button"
+                onClick={ (event) => deleteExpense(Number(event.target.id)) }
+              >
+                Excluir
+
+              </button>
+            </td>
 
           </tr>
         ))}
@@ -54,6 +56,7 @@ function TableWallet({ expenses }) {
 
 TableWallet.propTypes = {
   expenses: PropTypes.arrayOf(),
+  deleteExpense: PropTypes.func.isRequired,
 };
 
 TableWallet.defaultProps = {
@@ -63,4 +66,7 @@ TableWallet.defaultProps = {
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
 });
-export default connect(mapStateToProps)(TableWallet);
+const mapDispatchToProps = (dispatch) => ({
+  deleteExpense: (payload) => dispatch(delExpenses(payload)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(TableWallet);

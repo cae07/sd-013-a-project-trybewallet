@@ -1,7 +1,7 @@
 import {
   SET_WALLET,
   REQUEST_FETCH, RECEIVE_FETCH, FAILL_FETCH,
-  SET_EXPENSE,
+  SET_EXPENSE, DEL_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -21,6 +21,10 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state, status: action.status };
   case SET_EXPENSE:
     return { ...state, expenses: [...state.expenses, action.payload] };
+  case DEL_EXPENSE:
+    return { ...state,
+      expenses: state.expenses
+        .filter((expense) => expense.id !== action.payload) };
   default:
     return state;
   }
