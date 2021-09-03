@@ -1,29 +1,19 @@
 import React from 'react';
-import serviceAPI from '../services';
+// import serviceAPI from '../services';
 
 class ExpensesForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
-      results: [],
       value: 0,
       description: '',
-      coin: '',
+      coin: 'USD',
       payMethod: '',
       tag: '',
     };
-    this.onChange = this.onChange.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-  }
 
-  componentDidMount() {
-    serviceAPI()
-      .then((data) => {
-        this.setState({
-          results: data,
-        });
-        console.log(data);
-      });
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange({ target }) {
@@ -35,9 +25,7 @@ class ExpensesForm extends React.Component {
   }
 
   render() {
-    const { results, value, description, coin, payMethod, tag } = this.state;
-    // const { onChange } = this.state;
-    console.log(results);
+    const { value, description, coin, payMethod, tag } = this.state;
     return (
       <form>
 
@@ -54,8 +42,7 @@ class ExpensesForm extends React.Component {
         <label htmlFor="coin">
           Moeda
           <select id="coin" value={ coin } onChange={ this.onChange }>
-            <option value=""> </option>
-            {/* {results.map(({ r }) => (<option key={ r.code }>{r.code }</option>))} */}
+            <option value={ coin }>{coin}</option>
           </select>
         </label>
 

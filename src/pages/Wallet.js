@@ -3,18 +3,23 @@ import ExpensesForm from './ExpensesForm';
 import Header from './Header';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      results: [],
+    };
+  }
+
   render() {
+    const { results } = this.state;
+    // console.log(results);
     return (
       <div>
         <Header />
-        <ExpensesForm />
+        <ExpensesForm results={ results } />
       </div>
     );
   }
 }
 
 export default Wallet;
-
-// const mapStateToProps = (state) => ({
-//   wallet: state,
-// });

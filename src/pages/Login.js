@@ -26,20 +26,6 @@ class Login extends React.Component {
     this.entrarOnClick = this.entrarOnClick.bind(this);
   }
 
-  // emailChange(e) {
-  //   this.setState({
-  //     inputEmail: e.target.value,
-  //   });
-  //   this.checkUsernamePassword();
-  // }
-
-  // passwordChange(e) {
-  //   this.setState({
-  //     inputPassword: e.target.value,
-  //   });
-  //   this.checkUsernamePassword();
-  // }
-
   checkUser(value) {
     const MAIL_REQUIREMENT = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (value.match(MAIL_REQUIREMENT)) {
