@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formEmail } from '../actions/index';
+import { emailLogin } from '../actions/index';
 
 const validacaoEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/i;
 const NUMBER_SIX = 6;
@@ -86,7 +86,7 @@ Login.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  actionEmail: (email) => dispatch(formEmail(email)),
+  actionEmail: (email) => dispatch(emailLogin(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
