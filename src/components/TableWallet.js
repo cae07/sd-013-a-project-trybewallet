@@ -5,7 +5,7 @@ import { delExpenses } from '../actions';
 
 const editExpenses = (event, expenses) => {
   const { currency, description, method, tag, value } = expenses
-    .find((item) => item.id.toString() === event.target.id);
+    .find((item) => item.id.toString === event.target.id);
 
   document.getElementById('currency').value = currency;
   document.getElementById('description').value = description;
@@ -24,6 +24,7 @@ const tableFrom = (expenses, deleteExpense) => (
       <td>{item.method}</td>
       <td>{item.value}</td>
       <td>{item.exchangeRates[item.currency].name.split('/')[0]}</td>
+      { console.log(item.exchangeRates[item.currency].name)}
       <td>{(item.exchangeRates[item.currency].ask * 1).toFixed(2)}</td>
       <td>
         {(item.exchangeRates[item.currency].ask * item.value).toFixed(2)}

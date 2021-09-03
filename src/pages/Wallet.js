@@ -24,11 +24,19 @@ class Wallet extends React.Component {
     ];
 
     this.addDismissal = this.addDismissal.bind(this);
+    this.defaltSelect = this.defaltSelect.bind(this);
   }
 
   componentDidMount() {
     const { fetchApi } = this.props;
     fetchApi();
+  }
+
+  defaltSelect() {
+    document.getElementById('currency').value = '';
+    document.getElementById('description').value = '';
+    document.getElementById('method').value = 'USD';
+    document.getElementById('add-button').textContent = 'Adicionar despesa';
   }
 
   addDismissal(event) {
@@ -62,6 +70,7 @@ class Wallet extends React.Component {
         tag,
         exchangeRates: currencies,
       });
+      this.defaltSelect();
     }
   }
 
@@ -122,7 +131,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf().isRequired,
   fetchApi: PropTypes.func.isRequired,
   currencies: PropTypes.shape(),
   setExpensess: PropTypes.func.isRequired,
