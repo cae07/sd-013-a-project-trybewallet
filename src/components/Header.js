@@ -7,7 +7,7 @@ function Header({ email, expenses }) {
   // Função que calcular o total.
   const total = expenses.reduce((acc, expense) => {
     const { ask } = expense.exchangeRates[expense.currency];
-    return acc + Number(expense.value * ask);
+    return acc + expense.value * ask;
   }, 0);
 
   return (

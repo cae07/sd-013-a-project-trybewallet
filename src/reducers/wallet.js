@@ -1,7 +1,7 @@
 import {
   SET_WALLET,
   REQUEST_FETCH, RECEIVE_FETCH, FAILL_FETCH,
-  SET_EXPENSE, DEL_EXPENSE,
+  SET_EXPENSE, DEL_EXPENSE, UPDATE_EXENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -25,6 +25,11 @@ const wallet = (state = INITIAL_STATE, action) => {
     return { ...state,
       expenses: state.expenses
         .filter((expense) => expense.id !== action.payload) };
+  case UPDATE_EXENSE:
+    return { ...state,
+      expenses: [
+        ...state.expenses.filter((item) => action.payload.id !== item.id),
+        action.payload].sort((a, b) => a.id - b.id) };
   default:
     return state;
   }

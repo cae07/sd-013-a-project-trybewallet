@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Input, InputSelect, Header, TableWallet } from '../components';
-import { walletFetch, setExpenses } from '../actions';
+import { walletFetch, setExpenses, updateExpenses } from '../actions';
 import './wallet.css';
 
 class Wallet extends React.Component {
@@ -31,26 +31,38 @@ class Wallet extends React.Component {
     fetchApi();
   }
 
-  addDismissal() {
-    const { fetchApi, setExpensess } = this.props;
-    fetchApi();
-    const { currencies } = this.props;
+  addDismissal(event) {
+    const { fetchApi, setExpensess, upExpenses } = this.props;
     const { value } = document.getElementById('value');
     const description = document.getElementById('description').value;
     const currency = document.getElementById('currency').value;
     const method = document.getElementById('method').value;
     const tag = document.getElementById('tag').value;
-
-    setExpensess({
-      id: this.cont,
-      value,
-      description,
-      currency,
-      method,
-      tag,
-      exchangeRates: currencies,
-    });
-    this.cont += 1;
+    if (event.target.textContent === 'Adicionar despesa') {
+      fetchApi();
+      const { currencies } = this.props;
+      setExpensess({
+        id: this.cont,
+        value,
+        description,
+        currency,
+        method,
+        tag,
+        exchangeRates: currencies,
+      });
+      this.cont += 1;
+    } else {
+      const { currencies } = this.props;
+      upExpenses({
+        id: Number(event.target.name),
+        value,
+        description,
+        currency,
+        method,
+        tag,
+        exchangeRates: currencies,
+      });
+    }
   }
 
   render() {
@@ -82,6 +94,7 @@ class Wallet extends React.Component {
               listSelect={ this.listTag }
             />
             <button
+              id="add-button"
               onClick={ this.addDismissal }
               type="button"
               className="button-success pure-button"
@@ -104,13 +117,16 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchApi: () => dispatch(walletFetch()),
   setExpensess: (payload) => dispatch(setExpenses(payload)),
+  upExpenses: (payload) => dispatch(updateExpenses(payload)),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf().isRequired,
   fetchApi: PropTypes.func.isRequired,
   currencies: PropTypes.shape(),
   setExpensess: PropTypes.func.isRequired,
+  upExpenses: PropTypes.func.isRequired,
 };
 Wallet.defaultProps = {
   currencies: {},
