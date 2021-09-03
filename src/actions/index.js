@@ -1,5 +1,5 @@
 // Coloque aqui suas actions
-const INPUT_EMAIL = 'INPUT_EMAIL';
+export const INPUT_EMAIL = 'INPUT_EMAIL';
 export const LOADING_TYPE = 'LOADING_TYPE';
 
 export const inputEmail = (email) => ({
