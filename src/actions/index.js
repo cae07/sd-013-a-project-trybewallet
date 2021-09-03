@@ -1,8 +1,9 @@
 export const SUBMIT_LOGIN = 'SUBMIT_LOGIN';
 export const SUBMIT_WALLET_EXPENSES = 'SUBMIT_WALLET_EXPENSES';
 export const SUBMIT_WALLET_CURRENCIES = 'SUBMIT_WALLET_CURRENCIES';
-export const REQUEST_API = 'REQUEST_API';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const ADD_EDIT_EXPENSE = 'ADD_EDIT_EXPENSE';
 
 export const actionRegisterUser = (payload) => ({
   type: SUBMIT_LOGIN,
@@ -20,19 +21,24 @@ export const actionSetCurrencies = (currencies) => ({
   currencies,
 });
 
-export const requestAPI = () => ({
-  type: REQUEST_API,
-});
-
 export const actionDeleteExpense = (payload) => ({
   type: DELETE_EXPENSE,
+  payload,
+});
+
+export const actionEditExpense = (payload) => ({
+  type: EDIT_EXPENSE,
+  payload,
+});
+
+export const actionAddEditExpense = (payload) => ({
+  type: ADD_EDIT_EXPENSE,
   payload,
 });
 
 export function requestExchange(expense) {
   return async (dispatch) => {
     try {
-      dispatch(requestAPI());
       const response = await (await fetch('https://economia.awesomeapi.com.br/json/all')).json();
       dispatch(actionSetExpenses(expense, response));
     } catch (error) {

@@ -1,13 +1,15 @@
 import {
   SUBMIT_WALLET_EXPENSES,
   SUBMIT_WALLET_CURRENCIES,
-  REQUEST_API,
-  DELETE_EXPENSE } from '../actions';
+  DELETE_EXPENSE,
+  EDIT_EXPENSE,
+  ADD_EDIT_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  loading: false,
+  editId: '',
+  renderFormEdit: false,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -24,15 +26,23 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       currencies: action.currencies,
     };
-  case REQUEST_API:
-    return {
-      ...state,
-      loading: true,
-    };
   case DELETE_EXPENSE:
     return {
       ...state,
       expenses: action.payload,
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      editId: action.payload,
+      renderFormEdit: true,
+    };
+  case ADD_EDIT_EXPENSE:
+    return {
+      ...state,
+      expenses: action.payload,
+      editId: '',
+      renderFormEdit: false,
     };
   default:
     return state;

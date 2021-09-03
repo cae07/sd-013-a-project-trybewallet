@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Inputs, Select, Button } from '.';
+import { Inputs, Select, Button } from '../components';
 import { requestExchange, requestCurrencies } from '../actions';
 
 class FormWallet extends Component {
@@ -46,44 +46,42 @@ class FormWallet extends Component {
 
     return (
       <form>
-        <fieldset>
-          <Inputs
-            name="value"
-            page="wallet"
-            type="number"
-            label="Valor"
-            onHandleChange={ this.handleChange }
-          />
-          <Inputs
-            name="description"
-            page="wallet"
-            type="text"
-            label="Descrição"
-            onHandleChange={ this.handleChange }
-          />
-          <Select
-            name="currency"
-            page="wallet"
-            label="Moeda"
-            onHandleChange={ this.handleChange }
-            options={ currencies }
-          />
-          <Select
-            name="method"
-            page="wallet"
-            label="Método de pagamento"
-            onHandleChange={ this.handleChange }
-            options={ methodOptions }
-          />
-          <Select
-            name="tag"
-            page="wallet"
-            label="Tag"
-            onHandleChange={ this.handleChange }
-            options={ tagOptions }
-          />
-          <Button name="Adicionar despesa" onHandleClick={ this.handleClick } />
-        </fieldset>
+        <Inputs
+          name="value"
+          page="wallet"
+          type="number"
+          label="Valor"
+          onHandleChange={ this.handleChange }
+        />
+        <Inputs
+          name="description"
+          page="wallet"
+          type="text"
+          label="Descrição"
+          onHandleChange={ this.handleChange }
+        />
+        <Select
+          name="currency"
+          page="wallet"
+          label="Moeda"
+          onHandleChange={ this.handleChange }
+          options={ currencies }
+        />
+        <Select
+          name="method"
+          page="wallet"
+          label="Método de pagamento"
+          onHandleChange={ this.handleChange }
+          options={ methodOptions }
+        />
+        <Select
+          name="tag"
+          page="wallet"
+          label="Tag"
+          onHandleChange={ this.handleChange }
+          options={ tagOptions }
+        />
+        <Button name="Adicionar despesa" onHandleClick={ this.handleClick } />
       </form>
     );
   }
