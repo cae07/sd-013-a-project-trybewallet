@@ -24,6 +24,7 @@
 .App-header h2 {
   font-family: monospace;
   font-size: xx-large;
+  text-align: center;
 }
 
 .form-header {
@@ -31,8 +32,8 @@
   background-color: #23375f;
   color: white;
   display: flex;
-  font-size: large;
   flex-direction: row;
+  font-size: large;
   justify-content: center;
 }
 
@@ -64,8 +65,8 @@
   background-color: #1a1f27;
   color: white;
   display: flex;
-  font-size: large;
   flex-direction: row;
+  font-size: large;
   justify-content: space-around;
 }
 
@@ -137,8 +138,4 @@
 
 .vlr {
   width: 70px;
-}
-
-h2 {
-  text-align: center;
 }
