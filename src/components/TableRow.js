@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editMode, removeExpense } from '../actions';
 
-function round2Digits(number) {
+export function round2Digits(number) {
   return Math.round((Number(number) + Number.EPSILON) * 100) / 100;
 }
 
@@ -41,18 +41,20 @@ class TableRow extends Component {
         <td>{ baseCurrency }</td>
         <td>
           <button
+            className="btn-control"
             data-testid="delete-btn"
             type="button"
             onClick={ () => removeRow(id) }
           >
-            x
+            <i className="fas fa-trash-alt" />
           </button>
           <button
+            className="btn-control"
             data-testid="edit-btn"
             type="button"
             onClick={ () => editRow(id) }
           >
-            /
+            <i className="fas fa-pencil-alt" />
           </button>
         </td>
       </tr>

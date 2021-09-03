@@ -1,5 +1,5 @@
 /* centraliza elemento no meio da página */
-body {
+.login-container {
   align-items: center;
   background: linear-gradient(to right, #4B79A1, #283E51);
   display: flex;

@@ -44,13 +44,17 @@ class ExpenseForm extends Component {
   render() {
     const { currencies } = this.props;
     return (
-      <form>
+      <form className="add-edit-form">
         <ValueInput name="value" handleChange={ this.handleChange } />
         <DescriptionInput name="description" handleChange={ this.handleChange } />
         <CurrencyBox currencies={ currencies } handleChange={ this.handleChange } />
         <MethodInput name="method" handleChange={ this.handleChange } />
         <TagInput handleChange={ this.handleChange } />
-        <button type="submit" onClick={ this.handleSubmit }>
+        <button
+          className="btn-add"
+          type="submit"
+          onClick={ this.handleSubmit }
+        >
           Adicionar despesa
         </button>
       </form>

@@ -5,15 +5,19 @@ import ExpenseForm from '../components/ExpenseForm';
 import ExpenseTable from '../components/ExpenseTable';
 import Header from '../components/Header';
 import EditForm from '../components/EditForm';
+import '../style/Table.css';
+import '../style/Header.css';
 
 class Wallet extends React.Component {
   render() {
     const { isEditing } = this.props;
     return (
-      <div>
+      <div className="wallet-container">
         <Header />
-        { isEditing ? <EditForm /> : <ExpenseForm />}
-        <ExpenseTable />
+        <div className="table-container">
+          { isEditing ? <EditForm /> : <ExpenseForm />}
+          <ExpenseTable />
+        </div>
       </div>
     );
   }

@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { round2Digits } from './TableRow';
 
 class Header extends Component {
   render() {
-    const { email, totalExpenses = 0 } = this.props;
+    const { email } = this.props;
+    let { totalExpenses = 0 } = this.props;
+    totalExpenses = round2Digits(totalExpenses).toFixed(2);
+    const magicNumber = 10;
+    if (totalExpenses < magicNumber) {
+      totalExpenses = `0${totalExpenses}`;
+    }
     return (
-      <header>
-        <h6 data-testid="email-field">
-          { email }
-        </h6>
-        <h6 data-testid="total-field">
-          { totalExpenses }
-        </h6>
-        <h6 data-testid="header-currency-field">
-          BRL
-        </h6>
+      <header className="expense-header">
+        <div className="logo">
+          <h1>WALLET</h1>
+          <img src="https://i.imgur.com/K5eEoXI.png" alt="wallet logo" />
+        </div>
+        <div className="info-container">
+          <h6 data-testid="email-field">
+            { email }
+          </h6>
+          <h6 data-testid="total-field">
+            { `Despesa total: R$ ${totalExpenses} ` }
+            <span data-testid="header-currency-field">
+              BRL
+            </span>
+          </h6>
+        </div>
       </header>
     );
   }

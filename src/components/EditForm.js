@@ -58,7 +58,7 @@ class EditForm extends Component {
       return <p>Loading</p>;
     }
     return (
-      <form>
+      <form className="add-edit-form">
         <ValueInput
           name="value"
           handleChange={ this.handleChange }
@@ -83,7 +83,11 @@ class EditForm extends Component {
           handleChange={ this.handleChange }
           value={ tag }
         />
-        <button type="submit" onClick={ this.handleSubmit }>
+        <button
+          className="btn-edit"
+          type="submit"
+          onClick={ this.handleSubmit }
+        >
           Editar despesa
         </button>
       </form>

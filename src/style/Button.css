@@ -27,3 +27,47 @@ button:active {
 button:disabled {
   background: #f0cc9abb;
 }
+
+.btn-control {
+  margin: 5px 0;
+  padding: 0;
+  background: none;
+  font-size: 15px;
+  color: #393939;
+  transition: 0.3s;
+  /* border-radius: 50%; */
+  width: 40px;
+  height: 40px;
+}
+
+.btn-control:hover {
+  background: #30303027;
+  color: #191919;
+}
+
+.btn-edit, .btn-add {
+  margin: 0;
+  padding: 5px;
+  border: none;
+  width: 12%;
+}
+
+.btn-add {
+  background-color: #3c5128;
+  color: #ddd;
+}
+
+.btn-add:hover {
+  background-color: #3f7a3d;
+  color: #fff;
+}
+
+.btn-edit {
+  background-color: #be6317;
+  color: #ddd;
+}
+
+.btn-edit:hover {
+  background-color: #e0761f;
+  color: #fff;
+}

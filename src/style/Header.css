@@ -1,0 +1,25 @@
+.expense-header {
+  width: 100vw;
+  background: #222;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  padding: 5px 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center; 
+}
+
+.logo img {
+  width: 40px;
+}
+
+.info-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 28vw;
+  font-size: 18px;
+}
