@@ -20,6 +20,17 @@ export default class Login extends Component {
     });
   }
 
+  // Requisito 2 - Validar email e senha.
+  validateUserInput(email, password) {
+    const MIN_LENGTH_PASS = 6;
+    const passwordValidate = password.length < MIN_LENGTH_PASS;
+    const emailValidate = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+    if (!(emailValidate && passwordValidate)) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const { email, password } = this.state;
     return (
@@ -48,7 +59,12 @@ export default class Login extends Component {
             value={ password }
           />
         </label>
-        <button type="button">Entrar</button>
+        <button
+          type="button"
+          disabled={ this.validateUserInput(email, !password) }
+        >
+          Entrar
+        </button>
       </fieldset>
     );
   }
