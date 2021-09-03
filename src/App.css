@@ -12,7 +12,6 @@
   color: white;
   display: flex;
   font-size: large;
-  /* flex-direction: column; */
   justify-content: center;
   min-height: 100vh;
 }
