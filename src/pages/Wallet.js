@@ -30,21 +30,34 @@ class Wallet extends React.Component {
     return (
       <div>
         <header className="wallet-header">
-          <p data-testid="header-currency-field">BRL</p>
-          <span data-testid="email-field">{ userEmail }</span>
+          <span data-testid="email-field">
+            Welcome
+            <span> </span>
+            { userEmail }
+            !
+          </span>
           <p data-testid="total-field">
-            Total gasto R$: _
+            Total gasto R$:
+            <span> </span>
             { this.exchangeRatesMath() }
           </p>
+          <p data-testid="header-currency-field">BRL</p>
         </header>
         <Form currencies={ currencies } />
+        <div className="eraLi">
+          <div>VALOR</div>
+          <div>DESCRIÇÃO</div>
+          <div>MOEDA</div>
+          <div>MÉTODO</div>
+          <div>TAG</div>
+        </div>
         <div className="img2">
           {expenses.map((item, index) => (
             <div key={ index } className="eraLi">
-              <div>{item.valor}</div>
-              <div>{item.descrição}</div>
-              <div>{item.moeda}</div>
-              <div>{item.metodoPgt}</div>
+              <div>{item.value}</div>
+              <div>{item.description}</div>
+              <div>{item.currency}</div>
+              <div>{item.method}</div>
               <div>{item.tag}</div>
             </div>
           ))}

@@ -28,7 +28,5 @@ export const expensesAPIThunk = (payload) => async (dispatch) => {
   const url = 'https://economia.awesomeapi.com.br/json/all';
   const response = await fetch(url);
   const responseJSON = await response.json();
-  // const jsonToArray = Object.values(responseJSON);
-  // const withoutBRLT = jsonToArray.filter((item) => item.codein !== 'BRLT');
   dispatch(saveExpenses(payload, responseJSON));
 };

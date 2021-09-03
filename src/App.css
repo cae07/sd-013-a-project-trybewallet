@@ -1,5 +1,5 @@
 .App {
-  background-color: #282c34;
+  background-color: #757c8a;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -11,9 +11,19 @@
   background-color: #282c34;
   color: white;
   display: flex;
-  flex-direction: column;
+  font-size: large;
+  /* flex-direction: column; */
   justify-content: center;
   min-height: 100vh;
+}
+
+.App-header input {
+  font-size: large;
+}
+
+.App-header h2 {
+  font-family: monospace;
+  font-size: xx-large;
 }
 
 .form-header {
@@ -21,8 +31,21 @@
   background-color: #23375f;
   color: white;
   display: flex;
+  font-size: large;
   flex-direction: row;
   justify-content: center;
+}
+
+.form-header input {
+  font-size: large;
+}
+
+.form-header select {
+  font-size: large;
+}
+
+.form-header button {
+  font-size: large;
 }
 
 .form-header fieldset {
@@ -36,24 +59,14 @@
   margin: 10px;
 }
 
-/* .form-content {
-  align-items: center;
-  background-color: #4e6799;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: right;
-  margin-right: auto;
-  min-height: 80vh;
-} */
-
 .wallet-header {
   align-items: center;
   background-color: #1a1f27;
   color: white;
   display: flex;
+  font-size: large;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 .App-header label {
@@ -107,21 +120,19 @@
   display: flex;
   flex-direction: column;
   height: 65vw;
-  justify-content: center;
-  margin: auto;
-  opacity: 50%;
-  width: 100vw;
+  opacity: 90%;
+  width: 98.8vw;
 }
 
 .eraLi {
-  align-items: flex-start;
+  align-items: center;
   background-color: #282c34;
   border: solid black;
   color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 5px 0;
+  margin: 5px 2px;
 }
 
 .vlr {

@@ -23,6 +23,13 @@ class Form extends React.Component {
   onSubmitForm() {
     const { onSubmit } = this.props;
     onSubmit(this.state);
+    this.setState({
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: '',
+      tag: '',
+    });
   }
 
   handleChange({ target }) {
