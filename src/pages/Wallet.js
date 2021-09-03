@@ -1,7 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchMoedas, addApiExpenses } from '../actions';
 
+// TODO O MÉRITO DA QUESTÃO 8 PARA MATHEUS MACEDO -> VALEU BROW!
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
@@ -35,21 +37,17 @@ class Wallet extends React.Component {
     const estados = { id, value, description, currency, method, tag };
     const { actionAPiExpense } = this.props;
 
-    this.setState({
-      id: id + 1,
-    }, () => actionAPiExpense(estados));
+    this.setState({ id: id + 1 }, () => actionAPiExpense(estados));
   }
 
   somaValores() {
-    let soma = 0;
     const { expenses } = this.props;
+    let soma = 0;
+
     expenses.forEach(({ value, currency, exchangeRates }) => {
-      if (exchangeRates[currency]) {
-        soma += (parseFloat(value) * parseFloat(exchangeRates[currency].ask));
-        return soma;
-      }
-      return soma;
+      soma += value * exchangeRates[currency].ask;
     });
+
     return soma.toFixed(2);
   }
 
@@ -181,6 +179,12 @@ class Wallet extends React.Component {
   }
 }
 
+Wallet.propTypes = {
+  emailLogin: PropTypes.string,
+  actionApiMoedas: PropTypes.func,
+  currencyMoeda: PropTypes.arrayOf(),
+}.isRequire;
+
 const mapStateToProps = (state) => ({
   emailLogin: state.user.email,
   currencyMoeda: state.wallet.currencies,
@@ -193,3 +197,5 @@ const mapDispatchToProps = (dispacth) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+
+// TODO O MÉRITO DA QUESTÃO 8 PARA MATHEUS MACEDO -> VALEU BROW!
