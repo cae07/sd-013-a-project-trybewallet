@@ -22,7 +22,8 @@ class ExpenseForm extends React.Component {
           <label htmlFor="moeda">
             Moeda
             <select name="moeda" id="moeda">
-              {currencies.filter((curr) => curr !== 'USDT').map((curr) => <option key={ curr } value={ curr }>{ curr }</option>)}
+              {currencies.filter((curr) => curr !== 'USDT').map((curr) => (
+                <option key={ curr } value={ curr }>{ curr }</option>))}
             </select>
           </label>
 
