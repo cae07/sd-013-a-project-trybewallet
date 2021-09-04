@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import FillCoin from './components/fillCoin';
 
 class Form extends React.Component {
   render() {
@@ -13,12 +14,8 @@ class Form extends React.Component {
           Descrição
           <input id="descricao" type="text" />
         </label>
-        <label htmlFor="moeda">
-          Moeda
-          <select id="moeda">
-            vazio
-          </select>
-        </label>
+        Moeda
+        <FillCoin />
         <label htmlFor="metodo">
           Método de pagamento
           <select id="metodo">
