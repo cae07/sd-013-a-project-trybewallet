@@ -1,4 +1,4 @@
-import { SUCESSFUL_RESPONSE, FAILED_RESPONSE, REQUEST_API } from '../actions';
+import { SUCCESFUL_RESPONSE, FAILED_RESPONSE, REQUEST_API } from '../actions';
 
 const INITIAL_STATE = {
   wallet: {
@@ -15,7 +15,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state, loading: true,
     };
-  case SUCESSFUL_RESPONSE:
+  case SUCCESFUL_RESPONSE:
     return {
       ...state, loading: false, currencies: action.payload,
     };
@@ -27,4 +27,5 @@ const wallet = (state = INITIAL_STATE, action) => {
     return state;
   }
 };
+
 export default wallet;
