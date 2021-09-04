@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formAct } from '../actions';
+import { formAct, fetchAPI } from '../actions';
 
 class WalletForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      valor: '',
-      descrição: '',
-      moedaSelecionada: 'USD',
-      metodoPagamento: 'Dinheiro',
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
       tag: 'Alimentação',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -21,10 +21,11 @@ class WalletForm extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    const { expenses } = this.props;
-    const { moedaSelecionada } = this.state;
-    const exchangeRates = this.valores(moedaSelecionada);
-    expenses({ id: this.count, ...this.state, exchangeRates });
+    const { walletState } = this.props;
+    walletState();
+    const { expensesGo, currencies } = this.props;
+    console.log(currencies);
+    expensesGo({ id: this.count, ...this.state, exchangeRates: currencies });
     this.count += 1;
   }
 
@@ -36,21 +37,21 @@ class WalletForm extends React.Component {
   inputs() {
     return (
       <>
-        <label htmlFor="valor">
+        <label htmlFor="value">
           Valor:
           <input
-            id="valor"
+            id="value"
             type="text"
-            name="valor"
+            name="value"
             onChange={ this.handleChange }
           />
         </label>
-        <label htmlFor="descrição">
+        <label htmlFor="description">
           Descrição:
           <input
-            id="descrição"
+            id="description"
             type="text"
-            name="descrição"
+            name="description"
             onChange={ this.handleChange }
           />
         </label>
@@ -67,7 +68,7 @@ class WalletForm extends React.Component {
           Moeda:
           <select
             id="moedas"
-            name="moedaSelecionada"
+            name="currency"
             onChange={ this.handleChange }
           >
             { Object.keys(currencies).filter((x) => x !== 'USDT')
@@ -80,11 +81,11 @@ class WalletForm extends React.Component {
                 </option>))}
           </select>
         </label>
-        <label htmlFor="metodoPagamento">
+        <label htmlFor="method">
           Método de pagamento:
           <select
-            id="metodoPagamento"
-            name="metodoPagamento"
+            id="method"
+            name="method"
             onChange={ this.handleChange }
           >
             <option>Dinheiro</option>
@@ -131,11 +132,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  expenses: (payload) => dispatch(formAct(payload)),
+  expensesGo: (payload) => dispatch(formAct(payload)),
+  walletState: (payload) => dispatch(fetchAPI(payload)),
 });
 
 WalletForm.propTypes = {
-  expenses: PropTypes.arrayOf(Object),
+  expensesGo: PropTypes.arrayOf(Object),
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);
