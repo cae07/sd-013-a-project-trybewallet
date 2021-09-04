@@ -4,13 +4,12 @@ import { SET_LOGIN } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
-  senha: '',
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case SET_LOGIN:
-    return { ...state, newInputs: action.payload };
+    return { ...state, email: action.payload };
   default:
     return state;
   }

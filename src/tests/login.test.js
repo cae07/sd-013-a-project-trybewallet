@@ -93,7 +93,7 @@ describe('2 - Realize as seguintes verificações nos campos de email, senha e b
 });
 
 describe('3 - Utilize o Redux para salvar no estado global as informações da pessoa logada', () => {
-  test.skip('Salve o email no estado da aplicação, com a chave email, assim que o usuário logar.', () => {
+  test('Salve o email no estado da aplicação, com a chave email, assim que o usuário logar.', () => {
     const { store } = renderWithRouterAndStore(<App />, '/');
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
     const senha = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
@@ -106,7 +106,7 @@ describe('3 - Utilize o Redux para salvar no estado global as informações da p
     expect(store.getState().user.email).toBe(VALID_EMAIL);
   });
 
-  test.skip('A rota deve ser mudada para \'/carteira\' após o clique no botão.', () => {
+  test('A rota deve ser mudada para \'/carteira\' após o clique no botão.', () => {
     const { history } = renderWithRouterAndStore(<App />, '/');
     const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
     const senha = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
