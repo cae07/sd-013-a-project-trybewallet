@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import setUserEmail from '../actions/index';
+import { setUserEmail } from '../actions/index';
 
 class Login extends React.Component {
   constructor() {
@@ -40,7 +40,7 @@ class Login extends React.Component {
 
   validateEmail(email) {
     const regex = /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,15}$/;
-    // retirado do site https://stackoverflow.com/questions/4964691/super-simple-email-validation-with-javascript
+    // https://stackoverflow.com/questions/4964691/super-simple-email-validation-with-javascript
 
     this.setState({
       isEmailValid: regex.test(email),
@@ -119,8 +119,6 @@ class Login extends React.Component {
     );
   }
 }
-
-// const mapStateToProps = (state) => ({ getUserEmail: state.userReducer.user.email });
 
 const mapDispatchToProps = (dispatch) => ({
   setEmail: (userEmail) => dispatch(setUserEmail(userEmail)),

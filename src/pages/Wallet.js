@@ -1,9 +1,71 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import AddExpense from '../components/AddExpense';
+import { fetchCurrencies } from '../actions/index';
 
 class Wallet extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.expensesByAmount = this.expensesByAmount.bind(this);
+  }
+
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+
+    getCurrencies();
+  }
+
+  expensesByAmount() {
+    const { expensesList } = this.props;
+
+    return expensesList
+      .map((expense) => Number(expense.amount))
+      .reduce((acc, curr) => acc + curr, 0);
+  }
+
   render() {
-    return <div>TrybeWallet</div>;
+    const { userEmail } = this.props;
+    const totalExpenses = this.expensesByAmount();
+
+    return (
+      <div>
+        <header>
+          <p data-testid="email-field">
+            Email:
+            { userEmail }
+          </p>
+
+          <p data-testid="total-field">
+            Despesa total:
+            { totalExpenses }
+          </p>
+
+          <p data-testid="header-currency-field">BRL</p>
+        </header>
+
+        <AddExpense />
+      </div>
+    );
   }
 }
 
-export default Wallet;
+const mapStateToProps = (state) => ({
+  userEmail: state.user.email,
+  expensesList: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrencies()),
+});
+
+Wallet.propTypes = {
+  userEmail: PropTypes.string.isRequired,
+  getCurrencies: PropTypes.func.isRequired,
+  expensesList: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+
+
