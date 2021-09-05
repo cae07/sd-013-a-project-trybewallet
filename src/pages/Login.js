@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginSubmit } from '../actions';
 
 class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      user: {
-        email: '',
-      },
+      email: '',
       // wallet: {
       //   currencies: [],
       //   expenses: [],
@@ -21,14 +21,12 @@ class Login extends React.Component {
 
   handleChange(event) {
     this.setState({
-      user: {
-        email: event.target.value,
-      },
+      email: event.target.value,
     });
   }
 
   handleChangePassword({ target }) {
-    const { user: { email } } = this.state;
+    const { email } = this.state;
     const tamanhoSenha = 6;
     const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+?$/i;
     const boolValidateEmail = regexEmail.test(email);
@@ -41,10 +39,13 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { history } = this.props;
-    const { user: { email } } = this.state;
-    const emailPadrao = 'alguem@alguem.com';
-    if (emailPadrao === email) history.push('/carteira');
+    const { history, loginSubmiUser } = this.props;
+    const { email } = this.state;
+    const emailPadrao = 'alguem@email.com';
+    if (emailPadrao === email) {
+      loginSubmiUser({ email });
+      history.push('/carteira');
+    }
   }
 
   render() {
@@ -74,9 +75,12 @@ class Login extends React.Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  loginSubmiUser: (usuario) => dispatch(loginSubmit(usuario)),
+});
 
 Login.propTypes = {
   history: PropTypes.func,
 }.isRequired;
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
