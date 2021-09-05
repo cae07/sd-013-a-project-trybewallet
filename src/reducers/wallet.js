@@ -3,9 +3,9 @@ const INITIAL_STATE_WALLET = {
   expenses: [],
 };
 
-const wallet = (state = INITIAL_STATE_WALLET) => {
+const wallet = (state = INITIAL_STATE_WALLET, action) => {
   switch (action.type) {
-  case value:
+  case '':
   default:
     return state;
   }
