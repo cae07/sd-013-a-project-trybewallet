@@ -1,14 +1,20 @@
+// 0.3.1 importar o provider e a store.
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import store from './store';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// 0.3.2 - adicionar o provider e com a store.
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider store={ store }>
+    <Router>
+      <App />
+    </Router>
+  </Provider>,
   document.getElementById('root'),
 );
 

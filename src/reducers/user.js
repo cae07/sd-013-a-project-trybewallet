@@ -1,1 +1,1 @@
-// Esse reducer será responsável por tratar as informações da pessoa usuária
+// 0.5 criar o user reducer
