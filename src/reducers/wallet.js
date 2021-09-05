@@ -11,8 +11,10 @@ const wallet = (state = INITIAL_STATE, action) => {
   case SAVE_EXPENSE:
     return {
       ...state,
+      // expenses: [...state.expenses,
+      //   { ...action.obj, id: state.expenses.length }],
       expenses: [...state.expenses,
-        { ...action.obj, id: state.expenses.length }],
+        { ...action.obj }],
       arrayValueExpenses: [...state.arrayValueExpenses, action.convertValueExpense],
     };
   case SAVE_CURRENCIES:

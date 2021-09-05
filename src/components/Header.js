@@ -12,13 +12,14 @@ class Header extends React.Component {
 
   totalExpenses() {
     const { wallet } = this.props;
+    console.log(wallet.arrayValueExpenses);
     if (wallet.arrayValueExpenses === []) {
-      const arrayValueExp = wallet.arrayValueExpenses
-        .map((expense) => parseFloat(expense));
-      const sumExpenses = arrayValueExp.reduce((acc, curr) => acc + curr, 0).toFixed(2);
-      return sumExpenses;
+      return 0;
     }
-    return 0;
+    const arrayValueExp = wallet.arrayValueExpenses
+      .map((expense) => parseFloat(expense));
+    const sumExpenses = arrayValueExp.reduce((acc, curr) => acc + curr, 0).toFixed(2);
+    return sumExpenses;
   }
 
   render() {

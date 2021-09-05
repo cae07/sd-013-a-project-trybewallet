@@ -40,7 +40,6 @@ const requestFetchAPI = async (url) => {
 
 export function saveExpenseSuccess(obj) {
   const convertValueExpense = obj.exchangeRates[obj.currency].ask * obj.value;
-  console.log(convertValueExpense);
   return {
     type: SAVE_EXPENSE,
     obj,

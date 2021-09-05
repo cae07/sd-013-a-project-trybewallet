@@ -3,6 +3,7 @@ import React from 'react';
 
 import Expense from '../components/Expense';
 import Header from '../components/Header';
+import TableExpense from '../components/TableExpense';
 
 class Wallet extends React.Component {
   // constructor(props) {
@@ -14,6 +15,7 @@ class Wallet extends React.Component {
       <div className="wallet">
         <Header />
         <Expense />
+        <TableExpense />
       </div>
     );
   }

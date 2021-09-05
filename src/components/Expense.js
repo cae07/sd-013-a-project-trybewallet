@@ -14,6 +14,7 @@ class Expense extends React.Component {
       method: 'Dinheiro',
       tag: 'Alimentação',
       description: '',
+      id: 0,
     };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
@@ -25,9 +26,12 @@ class Expense extends React.Component {
   }
 
   onSubmitForm() {
-    const { dispatchExpense } = this.props;
+    const { dispatchExpense, expenses } = this.props;
     // Disparamos a nossa action através da função importada
     // de actions.js, que apelidamos de dispatchExpense
+    this.setState({
+      id: expenses.length + 1,
+    });
     dispatchExpense(this.state);
   }
 
@@ -117,6 +121,7 @@ Expense.propTypes = {
 
 const mapStateToProps = (stateStore) => ({
   currencies: stateStore.wallet.currencies,
+  expenses: stateStore.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
