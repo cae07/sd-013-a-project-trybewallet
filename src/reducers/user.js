@@ -3,10 +3,6 @@ import { LOGIN_SUBMIT } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
 };
 
 function user(state = INITIAL_STATE, action) {
