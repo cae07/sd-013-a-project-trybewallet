@@ -2,6 +2,7 @@
 legendas:
 
 [*] = [feito em commit passado]
+{X} = {ultimo passo}
 
 */
 
@@ -31,11 +32,21 @@ Requisito 0
 /*
   Requisito 2
     Criar a logica de login
-    Aparentemente apesar do requisito 2 falar que precisa mudar de pagina
+
+    { Aparentemente apesar do requisito 2 falar que precisa mudar de pagina
     e salvar no global, aparentemente não é necessario para o evaluator,
     tanto que se for ver o requisito 3 pede novamente o salvamento no global
     e a mudança de pagina, erro de formulação?
-    vou dar push pra ver se vai só com a logica de regex.
+    vou dar push pra ver se vai só com a logica de regex. } CONFIRMADO
 
     2.1 - criar a logica do forms em Login.
+*/
+
+/*
+  Requisito 3
+    criar a logica do buttão para trocar de pagina e salvar na store.
+
+  3.1 criar o caminho para /carteira no MasterRouter.
+  3.2 colocar o link no button no Login.
+  3.3 salvar o email no estado global, criando o reducer, a action e conectando com Login.
 */
