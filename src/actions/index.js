@@ -1,4 +1,6 @@
 // Coloque aqui suas actions
+import fetchCurrencies from '../utils/utils';
+
 export const VALID_EMAIL = 'VALID_EMAIL';
 export const SET_EXPENSES = 'SET_EXPENSES';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
@@ -13,10 +15,7 @@ export function setUserEmail(payload) {
 }
 
 export function setExpenses(payload) {
-  return {
-    type: 'SET_EXPENSES',
-    payload,
-  };
+  return { type: 'SET_EXPENSES', payload };
 }
 
 function getCurrencies(payload) {
@@ -31,15 +30,17 @@ function failedRequest(error) {
   return { type: FAILED_REQUEST, payload: error };
 }
 
-export function fetchCurrencies() {
+export function setCurrencies() {
   return async (dispatch) => {
     dispatch(requestCurrencies());
-    const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const json = await response.json();
     try {
-      dispatch(getCurrencies(json));
+      const response = await fetchCurrencies();
+      // const json = response.json();
+      dispatch(getCurrencies(response));
+      return response;
     } catch (error) {
-      dispatch(failedRequest(error));
+      dispatch(failedRequest(error.message));
+      throw error;
     }
   };
 }

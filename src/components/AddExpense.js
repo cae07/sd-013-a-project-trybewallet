@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setExpenses } from '../actions/index';
+import { setExpenses, setCurrencies } from '../actions/index';
 
 class AddExpense extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      amount: 0,
-      description: '',
-      currencyOption: '',
-      paymentMethod: '',
+      id: 0,
+      value: 10,
+      currency: '',
+      method: '',
       tag: '',
+      description: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,29 +25,45 @@ class AddExpense extends React.Component {
     this.renderTag = this.renderTag.bind(this);
   }
 
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
-    const { addExpense } = this.props;
+    const { addExpense, getCurrencies } = this.props;
+    const { id } = this.state;
+    const data = await getCurrencies();
+    const newId = id + 1;
 
-    addExpense(this.state);
+    addExpense({
+      ...this.state,
+      exchangeRates: data,
+    });
+
+    this.setState({
+      id: newId,
+    });
   }
 
   renderAmount() {
-    const { amount } = this.state;
+    const { value } = this.state;
     return (
       <label htmlFor="valor">
         Valor:
         <input
           type="text"
-          name="amount"
+          name="value"
           id="valor"
-          value={ amount }
+          value={ value }
           onChange={ this.handleChange }
+          required
         />
       </label>
     );
@@ -69,19 +86,25 @@ class AddExpense extends React.Component {
   }
 
   renderCurrency() {
-    const { currencyOption } = this.state;
+    const { currency } = this.state;
     const { currencies } = this.props;
+    const currenciesCode = [
+      // https://medium.com/dailyjs/how-to-remove-array-duplicates-in-es6-5daa8789641c
+      ...new Set(Object.values(currencies).map((currencyOption) => currencyOption.code)),
+    ];
+
     return (
-      <label htmlFor="moeda">
+      <label htmlFor="currency">
         Moeda:
         <select
-          name="currencyOption"
-          id="moeda"
-          value={ currencyOption }
+          name="currency"
+          id="currency"
+          value={ currency }
           onChange={ this.handleChange }
+          required
         >
-          { currencies.map((currency, index) => (
-            <option key={ index } value={ currency }>{ currency }</option>
+          { currenciesCode.map((code, index) => (
+            <option key={ index } value={ code }>{ code }</option>
           )) }
         </select>
       </label>
@@ -89,20 +112,20 @@ class AddExpense extends React.Component {
   }
 
   renderPaymentMethod() {
-    const { paymentMethod } = this.state;
+    const { method } = this.state;
     return (
       <label htmlFor="pagamento">
         Método de pagamento:
         <select
-          name="paymentMethod"
+          name="method"
           id="pagamento"
-          value={ paymentMethod }
+          value={ method }
           onChange={ this.handleChange }
+          required
         >
-          <option defaultValue="default">Selecione</option>
-          <option value="dinheiro">Dinheiro</option>
-          <option value="credito">Cartão de crédito</option>
-          <option value="debito">Cartão de débito</option>
+          <option defaultValue="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -113,13 +136,12 @@ class AddExpense extends React.Component {
     return (
       <label htmlFor="tag">
         Tag:
-        <select name="tag" id="tag" value={ tag } onChange={ this.handleChange }>
-          <option defaultValue="default">Selecione</option>
-          <option value="alimentacao">Alimentação</option>
-          <option value="lazer">Lazer</option>
-          <option value="trabalho">Trabalho</option>
-          <option value="transporte">Transporte</option>
-          <option value="saude">Saúde</option>
+        <select name="tag" id="tag" value={ tag } onChange={ this.handleChange } required>
+          <option defaultValue="alimentacao">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
@@ -145,10 +167,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addExpense: (expense) => dispatch(setExpenses(expense)),
+  getCurrencies: () => dispatch(setCurrencies()),
 });
 
 AddExpense.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  getCurrencies: PropTypes.func.isRequired,
   addExpense: PropTypes.func.isRequired,
 };
 

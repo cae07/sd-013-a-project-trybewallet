@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AddExpense from '../components/AddExpense';
-import { fetchCurrencies } from '../actions/index';
+import { setCurrencies } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -13,7 +13,6 @@ class Wallet extends React.Component {
 
   componentDidMount() {
     const { getCurrencies } = this.props;
-
     getCurrencies();
   }
 
@@ -21,7 +20,8 @@ class Wallet extends React.Component {
     const { expensesList } = this.props;
 
     return expensesList
-      .map((expense) => Number(expense.amount))
+      .map((expense) => (
+        Number(expense.value) * Number(expense.exchangeRates[expense.currency].ask)))
       .reduce((acc, curr) => acc + curr, 0);
   }
 
@@ -57,7 +57,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(fetchCurrencies()),
+  getCurrencies: () => dispatch(setCurrencies()),
 });
 
 Wallet.propTypes = {
@@ -67,5 +67,3 @@ Wallet.propTypes = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
-
-
