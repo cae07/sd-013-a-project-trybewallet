@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes  from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
@@ -21,8 +21,8 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-salvarStore: PropTypes.string.isRequired, // usei type func.no test pede para ser type string(não entendi)
-}
+  salvarStore: PropTypes.string.isRequired, // usei type func.no test pede para ser type string(não entendi)
+};
 
 const mapStateToProps = (state) => ({ // mapStateToProps para ler o estado no neste componente.
   salvarStore: state.user.email, // salvarStore é a action creator
