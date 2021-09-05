@@ -3,8 +3,38 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class Wallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currencies: {},
+    };
+    this.fetchCurrencies();
+  }
+
+  currenciesOptions() {
+    const select = document.querySelector('#currency');
+    const { currencies } = this.state;
+    Object.keys(currencies).forEach((currency) => {
+      if (currency !== 'USDT') {
+        const newOption = document.createElement('option');
+        newOption.value = currency;
+        newOption.textContent = currency;
+        select.appendChild(newOption);
+      }
+    });
+  }
+
+  async fetchCurrencies() {
+    const currencies = fetch('https://economia.awesomeapi.com.br/json/all');
+    const response = await currencies;
+    this.setState({ currencies: await response.json() });
+    this.currenciesOptions();
+  }
+
   render() {
     const { email } = this.props;
+    const { currencies } = this.state;
+    console.log(Object.keys(currencies));
     return (
       <>
         <header>
@@ -19,11 +49,7 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="currency">
             Moeda:
-            <select id="currency">
-              <option value="usd">USD</option>
-              <option value="eur">EUR</option>
-              <option value="brl">BRL</option>
-            </select>
+            <select id="currency"> </select>
           </label>
           <label htmlFor="paymentMethod">
             Método de pagamento:
