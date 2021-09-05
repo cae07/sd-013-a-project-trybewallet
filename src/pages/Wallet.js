@@ -2,18 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AddExpense from '../components/AddExpense';
-import { setCurrencies } from '../actions/index';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     this.expensesByAmount = this.expensesByAmount.bind(this);
-  }
-
-  componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies();
   }
 
   expensesByAmount() {
@@ -56,14 +50,13 @@ const mapStateToProps = (state) => ({
   expensesList: state.wallet.expenses,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getCurrencies: () => dispatch(setCurrencies()),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   getCurrencies: () => dispatch(setCurrencies()),
+// });
 
 Wallet.propTypes = {
   userEmail: PropTypes.string.isRequired,
-  getCurrencies: PropTypes.func.isRequired,
   expensesList: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, null)(Wallet);
