@@ -11,7 +11,7 @@ class FormWallet extends React.Component {
               id="valorForm"
               type="text"
               name="valor"
-              value=""
+              // value=""
             />
           </label>
           <label htmlFor="descriçãoForm">
@@ -20,12 +20,12 @@ class FormWallet extends React.Component {
               id="descriçãoForm"
               type="text"
               name="descrição"
-              value=""
+              // value=""
             />
           </label>
           <label htmlFor="moeda">
+            Moeda
             <select id="moeda">
-              Moeda
               <option>a</option>
             </select>
           </label>
@@ -33,7 +33,7 @@ class FormWallet extends React.Component {
             Método de pagamento
             <select id="metodo">
               <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de crádito">Cartão de crádito</option>
+              <option value="Cartão de crádito">Cartão de crédito</option>
               <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
