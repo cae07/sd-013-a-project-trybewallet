@@ -41,11 +41,8 @@ class Login extends React.Component {
   handleClick() {
     const { history, loginSubmiUser } = this.props;
     const { email } = this.state;
-    const emailPadrao = 'alguem@email.com';
-    if (emailPadrao === email) {
-      loginSubmiUser({ email });
-      history.push('/carteira');
-    }
+    loginSubmiUser({ email });
+    history.push('/carteira');
   }
 
   render() {
