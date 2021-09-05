@@ -1,7 +1,7 @@
 // 1.1 - Começamos importanto os modulos e componentes.
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Login from './pages/Login';
+import Login from '../pages/Login';
 
 // 1.2 - Agora só montar o Router.
 class MasterRouter extends React.Component {
