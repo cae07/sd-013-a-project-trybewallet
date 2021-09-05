@@ -1,8 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getSum } from '../actions';
 
 class Header extends Component {
+  constructor() {
+    super();
+
+    this.sumExpenses = this.sumExpenses.bind(this);
+  }
+
+  componentDidUpdate() {
+    const { totalSum } = this.props;
+
+    totalSum(this.sumExpenses());
+  }
+
+  sumExpenses() {
+    const { expenses } = this.props;
+    return expenses.reduce((itemAcc, item) => {
+      const convertedValue = item.exchangeRates[item.currency].ask;
+      itemAcc += item.value * convertedValue;
+      return itemAcc;
+    }, 0);
+  }
+
   render() {
     const { userEmail, totalField } = this.props;
     return (
@@ -15,14 +37,26 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  userEmail: state.user.email,
-  totalField: state.wallet.total,
+const mapStateToProps = ({ user, wallet }) => ({
+  userEmail: user.email,
+  totalField: wallet.total,
+  expenses: wallet.expenses,
+  currencies: wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  totalSum: (payload) => dispatch(getSum(payload)),
 });
 
 Header.propTypes = {
   userEmail: PropTypes.string.isRequired,
-  totalField: PropTypes.number.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
+  totalSum: PropTypes.func.isRequired,
+  totalField: PropTypes.number,
 };
 
-export default connect(mapStateToProps)(Header);
+Header.defaultProps = {
+  totalField: 0,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
