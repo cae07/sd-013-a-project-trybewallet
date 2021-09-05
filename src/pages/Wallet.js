@@ -1,8 +1,11 @@
 import React from 'react';
+// 5.2.1 import header
+import HeaderMail from '../components/HeaderMail';
 
 class Wallet extends React.Component {
   render() {
-    return <div>TrybeWallet</div>;
+    // 5.2.2 {X} chamar o HeaderMail
+    return <HeaderMail>TrybeWallet</HeaderMail>;
   }
 }
 

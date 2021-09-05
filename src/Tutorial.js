@@ -50,3 +50,20 @@ Requisito 0
   3.2 colocar o link no button no Login.
   3.3 salvar o email no estado global, criando o reducer, a action e conectando com Login.
 */
+
+/*
+  Requisto 4
+  criar a rota da pagina.
+  acabei criando sem querer ao adicionar a rota no masterrouter
+  passo 3.1.2
+
+  4.1 criar a rota no masterrouter
+*/
+
+/*
+  Requisito 5
+   criar o header
+
+   5.1 - criar o componente header na pagina header
+   5.2 - chamar o header na pagina wallet
+*/
