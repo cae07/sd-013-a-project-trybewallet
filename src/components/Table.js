@@ -18,10 +18,12 @@ class Table extends Component {
           <td>{item.description}</td>
           <td>{item.tag}</td>
           <td>{item.method}</td>
-          <td>{item.value}</td>
+          <td>{item.value || '0.00'}</td>
           <td>{currencyInfo.name.split('/')[0]}</td>
           <td>{parseFloat(currencyInfo.ask).toFixed(2)}</td>
-          <td>{(parseFloat(item.value) * parseFloat(currencyInfo.ask)).toFixed(2)}</td>
+          <td>
+            {(parseFloat(item.value) * (parseFloat(currencyInfo.ask)) || 0).toFixed(2) }
+          </td>
           <td>Real</td>
           <td>ok</td>
         </tr>

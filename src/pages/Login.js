@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
 import { emailLogin } from '../actions';
 import Input from '../components/Input';
+import InputPassword from '../components/InputPassword';
 import Button from '../components/Button';
 
 class Login extends React.Component {
@@ -45,7 +46,7 @@ class Login extends React.Component {
           datatestid="email-input"
           onChange={ handleChange }
         />
-        <Input
+        <InputPassword
           label="Senha:"
           name="password"
           datatestid="password-input"

@@ -15,7 +15,12 @@ const reducerWallet = (state = INITIAL_STATE, action) => {
   case ERROR_TYPE:
     return { ...state, error: action.payload };
   case EXPENSE_ADD:
-    return { ...state, expenses: action.payload };
+    return {
+      ...state,
+      expenses: [
+        ...state.expenses,
+        action.payload,
+      ] };
   default: return state;
   }
 };

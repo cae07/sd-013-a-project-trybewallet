@@ -8,12 +8,12 @@ import SelectTag from '../components/SelectTag';
 import Table from '../components/Table';
 import { fetchCoin, expenseAdd } from '../actions';
 import Button from '../components/Button';
+import InputNumber from '../components/InputNumber';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expenses: [],
       expense: {
         id: 0,
         value: 0,
@@ -22,7 +22,7 @@ class Wallet extends React.Component {
         method: 'Dinheiro',
         tag: 'Alimentação',
       },
-      total: 0,
+      total: '0.00',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleNextExpense = this.handleNextExpense.bind(this);
@@ -56,25 +56,17 @@ class Wallet extends React.Component {
   setValue() {
     const { expense, total } = this.state;
     const { exchangeRates, currency } = expense;
-    const array = Object.entries(exchangeRates);
-    function select(coin) {
-      if (coin[0] === currency) {
-        return coin;
-      }
-    }
-    const selected = Object.values(array.filter(select));
-    const selected2 = Object.values(selected[0]);
-    const { ask } = selected2[1];
+    const select = exchangeRates[currency];
+    const { ask } = select;
     const convert = expense.value * ask;
     this.setState(() => ({
-      total: (Number(total) + Number(convert)).toFixed(2),
+      total: ((Number(total) + (Number(convert) || 0)).toFixed(2)),
     }));
   }
 
   handleChange(e) {
     const { expense } = this.state;
-    const { name } = e.target;
-    const { value } = e.target;
+    const { name, value } = e.target;
     this.setState(() => ({
       expense: {
         ...expense,
@@ -88,7 +80,7 @@ class Wallet extends React.Component {
     const { currencies } = wallet;
     const { getCoins } = this.props;
     getCoins();
-    const { expense, expenses } = this.state;
+    const { expense } = this.state;
     const { changeValue } = this.props;
     this.setState(() => ({
       expense: {
@@ -100,8 +92,7 @@ class Wallet extends React.Component {
       },
     }));
     this.setValue();
-    expenses.push(expense);
-    changeValue(expenses);
+    changeValue(expense);
   }
 
   render() {
@@ -122,7 +113,7 @@ class Wallet extends React.Component {
           BRL
         </div>
         <form>
-          <Input
+          <InputNumber
             label="Valor"
             onChange={ handleChange }
             name="value"
@@ -167,7 +158,11 @@ Wallet.propTypes = {
   getCoins: PropTypes.func.isRequired,
   changeValue: PropTypes.func.isRequired,
   wallet: PropTypes.objectOf(PropTypes.string).isRequired,
-  currencies: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.object),
+};
+
+Wallet.defaultProps = {
+  currencies: [],
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
