@@ -12,7 +12,7 @@ class Header extends React.Component {
           { `${salvarStore}` }
         </span>
         <br />
-        <span data-testid="total-field"> Total de gastos: 0 </span>
+        <span data-testid="total-field"> Total de gastos:R$ 0 </span>
         <br />
         <span data-testid="header-currency-field">Cambio utilizado: BRL </span>
       </header>
