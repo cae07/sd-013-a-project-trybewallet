@@ -67,3 +67,11 @@ Requisito 0
    5.1 - criar o componente header na pagina header
    5.2 - chamar o header na pagina wallet
 */
+
+/*
+  Requisto 6
+  criar o forms de gastos
+
+  6.1 criar o componente expenses
+  6.2 - chamar o component expenses
+*/
