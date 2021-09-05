@@ -1,12 +1,24 @@
 /*
-Requisito 0 - aparentemente eu tenho que criar o reducer pro requisito 1 passar? mas no enunciado não tem nada...
-          0.1 criar a store em src.
-          0.2 criar os reducers combinados.
-          0.3 - adicionar o provider com a store no index.js.
+legendas:
+
+[*] = [feito em commit passado]
+
 */
 
-/* Requisito 1 - criar a rota do login
-  Nesse caso optei por criar um componente Router
+/*
+Requisito 0
+  aparentemente eu tenho que criar o reducer pro requisito 1 passar? mas no enunciado não tem nada...
+
+  Requisito 1
+  1.0.1 - criar a store em src.
+  1.0.2 - criar os reducers combinados.
+  1.0.3 - adicionar o provider com a store no index.js.
+*/
+
+/*
+  Requisito 1
+    criar a rota do login
+    Nesse caso optei por criar um componente MasterRouter
     para não embaralhar mais do que o React/Redux ja é.
 
     1.1 - Começamos criando o arquivo MasterRouter e importanto os modulos e componentes de router.
@@ -14,4 +26,16 @@ Requisito 0 - aparentemente eu tenho que criar o reducer pro requisito 1 passar?
     1.3 - importar o MasterRouter no App.
     1.4 - Adicionar o component MasterRouter no App
     1.5 - Criar os inputs do requisito na pagina Login.
+*/
+
+/*
+  Requisito 2
+    Criar a logica de login
+    Aparentemente apesar do requisito 2 falar que precisa mudar de pagina
+    e salvar no global, aparentemente não é necessario para o evaluator,
+    tanto que se for ver o requisito 3 pede novamente o salvamento no global
+    e a mudança de pagina, erro de formulação?
+    vou dar push pra ver se vai só com a logica de regex.
+
+    2.1 - criar a logica do forms em Login.
 */
