@@ -7,15 +7,7 @@ import {
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  expenses: [{
-    id: 0,
-    value: '',
-    description: '',
-    currency: '',
-    method: '',
-    tag: '',
-    exchangeRates: {},
-  }],
+  expenses: [],
   currencies: [],
   isLoading: true,
   erro: null,
@@ -36,14 +28,7 @@ const saveCoins = (state = INITIAL_STATE, action) => {
   case UPDATE_STATE:
     return ({
       ...state,
-      expenses: {
-        id: action.state.id,
-        value: action.state.value,
-        description: action.state.description,
-        currency: action.state.currency,
-        method: action.state.method,
-        tag: action.state.tag,
-      },
+      expenses: [...state.expenses, action.state],
       isLoading: false,
     });
   case EXCHANGE_RATES:

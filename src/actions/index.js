@@ -67,11 +67,11 @@ export const fetchCoinsWhitThunk = () => (dispatch) => {
 //     );
 // };
 
-export const updatedCoinsToStore = () => (dispatch) => {
+export const updatedCoinsToStore = (expenses) => (dispatch) => {
   dispatch(actionGetCoins());
   return getCoins()
     .then(
-      (payload) => dispatch(actionExchangeRates(payload)),
+      (exchangeRates) => dispatch(actionUpdate({ ...expenses, exchangeRates })),
       () => dispatch(actionGetCoinsFailed()),
     );
 };

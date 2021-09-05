@@ -7,7 +7,7 @@ import PaymentType from './componentsForms/PaymentType';
 import SpendingReason from './componentsForms/SpendingReason';
 import Value from './componentsForms/Value';
 import Button from './componentsForms/Button';
-import { actionUpdate, updatedCoinsToStore } from '../actions';
+import { updatedCoinsToStore } from '../actions';
 
 class Form extends React.Component {
   constructor(props) {
@@ -34,11 +34,10 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { updateExpenses, updatedCoins } = this.props;
+    const { updateExpenses } = this.props;
 
     const expenses = this.state;
     updateExpenses(expenses);
-    updatedCoins();
 
     this.setState((prevState) => ({
       id: prevState.id + 1,
@@ -82,12 +81,10 @@ class Form extends React.Component {
 
 Form.propTypes = {
   updateExpenses: PropTypes.func.isRequired,
-  updatedCoins: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  updateExpenses: (expenses) => dispatch(actionUpdate(expenses)),
-  updatedCoins: () => dispatch(updatedCoinsToStore()),
+  updateExpenses: (expenses) => dispatch(updatedCoinsToStore(expenses)),
 });
 
 export default connect(null, mapDispatchToProps)(Form);
