@@ -1,5 +1,8 @@
 /*
 Requisito 0 - aparentemente eu tenho que criar o reducer pro requisito 1 passar? mas no enunciado não tem nada...
+          0.1 criar a store em src.
+          0.2 criar os reducers combinados.
+          0.3 - adicionar o provider com a store no index.js.
 */
 
 /* Requisito 1 - criar a rota do login

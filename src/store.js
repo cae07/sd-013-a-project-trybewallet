@@ -1,11 +1,12 @@
 // 0.1 criar a store.
+// 0.1.2 trocar o nome generico de reducer pra rootReducer.
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import reducer from './reducers/index';
+import rootReducer from './reducers/index';
 
 const store = createStore(
-  reducer,
+  rootReducer,
   composeWithDevTools(
     applyMiddleware(thunk),
   ),
