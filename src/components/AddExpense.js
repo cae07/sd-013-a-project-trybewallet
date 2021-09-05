@@ -9,7 +9,7 @@ class AddExpense extends React.Component {
 
     this.state = {
       id: 0,
-      value: 10,
+      value: 0,
       currency: '',
       method: '',
       tag: '',
