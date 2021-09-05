@@ -88,7 +88,6 @@ class AddExpense extends React.Component {
   renderCurrency() {
     const { currency } = this.state;
     const { currencies } = this.props;
-    console.log(currencies)
     const currenciesCode = [
       // https://medium.com/dailyjs/how-to-remove-array-duplicates-in-es6-5daa8789641c
       ...new Set(Object.values(currencies).map((currencyOption) => currencyOption.code)),
