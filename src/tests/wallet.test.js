@@ -33,7 +33,7 @@ describe('4 - Crie uma página para sua carteira com as seguintes característic
 describe('5 - Crie um header para a página de carteira contendo as seguintes características:', () => {
   const initial = initialStateHeader;
 
-  test.skip('Um elemento que exiba o email do usuário que fez login.', () => {
+  test('Um elemento que exiba o email do usuário que fez login.', () => {
     const { store } = renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     const emailField = screen.getByTestId('email-field');
 
@@ -41,7 +41,7 @@ describe('5 - Crie um header para a página de carteira contendo as seguintes ca
     expect(emailField).toContainHTML(store.getState().user.email);
   });
 
-  test.skip('Crie um campo com a despesa total gerada pela lista de gastos.', () => {
+  test('Crie um campo com a despesa total gerada pela lista de gastos.', () => {
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     const totalField = screen.getByTestId('total-field');
 
@@ -49,7 +49,7 @@ describe('5 - Crie um header para a página de carteira contendo as seguintes ca
     expect(totalField).toContainHTML(INITIAL_VALUE);
   });
 
-  test.skip('Crie um campo que mostre que qual câmbio está sendo utilizado, que será neste caso \'BRL\'', () => {
+  test('Crie um campo que mostre que qual câmbio está sendo utilizado, que será neste caso \'BRL\'', () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const exchangeField = screen.getByTestId('header-currency-field');
 
@@ -110,7 +110,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
     expect(healthOption).toBeInTheDocument();
   });
 
-  test.skyp('Um campo para adicionar a descrição da despesa', async () => {
+  test('Um campo para adicionar a descrição da despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const descriptionInput = await screen.findByRole('textbox', {
       name: /descrição/i,
