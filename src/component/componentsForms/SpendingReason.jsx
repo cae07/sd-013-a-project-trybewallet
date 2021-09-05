@@ -9,7 +9,7 @@ class SpendingReason extends React.Component {
         Tag
         <select
           onChange={ onChange }
-          name="reason"
+          name="tag"
           value={ value }
           id="input-why"
         >

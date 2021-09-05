@@ -10,7 +10,7 @@ class CoinType extends React.Component {
         Moeda
         <select
           onChange={ onChange }
-          name="coin"
+          name="currency"
           value={ value }
           id="input-change"
         >

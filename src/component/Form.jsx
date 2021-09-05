@@ -7,18 +7,19 @@ import PaymentType from './componentsForms/PaymentType';
 import SpendingReason from './componentsForms/SpendingReason';
 import Value from './componentsForms/Value';
 import Button from './componentsForms/Button';
-import { fetchCoinsWhitThunk } from '../actions';
+import { actionUpdate, updatedCoinsToStore } from '../actions';
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      id: 0,
       value: '',
       description: '',
-      coin: '',
+      currency: 'USD',
       method: '',
-      reason: '',
+      tag: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,12 +34,24 @@ class Form extends React.Component {
   }
 
   handleClick() {
-    const { myCoins } = this.props;
-    myCoins();
+    const { updateExpenses, updatedCoins } = this.props;
+
+    const expenses = this.state;
+    updateExpenses(expenses);
+    updatedCoins();
+
+    this.setState((prevState) => ({
+      id: prevState.id + 1,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: '',
+      tag: '',
+    }));
   }
 
   render() {
-    const { value, description, coin, method, reason } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form>
         <Value
@@ -51,7 +64,7 @@ class Form extends React.Component {
         />
         <CoinType
           onChange={ (event) => this.handleChange(event) }
-          value={ coin }
+          value={ currency }
         />
         <PaymentType
           onChange={ (event) => this.handleChange(event) }
@@ -59,7 +72,7 @@ class Form extends React.Component {
         />
         <SpendingReason
           onChange={ (event) => this.handleChange(event) }
-          value={ reason }
+          value={ tag }
         />
         <Button onClick={ this.handleClick } />
       </form>
@@ -68,11 +81,13 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-  myCoins: PropTypes.func.isRequired,
+  updateExpenses: PropTypes.func.isRequired,
+  updatedCoins: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  myCoins: () => dispatch(fetchCoinsWhitThunk()),
+  updateExpenses: (expenses) => dispatch(actionUpdate(expenses)),
+  updatedCoins: () => dispatch(updatedCoinsToStore()),
 });
 
 export default connect(null, mapDispatchToProps)(Form);
