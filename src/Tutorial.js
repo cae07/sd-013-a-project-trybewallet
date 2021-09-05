@@ -82,3 +82,11 @@ Requisito 0
 
   7.1 fazer a chamada da api em expenses forms.
 */
+
+/*
+Requisito 9
+  Criar a tabela de gastos
+
+  9.1 criar o reducer em wallet.
+  9.2 criar o componente Expensestable
+*/
