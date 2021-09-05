@@ -75,3 +75,10 @@ Requisito 0
   6.1 criar o componente expenses
   6.2 - chamar o component expenses
 */
+
+/*
+  Requisito 7
+  chamar a api das currencies
+
+  7.1 fazer a chamada da api em expenses forms.
+*/
