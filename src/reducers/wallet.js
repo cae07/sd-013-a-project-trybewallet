@@ -1,4 +1,10 @@
-import { WALLET, REQUEST_FETCH, RECEIVE_FETCH, FAIL_FETCH } from '../actions';
+import {
+  WALLET,
+  REQUEST_FETCH,
+  RECEIVE_FETCH,
+  FAIL_FETCH,
+  SET_EXPENSE,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -15,6 +21,8 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return { ...state, currencies: [{ ...action.payload }] };
   case FAIL_FETCH:
     return { ...state, status: action.status };
+  case SET_EXPENSE:
+    return { ...state, expenses: [...state.expenses, action.payload] };
   default:
     return state;
   }
