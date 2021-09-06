@@ -27,6 +27,15 @@ class FormsWallet extends React.Component {
           </select>
         </label>
 
+        <label htmlFor="select-payment">
+          Método de pagamento:
+          <select name="payment" id="select-payment">
+            <option value="">Cartão de crédito</option>
+            <option value="">Cartão de débito</option>
+            <option value="">Dinheiro</option>
+          </select>
+        </label>
+
         <label htmlFor="select-tag">
           Tag:
           <select name="tag" id="select-tag">
