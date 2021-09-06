@@ -1,17 +1,15 @@
 import React from 'react';
-import { InputSelect } from './InputSelect';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { ConnectedInputSelect } from './InputSelect';
 import { InputText } from './InputText';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { saveCurrencies } from '../actions/index';
 
 class Form extends React.Component {
   constructor() {
     super();
     this.fetchApi = this.fetchApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      currencies: [],
-    };
   }
 
   componentDidMount() {
@@ -28,20 +26,33 @@ class Form extends React.Component {
     const json = await api.json();
     const allCurrencie = Object.keys(json);
     const currenciesWithoutUsdt = allCurrencie.filter((currency) => currency !== 'USDT');
-    this.setState({
-      currencies: currenciesWithoutUsdt,
-    });
+    const { saveCurrenciesOnGlobalState } = this.props;
+
+    saveCurrenciesOnGlobalState(currenciesWithoutUsdt);
   }
 
   render() {
-    const { currencies } = this.state;
     return (
       <form>
         <InputText />
-        <InputSelect currencies={ currencies } />
+        <ConnectedInputSelect />
       </form>
     );
   }
 }
 
-export default Form;
+Form.propTypes = {
+  saveCurrenciesOnGlobalState: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveCurrenciesOnGlobalState: (currencies) => {
+    // saveEmail vai retornar um objeto com { type: BLA, payload: { email }}
+    const actionWithCurrencies = saveCurrencies(currencies);
+
+    // a gente DISPARA esse objeto para o redux
+    dispatch(actionWithCurrencies);
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Form);

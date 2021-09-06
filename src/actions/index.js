@@ -1,14 +1,19 @@
 export const SAVE_EMAIL = 'SAVE_EMAIL';
-export const SUCCESS_TYPE = 'SUCCESS_TYPE';
-// export const ERROR_TYPE = 'ERROR_TYPE';
+export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
+export const SAVE_EXPENSES = 'SAVE_EXPENSES';
 
 export const saveEmail = (email) => ({
   type: SAVE_EMAIL, payload: { email },
 });
 
-export const successAction = (payload) => ({
-  type: SUCCESS_TYPE,
+export const saveExpenses = (payload) => ({
+  type: SAVE_EXPENSES,
   payload,
+});
+
+export const saveCurrencies = (currencies) => ({
+  type: SAVE_CURRENCIES,
+  payload: { currencies },
 });
 
 // export const errorAction = (payload) => ({

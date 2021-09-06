@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 export class InputSelect extends Component {
   render() {
@@ -47,4 +48,8 @@ InputSelect.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default InputSelect;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export const ConnectedInputSelect = connect(mapStateToProps)(InputSelect);
