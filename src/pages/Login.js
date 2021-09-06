@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import emailValid from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -9,6 +12,7 @@ class Login extends React.Component {
       password: '',
       buttonDisabled: true,
     };
+    this.clickButton = this.clickButton.bind(this);
     this.handleButton = this.handleButton.bind(this);
     this.validLogin = this.validLogin.bind(this);
   }
@@ -37,6 +41,13 @@ class Login extends React.Component {
         buttonDisabled: true,
       });
     }
+  }
+
+  clickButton() {
+    const { email } = this.state;
+    const { history, user } = this.props;
+    user(email);
+    history.push('/carteira');
   }
 
   // handleButton genérico para qualquer input do formulário
@@ -70,7 +81,7 @@ class Login extends React.Component {
         />
 
         <button
-          /* onClick={ () => setCart({ id, title, price, quant: 1, thumbnail, available }) } */
+          onClick={ this.clickButton }
           type="button"
           data-testid="product-add-to-cart"
           disabled={ buttonDisabled }
@@ -82,4 +93,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  user: (email) => dispatch(emailValid(email)),
+});
+
+Login.propTypes = {
+  user: PropTypes.func,
+  history: PropTypes.object,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Login);

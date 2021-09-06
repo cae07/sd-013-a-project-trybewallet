@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import Wallet from './pages/Wallet';
 import './App.css';
@@ -9,12 +9,10 @@ function App() {
     <div>
       {' '}
       Hello, TrybeWallet!
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/carteira" component={ Wallet } />
-          <Route exact path="/" component={ Login } />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route exact path="/carteira" component={ Wallet } />
+        <Route path="/" component={ Login } />
+      </Switch>
     </div>
   );
 }
