@@ -2,7 +2,7 @@ import {
   SUCCESS_TYPE,
   ERROR_TYPE,
   LOADING_TYPE,
-  SUBMIT_TYPE,
+  ADD_EXPENSE,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -28,10 +28,10 @@ const walletReducer = (state = INITIAL_STATE, action) => {
       ...state,
       error: 'error 404',
     };
-  case SUBMIT_TYPE:
+  case ADD_EXPENSE:
     return {
       ...state,
-      expenses: [action.payload],
+      expenses: [...state.expenses, action.expense],
     };
   default:
     return state;

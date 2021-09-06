@@ -1,11 +1,12 @@
-import fetchApi from '../utils/api';
 import {
   USER_INFO,
   LOADING_TYPE,
   SUCCESS_TYPE,
   ERROR_TYPE,
   SUBMIT_TYPE,
+  ADD_EXPENSE,
 } from './actionTypes';
+import fetchApi from '../utils/api';
 
 // Login page
 
@@ -29,16 +30,27 @@ export const loadingAction = () => ({
   type: LOADING_TYPE,
 });
 
-export const apiWithThunk = () => (dispatch) => {
-  dispatch(loadingAction());
-
-  return fetchApi()
-    .then(
-      (response) => dispatch(sucessAction(response)), () => dispatch(errorAction()),
-    );
-};
-
 export const submitAction = (payload) => ({
   type: SUBMIT_TYPE,
   payload,
 });
+
+export const addExpenses = (payload) => {
+  const expenseAction = {
+    type: ADD_EXPENSE,
+    expense: payload,
+  };
+  return (dispatch) => {
+    dispatch(loadingAction());
+    return fetchApi()
+      .then(
+        (response) => dispatch({
+          ...expenseAction,
+          expense: {
+            payload, // Expenses
+            response, // Exchange Rates
+          },
+        }),
+      );
+  };
+};

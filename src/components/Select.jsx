@@ -6,7 +6,7 @@ function Select(props) {
   // console.log(options);
 
   return (
-    <label htmlFor={ name }>
+    <label htmlFor={ id }>
       { labelText }
       <select
         name={ name }

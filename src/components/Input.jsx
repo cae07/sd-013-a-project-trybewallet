@@ -6,7 +6,7 @@ function Input(props) {
 
   return (
     <div>
-      <label htmlFor={ name }>
+      <label htmlFor={ id }>
         { labelText }
         <input
           type={ type }

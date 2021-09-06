@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { apiWithThunk, submitAction } from '../actions';
+import { addExpenses } from '../actions';
+import apiWithThunk from '../actions/actionsThunk';
+import { tags, methods } from '../utils/options';
 import Input from './Input';
 import Select from './Select';
 import Button from './Button';
@@ -23,7 +25,7 @@ class Expenses extends React.Component {
 
     this.inputs = this.inputs.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    // this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -34,31 +36,33 @@ class Expenses extends React.Component {
 
   handleChange({ target }) { // Salva os valores dos inputs no estado local
     const { name, value } = target;
+    const { expense } = this.state;
+
     this.setState({
       expense: {
+        ...expense,
         [name]: value,
       },
     });
   }
 
-  handleClick(event) { // Salvar expense dentro de expenses
+  handleSubmit(event) { // Enviar expenses para o estado global
     event.preventDefault();
-
-    this.setState((prevState) => ({
-      expense: {
-        id: prevState.id + 1,
-      },
-    }));
-  }
-
-  handleSubmit() { // Enviar expenses para o estado global
     const { expense } = this.state; // Traz expense do estado local
     const { expenses } = this.props; // Traz a chave expenses do mapDispatchToProps
-    const setExpenses = []; // Cria o array vazio para ser armazenado os valores dos inputs
-    const expenseState = setExpenses.push(expense); // Coloca os valores do estado local no array criado
-    console.log(expenseState); // Não está retornando nada, nem undefined.
 
-    expenses(expenseState); // Salva os valores do array no expenses do mapDispatchToProps
+    this.setState({
+      expense: {
+        id: expense.id + 1,
+        value: 0,
+        description: '',
+        currency: 'USD',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
+      },
+    }, () => {
+      expenses(expense); // Salva os valores do array no expenses do mapDispatchToProps
+    });
   }
 
   inputs() {
@@ -105,21 +109,20 @@ class Expenses extends React.Component {
             name="method"
             labelText="Método de pagamento"
             id="expense-payment"
-            options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
+            options={ methods }
             onChange={ this.handleChange }
           />
           <Select
             name="tag"
             labelText="Tag"
             id="expense-category"
-            options={ ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'] }
+            options={ tags }
             onChange={ this.handleChange }
           />
           <Button
             name="expense-submit"
             id="expense-submit"
             text="Adicionar despesa"
-            onClick={ this.handleClick }
           />
         </form>
       </section>
@@ -137,7 +140,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getCoinsThunk: () => dispatch(apiWithThunk()),
-  expenses: (state) => dispatch(submitAction(state)),
+  expenses: (state) => dispatch(addExpenses(state)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expenses);
