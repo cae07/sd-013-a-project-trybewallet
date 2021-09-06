@@ -1,14 +1,14 @@
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
-export const SAVE_EXPENSES = 'SAVE_EXPENSES';
+export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 
 export const saveEmail = (email) => ({
   type: SAVE_EMAIL, payload: { email },
 });
 
-export const saveExpenses = (payload) => ({
-  type: SAVE_EXPENSES,
-  payload,
+export const saveExpense = (expense) => ({
+  type: SAVE_EXPENSE,
+  payload: { expense },
 });
 
 export const saveCurrencies = (currencies) => ({

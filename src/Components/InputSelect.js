@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 
 export class InputSelect extends Component {
   render() {
-    const { currencies } = this.props;
+    const { currencies, onChange } = this.props;
     return (
       <>
         <div>
           <label htmlFor="currency">
             Moeda
-            <select name="currency" id="currency">
+            <select name="currency" id="currency" onChange={ onChange }>
               {currencies.map((currency) => (
                 <option key={ currency } value={ currency }>{ currency }</option>
               ))}
@@ -20,7 +20,7 @@ export class InputSelect extends Component {
         <div>
           <label htmlFor="payment">
             Método de pagamento
-            <select name="payment" id="payment">
+            <select name="payment" id="payment" onChange={ onChange }>
               <option value="payment">Dinheiro</option>
               <option value="payment">Cartão de crédito</option>
               <option value="payment">Cartão de débito</option>
@@ -30,7 +30,7 @@ export class InputSelect extends Component {
         <div>
           <label htmlFor="category">
             Tag
-            <select name="category" id="category">
+            <select name="category" id="category" onChange={ onChange }>
               <option value="category">Alimentação</option>
               <option value="category">Lazer</option>
               <option value="category">Trabalho</option>
@@ -46,6 +46,7 @@ export class InputSelect extends Component {
 
 InputSelect.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

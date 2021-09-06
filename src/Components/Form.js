@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ConnectedInputSelect } from './InputSelect';
 import { InputText } from './InputText';
-import { saveCurrencies } from '../actions/index';
+import { saveCurrencies, saveExpense } from '../actions/index';
+import Button from './Button';
 
 class Form extends React.Component {
   constructor() {
     super();
     this.fetchApi = this.fetchApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.saveExpense = this.saveExpense.bind(this);
   }
 
   componentDidMount() {
@@ -18,7 +20,13 @@ class Form extends React.Component {
 
   handleChange({ target }) {
     const { name, value } = target;
-    this.setState({ [name]: value });
+
+    this.setState((oldState) => ({
+      expense: {
+        ...oldState.expense,
+        [name]: value,
+      },
+    }));
   }
 
   async fetchApi() {
@@ -31,11 +39,20 @@ class Form extends React.Component {
     saveCurrenciesOnGlobalState(currenciesWithoutUsdt);
   }
 
+  saveExpense() {
+    const { expense } = this.state;
+    const { saveExpenseOnGlobalState, expenses } = this.props;
+    saveExpenseOnGlobalState({ ...expense, id: expenses.length });
+  }
+
   render() {
     return (
       <form>
-        <InputText />
-        <ConnectedInputSelect />
+        <InputText onChange={ this.handleChange } />
+        <ConnectedInputSelect
+          onChange={ this.handleChange }
+        />
+        <Button onClick={ this.saveExpense } />
       </form>
     );
   }
@@ -43,7 +60,13 @@ class Form extends React.Component {
 
 Form.propTypes = {
   saveCurrenciesOnGlobalState: PropTypes.func.isRequired,
+  saveExpenseOnGlobalState: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  expenses: state.wallet.expenses,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   saveCurrenciesOnGlobalState: (currencies) => {
@@ -53,6 +76,11 @@ const mapDispatchToProps = (dispatch) => ({
     // a gente DISPARA esse objeto para o redux
     dispatch(actionWithCurrencies);
   },
+  saveExpenseOnGlobalState: (expense) => {
+    const actionWithExpense = saveExpense(expense);
+
+    dispatch(actionWithExpense);
+  },
 });
 
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
