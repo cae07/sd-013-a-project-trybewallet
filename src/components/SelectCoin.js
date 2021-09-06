@@ -10,23 +10,20 @@ class SelectCoin extends React.Component {
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currency, handleChange, currencies } = this.props;
 
     const getCurrenciesArray = Object.keys(currencies);
-    // Função que remove do array o Dólar Turismo (USDT)
-    // function removeUSDT(coin) {
-    //   if (coin !== 'USDT') {
-    //     return coin;
-    //   }
-    // }
-
-    // Filtrando os tipos de moeda que queremos mas excluindo a moeda USDT
-    // const getSelectKeys = getKeys.filter(removeUSDT);
     return (
       <div>
         <label htmlFor="select-coin">
           Moeda
-          <select required="required" id="select-coin">
+          <select
+            required="required"
+            id="select-coin"
+            name="currency"
+            onChange={ handleChange }
+            value={ currency }
+          >
             {getCurrenciesArray
               .map((item, index) => (
                 item !== 'USDT' && <option value={ item } key={ index }>{item}</option>

@@ -10,6 +10,9 @@ export const LOADING_TYPE = 'LOADING_TYPE';
 export const SUCCESS_TYPE = 'SUCCESS_TYPE';
 export const ERROR_TYPE = 'ERROR_TYPE';
 
+// Requisito 8:
+export const ADD_EXPENSES = 'ADD_EXPENSES';
+
 // Página de Login
 export const inputEmail = (payload) => ({
   type: INPUT_EMAIL,
@@ -29,23 +32,16 @@ export const successAction = (payload) => ({
   payload,
 });
 
-export const errorAction = () => ({
+export const errorAction = (payload) => ({
   type: ERROR_TYPE,
+  payload,
 });
 
-// Chamada da API
-// export const fetchApi = () => async (dispatch) => {
-//   dispatch(isLoadingAction());
-//   try {
-//     const api = await fetch('https://economia.awesomeapi.com.br/json/all');
-//     // Usar if sempre antes do Json: Ajuda de Julia Baptista
-//     // if (!api.ok) throw new Error('Fetch com erro'); // Mensagem de erro
-//     const json = await api.json();
-//     return dispatch(successAction(json));
-//   } catch (error) {
-//     return dispatch(errorAction());
-//   }
-// };
+// Requisito 8:
+export const addExpensesAction = (payload) => ({
+  type: ADD_EXPENSES,
+  payload,
+});
 
 // Fazendo o fetch com a ajuda da aula 16.4 da T13A
 export const fetchApiWithThunk = () => (dispatch) => {
@@ -56,4 +52,18 @@ export const fetchApiWithThunk = () => (dispatch) => {
       (response) => dispatch(successAction(response)),
       () => dispatch(errorAction()),
     );
+};
+
+// Thunk do requisito 8 com a ajuda de Julia Baptista
+export const addAPIExpense = (payload) => async (dispatch) => {
+  try {
+    const res = await fetch('https://economia.awesomeapi.com.br/json/all');
+    if (!res.ok) throw new Error('Fetch failed');
+    const data = await res.json();
+    delete data.USDT;
+    const expense = { ...payload, exchangeRates: data };
+    return dispatch(addExpensesAction(expense));
+  } catch (error) {
+    return dispatch(errorAction(error.message));
+  }
 };
