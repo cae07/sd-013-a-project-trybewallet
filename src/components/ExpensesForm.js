@@ -47,7 +47,8 @@ class ExpensesForm extends Component {
     const { value, currency } = this.state;
     const { currencies, sum } = this.props;
     const rates = Object.values(currencies);
-    const exchangeRate = rates.find(({ code }) => code === currency).ask;
+    const exchangeRate = rates
+      .find(({ code }) => code === currency).ask;
 
     const amount = value * exchangeRate;
 
@@ -61,6 +62,7 @@ class ExpensesForm extends Component {
   }
 
   render() {
+    const { value, description, currency, method, tag } = this.state;
     return (
       <form>
         <label htmlFor="value">
