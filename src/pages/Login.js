@@ -1,4 +1,8 @@
 import React from 'react';
+import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { saveEmailAction } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -6,8 +10,19 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { saveEmail } = this.props;
+    const { email } = this.state;
+    const { history } = this.props;
+    saveEmail(email);
+    history.push('/carteira');
   }
 
   handleChange({ target }) {
@@ -18,11 +33,12 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, redirect } = this.state;
     const REGEX_EMAIL = /^([\w\d._\-#])+@([\w\d._\-#]+[.][\w\d._\-#]+)+$/;
     const passWordLengthMin = 6;
+    if (redirect) { return <Redirect to="/carteira" />; }
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <input
           data-testid="email-input"
           type="email"
@@ -48,4 +64,13 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  saveEmail: (email) => dispatch(saveEmailAction(email)),
+});
+
+Login.propTypes = {
+  saveEmail: PropTypes.func.isRequired,
+  history: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
