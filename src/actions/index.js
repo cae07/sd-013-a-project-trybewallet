@@ -4,6 +4,7 @@ export const ACTION_LOGIN = 'ACTION_LOGIN';
 export const ACTION_LOADING = 'ACTION_LOADING';
 export const ACTION_SUCESS = 'ACTION_SUCESS';
 export const ACTION_ERROR = 'ACTION_ERROR';
+export const ACTION_ADD_EXPENSE = 'ACTION_ADD_EXPENSE';
 
 export const setLogin = (email) => ({
   type: ACTION_LOGIN,
@@ -30,5 +31,27 @@ export const getApiThunk = () => (dispatch) => {
     .then(
       (response) => dispatch(sucess(response)),
       () => dispatch(error()),
+    );
+};
+
+export const addExpense = (payload) => ({
+  type: ACTION_ADD_EXPENSE,
+  payload,
+});
+
+export const addExpenseWithFetch = (expences) => (dispatch) => {
+  dispatch(loading());
+
+  return getRateAPI()
+    .then(
+      (response) => {
+        const estadoLocal = {
+          ...expences,
+          exchangeRates: {
+            ...response,
+          },
+        };
+        return dispatch(addExpense(estadoLocal));
+      },
     );
 };

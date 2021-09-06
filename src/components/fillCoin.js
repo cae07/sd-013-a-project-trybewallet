@@ -1,46 +1,48 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Proptypes from 'prop-types';
-// import getRateAPI from '../services/awesomeapi';
-import { getApiThunk } from '../actions';
+// import React from 'react';
+// import { connect } from 'react-redux';
+// import Proptypes from 'prop-types';
+// // import getRateAPI from '../services/awesomeapi';
+// import { getApiThunk } from '../actions';
 
-class FillCoin extends React.Component {
-  componentDidMount() {
-    const { getAPI } = this.props;
-    getAPI();
-  }
+// class FillCoin extends React.Component {
+//   componentDidMount() {
+//     const { getAPI } = this.props;
+//     getAPI();
+//   }
 
-  render() {
-    const { currencies } = this.props;
-    const getCurrencies = Object.keys(currencies);
-    return (
-      <div>
-        <label htmlFor="select-coin">
-          Moeda
-          <select required="required" id="select-coin">
-            {getCurrencies
-              .map((item, index) => (
-              // Remova das informações trazidas pela API a opção 'USDT' (Dólar Turismo).
-              // Preenche as options
-                item !== 'USDT' && <option key={ index }>{item}</option>
-              ))}
-          </select>
-        </label>
-      </div>
-    );
-  }
-}
+//   render() {
+//     const { currencies } = this.props;
+//     // console.log(currencies);
+//     const currenciesArray = Object.keys(currencies);
+//     // console.log(getCurrencies);
+//     return (
+//       <div>
+//         <label htmlFor="select-coin">
+//           Moeda
+//           <select required="required" id="select-coin">
+//             {currenciesArray
+//               .map((item, index) => (
+//               // Remova das informações trazidas pela API a opção 'USDT' (Dólar Turismo).
+//               // Preenche as options
+//                 item !== 'USDT' && <option key={ index }>{item}</option>
+//               ))}
+//           </select>
+//         </label>
+//       </div>
+//     );
+//   }
+// }
 
-const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
-});
+// const mapStateToProps = (state) => ({
+//   currencies: state.wallet.currencies,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  getAPI: () => dispatch(getApiThunk()),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   getAPI: () => dispatch(getApiThunk()),
+// });
 
-FillCoin.propTypes = {
-  getRateAPI: Proptypes.func,
-}.isRequired;
+// FillCoin.propTypes = {
+//   getRateAPI: Proptypes.func,
+// }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(FillCoin);
+// export default connect(mapStateToProps, mapDispatchToProps)(FillCoin);
