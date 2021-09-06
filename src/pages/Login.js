@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setLogin } from '../actions';
 
@@ -9,66 +10,40 @@ class Login extends React.Component {
 
     this.state = {
       email: '',
-      initialEmail: false,
       password: '',
-      initialPassword: false,
     };
-    this.disabledButton = this.disabledButton.bind(this);
-    this.emailValidation = this.emailValidation.bind(this);
-    this.validatorPassword = this.validatorPassword.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  disabledButton() {
+  handleChange() {
+    const regexEmail = /^\w+(\[\+\.-\]?\w)*@\w+(\[\.-\]?\w+)*\.[a-z]+$/i;
+    const regexPassword = /^[0-9]{5,}$/i;
     const clickButton = document.querySelector('.btn');
-    const { initialEmail, initialPassword } = this.state;
-    if ((initialEmail) && (initialPassword)) {
+    const { email, password } = this.state;
+    if ((regexEmail.test(email)) && (regexPassword.test(password))) {
       clickButton.removeAttribute('disabled');
     } else {
       clickButton.setAttribute('disabled', '');
     }
   }
 
-  emailValidation({ currentTarget }) {
-    const email = currentTarget;
-    const regexEmail = /^\w+(\[\+\.-\]?\w)*@\w+(\[\.-\]?\w+)*\.[a-z]+$/i;
-    const testValue = regexEmail.test(email.value);
-    if (testValue) {
-      this.setState({
-        initialEmail: true,
-      });
-    }
-    this.disabledButton();
-  }
-
-  validatorPassword({ currentTarget }) {
-    const passwordValidator = currentTarget;
-    const regexPassword = /^[0-9]{5,}$/i;
-    const testValue = regexPassword.test(passwordValidator.value);
-    if (testValue) {
-      this.setState({
-        initialPassword: true,
-      });
-    }
-    this.disabledButton();
-  }
-
   handleClick() {
-    // const { history, dispatchSetValue } = this.props;
-    // dispatchSetValue(this.state);
-    // history.push('/');
-    console.log('ativo');
+    const { email } = this.state;
+    const { dispatchSetValue } = this.props;
+    dispatchSetValue(email);
   }
 
   render() {
     return (
       <section>
-        <form>
+        <form onChange={ this.handleChange }>
           <label htmlFor="email-input">
             <input
               type="text"
               required
               placeholder="Email"
-              onChange={ this.emailValidation }
+              onChange={ ({ target }) => this.setState({ email: target.value }) }
               data-testid="email-input"
             />
           </label>
@@ -78,17 +53,18 @@ class Login extends React.Component {
               data-testid="password-input"
               placeholder="Enter your password"
               required
-              onChange={ this.validatorPassword }
+              onChange={ ({ target }) => this.setState({ password: target.value }) }
             />
           </label>
-          <button
-            className="btn"
-            type="submit"
-            onClick={ this.handleClick }
-            disabled
-          >
-            Entrar
-          </button>
+          <Link to="/carteira" onClick={ this.handleClick }>
+            <button
+              className="btn"
+              type="submit"
+              disabled
+            >
+              Entrar
+            </button>
+          </Link>
         </form>
       </section>
     );
@@ -102,8 +78,8 @@ Login.propTypes = {
   }),
 }.isRequired;
 
-const mapStateToProps = (state) => ({ inputLogin: state.user.inputLogin });
+const mapStateToProps = (state) => ({ email: state.user.email });
 const mapDispatchToProps = (dispath) => ({
-  dispathSetValue: (stateLogins) => dispath(setLogin(stateLogins)) });
+  dispatchSetValue: (stateLogins) => dispath(setLogin(stateLogins)) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
