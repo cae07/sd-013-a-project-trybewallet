@@ -29,6 +29,12 @@ class Login extends React.Component {
   render() {
     const { handleChange, handleClick } = this;
     const { email, password } = this.state;
+    const num = 6;
+    const validPASSWORD = password.length >= num;
+    const validEMAIL = () => {
+      const regex = /\S+@\S+\.\S+/;
+      return regex.test(email);
+    };
     return (
       <div>
         <Input
@@ -47,6 +53,7 @@ class Login extends React.Component {
         />
         <Button
           onClick={ handleClick }
+          disabled={ !(validEMAIL() && validPASSWORD)}
         />
       </div>
     );
