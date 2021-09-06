@@ -1,4 +1,4 @@
-import { CURRENCIES_FETCHED } from '../actions';
+import { CURRENCIES_FETCHED, EXPENSE_ADDED } from '../actions';
 
 const initialState = {
   currencies: [],
@@ -11,6 +11,15 @@ const walletReducer = (state = initialState, action) => {
     return {
       currencies: [...state.currencies, ...action.payload],
       expenses: [...state.expenses],
+    };
+  }
+  case EXPENSE_ADDED: {
+    const nextId = state.expenses.length;
+    const newExpense = Object.assign(action.payload, { id: nextId });
+
+    return {
+      currencies: [...state.currencies],
+      expenses: [...state.expenses, newExpense],
     };
   }
   default:

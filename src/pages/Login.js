@@ -63,7 +63,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    // const { email } = this.props;
     const { emailError, passwordError } = this.state;
 
     return (
@@ -74,7 +74,7 @@ class Login extends React.Component {
             id="email"
             type="text"
             name="email"
-            value={ email }
+            // value={ email }
             onBlur={ (e) => this.validateEmail(e.target.value) }
             data-testid="email-input"
           />
@@ -98,13 +98,8 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  email: PropTypes.string,
   logUserIn: PropTypes.func.isRequired,
   history: PropTypes.shape({ push: PropTypes.func }).isRequired,
-};
-
-Login.defaultProps = {
-  email: '',
 };
 
 const mapDispatchToProps = (dispatch) => ({
