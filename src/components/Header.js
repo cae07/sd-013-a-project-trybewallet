@@ -13,13 +13,13 @@ class Header extends React.Component {
   totalExpenses() {
     const { wallet } = this.props;
     console.log(wallet.arrayValueExpenses);
-    if (wallet.arrayValueExpenses === []) {
-      return 0;
+    if (wallet.arrayValueExpenses) {
+      return wallet.arrayValueExpenses
+        .map((expense) => parseFloat(expense))
+        .reduce((acc, curr) => acc + curr, 0)
+        .toFixed(2);
     }
-    const arrayValueExp = wallet.arrayValueExpenses
-      .map((expense) => parseFloat(expense));
-    const sumExpenses = arrayValueExp.reduce((acc, curr) => acc + curr, 0).toFixed(2);
-    return sumExpenses;
+    return 0;
   }
 
   render() {
@@ -54,13 +54,10 @@ const mapStateToProps = (state) => ({
   wallet: state.wallet,
 });
 
-Header.propTypes = {
-  user: PropTypes.shape({
-    email: PropTypes.string,
-  }),
-  wallet: PropTypes.shape({
-    total: PropTypes.number,
-  }),
-}.isRequired;
+Header.ropTypes = {
+  wallet: PropTypes.arrayOf(Object),
+  arrayValueExpenses: PropTypes.array,
+  email: PropTypes.string.isRequired,
+};
 
 export default connect(mapStateToProps, null)(Header);

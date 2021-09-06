@@ -42,7 +42,7 @@ class TableExpense extends React.Component {
             <td>{ nameExchange }</td>
             <td>{ askExchange }</td>
             <td>{ convertValue }</td>
-            <td>{ currency }</td>
+            {/* <td>{ currency }</td> */}
             <td>Real</td>
           </tr>
         );
