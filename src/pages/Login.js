@@ -26,6 +26,7 @@ class Login extends React.Component {
     changeInputValue(email);
     history.push('./carteira');
   }
+
   render() {
     const { handleChange, handleClick } = this;
     const { email, password } = this.state;
@@ -53,7 +54,7 @@ class Login extends React.Component {
         />
         <Button
           onClick={ handleClick }
-          disabled={ !(validEMAIL() && validPASSWORD)}
+          disabled={ !(validEMAIL() && validPASSWORD) }
         />
       </div>
     );

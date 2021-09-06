@@ -1,7 +1,7 @@
 // // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 // import { LOADING_TYPE, SUCCESS_TYPE, ERROR_TYPE } from "../actions";
 
-// const INITIAL_STATE = { 
+// const INITIAL_STATE = {
 //     loading:false,
 //     error: '',
 //     data: '',

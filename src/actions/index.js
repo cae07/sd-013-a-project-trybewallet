@@ -1,11 +1,11 @@
 // Coloque aqui suas actions
-export const input_email = 'INPUT_EMAIL';
-export const input_senha= 'INPUT_SENHA';
+export const INPUT_EMAIL = 'INPUT_EMAIL';
+export const INPUT_SENHA = 'INPUT_SENHA';
 
 export const inputEmail = (payload) => ({
-  type: input_email,
+  type: INPUT_EMAIL,
   payload });
 
 export const inputPassword = (payload) => ({
-  type: input_senha,
+  type: INPUT_SENHA,
   payload });
