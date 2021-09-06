@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { saveEmailAction } from '../actions';
@@ -12,6 +12,7 @@ class Login extends Component {
       email: '',
       password: '',
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.validateEmail = this.validateEmail.bind(this);
@@ -19,14 +20,14 @@ class Login extends Component {
   }
 
   handleChange(e) {
-    const { name, value } = e.target;
+    const { target: { name, value } } = e;
     this.setState({ [name]: value });
   }
 
   handleClick() {
-    const { changeInputValue, history } = this.props;
-    changeInputValue(this.state);
-    history.push('./carteira');
+    const { changeEmail, history } = this.props;
+    changeEmail(this.state);
+    history.push('/carteira');
   }
 
   // Email validation reference: Aline Hoshino's code
@@ -80,12 +81,12 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  changeInputValue: (state) => dispatch(saveEmailAction(state)),
+  changeEmail: (state) => dispatch(saveEmailAction(state)),
 });
 
 Login.propTypes = {
-  changeInputValue: Proptypes.func,
-  history: Proptypes.shape(),
+  changeEmail: PropTypes.func,
+  history: PropTypes.shape(),
 }.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);

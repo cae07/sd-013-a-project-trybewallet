@@ -1,8 +1,8 @@
 import { SAVE_EMAIL, SUCCESS_TYPE, ERROR_TYPE } from '../actions';
 
 const initialState = {
-  email: '',
-  password: '',
+  currencies: [],
+  expenses: [],
 };
 
 function wallet(state = initialState, { type, payload }) {

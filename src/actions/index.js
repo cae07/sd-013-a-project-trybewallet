@@ -18,7 +18,8 @@ export const errorAction = (payload) => ({
 });
 
 export const fetchName = () => async (dispatch) => {
-  dispatch(loadingAction());
+  dispatch(saveEmailAction());
+
   try {
     const res = await fetch('https://economia.awesomeapi.com.br/json/all');
     if (!res.ok) throw new Error('Fetch failed');
