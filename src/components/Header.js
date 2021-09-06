@@ -32,7 +32,7 @@ class Header extends React.Component {
           <p>
             Despesa Total: R$
             { ' ' }
-            <span data-testid="total-field">
+            <span className="evidence" data-testid="total-field">
               { `${this.totalExpenses()}` }
             </span>
           </p>

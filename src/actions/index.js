@@ -3,6 +3,7 @@ export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 export const SAVE_CAMBIO = 'SAVE_CAMBIO';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const saveLogin = (state) => (
   {
@@ -40,22 +41,25 @@ const requestFetchAPI = async (url) => {
 };
 
 export function saveExpenseSuccess(obj) {
-  const convertValueExpense = obj.exchangeRates[obj.currency].ask * obj.value;
   return {
     type: SAVE_EXPENSE,
     obj,
-    convertValueExpense,
   };
 }
 
 export const saveExpense = (state) => (dispatch) => requestFetchAPI('https://economia.awesomeapi.com.br/json/all')
   .then((json) => { dispatch(saveExpenseSuccess({ ...state, exchangeRates: json })); });
 
-export function deleteExpense(id, convertValue) {
-  console.log(convertValue);
+export function deleteExpense(id) {
   return {
     type: DELETE_EXPENSE,
     id,
-    convertValue,
+  };
+}
+
+export function editExpense(state) {
+  return {
+    type: EDIT_EXPENSE,
+    state,
   };
 }

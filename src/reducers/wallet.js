@@ -1,9 +1,9 @@
-import { SAVE_EXPENSE, SAVE_CURRENCIES, DELETE_EXPENSE } from '../actions';
+import { SAVE_EXPENSE, SAVE_CURRENCIES, DELETE_EXPENSE, EDIT_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  totalExpenses: 0,
+  editExpense: false,
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -13,11 +13,6 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses,
         { ...action.obj }],
-      // arrayValueExpenses: [...state.arrayValueExpenses, action.convertValueExpense],
-      totalExpenses: state.totalExpenses
-        ? parseFloat(state.totalExpenses)
-        + parseFloat(action.convertValueExpense)
-        : parseFloat(action.convertValueExpense),
     };
   case SAVE_CURRENCIES:
     return {
@@ -30,7 +25,14 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: [...state.expenses.filter(
         (index) => index.id !== action.id,
       )],
-      totalExpenses: state.totalExpenses - action.convertValue,
+    };
+  case EDIT_EXPENSE:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter(
+        (index) => index.id !== action.id,
+      )],
+      editExpense: true,
     };
   default:
     return state;

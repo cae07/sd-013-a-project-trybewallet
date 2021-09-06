@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { deleteExpense } from '../actions';
+import { deleteExpense, editExpense } from '../actions';
 
 class TableExpense extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class TableExpense extends React.Component {
     this.listExpenses = this.listExpenses.bind(this);
     this.clickDeleteExpense = this.clickDeleteExpense.bind(this);
     this.filterExpenseId = this.filterExpenseId.bind(this);
-    // this.clickEditExpense = this.clickEditExpense.bind(this);
+    this.clickEditExpense = this.clickEditExpense.bind(this);
   }
 
   subtitle() {
@@ -39,6 +39,11 @@ class TableExpense extends React.Component {
     dispatchDeleteExpense(id, convertValue);
   }
 
+  clickEditExpense(id) {
+    const { dispatchEditExpense } = this.props;
+    dispatchEditExpense(id);
+  }
+
   listExpenses() {
     const { expenses } = this.props;
     return (
@@ -48,16 +53,16 @@ class TableExpense extends React.Component {
         const askExchange = Number(exchange.ask).toFixed(2);
         const convertValue = (value * exchange.ask).toFixed(2);
         return (
-          <tr key={ id }>
+          <tr className="expenseRow" key={ id }>
             <td className="expenseDesc">{ description }</td>
-            <td>{ tag }</td>
-            <td>{ method }</td>
-            <td>{ value }</td>
-            <td>{ nameExchange }</td>
-            <td>{ askExchange }</td>
-            <td>{ convertValue }</td>
-            <td>Real</td>
-            <td>
+            <td className="expenseTag">{ tag }</td>
+            <td className="expenseMeth">{ method }</td>
+            <td className="expenseValu">{ value }</td>
+            <td className="expenseExch">{ nameExchange }</td>
+            <td className="expenseAsk">{ askExchange }</td>
+            <td className="expenseConvValue">{ convertValue }</td>
+            <td className="expenseReal">Real</td>
+            <td className="expenseButtons">
               <button
                 onClick={ () => this.clickDeleteExpense(id, convertValue) }
                 data-testid="delete-btn"
@@ -65,15 +70,15 @@ class TableExpense extends React.Component {
                 className="deleteButton"
               >
                 Delete
-                {/* <img style={ { width: '40px' } } src={ trash } alt="delete" /> */ }
               </button>
-              {/* <button
-                onClick={ this.ClickEditExpense(id) }
+              <button
+                onClick={ this.clickEditExpense(id) }
                 data-testid="edit-btn"
                 type="button"
+                className="editButton"
               >
-                <img style={ { width: '40px' } } src={ pencil } alt="edit" />
-              </button> */}
+                Editar
+              </button>
             </td>
           </tr>
         );
@@ -95,6 +100,7 @@ class TableExpense extends React.Component {
 
 TableExpense.propTypes = {
   dispatchDeleteExpense: PropTypes.func.isRequired,
+  dispatchEditExpense: PropTypes.func.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
@@ -105,6 +111,7 @@ const mapStateToProps = (stateStore) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchDeleteExpense: (id, convertValue) => dispatch(deleteExpense(id, convertValue)),
+  dispatchEditExpense: (id) => dispatch(editExpense(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableExpense);
