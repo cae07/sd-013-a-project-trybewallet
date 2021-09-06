@@ -1,10 +1,11 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 // importar as actions
-import { START_FETCH, GET_INFO } from '../actions/actionTypes';
+import { START_FETCH, GET_INFO, EXCHANGE_RATES } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   loading: false,
   currencies: [],
+  expenses: [],
 };
 
 const walletReducer = (state = INITIAL_STATE, action) => {
@@ -18,6 +19,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
       ...state,
       currencies: Object.keys(action.payload),
       loading: false };
+  case EXCHANGE_RATES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.state],
+    };
   default:
     return state;
   }

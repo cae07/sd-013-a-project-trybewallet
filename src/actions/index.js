@@ -1,4 +1,4 @@
-import { LOGIN_ACTION, START_FETCH, GET_INFO } from './actionTypes';
+import { LOGIN_ACTION, START_FETCH, GET_INFO, EXCHANGE_RATES } from './actionTypes';
 // Coloque aqui suas actions
 // Action é uma função que retorna um objeto que contenha ao menos uma chave denominada "type"
 
@@ -15,7 +15,9 @@ export const startFetch = () => ({
 
 export const getInfo = (json) => ({ type: GET_INFO, payload: json });
 
-export const fetchCurrencies = () => (dispatch) => {
+export const expenseList = (state) => ({ type: EXCHANGE_RATES, state });
+
+export const fetchCurrencies = () => async (dispatch) => {
   dispatch(startFetch());
   return fetch('https://economia.awesomeapi.com.br/json/all')
     .then((r) => r.json()
