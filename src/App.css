@@ -1,8 +1,8 @@
 body {
-  margin: 0;
-  /* background-color: #EDEDED; */
   background-color: #eae2b7;
   color: #333;
+  margin: 0;
+  /* background-color: #EDEDED; */
 }
 
 html, body, .root, .App {
@@ -11,32 +11,32 @@ html, body, .root, .App {
 }
 
 .App {
-  justify-content: center;
 	align-items: center;
+  justify-content: center;
 }
 
 .container {
+  align-items: center;
+  border: 1px solid #ccc;
+  display: flex;
   height: 100vh;
-  width: 100vw;
-	margin: 0 auto;
-	display: flex;
-	border: 1px solid #ccc;
   justify-content: center;
-	align-items: center;
+  margin: 0 auto;
+  width: 100vw;
 }
 
 .container-login {
   border: #003049 solid 2px;
-  width: 300px;
-  height: 100px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around
+  height: 100px;
+  justify-content: space-around;
+  width: 300px;
 }
 
 .container-wallet {
   border: #003049 solid 2px;
   height: 99vh;
   width: 99vw;
-	margin: 0 auto;
+  margin: 0 auto;
 }
