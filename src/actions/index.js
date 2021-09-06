@@ -40,7 +40,6 @@ export const fetchCurrencies = () => (
       dispatch(getCurrencies(data));
       dispatch(isFetching(false));
     } catch (error) {
-      dispatch(errorHandle(error.message));
       dispatch(isFetching());
     }
   }
