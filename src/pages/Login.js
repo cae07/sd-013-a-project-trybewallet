@@ -63,32 +63,34 @@ class Login extends React.Component {
   render() {
     const { email, password, disableButton } = this.state;
     return (
-      <fieldset className="container-login">
-        <legend>Login Trybe Wallet</legend>
-        <input
-          type="text"
-          data-testid="email-input"
-          name="email"
-          placeholder="E-mail"
-          onChange={ this.handleChange }
-          value={ email }
-        />
-        <input
-          type="text"
-          data-testid="password-input"
-          name="password"
-          placeholder="Password"
-          onChange={ this.handleChange }
-          value={ password }
-        />
-        <button
-          type="button"
-          onClick={ this.onSubmitForm }
-          disabled={ disableButton }
-        >
-          Entrar
-        </button>
-      </fieldset>
+      <div className="container">
+        <fieldset className="container-login">
+          <legend>Login Trybe Wallet</legend>
+          <input
+            type="text"
+            data-testid="email-input"
+            name="email"
+            placeholder="E-mail"
+            onChange={ this.handleChange }
+            value={ email }
+          />
+          <input
+            type="text"
+            data-testid="password-input"
+            name="password"
+            placeholder="Password"
+            onChange={ this.handleChange }
+            value={ password }
+          />
+          <button
+            type="button"
+            onClick={ this.onSubmitForm }
+            disabled={ disableButton }
+          >
+            Entrar
+          </button>
+        </fieldset>
+      </div>
     );
   }
 }

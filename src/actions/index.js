@@ -11,7 +11,7 @@ export const startFetch = () => ({
   type: START_FETCH,
 });
 
-export const getInfo = (json) => ({ type: GET_INFO, payload: json });
+export const getInfo = (resultJson) => ({ type: GET_INFO, payload: resultJson });
 
 export const expenseList = (state) => ({ type: EXCHANGE_RATES, state });
 

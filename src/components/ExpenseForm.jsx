@@ -31,10 +31,9 @@ class ExpenseForm extends React.Component {
     const { dispatchExpenses } = this.props;
     let { id } = this.state;
     this.setState(({ id: id += 1 }));
-    const fetchApi = await fetch('https://economia.awesomeapi.com.br/json/all');
-    const response = await fetchApi.json();
-    delete response.USDT;
-    this.setState({ exchangeRates: response });
+    const result = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const resultJson = await result.json();
+    this.setState({ exchangeRates: resultJson });
     dispatchExpenses(this.state);
   }
 

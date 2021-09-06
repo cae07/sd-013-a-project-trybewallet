@@ -1,4 +1,42 @@
+body {
+  margin: 0;
+  /* background-color: #EDEDED; */
+  background-color: #eae2b7;
+  color: #333;
+}
+
+html, body, .root, .App {
+  height: 100%;
+  width: 100;
+}
+
+.App {
+  justify-content: center;
+	align-items: center;
+}
+
+.container {
+  height: 100vh;
+  width: 100vw;
+	margin: 0 auto;
+	display: flex;
+	border: 1px solid #ccc;
+  justify-content: center;
+	align-items: center;
+}
+
 .container-login {
-  border: blue solid 1px;
+  border: #003049 solid 2px;
   width: 300px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around
+}
+
+.container-wallet {
+  border: #003049 solid 2px;
+  height: 99vh;
+  width: 99vw;
+	margin: 0 auto;
 }
