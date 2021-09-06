@@ -1,8 +1,11 @@
-import { LOGIN } from './actionTypes';
+import { LOGIN, FETCH_API } from './actionTypes';
 
-const loginAction = (email) => ({
+export const loginAction = (payload) => ({
   type: LOGIN,
-  email,
+  payload,
 });
 
-export default loginAction;
+export const fetchCurrency = (payload) => ({
+  type: FETCH_API,
+  payload,
+});
