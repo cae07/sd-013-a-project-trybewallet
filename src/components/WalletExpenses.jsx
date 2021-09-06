@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 class WalletExpenses extends React.Component {
   getAsk(expense) {
     const { ask } = expense.exchangeRates[expense.currency];
-    return ask;
+    return parseFloat(ask).toFixed(2);
   }
 
   getCurrencyName(expense) {
@@ -16,7 +16,7 @@ class WalletExpenses extends React.Component {
 
   getConvertedValue(expense) {
     const { ask } = expense.exchangeRates[expense.currency];
-    return parseFloat(expense.value * ask);
+    return parseFloat(expense.value * ask).toFixed(2);
   }
 
   render() {
