@@ -1,0 +1,10 @@
+header {
+  align-content: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+.formulario {
+  display: flex;
+  justify-content: center;
+}
