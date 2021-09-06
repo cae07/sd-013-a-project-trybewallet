@@ -58,7 +58,9 @@ class Login extends React.Component {
             onChange={ this.handleChange }
           />
         </label>
-        {valid ? <button type="button" onClick={ this.changePage }>Entrar</button> : <button type="button" disabled>Entrar</button>}
+        {valid
+          ? <button type="button" onClick={ this.changePage }>Entrar</button>
+          : <button type="button" disabled>Entrar</button>}
       </div>
     );
   }
