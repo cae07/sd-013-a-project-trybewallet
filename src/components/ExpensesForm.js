@@ -46,7 +46,7 @@ class ExpensesForm extends React.Component {
             <input type="number" id="value" value={ value } onChange={ this.onChange } />
           </label>
 
-          <label htmlFor="des">
+          <label htmlFor="description">
             Descrição
             <textarea id="description" value={ description } onChange={ this.onChange } />
           </label>
@@ -75,11 +75,11 @@ class ExpensesForm extends React.Component {
               <option value="food">Alimentação</option>
               <option value="leisure">Lazer</option>
               <option value="work">Trabalho</option>
+              <option value="transport">Transporte</option>
               <option value="health">Saúde</option>
             </select>
           </label>
           <button type="button">Adicionar despesa</button>
-
         </fieldset>
 
       </form>
