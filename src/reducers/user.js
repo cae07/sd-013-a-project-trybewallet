@@ -10,4 +10,7 @@ const user = (state = INITIAL_STATE_USER, action) => {
   }
 };
 
+// uma alteração qualquer
+
 export default user;
+
