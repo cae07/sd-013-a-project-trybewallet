@@ -11,60 +11,49 @@ class Login extends React.Component {
     super();
 
     this.state = {
-      emailError: '',
-      passwordError: '',
+      email: '',
+      password: '',
     };
 
     this.handleSubmission = this.handleSubmission.bind(this);
-    this.validateEmail = this.validateEmail.bind(this);
-    this.validatePassword = this.validatePassword.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
-  validateEmail(input) {
-    const errorMsg = (RE_EMAIL.test(input))
-      ? ''
-      : 'Invalid email.';
-
-    this.setState((state) => ({
-      ...state,
-      emailError: errorMsg,
-    }));
-
-    return !errorMsg;
-  }
-
-  validatePassword(input) {
-    const errorMsg = (input.length < MINIMAL_PASSWORD_LENGTH)
-      ? 'Your password must have at least 6 characters.'
+  handleEmailChange(userInput) {
+    const value = (RE_EMAIL.test(userInput))
+      ? userInput
       : '';
 
-    this.setState((state) => ({
-      ...state,
-      passwordError: errorMsg,
-    }));
+    this.setState({ email: value });
+  }
 
-    return !errorMsg;
+  handlePasswordChange(userInput) {
+    const value = (userInput.length >= MINIMAL_PASSWORD_LENGTH)
+      ? userInput
+      : '';
+
+    this.setState({ password: value });
   }
 
   handleSubmission(e) {
     e.preventDefault();
 
+    const { email, password } = this.state;
     const { logUserIn, history } = this.props;
 
-    // Get data submitted
-    const formData = new FormData(e.target);
-    const email = formData.get('email');
-    const password = formData.get('password');
-
-    if (this.validateEmail(email) && this.validatePassword(password)) {
+    if (email && password) {
       logUserIn(email);
+      this.setState({ email: '', password: '' });
       history.push('/carteira');
     }
   }
 
   render() {
-    // const { email } = this.props;
-    const { emailError, passwordError } = this.state;
+    const { email, password } = this.state;
+
+    let disableButton = true;
+    if (email && password) disableButton = false;
 
     return (
       <form onSubmit={ this.handleSubmission }>
@@ -74,24 +63,23 @@ class Login extends React.Component {
             id="email"
             type="text"
             name="email"
-            // value={ email }
-            onBlur={ (e) => this.validateEmail(e.target.value) }
+            onChange={ (e) => this.handleEmailChange(e.target.value) }
             data-testid="email-input"
           />
         </label>
-        <span>{emailError}</span>
+
         <label htmlFor="password">
           Password
           <input
             id="password"
             type="password"
             name="password"
-            onBlur={ (e) => this.validatePassword(e.target.value) }
+            onChange={ (e) => this.handlePasswordChange(e.target.value) }
             data-testid="password-input"
           />
         </label>
-        <span>{passwordError}</span>
-        <input type="submit" value="Entrar" />
+
+        <input type="submit" value="Entrar" disabled={ disableButton } />
       </form>
     );
   }
@@ -99,7 +87,9 @@ class Login extends React.Component {
 
 Login.propTypes = {
   logUserIn: PropTypes.func.isRequired,
-  history: PropTypes.shape({ push: PropTypes.func }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
