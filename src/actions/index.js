@@ -2,6 +2,7 @@ export const SAVE_LOGIN = 'SAVE_LOGIN';
 export const SAVE_CURRENCIES = 'SAVE_CURRENCIES';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 export const SAVE_CAMBIO = 'SAVE_CAMBIO';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const saveLogin = (state) => (
   {
@@ -49,3 +50,12 @@ export function saveExpenseSuccess(obj) {
 
 export const saveExpense = (state) => (dispatch) => requestFetchAPI('https://economia.awesomeapi.com.br/json/all')
   .then((json) => { dispatch(saveExpenseSuccess({ ...state, exchangeRates: json })); });
+
+export function deleteExpense(id, convertValue) {
+  console.log(convertValue);
+  return {
+    type: DELETE_EXPENSE,
+    id,
+    convertValue,
+  };
+}

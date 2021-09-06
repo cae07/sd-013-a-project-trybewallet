@@ -10,14 +10,22 @@ class Header extends React.Component {
     this.totalExpenses = this.totalExpenses.bind(this);
   }
 
+  // totalExpenses() {
+  //   const { wallet } = this.props;
+  //   if (wallet.arrayValueExpenses) {
+  //     return wallet.arrayValueExpenses
+  //       .map((expense) => parseFloat(expense))
+  //       .reduce((acc, curr) => acc + curr, 0)
+  //       .toFixed(2);
+  //   }
+  //   return 0;
+  // }
+
   totalExpenses() {
     const { wallet } = this.props;
-    console.log(wallet.arrayValueExpenses);
-    if (wallet.arrayValueExpenses) {
-      return wallet.arrayValueExpenses
-        .map((expense) => parseFloat(expense))
-        .reduce((acc, curr) => acc + curr, 0)
-        .toFixed(2);
+    const decimal = 0.1;
+    if (wallet.totalExpenses && wallet.totalExpenses > decimal) {
+      return wallet.totalExpenses.toFixed(2);
     }
     return 0;
   }
@@ -54,9 +62,7 @@ Header.propTypes = {
     email: PropTypes.string,
   }).isRequired,
   wallet: PropTypes.shape({
-    arrayValueExpenses: PropTypes.shape({
-      map: PropTypes.func,
-    }),
+    totalExpenses: PropTypes.func,
   }).isRequired,
 };
 
