@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 
 class ButtonIn extends React.Component {
   render() {
@@ -10,3 +10,4 @@ class ButtonIn extends React.Component {
 }
 
 export default ButtonIn;
+ */

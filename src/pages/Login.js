@@ -19,10 +19,10 @@ class Login extends React.Component {
   }
 
   onclick() {
-    const { email } = this.state;
+    const { email, password } = this.state;
     const { userLogin } = this.props;
+    userLogin(({ email, password }));
     this.setState({ redirectToCarteira: true });
-    userLogin(email);
   }
 
   onChange() {
@@ -88,8 +88,9 @@ class Login extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   userLogin: (payload) => dispatch(loginEmail(payload)),
 });
-export default connect(null, mapDispatchToProps)(Login);
 
 Login.propTypes = {
   userLogin: PropTypes.func.isRequired,
 };
+
+export default connect(null, mapDispatchToProps)(Login);

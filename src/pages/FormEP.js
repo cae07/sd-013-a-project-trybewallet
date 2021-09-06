@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import ButtonIn from './ButtonIn';
 
 class FormEP extends React.Component {
@@ -18,3 +18,4 @@ class FormEP extends React.Component {
   }
 }
 export default FormEP;
+ */

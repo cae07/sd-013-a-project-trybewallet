@@ -1,13 +1,14 @@
 import fetchMoeda from '../services/APIMoeda';
 
-export const LOGIN_EMAIL = 'LOGIN_EMAIL';
+export const LOGIN_USER = 'LOGIN_USER';
 export const WALLET_DATA = 'WALLET_DATA';
 export const ACTION_REQUEST_START = 'ACTION_REQUEST_START';
 export const ACTION_REQUEST_SUCCESS = 'ACTION_REQUEST_SUCCESS';
 export const ACTION_REQUEST_FAIL = 'ACTION_REQUEST_FAIL';
+export const SEND_EXPENSES = 'SEND_EXPENSES';
 
 export const loginEmail = (payload) => ({
-  type: LOGIN_EMAIL,
+  type: LOGIN_USER,
   payload,
 });
 
@@ -34,18 +35,38 @@ export const actionRequestCurrenciesFail = (error) => ({
   error,
 });
 
-// Função fetchCurrencies para conexão com a API de Moedas, passando a dispatch como parametro
-export const fetchCurrencies = () => async (dispatch) => {
-  try {
-    // Dispara a action de tentativa de conexão com a API de Moedas
-    dispatch(actionRequestMoeda());
-    // Guarda na variável currencies os dados de retorno da API
-    const currencies = await fetchMoeda();
-    // Se chegou até esse ponto aciono a action de Success de conexão com a API
-    dispatch(actionRequestCurrenciesSuccess(currencies));
-  } catch (error) {
-    // Se chegou nesse ponto de erro, aciono a action de Error de conexão com a API
-    dispatch(actionRequestCurrenciesFail(error));
-  }
+export const sendExpenses = (payload) => ({
+  type: SEND_EXPENSES,
+  payload,
+});
+
+export const fetchCurrencies = () => (dispatch) => {
+  dispatch(actionRequestMoeda());
+  return fetchMoeda()
+    .then(
+      (data) => {
+        const filteredCoins = Object
+          .keys(data)
+          .filter((coin) => coin !== 'USDT');
+        return dispatch(actionRequestCurrenciesSuccess(filteredCoins));
+      },
+      (error) => dispatch(actionRequestCurrenciesFail(error)),
+    );
 };
-// Coloque aqui suas actions
+
+export const fetchExchangesRates = (userForm) => (dispatch) => {
+  dispatch(actionRequestMoeda());
+  return fetchMoeda()
+    .then(
+      (data) => {
+        const userInfo = {
+          ...userForm,
+          exchangeRates: {
+            ...data,
+          },
+        };
+        return dispatch(sendExpenses(userInfo));
+      },
+      (error) => dispatch(actionRequestCurrenciesFail(error)),
+    );
+};

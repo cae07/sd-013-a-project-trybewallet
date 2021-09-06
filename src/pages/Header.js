@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -27,7 +27,7 @@ class Header extends React.Component {
         <p data-testid="email-field">{`E-mail: ${email}`}</p>
         <div>
           <span data-testid="total-field">
-            {/* Realiza o total dos gasttos */}
+            {/* Realiza o total dos gasttos
             {`Despesa Total: R$ ${this.getAllExpenses()} `}
           </span>
         </div>
@@ -54,3 +54,4 @@ Header.defaultProps = {
 };
 
 export default connect(mapStateToProps)(Header);
+ */
