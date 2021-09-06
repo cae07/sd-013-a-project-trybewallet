@@ -10,24 +10,15 @@ class Header extends React.Component {
     this.totalExpenses = this.totalExpenses.bind(this);
   }
 
-  // totalExpenses() {
-  //   const { wallet } = this.props;
-  //   if (wallet.arrayValueExpenses) {
-  //     return wallet.arrayValueExpenses
-  //       .map((expense) => parseFloat(expense))
-  //       .reduce((acc, curr) => acc + curr, 0)
-  //       .toFixed(2);
-  //   }
-  //   return 0;
-  // }
-
   totalExpenses() {
-    const { wallet } = this.props;
-    const decimal = 0.1;
-    if (wallet.totalExpenses && wallet.totalExpenses > decimal) {
-      return wallet.totalExpenses.toFixed(2);
-    }
-    return 0;
+    const { expenses } = this.props;
+    const total = expenses.reduce((acc, crr) => {
+      const { value, currency, exchangeRates } = crr;
+      const convertion = Number(value) * (exchangeRates[currency].ask);
+
+      return acc + convertion;
+    }, 0);
+    return Math.round(total * 100) / 100;
   }
 
   render() {
@@ -58,17 +49,18 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
+  expenses: PropTypes.shape({
+    reduce: PropTypes.func,
+  }).isRequired,
   user: PropTypes.shape({
     email: PropTypes.string,
   }).isRequired,
-  wallet: PropTypes.shape({
-    totalExpenses: PropTypes.func,
-  }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-  wallet: state.wallet,
+const mapStateToProps = ({ user, wallet }) => ({
+  user,
+  wallet,
+  expenses: wallet.expenses,
 });
 
 export default connect(mapStateToProps, null)(Header);

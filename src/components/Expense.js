@@ -27,6 +27,7 @@ class Expense extends React.Component {
 
   onSubmitForm() {
     const { dispatchExpense, expenses } = this.props;
+
     // Disparamos a nossa action através da função importada
     // de actions.js, que apelidamos de dispatchExpense
     this.setState({
@@ -79,7 +80,13 @@ class Expense extends React.Component {
         <form>
           <label htmlFor="valor">
             Valor:
-            <input type="text" id="valor" name="value" onChange={ this.handleChange } />
+            <input
+              className="inputValueForm"
+              type="text"
+              id="valor"
+              name="value"
+              onChange={ this.handleChange }
+            />
           </label>
           <label htmlFor="moeda">
             Moeda:

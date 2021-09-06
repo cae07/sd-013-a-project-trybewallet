@@ -16,15 +16,15 @@ class TableExpense extends React.Component {
   subtitle() {
     return (
       <tr>
-        <th>Descrição</th>
-        <th>Tag</th>
-        <th>Método de pagamento</th>
-        <th>Valor</th>
-        <th>Moeda</th>
-        <th>Câmbio utilizado</th>
-        <th>Valor convertido</th>
-        <th>Moeda de conversão</th>
-        <th>Editar/Excluir</th>
+        <th className="subtitleColumnDesc">Descrição</th>
+        <th className="subtitleColumnTag">Tag</th>
+        <th className="subtitleColumnMeth">Método de pagamento</th>
+        <th className="subtitleColumnValu">Valor</th>
+        <th className="subtitleColumnCoin">Moeda</th>
+        <th className="subtitleColumnCamb">Câmbio utilizado</th>
+        <th className="subtitleColumnValu">Valor convertido</th>
+        <th className="subtitleColumnCoin">Moeda de conversão</th>
+        <th className="subtitleColumnEdit">Editar/Excluir</th>
       </tr>
     );
   }
@@ -49,7 +49,7 @@ class TableExpense extends React.Component {
         const convertValue = (value * exchange.ask).toFixed(2);
         return (
           <tr key={ id }>
-            <td>{ description }</td>
+            <td className="expenseDesc">{ description }</td>
             <td>{ tag }</td>
             <td>{ method }</td>
             <td>{ value }</td>
