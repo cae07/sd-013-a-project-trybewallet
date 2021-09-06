@@ -14,9 +14,9 @@ class PaymentType extends React.Component {
           id="input-payment"
         >
           <option value="">escolha</option>
-          <option value="money">Dinheiro</option>
-          <option value="debit">Cartão de crédito</option>
-          <option value="credit">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );

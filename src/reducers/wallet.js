@@ -3,23 +3,23 @@ import {
   GET_COINS_FAIL,
   SAVE_COINS,
   UPDATE_STATE,
-  EXCHANGE_RATES,
+  UPDATE_TOTAL,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  expenses: [{
-    id: 0,
-    value: '',
-    description: '',
-    currency: '',
-    method: '',
-    tag: '',
-    exchangeRates: {},
-  }],
+  expenses: [],
   currencies: [],
   isLoading: true,
   erro: null,
+  total: 0,
 };
+
+// const updateTotal = (state) => {
+//   const { expenses } = state;
+//   return expenses.reduce((acc, { value, exchangeRates, currency }) => (
+//     acc + (parseFloat(value) * parseFloat(exchangeRates[currency].ask))
+//   ), 0);
+// };
 
 const saveCoins = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -33,24 +33,17 @@ const saveCoins = (state = INITIAL_STATE, action) => {
       isLoading: false,
       currencies: action.payload,
     });
+    //  Auxiliado pelo Gabriel Gaspar turma 13 A
   case UPDATE_STATE:
     return ({
       ...state,
-      expenses: {
-        id: action.state.id,
-        value: action.state.value,
-        description: action.state.description,
-        currency: action.state.currency,
-        method: action.state.method,
-        tag: action.state.tag,
-      },
+      expenses: [...state.expenses, action.state],
       isLoading: false,
     });
-  case EXCHANGE_RATES:
+  case UPDATE_TOTAL:
     return {
       ...state,
-      exchangeRates: action.payload,
-      isLoading: false,
+      total: 187.12,
     };
   case GET_COINS_FAIL:
     return ({
