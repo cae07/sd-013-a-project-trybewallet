@@ -7,11 +7,11 @@ import {
 } from '../actions';
 
 class Wallet extends React.Component {
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  // super(props);
 
-    this.renderSelect = this.renderSelect.bind(this);
-  }
+  // this.renderSelect = this.renderSelect.bind(this);
+  // }
 
   componentDidMount() {
     const { dispatchAPI } = this.props;
