@@ -3,6 +3,7 @@ const SET_EMAIL = 'SET_EMAIL';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const FAILED_REQUEST = 'FAILED_REQUEST';
 export const GET_RATES = 'GET_RATES';
+export const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const setEmail = (payload) => (
   {
@@ -20,6 +21,10 @@ const failedRequest = (error) => ({
 
 const getRates = (json) => ({
   type: GET_RATES, payload: json,
+});
+
+export const removeExpense = (payload) => ({
+  type: REMOVE_EXPENSE, payload,
 });
 
 export const fetchCurrencies = () => (
