@@ -1,26 +1,30 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
-// Cria um estado inicial para o reducer 'user'
+
+import {
+  FAILED_CURRENCY,
+  GET_CURRENCY,
+  REQUEST_CURRENCY } from '../actions';
+
+// Cria um estado inicial para o reducer 'wallet'
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
-  isFetching: true,
+  isFetching: false,
 };
 
-// Cria o reducer user
-const wallet = (state = INITIAL_STATE, action) => {
+// Cria um reducer wallet
+function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  // caso EMAIL_VALID, mantém o estado e altera a chave email.
-  case 'EMAIL_VALID':
-    return {
-      ...state,
-      email: action.currencies,
-    };
-
-    // caso não encontre nenhum caso, retorna o estado atual
+  // Esse caso troca o propriedade 'isFetching' para true
+  case REQUEST_CURRENCY:
+    return { ...state, isFetching: true };
+  case GET_CURRENCY:
+    return { ...state, currencies: Object.keys(action.payload), isFetching: false };
+  case FAILED_CURRENCY:
+    return { ...state, error: action.payload, isFetching: false };
   default:
     return state;
   }
-};
+}
 
-// exporta o reducer user que será utilizado ...
 export default wallet;

@@ -1,10 +1,19 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-/* import PropTypes from 'prop-types';
-import { connect } from 'react-redux'; */
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchCurrency } from '../actions';
+import Currency from './Currency';
 
 class Form extends React.Component {
+  componentDidMount() {
+    const { optionCurrency } = this.props;
+    optionCurrency();
+  }
+
   render() {
+    const { currencies } = this.props;
+    const filterCurrencies = currencies.filter((currency) => currency !== 'USDT');
+    const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
     return (
       <div>
         <label htmlFor="expense">
@@ -13,7 +22,6 @@ class Form extends React.Component {
             type="text"
             id="expense"
             name="expense"
-            /* onChange={ this.handleButton } */
           />
         </label>
         <label htmlFor="description">
@@ -22,15 +30,9 @@ class Form extends React.Component {
             type="text"
             id="description"
             name="description"
-            /* onChange={ this.handleButton } */
           />
         </label>
-        <label htmlFor="currency">
-          Moeda
-          <select name="currency" id="currency">
-            <option value="valor1">Valor 1</option>
-          </select>
-        </label>
+        <Currency filterCurrencies={ filterCurrencies } />
         <label htmlFor="payment">
           Método de pagamento
           <select name="payment" id="payment">
@@ -42,11 +44,7 @@ class Form extends React.Component {
         <label htmlFor="Tag">
           Tag
           <select name="Tag" id="Tag">
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
+            { tags.map((tag, key) => <option key={ key }>{ tag }</option>)}
           </select>
         </label>
       </div>
@@ -54,4 +52,16 @@ class Form extends React.Component {
   }
 }
 
-export default Form;
+Form.propTypes = {
+  optionCurrency: PropTypes.func,
+}.isRequired;
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  optionCurrency: () => dispatch(fetchCurrency()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
