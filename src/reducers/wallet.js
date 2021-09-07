@@ -14,7 +14,6 @@ const INITIAL_STATE = {
 };
 
 function wallet(state = INITIAL_STATE, action) {
-  // console.log('L9 ACTION.payload', action.payload);
   switch (action.type) {
   case SAVE_STATE_EXPENSES:
     return {

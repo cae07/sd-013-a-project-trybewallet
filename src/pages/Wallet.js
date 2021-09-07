@@ -20,7 +20,7 @@ class Wallet extends React.Component {
     this.state = {
       quotation: [],
       expenses: {
-        value: 0,
+        value: '0',
         description: '',
         currency: 'USD',
         method: 'Dinheiro',
@@ -46,7 +46,7 @@ class Wallet extends React.Component {
     const property = this.propertyTranslation(name);
     this.setState((prevState) => ({ expenses:
         { ...prevState.expenses,
-          ...{ [property]: (property === 'valor' ? Number(value) : value) } } }));
+          ...{ [property]: value } } }));
   }
 
   onClick(e) {
@@ -93,7 +93,7 @@ class Wallet extends React.Component {
           <InputField
             name="Valor"
             testid="valor-input"
-            type="number"
+            type="text"
             placeholder="0"
             onChange={ this.onChange }
             value={ value }
@@ -132,7 +132,6 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  // saveExpense: (payload) => dispatch(saveState(payload)),
   fetchApiWithThunk: (walletState) => dispatch(fetchApiThunk(walletState)),
 });
 

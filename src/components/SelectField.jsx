@@ -35,7 +35,6 @@ SelectField.propTypes = {
       [PropTypes.object, PropTypes.string],
     ),
   ).isRequired,
-
 };
 
 export default SelectField;

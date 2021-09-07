@@ -4,7 +4,7 @@ const fetchAPI = async (URL) => {
     const data = await request.json();
     return data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 

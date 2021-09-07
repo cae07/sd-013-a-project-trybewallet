@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import htmlID from './util/util';
 
 class SubmitBtn extends React.Component {
   render() {
@@ -19,9 +20,15 @@ class SubmitBtn extends React.Component {
 
 SubmitBtn.propTypes = {
   name: PropTypes.string.isRequired,
-  testid: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-  isValid: PropTypes.bool.isRequired,
+  testid: PropTypes.string,
+  onClick: PropTypes.func,
+  isValid: PropTypes.bool,
+};
+
+SubmitBtn.defaultProps = {
+  testid: htmlID({name: 'btn'}),
+  onClick: (e) => e.preventDefault(),
+  isValid: true,
 };
 
 export default SubmitBtn;

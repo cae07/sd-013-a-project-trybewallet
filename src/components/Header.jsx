@@ -13,12 +13,8 @@ class Header extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { expensesArray } = this.state;
     const { expenses } = this.props;
-    console.log('ATUALIZOU', prevProps.expenses, expensesArray);
-    if (expenses.length > expensesArray.length) {
-      console.log('ENTROU');
-
+    if (expenses.length > prevProps.expenses.length) {
       this.handleAddExpense();
     }
   }
