@@ -1,14 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrenciesApi } from '../actions';
+import { getCurrenciesApi, getExpensesApi } from '../actions';
 
 class FormWallet extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      id: 0,
+      value: '0',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -19,6 +27,13 @@ class FormWallet extends React.Component {
   handleChange({ target }) {
     const { id, value } = target;
     this.setState({ [id]: value });
+  }
+
+  handleClick() {
+    const { setExpenses } = this.props;
+    setExpenses(this.state);
+    const { id } = this.state;
+    this.setState({ id: id + 1 });
   }
 
   render() {
@@ -42,9 +57,9 @@ class FormWallet extends React.Component {
             ))}
           </select>
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="method">
           Método de pagamento
-          <select id="payment" onChange={ this.handleChange }>
+          <select id="method" onChange={ this.handleChange }>
             <option>Dinheiro</option>
             <option>Cartão de crédito</option>
             <option>Cartão de débito</option>
@@ -60,6 +75,7 @@ class FormWallet extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
+        <button type="button" onClick={ this.handleClick }>Adicionar despesa</button>
       </form>
     );
   }
@@ -67,6 +83,7 @@ class FormWallet extends React.Component {
 
 FormWallet.propTypes = {
   setCurrencies: PropTypes.func.isRequired,
+  setExpenses: PropTypes.func.isRequired,
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
@@ -76,6 +93,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrencies: () => dispatch(getCurrenciesApi()),
+  setExpenses: (payload) => dispatch(getExpensesApi(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
