@@ -26,7 +26,7 @@ SubmitBtn.propTypes = {
 };
 
 SubmitBtn.defaultProps = {
-  testid: htmlID({name: 'btn'}),
+  testid: htmlID({ name: 'btn' }),
   onClick: (e) => e.preventDefault(),
   isValid: true,
 };
