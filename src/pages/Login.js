@@ -40,7 +40,7 @@ class Login extends React.Component {
   validatePassword(password) {
     const isValidPass = password.match(/^(?=.*[a-za-z])(?=.*\d)[a-za-z\d]{6,}$/i);
     if (!isValidPass || password.lenght === 0) {
-      return 'A senha deve conter 6 caracter incluindo letras e numeros.';
+      return 'A senha deve conter 6 caracteres incluindo letras e numeros.';
     }
     return '';
   }

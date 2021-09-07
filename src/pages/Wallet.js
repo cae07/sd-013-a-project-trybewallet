@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import WalletInput from '../component/walletInput';
 
 class Wallet extends React.Component {
   render() {
     const { emailGlobalState } = this.props;
     return (
-      <header>
-        <p data-testid="email-field">
-          { emailGlobalState }
-        </p>
-        <p data-testid="total-field">Despesa total: 0</p>
-        <p data-testid="header-currency-field">BRL</p>
-      </header>
+      <section>
+        <header>
+          <p data-testid="email-field">
+            { emailGlobalState }
+          </p>
+          <p data-testid="total-field">Despesa total: 0</p>
+          <p data-testid="header-currency-field">BRL</p>
+        </header>
+        <WalletInput />
+      </section>
     );
   }
 }
