@@ -88,12 +88,12 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
-  history: PropTypes.object,
-}.isRequired;
-
 const mapDispatchToProps = (dispatch) => ({
   dispatchNewEmailToStore: (newEmail) => dispatch(insertEmail(newEmail)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
+
+Login.propTypes = {
+  history: PropTypes.object,
+}.isRequired;
