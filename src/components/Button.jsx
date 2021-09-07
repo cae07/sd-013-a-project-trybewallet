@@ -2,7 +2,7 @@ import React from 'react';
 
 class Button extends React.Component {
   render() {
-    const { handleChange, value } = this.props;
+    // const { handleChange, value } = this.props;
     return (
       <div>
         <button
