@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getApi, actionSave } from '../actions';
 
 const INITIAL_STATE = {
-  id: 0,
+  id: -1,
   value: '',
   description: '',
   currency: 'USD',
