@@ -1,34 +1,52 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      login: '',
+      email: '',
       senha: '',
+      validation: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.onValidation = this.onValidation.bind(this);
+  }
+
+  onValidation() {
+    const min = 6;
+    const { email, senha } = this.state;
+    const validation = !(/\w+@\w+.com/.test(email)
+    && senha.length >= min
+    && (/[A-z\s]+/).test(senha));
+    this.setState({ validation });
   }
 
   handleChange({ target: { name, value } }) {
-    this.setState({
-      [name]: value,
+    this.setState({ [name]: value }, () => {
+      this.onValidation();
     });
   }
 
+  handleClick() {
+    const { history } = this.props;
+    history.push('/carteira');
+  }
+
   render() {
-    const { login, senha } = this.state;
+    const { email, senha, validation } = this.state;
     return (
       <form>
-        <label htmlFor="login">
-          Login:
+        <label htmlFor="email">
+          Email:
           <input
             data-testid="email-input"
             type="text"
-            name="login"
-            value={ login }
+            name="email"
+            value={ email }
             onChange={ this.handleChange }
           />
         </label>
@@ -44,10 +62,22 @@ class Login extends React.Component {
           />
         </label>
 
-        <button type="submit"> Entrar </button>
+        <button
+          type="submit"
+          disabled={ validation }
+          onClick={ this.handleClick }
+        >
+          Entrar
+        </button>
       </form>
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default Login;
