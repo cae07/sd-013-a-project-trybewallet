@@ -1,6 +1,11 @@
 // Coloque aqui suas actions
-export const USER_LOGIN = 'USER_LOGIN';
-export const NEW_WALLET = 'NEW_WALLET';
+// export const useremail = ({ type: 'USER_EMAIL' });
+// export const newWallet = ({ type: 'NEW_WALLET' });
+import { SAVE_EMAIL } from './actionsType';
 
-export const userLogin = ({ type: 'USER_LOGIN' });
-export const newWallet = ({ type: 'NEW_WALLET' });
+export const saveEmail = (email) => ({
+  type: SAVE_EMAIL,
+  email,
+});
+
+export const a = 'a';
