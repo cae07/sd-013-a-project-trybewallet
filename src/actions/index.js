@@ -46,12 +46,12 @@ export const fetchApiThunk = (walletState) => async (dispatch) => {
     dispatch(fetchApiThunkFinished());
 
     // console.log('L39', payload);
-    console.log('L40', walletState);
+    // console.log('L40', walletState);
 
     dispatch(fetchApiThunkAction(payload));
 
     const newExpense = { expenses: { ...walletState, ...payload } };
-    console.log('L43', newExpense);
+    // console.log('L43', newExpense);
     dispatch(saveExpensesAction(newExpense));
   } catch (error) {
     dispatch(fetchApiThunkError(error));

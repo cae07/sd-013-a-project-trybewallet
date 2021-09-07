@@ -16,13 +16,14 @@ class Wallet extends React.Component {
     this.filterQuotations = this.filterQuotations.bind(this);
     this.handleQuotation = this.handleQuotation.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.propertyTranslation = this.propertyTranslation.bind(this);
     this.state = {
       quotation: [],
       expenses: {
-        valor: 0,
-        descrição: 'PIX',
-        moeda: 'USD',
-        pagamento: 'Dinheiro',
+        value: 0,
+        description: '',
+        currency: 'USD',
+        method: 'Dinheiro',
         tag: 'Alimentação',
       },
     };
@@ -35,7 +36,6 @@ class Wallet extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { quotation } = this.state;
-    // console.log('PREVPROPS', prevProps);
     if (!prevState.quotation.length && quotation !== []) {
       const FILTER = ['USDT'];
       this.filterQuotations(quotation, FILTER);
@@ -43,26 +43,32 @@ class Wallet extends React.Component {
   }
 
   onChange({ target: { value, name } }) {
-    // Pega última string de name e coloca em minúsculo para ficarem no padrão de this.state.expenses
-    // Ex.: (Método de Pagamento) => (pagamento), (Valor) => (valor)
-    const property = name.toLowerCase().split(' ').pop();
+    const property = this.propertyTranslation(name);
     this.setState((prevState) => ({ expenses:
         { ...prevState.expenses,
           ...{ [property]: (property === 'valor' ? Number(value) : value) } } }));
-    // propriedade valor precisa ser numérica
   }
 
   onClick(e) {
     e.preventDefault();
     const { fetchApiWithThunk, id } = this.props;
-    // fazer o fetch para pegar a cotação atual com o THUNK
     const { expenses } = this.state;
     fetchApiWithThunk({ ...expenses, id });
-    // const { moeda, valor, tag, pagamento, descrição, quotation } = this.state;
-    // saveExpense(({
-    // expenses: { id, moeda, tag, descrição, pagamento, valor, exchangeRates: currencies },
-    // currencies: quotation.map(({ code }) => code),
-    // }));
+  }
+
+  propertyTranslation(name) {
+    switch (name) {
+    case 'Valor':
+      return 'value';
+    case 'Método de pagamento':
+      return 'method';
+    case 'Descrição':
+      return 'description';
+    case 'Moeda':
+      return 'currency';
+    default:
+      return name.toLowerCase();
+    }
   }
 
   filterQuotations(quotationOptions = {}, properties = []) {
@@ -76,7 +82,7 @@ class Wallet extends React.Component {
 
   render() {
     const { quotation, expenses } = this.state;
-    const { valor, descrição, moeda, pagamento, tag } = expenses;
+    const { value, description, currency, method, tag } = expenses;
     if (!quotation.length) {
       return <Header />;
     }
@@ -90,7 +96,7 @@ class Wallet extends React.Component {
             type="number"
             placeholder="0"
             onChange={ this.onChange }
-            value={ valor }
+            value={ value }
           />
           <InputField
             name="Descrição"
@@ -98,19 +104,19 @@ class Wallet extends React.Component {
             type="text"
             placeholder="Descrição"
             onChange={ this.onChange }
-            value={ descrição }
+            value={ description }
           />
           <SelectField
             name="Moeda"
             options={ quotation }
             onChange={ this.onChange }
-            value={ moeda }
+            value={ currency }
           />
           <SelectField
             name="Método de pagamento"
             options={ ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'] }
             onChange={ this.onChange }
-            value={ pagamento }
+            value={ method }
           />
           <SelectField
             name="Tag"
@@ -130,9 +136,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchApiWithThunk: (walletState) => dispatch(fetchApiThunk(walletState)),
 });
 
-const mapStateToProps = ({ wallet: { expenses, currencies } }) => ({
+const mapStateToProps = ({ wallet: { expenses } }) => ({
   id: expenses.length,
-  currencies,
 });
 
 Wallet.propTypes = {
