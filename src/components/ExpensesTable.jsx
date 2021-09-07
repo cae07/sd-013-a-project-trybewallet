@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import htmlID from './util/util';
 
 const COLUMNS_NAME = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
@@ -14,7 +15,7 @@ class ExpensesTable extends React.Component {
   generateColumns(columns) {
     return (
       <tr>
-        {columns.map((column) => <th key={ `column+${htmlID()}` }>{column}</th>)}
+        {columns.map((column) => <th key={ htmlID({ name: column }) }>{column}</th>)}
       </tr>);
   }
 

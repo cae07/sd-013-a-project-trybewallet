@@ -7,6 +7,7 @@ import SelectField from '../components/SelectField';
 import SubmitBtn from '../components/SubmitBtn';
 import fetchAPI from '../services/index';
 import { fetchApiThunk } from '../actions/index';
+import ExpensesTable from '../components/ExpensesTable';
 
 const quotationURL = 'https://economia.awesomeapi.com.br/json/all';
 class Wallet extends React.Component {
@@ -83,9 +84,7 @@ class Wallet extends React.Component {
   render() {
     const { quotation, expenses } = this.state;
     const { value, description, currency, method, tag } = expenses;
-    if (!quotation.length) {
-      return <Header />;
-    }
+    if (!quotation.length) return <Header />;
     return (
       <div>
         <Header />
@@ -124,9 +123,11 @@ class Wallet extends React.Component {
             onChange={ this.onChange }
             value={ tag }
           />
+          <SubmitBtn name="Adicionar despesa" onClick={ this.onClick } isValid />
         </form>
-        <SubmitBtn name="Adicionar despesa" onClick={ this.onClick } isValid />
+        <ExpensesTable />
       </div>
+
     );
   }
 }
