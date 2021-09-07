@@ -12,14 +12,18 @@ class ExpenditureForm extends React.Component {
       <div>
         <form>
           <Input
-            name="value"
-            value={ value }
             label="Valor:"
-            handleChange={ handleChange }
+            type="text"
+            name="value"
+            id="value"
+            value={ value }
+            onChange={ handleChange }
           />
           <Input
             label="Descrição:"
+            type="text"
             name="description"
+            id="description"
             value={ description }
             handleChange={ handleChange }
           />
