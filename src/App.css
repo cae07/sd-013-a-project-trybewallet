@@ -1,24 +1,24 @@
 /* .form-container {
-  align-items: center;
-  display: flex;
   height: 100vh;
+
   justify-content: center;
-  border: 1px solid red;
+  display: flex;
+  align-items: center;
 }
 
 .form-container2 {
-  align-items: center;
-  border: 2px solid black;
-  display: flex;
   padding: 30px;
+  align-items: center;
+  display: flex;
   flex-direction: column;
+  border: 2px solid black;
 }
 
 .forms-login {
-  align-items: center;
   display: flex;
-  margin-top: 15px;
   flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
 }
 
 .inputEmail {
@@ -42,4 +42,81 @@
 
 .buttonEnter:hover {
   opacity: 0.9;
+}
+
+
+.header-wallet-contain {
+  background-color: #F2F3F4;
+
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+
+.header-wallet {
+  align-items: center;
+
+  display: flex;
+  width: 95%;
+  justify-content: space-between;
+}
+
+.wallet-email {
+
+  display: flex;
+  align-items: center;
+}
+
+.email {
+  margin: 0 40px;
+}
+
+.contain-forms-wallet {
+  display: flex;
+  justify-content: space-between;
+  background-color: #100C08;
+  color: white;
+  padding: 10px;
+}
+
+.valueMoeda {
+  width: 80px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  margin: 0 10px;
+  text-align: center;
+  padding: 10px;
+}
+
+#method {
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  margin: 0 10px;
+  padding: 10px;
+}
+
+#despesa {
+  width: 150px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  margin: 0 10px;
+  padding: 10px;
+}
+
+#description {
+  width: 200px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  margin: 0 10px;
+  padding: 10px;
+}
+
+.ul {
+  display: flex;
+  text-decoration-line: none;
 } */
