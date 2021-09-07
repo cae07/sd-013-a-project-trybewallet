@@ -28,7 +28,7 @@ class ExpenseTable extends React.Component {
                     <td>
                       {
                         exchangeRates[currency].name
-                          .slice(0, exchangeRates[currency].name.indexOf('/'))
+                          .split('/')[0]
                       }
                     </td>
                     <td>{ Math.round(exchangeRates[currency].ask * 100) / 100 }</td>
