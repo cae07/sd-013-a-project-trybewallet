@@ -6,7 +6,7 @@ import InputField from '../components/InputField';
 import SelectField from '../components/SelectField';
 import SubmitBtn from '../components/SubmitBtn';
 import fetchAPI from '../services/index';
-import { fetchCurrency } from '../actions/index';
+import { saveState, fetchApiThunk } from '../actions/index';
 
 const quotationURL = 'https://economia.awesomeapi.com.br/json/all';
 class Wallet extends React.Component {
@@ -18,11 +18,13 @@ class Wallet extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.state = {
       quotation: [],
-      valor: 0,
-      descrição: 'PIX',
-      moeda: 'USD',
-      pagamento: 'Dinheiro',
-      tag: 'Alimentação',
+      expenses: {
+        valor: 0,
+        descrição: 'PIX',
+        moeda: 'USD',
+        pagamento: 'Dinheiro',
+        tag: 'Alimentação',
+      },
     };
   }
 
@@ -33,6 +35,7 @@ class Wallet extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { quotation } = this.state;
+    console.log('PREVPROPS', prevProps);
     if (!prevState.quotation.length && quotation !== []) {
       const FILTER = ['USDT'];
       this.filterQuotations(quotation, FILTER);
@@ -40,15 +43,24 @@ class Wallet extends React.Component {
   }
 
   onChange({ target: { value, name } }) {
+    // Pega última string de name e coloca em minúsculo para ficarem no padrão de this.state.expenses
+    // Ex.: (Método de Pagamento) => (pagamento), (Valor) => (valor)
     const property = name.toLowerCase().split(' ').pop();
+    // propriedade valor precisa ser numérica
     this.setState({ [property]: (property === 'valor' ? Number(value) : value) });
   }
 
   onClick(e) {
     e.preventDefault();
-    const { saveExpense, id } = this.props;
-    const { moeda, valor, tag, pagamento, descrição } = this.state;
-    saveExpense(({ expenses: { id, moeda, tag, descrição, pagamento, valor } }));
+    // const { saveExpense, fetchApiWithThunk, id, currencies } = this.props;
+    // fazer o fetch para pegar a cotação atual com o THUNK
+    const { expenses } = this.state;
+    fetchApiWithThunk(expenses);
+    // const { moeda, valor, tag, pagamento, descrição, quotation } = this.state;
+    // saveExpense(({
+    // expenses: { id, moeda, tag, descrição, pagamento, valor, exchangeRates: currencies },
+    // currencies: quotation.map(({ code }) => code),
+    // }));
   }
 
   filterQuotations(quotationOptions = {}, properties = []) {
@@ -61,7 +73,8 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { quotation, valor, descrição, moeda, pagamento, tag } = this.state;
+    const { quotation, expenses } = this.state;
+    const { valor, descrição, moeda, pagamento, tag } = expenses;
     if (!quotation.length) {
       return <Header />;
     }
@@ -111,11 +124,13 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  saveExpense: (payload) => dispatch(fetchCurrency(payload)),
+  saveExpense: (payload) => dispatch(saveState(payload)),
+  fetchApiWithThunk: (walletState) => dispatch(fetchApiThunk(walletState)),
 });
 
-const mapStateToProps = ({ wallet: { expenses } }) => ({
+const mapStateToProps = ({ wallet: { expenses, currencies } }) => ({
   id: expenses.length,
+  currencies,
 });
 
 Wallet.propTypes = {

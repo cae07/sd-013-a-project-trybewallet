@@ -3,7 +3,6 @@ const fetchAPI = async (URL) => {
     const request = await fetch(URL);
     const data = await request.json();
     return data;
-    // this.setState({ quotation: quotations });
   } catch (error) {
     console.log(error);
   }

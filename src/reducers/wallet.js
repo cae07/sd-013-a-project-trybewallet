@@ -1,14 +1,37 @@
-import { FETCH_API } from '../actions/actionTypes';
+import { SAVE_STATE_EXPENSES, FETCH_API_THUNK_EXCHANGE_RATES } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
+  currencies: [],
   expenses: [],
+  loading: false,
+  error: null,
 };
 
 function wallet(state = INITIAL_STATE, action) {
-  console.log(action.payload);
+  console.log('L9 ACTION.payload', action.payload);
   switch (action.type) {
-  case FETCH_API:
-    return { expenses: [...state.expenses, ...[action.payload.expenses]] };
+  case SAVE_STATE_EXPENSES:
+    return {
+      expenses: [...state.expenses, ...[action.payload.expenses]],
+      currencies: [...state.currencies],
+    };
+  case FETCH_API_THUNK_EXCHANGE_RATES:
+    return {
+      expenses: [...state.expenses],
+      currencies: [...state.currencies, ...[action.payload.exchangeRates]],
+    };
+  case FETCH_API_HAS_STARTED:
+    return {
+      ...state, loading: true,
+    };
+  case FETCH_API_HAS_FINISHED:
+    return {
+      ...state, loading: false,
+    };
+  case FETCH_API_HAS_ERROR:
+    return{
+      ...state, error: action.payload,
+    }
   default:
     return state;
   }
