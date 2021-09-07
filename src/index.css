@@ -107,7 +107,7 @@ input:focus {
   background-color: rgba(128, 128, 128, 0.541);
 }
 
-.formExpense {
+.formExpense, .formEditExpense{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -116,10 +116,18 @@ input:focus {
   margin-bottom: 20px;
   border-radius: 5px;
 }
+
+.formEditExpense{
+  background-color: rgba(0, 89, 255, 0.397);
+}
 .formExpense label,
 .formExpense input,
 .formExpense select,
-.formExpense button {
+.formExpense button,
+.formEditExpense label,
+.formEditExpense input,
+.formEditExpense select,
+.formEditExpense button {
   margin: 10px 5px;
   height: 30px;
   border: none;
@@ -129,8 +137,9 @@ input:focus {
   padding: 0 5px;
 }
 
-.formExpense label {
-  font-size: 12px;
+.formExpense label,
+.formEditExpense label {
+font-size: 12px;
 }
 
 .despesa_btn,
@@ -139,6 +148,12 @@ input:focus {
   color: black;
   padding: 3px 5px;
   border-radius: 5px;
+}
+
+.formEditExpense button {
+  background-color: rgba(0, 89, 255, 0.698);
+  color: white;
+  border: 1px solid white;
 }
 
 .inputValueForm {

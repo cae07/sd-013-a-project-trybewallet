@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchApiCurrencies, saveExpense } from '../actions';
+import { fetchApiCurrencies, editExpense } from '../actions';
 
 const paymentMethods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-class Expense extends React.Component {
+
+class EditExpense extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,11 +27,8 @@ class Expense extends React.Component {
   }
 
   onSubmitForm() {
-    const { dispatchExpense, expenses } = this.props;
-    this.setState({
-      id: expenses.length + 1,
-    });
-    dispatchExpense(this.state);
+    const { dispatchEditExpense } = this.props;
+    dispatchEditExpense(this.state);
   }
 
   handleChange({ target: { name, value } }) {
@@ -73,7 +71,7 @@ class Expense extends React.Component {
   render() {
     const { currencies } = this.props;
     return (
-      <div className="formExpense">
+      <div className="formEditExpense">
         <form>
           <label htmlFor="valor">
             Valor:
@@ -111,7 +109,7 @@ class Expense extends React.Component {
             className="btn float-right despesa_btn"
             onClick={ this.onSubmitForm }
           >
-            Adicionar despesa
+            Editar despesa
           </button>
         </form>
       </div>
@@ -119,8 +117,8 @@ class Expense extends React.Component {
   }
 }
 
-Expense.propTypes = {
-  currencies: PropTypes.array.isRequired,
+EditExpense.propTypes = {
+  currencies: PropTypes.array,
 }.isRequired;
 
 const mapStateToProps = (stateStore) => ({
@@ -130,7 +128,7 @@ const mapStateToProps = (stateStore) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchCurrencies: () => dispatch(fetchApiCurrencies()),
-  dispatchExpense: (expense) => dispatch(saveExpense(expense)),
+  dispatchEditExpense: (expense) => dispatch(editExpense(expense)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Expense);
+export default connect(mapStateToProps, mapDispatchToProps)(EditExpense);

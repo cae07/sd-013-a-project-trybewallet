@@ -6,6 +6,7 @@ import { deleteExpense, editExpense } from '../actions';
 class TableExpense extends React.Component {
   constructor(props) {
     super(props);
+
     this.subtitle = this.subtitle.bind(this);
     this.listExpenses = this.listExpenses.bind(this);
     this.clickDeleteExpense = this.clickDeleteExpense.bind(this);
