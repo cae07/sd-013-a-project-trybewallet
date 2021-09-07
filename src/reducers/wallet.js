@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   currencies: [],
   expenses: [],
   editExpense: false,
+  expenseInEdition: {},
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -25,14 +26,13 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: [...state.expenses.filter(
         (index) => index.id !== action.id,
       )],
+      editExpense: false,
     };
   case EDIT_EXPENSE:
     return {
       ...state,
-      expenses: [...state.expenses.filter(
-        (index) => index.id !== action.id,
-      )],
       editExpense: true,
+      expenseInEdition: action.expenseInEdition,
     };
   default:
     return state;

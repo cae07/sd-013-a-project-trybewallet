@@ -14,7 +14,7 @@ class Wallet extends React.Component {
 
   editExp() {
     const { editExpense } = this.props;
-    return editExpense ? <Expense /> : <EditExpense />;
+    return editExpense ? <EditExpense /> : <Expense />;
   }
 
   render() {

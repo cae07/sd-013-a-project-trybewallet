@@ -10,7 +10,7 @@ class TableExpense extends React.Component {
     this.subtitle = this.subtitle.bind(this);
     this.listExpenses = this.listExpenses.bind(this);
     this.clickDeleteExpense = this.clickDeleteExpense.bind(this);
-    this.filterExpenseId = this.filterExpenseId.bind(this);
+    // this.filterExpenseId = this.filterExpenseId.bind(this);
     this.clickEditExpense = this.clickEditExpense.bind(this);
   }
 
@@ -30,10 +30,10 @@ class TableExpense extends React.Component {
     );
   }
 
-  filterExpenseId(id) {
-    const { expenses } = this.props;
-    return expenses.id === id;
-  }
+  // filterExpenseId(id) {
+  //   const { expenses } = this.props;
+  //   return expenses.id === id;
+  // }
 
   clickDeleteExpense(id, convertValue) {
     const { dispatchDeleteExpense } = this.props;
@@ -41,8 +41,16 @@ class TableExpense extends React.Component {
   }
 
   clickEditExpense(id) {
-    const { dispatchEditExpense } = this.props;
-    dispatchEditExpense(id);
+    const { dispatchEditExpense, expenses } = this.props;
+    const expenseInEdition = {
+      id: expenses[id],
+      value: expenses[id].value,
+      tag: expenses[id].tag,
+      method: expenses[id].method,
+      description: expenses[id].description,
+      exchangeRates: expenses[id].exchangeRates,
+    };
+    dispatchEditExpense(expenseInEdition);
   }
 
   listExpenses() {
@@ -73,7 +81,7 @@ class TableExpense extends React.Component {
                 Delete
               </button>
               <button
-                onClick={ this.clickEditExpense(id) }
+                onClick={ () => this.clickEditExpense(id) }
                 data-testid="edit-btn"
                 type="button"
                 className="editButton"
@@ -112,7 +120,7 @@ const mapStateToProps = (stateStore) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchDeleteExpense: (id, convertValue) => dispatch(deleteExpense(id, convertValue)),
-  dispatchEditExpense: (id) => dispatch(editExpense(id)),
+  dispatchEditExpense: (expenseInEdition) => dispatch(editExpense(expenseInEdition)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableExpense);

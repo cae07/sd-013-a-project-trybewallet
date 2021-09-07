@@ -57,9 +57,16 @@ export function deleteExpense(id) {
   };
 }
 
-export function editExpense(state) {
+// export function editExpense(state) {
+//   return {
+//     type: EDIT_EXPENSE,
+//     state,
+//   };
+// }
+
+export function editExpense(expenseInEdition) {
   return {
     type: EDIT_EXPENSE,
-    state,
+    expenseInEdition,
   };
 }
