@@ -38,9 +38,11 @@ class Wallet extends React.Component {
   async fetchCurrencies() {
     try {
       const res = await fetch('https://economia.awesomeapi.com.br/json/all');
+      const data = await res.json();
+      delete data.USDT;
       if (!res.ok) throw new Error('Fetch failed');
       this.setState({
-        currencies: await res.json(),
+        currencies: data,
         // loading: false,
       });
       this.selectCurrencies();
