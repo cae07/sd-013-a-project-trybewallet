@@ -6,7 +6,7 @@ import InputField from '../components/InputField';
 import SelectField from '../components/SelectField';
 import SubmitBtn from '../components/SubmitBtn';
 import fetchAPI from '../services/index';
-import { saveState, fetchApiThunk } from '../actions/index';
+import { fetchApiThunk } from '../actions/index';
 
 const quotationURL = 'https://economia.awesomeapi.com.br/json/all';
 class Wallet extends React.Component {
@@ -35,7 +35,7 @@ class Wallet extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { quotation } = this.state;
-    console.log('PREVPROPS', prevProps);
+    // console.log('PREVPROPS', prevProps);
     if (!prevState.quotation.length && quotation !== []) {
       const FILTER = ['USDT'];
       this.filterQuotations(quotation, FILTER);
@@ -46,16 +46,18 @@ class Wallet extends React.Component {
     // Pega última string de name e coloca em minúsculo para ficarem no padrão de this.state.expenses
     // Ex.: (Método de Pagamento) => (pagamento), (Valor) => (valor)
     const property = name.toLowerCase().split(' ').pop();
+    this.setState((prevState) => ({ expenses:
+        { ...prevState.expenses,
+          ...{ [property]: (property === 'valor' ? Number(value) : value) } } }));
     // propriedade valor precisa ser numérica
-    this.setState({ [property]: (property === 'valor' ? Number(value) : value) });
   }
 
   onClick(e) {
     e.preventDefault();
-    // const { saveExpense, fetchApiWithThunk, id, currencies } = this.props;
+    const { fetchApiWithThunk, id } = this.props;
     // fazer o fetch para pegar a cotação atual com o THUNK
     const { expenses } = this.state;
-    fetchApiWithThunk(expenses);
+    fetchApiWithThunk({ ...expenses, id });
     // const { moeda, valor, tag, pagamento, descrição, quotation } = this.state;
     // saveExpense(({
     // expenses: { id, moeda, tag, descrição, pagamento, valor, exchangeRates: currencies },
@@ -124,7 +126,7 @@ class Wallet extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  saveExpense: (payload) => dispatch(saveState(payload)),
+  // saveExpense: (payload) => dispatch(saveState(payload)),
   fetchApiWithThunk: (walletState) => dispatch(fetchApiThunk(walletState)),
 });
 
