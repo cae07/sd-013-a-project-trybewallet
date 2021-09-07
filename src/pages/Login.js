@@ -17,10 +17,9 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
-    const { dispatchSetValue, history } = this.props;
+    const { dispatchSetValue } = this.props;
     const { email } = this.state;
     dispatchSetValue(email);
-    history.push('/');
   }
 
   handleChange() {
