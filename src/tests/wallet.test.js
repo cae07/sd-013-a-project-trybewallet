@@ -120,7 +120,7 @@ describe('6 - Desenvolva um formulário para adicionar uma despesa contendo as s
   });
 });
 
-describe.only('7 - Implemente a lógica para preencher as opções do campo "Moedas", buscando as siglas das moedas da API', () => {
+describe('7 - Implemente a lógica para preencher as opções do campo "Moedas", buscando as siglas das moedas da API', () => {
   test('Um campo para selecionar em qual moeda será registrada a despesa', async () => {
     renderWithRouterAndStore(<Wallet />, '/carteira');
     const currencyInput = await screen.findByRole('combobox', {
@@ -228,7 +228,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
   });
 });
 
-describe('9 - Desenvolva uma tabela com os gastos contendo as seguintes características:', () => {
+describe.only('9 - Desenvolva uma tabela com os gastos contendo as seguintes características:', () => {
   const initial = initialStateWithExpenses;
 
   test('A tabela deve possuir um cabeçalho com os campos Descrição, Tag, Método de pagamento, Valor, Moeda, Câmbio utilizado, Valor convertido e Moeda de conversão', () => {
