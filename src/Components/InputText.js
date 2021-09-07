@@ -8,7 +8,7 @@ export class InputText extends Component {
       <>
         <label htmlFor="value">
           Valor
-          <input type="text" name="value" id="value" onChange={ onChange } />
+          <input type="number" name="value" id="value" onChange={ onChange } />
         </label>
         <label htmlFor="description">
           Descrição

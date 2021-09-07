@@ -12,6 +12,8 @@ class Form extends React.Component {
     this.fetchApi = this.fetchApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.saveExpense = this.saveExpense.bind(this);
+
+    this.state = { expense: {} };
   }
 
   componentDidMount() {
@@ -21,7 +23,7 @@ class Form extends React.Component {
   handleChange({ target }) {
     const { name, value } = target;
 
-    this.setState((oldState) => ({
+    this.setState((oldState = {}) => ({
       expense: {
         ...oldState.expense,
         [name]: value,
