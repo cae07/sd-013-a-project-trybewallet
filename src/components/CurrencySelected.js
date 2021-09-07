@@ -28,7 +28,6 @@ class CurrencySelected extends React.Component {
           defaultValue={ value }
           onChange={ handleChange }
         >
-          <option value="" disabled selected>Escolha</option>
           {
             Object.keys(currencyList)
               .map((currency, index) => {
