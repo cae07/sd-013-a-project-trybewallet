@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class CurrencySelected extends React.Component {
   render() {
-    const { handleChange, value, loading, currencyList } = this.props;
+    const { handleChange, value = '', loading, currencyList = [] } = this.props;
     if (loading) {
       return (
         <label htmlFor="currency">
@@ -11,7 +11,7 @@ class CurrencySelected extends React.Component {
           <select
             id="currency"
             name="currency"
-            value={ value }
+            defaultValue={ value }
             onChange={ handleChange }
           >
             <option>Carregando...</option>
@@ -25,9 +25,10 @@ class CurrencySelected extends React.Component {
         <select
           id="currency"
           name="currency"
-          value={ value }
+          defaultValue={ value }
           onChange={ handleChange }
         >
+          <option value="" disabled selected>Escolha</option>
           {
             Object.keys(currencyList)
               .map((currency, index) => {

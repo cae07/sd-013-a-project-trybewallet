@@ -6,7 +6,8 @@ import ExpenseTag from './ExpenseTag';
 import NumberInput from './NumberInput';
 import PaymentMethod from './PaymentMethod';
 import TextInput from './TextInput';
-import { fetchAction } from '../actions';
+import { fetchAction, newExpense } from '../actions';
+import '../styles/wallet.css';
 
 class NewExpense extends React.Component {
   constructor(props) {
@@ -34,37 +35,50 @@ class NewExpense extends React.Component {
 
   render() {
     const { value, description, currency, method, tag } = this.state;
-    const { loading, currencyList } = this.props;
+    const { loading, currencyList, addNewExpense, nextId } = this.props;
+    const currentExpense = {
+      id: nextId,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    };
     return (
-      <form>
-        <NumberInput
-          handleChange={ this.handleChange }
-          value={ value }
-          name="value"
-        />
-        <TextInput
-          handleChange={ this.handleChange }
-          value={ description }
-          name="description"
-        />
-        <CurrencySelected
-          handleChange={ this.handleChange }
-          value={ currency }
-          name="currency"
-          loading={ loading }
-          currencyList={ currencyList }
-        />
-        <PaymentMethod
-          handleChange={ this.handleChange }
-          value={ method }
-          name="method"
-        />
-        <ExpenseTag
-          handleChange={ this.handleChange }
-          value={ tag }
-          name="tag"
-        />
-      </form>
+      <div className="expenseForm">
+        <form>
+          <NumberInput
+            handleChange={ this.handleChange }
+            value={ value }
+            name="value"
+          />
+          <TextInput
+            handleChange={ this.handleChange }
+            value={ description }
+            name="description"
+          />
+          <CurrencySelected
+            handleChange={ this.handleChange }
+            value={ currency }
+            name="currency"
+            loading={ loading }
+            currencyList={ currencyList }
+          />
+          <PaymentMethod
+            handleChange={ this.handleChange }
+            value={ method }
+            name="method"
+          />
+          <ExpenseTag
+            handleChange={ this.handleChange }
+            value={ tag }
+            name="tag"
+          />
+        </form>
+        <button type="submit" onClick={ () => addNewExpense(currentExpense) }>
+          Adicionar despesa
+        </button>
+      </div>
     );
   }
 }
@@ -72,17 +86,21 @@ class NewExpense extends React.Component {
 // Transforma o dispatch que busca informações da API em props, dessa forma consigo utilizar no componentDidMount
 const mapDispatchToProps = (dispatch) => ({
   dispatchCurrency: () => dispatch(fetchAction()),
+  addNewExpense: (expense) => dispatch(newExpense(expense)),
 });
 
 const mapStateToProps = ({ wallet }) => ({
   loading: wallet.loading,
   currencyList: wallet.currencyList,
+  nextId: wallet.nextId,
 });
 
 NewExpense.propTypes = {
   dispatchCurrency: PropTypes.func.isRequired,
+  addNewExpense: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   currencyList: PropTypes.objectOf(PropTypes.object).isRequired,
+  nextId: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewExpense);

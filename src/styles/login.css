@@ -11,9 +11,13 @@ a {
   text-decoration: none;
 }
 
+body {
+  background-color: rgb(31, 31, 31);
+}
+
 .login-page {
   align-items: center;
-  background-color: rgb(231, 231, 231);
+  background-color: rgb(85, 85, 85);
   border: rgb(158, 158, 158);
   border-radius: 25%;
   border-style: dashed;

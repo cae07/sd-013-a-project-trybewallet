@@ -1,6 +1,21 @@
+body {
+  background-color: rgb(31, 31, 31);
+}
+
+button {
+  width: 150px;
+}
+
 header {
   align-items: center;
-  background-color: rgb(231, 231, 231);
+  background-color: rgb(85, 85, 85);
   display: flex;
   justify-content: space-evenly;
+}
+
+.expenseForm {
+  align-items: center;
+  background-color: rgb(196, 196, 196);
+  display: flex;
+  justify-content: center;
 }

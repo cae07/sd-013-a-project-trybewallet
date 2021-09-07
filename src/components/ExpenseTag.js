@@ -14,6 +14,7 @@ class ExpenseTag extends React.Component {
           value={ value }
           onChange={ handleChange }
         >
+          <option value="" disabled selected>Escolha</option>
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>

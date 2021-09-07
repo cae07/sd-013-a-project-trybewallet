@@ -1,5 +1,5 @@
 import fetchURL from '../API';
-import { FINISH_FETCH, LOGIN_ACTION, START_FETCH } from './actionTypes';
+import { ADD_EXPENSE, FINISH_FETCH, LOGIN_ACTION, START_FETCH } from './actionTypes';
 
 // Coloque aqui suas actions
 export const loginAction = (email) => ({
@@ -20,4 +20,18 @@ export const fetchAction = () => async (dispatch) => {
   dispatch(startFetch());
   const results = await fetchURL();
   dispatch(finishFetch(results));
+};
+
+export const addExpense = (expense) => ({
+  type: ADD_EXPENSE,
+  expense,
+});
+
+export const newExpense = (expense) => async (dispatch) => {
+  const results = await fetchURL();
+  const completeExpense = {
+    ...expense,
+    exchangeRates: results,
+  };
+  dispatch(addExpense(completeExpense));
 };

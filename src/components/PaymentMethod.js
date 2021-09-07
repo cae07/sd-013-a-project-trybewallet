@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 class PaymentMethod extends React.Component {
   render() {
     const { handleChange, value = '' } = this.props;
+    const everyMethod = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
     return (
       <label htmlFor="method">
         Método de pagamento
@@ -14,9 +15,10 @@ class PaymentMethod extends React.Component {
           value={ value }
           onChange={ handleChange }
         >
-          <option>Dinheiro</option>
-          <option>Cartão de Crédito</option>
-          <option>Cartão de Débito</option>
+          <option value="" disabled selected>Escolha</option>
+          {
+            everyMethod.map((method, index) => <option key={ index }>{method}</option>)
+          }
         </select>
       </label>
     );
