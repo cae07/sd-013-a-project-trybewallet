@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { string, number } from 'prop-types';
 
 class Wallet extends Component {
   constructor(props) {
@@ -70,5 +71,9 @@ class Wallet extends Component {
     );
   }
 }
+
+Wallet.propTypes = {
+  userEmail: string.isRequired,
+};
 
 export default Wallet;

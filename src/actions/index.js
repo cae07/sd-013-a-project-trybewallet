@@ -11,5 +11,3 @@ export const sendWalletInfo = (payload) => ({
   type: WALLET_ACTION,
   payload,
 });
-
-// comentario
