@@ -89,13 +89,7 @@ class Form extends Component {
 
         <label htmlFor="currency">
           Moeda
-          <select
-            id="currency"
-            name="currency"
-            onChange={ handleChange }
-          >
-            vazio
-          </select>
+          <select id="currency" name="currency" onChange={ handleChange }> </select>
         </label>
 
         { renderPayment() }
