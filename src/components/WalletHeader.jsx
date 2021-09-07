@@ -14,11 +14,26 @@ class WalletHeader extends React.Component {
   render() {
     const { email } = this.props;
     return (
-      <header>
-        <h2 data-testid="email-field">{ email }</h2>
-        <h3 id="expenses" data-testid="total-field">{ this.sumExpenses().toFixed(2) }</h3>
-        <h3 data-testid="header-currency-field">BRL</h3>
-      </header>
+      <div className="container">
+        <header
+          className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+        >
+          <h2 data-testid="email-field">
+            Email:
+            {' '}
+            { email }
+          </h2>
+          <h3
+            id="expenses"
+            data-testid="total-field"
+          >
+            Despesa Total:
+            {' '}
+            { this.sumExpenses().toFixed(2) }
+          </h3>
+          <h3 data-testid="header-currency-field">BRL</h3>
+        </header>
+      </div>
     );
   }
 }

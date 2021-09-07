@@ -22,7 +22,6 @@ class Login extends React.Component {
 
   handleTextChange(event) {
     const { target: { id, value } } = event;
-
     if (id === 'email') {
       this.setState({
         [id]: value,
@@ -49,29 +48,36 @@ class Login extends React.Component {
 
   render() {
     const { validEmail, validPassword } = this.state;
-    let button;
-    if (validEmail && validPassword) {
-      button = <button type="button" onClick={ this.handleClick }>Entrar</button>;
-    } else {
-      button = <button type="button" disabled>Entrar</button>;
-    }
     return (
-      <div>
-        <input
-          id="email"
-          type="text"
-          data-testid="email-input"
-          placeholder="Email"
-          onChange={ this.handleTextChange }
-        />
-        <input
-          id="password"
-          type="password"
-          data-testid="password-input"
-          placeholder="Senha"
-          onChange={ this.handleTextChange }
-        />
-        { button }
+      <div className="text-center" cz-shortcut-listen="true">
+        <form className="form-signin">
+          <img className="mb-4" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Wallet_Flat_Icon.svg/512px-Wallet_Flat_Icon.svg.png" alt="" width="72" height="72" />
+          <h1 className="h3 mb-3 font-weight-normal">Log In</h1>
+          <input
+            className="form-control"
+            id="email"
+            type="text"
+            data-testid="email-input"
+            placeholder="Email"
+            onChange={ this.handleTextChange }
+          />
+          <input
+            className="form-control"
+            id="password"
+            type="password"
+            data-testid="password-input"
+            placeholder="Senha"
+            onChange={ this.handleTextChange }
+          />
+          <button
+            className="btn btn-lg btn-primary btn-block"
+            type="button"
+            disabled={ !(validEmail && validPassword) }
+            onClick={ this.handleClick }
+          >
+            Entrar
+          </button>
+        </form>
       </div>
     );
   }
