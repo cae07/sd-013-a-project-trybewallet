@@ -8,8 +8,8 @@ class Header extends React.Component {
     const expensesSum = () => {
       let amount = 0;
       if (expenses[0] !== undefined) {
-        expenses.forEach((expense) => {
-          amount += Number(expense.value) * Number(expense.exchangeRates[expense.currency].ask);
+        expenses.forEach(({ value, exchangeRates, currency }) => {
+          amount += Number(value) * Number(exchangeRates[currency].ask);
         });
       }
       return amount;

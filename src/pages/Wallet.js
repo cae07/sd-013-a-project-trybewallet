@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 import { insertExpenses } from '../actions';
 import Header from './Header';
-// import TagSelect from './TagSelect';
+import TagSelect from './TagSelect';
+import MethodSelect from './MethodSelect';
 
 class Wallet extends React.Component {
   constructor() {
@@ -20,6 +21,7 @@ class Wallet extends React.Component {
     };
     this.fetchCurrencies();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.isChange = this.isChange.bind(this);
   }
 
   currenciesOptions() {
@@ -57,6 +59,10 @@ class Wallet extends React.Component {
     setExpenses(this.state);
   }
 
+  isChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
+  }
+
   render() {
     return (
       <>
@@ -64,52 +70,35 @@ class Wallet extends React.Component {
         <form onSubmit={ this.handleSubmit }>
           <label htmlFor="value">
             Valor
-            <input
-              type="number"
-              id="value"
-              onChange={ ({ target }) => this.setState({ value: target.value }) }
-            />
+            <input type="number" id="value" name="value" onChange={ this.isChange } />
           </label>
           <label htmlFor="currency">
             Moeda:
-            <select
-              id="currency"
-              onChange={ ({ target }) => this.setState({ currency: target.value }) }
-            >
-            </select>
+            <select id="currency" name="currency" onChange={ this.isChange }> </select>
           </label>
           <label htmlFor="paymentMethod">
             Método de pagamento:
             <select
               id="paymentMethod"
-              onChange={ ({ target }) => this.setState({ method: target.value }) }
+              name="method"
+              onChange={ this.isChange }
             >
-              <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de crédito">Cartão de crédito</option>
-              <option value="Cartão de débito">Cartão de débito</option>
+              <MethodSelect />
             </select>
           </label>
           <label htmlFor="tag">
             Tag:
             <select
               id="tag"
-              onChange={ ({ target }) => this.setState({ tag: target.value }) }
+              name="tag"
+              onChange={ this.isChange }
             >
-              <option value="Alimentação">Alimentação</option>
-              <option value="Lazer">Lazer</option>
-              <option value="Trabalho">Trabalho</option>
-              <option value="Transporte">Transporte</option>
-              <option value="Saúde">Saúde</option>
+              <TagSelect />
             </select>
           </label>
-          <label htmlFor="description">
+          <label htmlFor="des">
             Descrição:
-            <textarea
-              id="description"
-              onChange={ ({ target }) => this.setState({ description: target.value }) }
-            >
-              ...
-            </textarea>
+            <textarea id="des" name="description" onChange={ this.isChange }> </textarea>
           </label>
           <button type="submit">Adicionar Despesa</button>
         </form>
