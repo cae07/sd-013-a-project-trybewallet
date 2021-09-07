@@ -17,7 +17,7 @@ class ExpenditureForm extends React.Component {
             name="value"
             id="value"
             value={ value }
-            onChange={ handleChange }
+            handleChange={ handleChange }
           />
           <Input
             label="Descrição:"
