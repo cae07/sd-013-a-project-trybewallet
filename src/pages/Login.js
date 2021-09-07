@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Login extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.onValidation = this.onValidation.bind(this);
   }
 
@@ -23,6 +25,10 @@ class Login extends React.Component {
     && senha.length >= min
     && (/[A-z\s]+/).test(senha));
     this.setState({ validation });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
   }
 
   handleChange({ target: { name, value } }) {
@@ -39,7 +45,7 @@ class Login extends React.Component {
   render() {
     const { email, senha, validation } = this.state;
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <label htmlFor="email">
           Email:
           <input
@@ -62,13 +68,12 @@ class Login extends React.Component {
           />
         </label>
 
-        <button
+        <input
           type="submit"
+          value="Enviar"
           disabled={ validation }
           onClick={ this.handleClick }
-        >
-          Entrar
-        </button>
+        />
       </form>
     );
   }
@@ -80,4 +85,4 @@ Login.propTypes = {
   }).isRequired,
 };
 
-export default Login;
+export default connect()(Login);
