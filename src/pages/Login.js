@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setLogin } from '../actions';
 // import './Login.css';
-// import img from '../logo.gif';
+// import img from '../logo.gif'; linha 46
 
 class Login extends React.Component {
   constructor(props) {
