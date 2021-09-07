@@ -9,7 +9,7 @@ const walletReducer = (state = initialState, action) => {
   switch (action.type) {
   case CURRENCIES_FETCHED: {
     return {
-      currencies: [...state.currencies, ...action.payload],
+      currencies: action.payload,
       expenses: [...state.expenses],
     };
   }
@@ -18,7 +18,7 @@ const walletReducer = (state = initialState, action) => {
     const newExpense = Object.assign(action.payload, { id: nextId });
 
     return {
-      currencies: [...state.currencies],
+      currencies: { ...state.currencies },
       expenses: [...state.expenses, newExpense],
     };
   }

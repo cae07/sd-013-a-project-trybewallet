@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { expenseAdded } from '../actions';
-import fetchCurrencies from '../fetchers';
+import fetchCurrencies from '../helpers/fetchers';
 
 class AddExpense extends React.Component {
   constructor() {
@@ -12,8 +12,8 @@ class AddExpense extends React.Component {
       value: 0,
       description: '',
       currency: 'USD',
-      method: 'cash',
-      tag: 'leisure',
+      method: 'Dinheiro',
+      tag: 'Lazer',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,13 +26,15 @@ class AddExpense extends React.Component {
     const { value, description, currency, method, tag } = this.state;
     const { saveExpense } = this.props;
 
+    const updatedCurrencies = await fetchCurrencies();
+
     const expense = {
       value,
       description,
       currency,
       method,
       tag,
-      exchangeRates: await fetchCurrencies(),
+      exchangeRates: updatedCurrencies,
     };
 
     saveExpense(expense); // Dispatch the action
@@ -79,6 +81,8 @@ class AddExpense extends React.Component {
   render() {
     const { currencies } = this.props;
 
+    const currencyCodes = Object.keys(currencies);
+
     return (
       <form>
         {this.renderValue()}
@@ -94,7 +98,7 @@ class AddExpense extends React.Component {
         <label htmlFor="currency">
           Moeda
           <select id="currency" name="currency" onChange={ this.handleChange }>
-            {currencies.map(({ code }) => (
+            {currencyCodes.map((code) => (
               <option key={ code } value={ code }>{ code }</option>
             ))}
           </select>
@@ -125,6 +129,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExpense);

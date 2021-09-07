@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { currenciesFetched } from '../actions';
 import AddExpense from '../components/AddExpense';
 import Header from '../components/Header';
-import fetchCurrencies from '../fetchers';
+import fetchCurrencies from '../helpers/fetchers';
+import Expenses from '../components/Expenses';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -13,20 +14,7 @@ class Wallet extends React.Component {
 
   async getCurrencies() {
     const { saveCurrencies } = this.props;
-
-    const data = await fetchCurrencies();
-
-    const currencyCodes = Object.keys(data);
-    const toBeRemoved = currencyCodes.indexOf('USDT');
-    currencyCodes.splice(toBeRemoved, 1);
-    const currencies = currencyCodes
-      .map((code) => (
-        { code,
-          name: data[code].name,
-          ask: data[code].ask,
-        }
-      ));
-
+    const currencies = await fetchCurrencies();
     saveCurrencies(currencies); // Dispatch the action
   }
 
@@ -35,6 +23,7 @@ class Wallet extends React.Component {
       <section>
         <Header />
         <AddExpense />
+        <Expenses />
       </section>
     );
   }

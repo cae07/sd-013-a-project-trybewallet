@@ -1,19 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-const exchange = (expense) => {
-  const rate = expense.exchangeRates[expense.currency].ask;
-  return Number(expense.value) * Number(rate);
-};
-
-const reducer = (acc, curr) => acc + exchange(curr);
+import expensesType from '../proptypes';
+import { fixedRounded } from '../helpers';
 
 class Header extends React.Component {
+  exchange(expense) {
+    const rate = expense.exchangeRates[expense.currency].ask;
+
+    return Number(expense.value) * Number(rate);
+  }
+
   render() {
     const { email, expenses } = this.props;
 
-    const total = expenses.reduce(reducer, 0);
+    const total = expenses.reduce((acc, curr) => acc + this.exchange(curr), 0);
 
     return (
       <header>
@@ -22,7 +23,7 @@ class Header extends React.Component {
         </span>
         Despesa total: R$
         <span data-testid="total-field">
-          {Math.round(total * 100) / 100}
+          {fixedRounded(total)}
         </span>
         <span data-testid="header-currency-field"> BRL</span>
       </header>
@@ -32,18 +33,13 @@ class Header extends React.Component {
 
 Header.propTypes = {
   email: PropTypes.string.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string,
-    description: PropTypes.string.isRequired,
-    currency: PropTypes.string.isRequired,
-    method: PropTypes.string.isRequired,
-    tag: PropTypes.string.isRequired,
-  })).isRequired,
+  expenses: expensesType.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
   expenses: state.wallet.expenses,
+  currencies: state.wallet.currencies,
 });
 
 export default connect(mapStateToProps)(Header);
