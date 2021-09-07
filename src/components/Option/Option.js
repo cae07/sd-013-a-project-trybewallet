@@ -6,10 +6,15 @@ class Option extends Component {
   render() {
     const { currencies } = this.props;
     const keys = Object.keys(currencies);
-
     return (
       keys.map((currency) => (
-        <option name="moeda" key={ currency } value={ currency }>{currency}</option>
+        <option
+          name="currency"
+          key={ currency }
+          value={ currency }
+        >
+          {currency}
+        </option>
       ))
     );
   }

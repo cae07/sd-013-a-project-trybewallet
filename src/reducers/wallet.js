@@ -3,6 +3,7 @@ import {
   LOADING_ACTION,
   LOADING_ACTION_SUCCESS,
   LOADING_ACTION_FAIL,
+  UPDATE_EXPENSES,
 } from '../constants';
 
 const INITIAL_STATE = {
@@ -31,6 +32,12 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       error: action.payload.error,
       loading: false,
+    };
+
+  case UPDATE_EXPENSES:
+    return {
+      ...state,
+      expenses: [...state.expenses, action.payload],
     };
 
   default:
