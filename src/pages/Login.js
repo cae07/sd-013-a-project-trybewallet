@@ -70,7 +70,7 @@ class Login extends React.Component {
 
         <input
           type="submit"
-          value="Enviar"
+          value="Entrar"
           disabled={ validation }
           onClick={ this.handleClick }
         />
