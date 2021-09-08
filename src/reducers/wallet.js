@@ -1,4 +1,4 @@
-import { CURRENCIES_FETCHED, EXPENSE_ADDED } from '../actions';
+import { CURRENCIES_FETCHED, EXPENSE_ADDED, EXPENSE_EXCLUDED } from '../actions';
 
 const initialState = {
   currencies: [],
@@ -20,6 +20,15 @@ const walletReducer = (state = initialState, action) => {
     return {
       currencies: { ...state.currencies },
       expenses: [...state.expenses, newExpense],
+    };
+  }
+  case EXPENSE_EXCLUDED: {
+    const expenses = [...state.expenses];
+    expenses.splice([action.payload], 1); // Remove the expense based on its id
+
+    return {
+      currencies: { ...state.currencies },
+      expenses: [...expenses],
     };
   }
   default:

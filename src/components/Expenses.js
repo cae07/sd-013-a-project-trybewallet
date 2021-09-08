@@ -24,7 +24,9 @@ class Expenses extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {expenses.map((expense, idx) => <ExpenseRow key={ idx } expense={ expense } />)}
+          {expenses.map(
+            (expense) => <ExpenseRow key={ expense.id } expense={ expense } />,
+          )}
         </tbody>
         <tfoot />
       </table>
@@ -33,7 +35,7 @@ class Expenses extends React.Component {
 }
 
 Expenses.propTypes = {
-  currencies: PropTypes.shape({ find: PropTypes.func }).isRequired,
+  currencies: PropTypes.shape({ }).isRequired,
   expenses: expensesType.isRequired,
 };
 

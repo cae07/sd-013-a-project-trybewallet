@@ -1,11 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { fixedRounded } from '../helpers';
+import { expenseExcluded } from '../actions';
 
 class ExpenseRow extends React.Component {
+  constructor() {
+    super();
+
+    this.handleExclusion = this.handleExclusion.bind(this);
+  }
+
+  handleExclusion({ target }) {
+    const { excludeExpense } = this.props;
+
+    // https://developer.mozilla.org/pt-BR/docs/Learn/HTML/Howto/Use_data_attributes
+    excludeExpense(target.dataset.expenseid);
+  }
+
   render() {
     const {
       expense: {
+        id,
         description,
         tag,
         method,
@@ -33,7 +49,16 @@ class ExpenseRow extends React.Component {
           {fixedRounded(exchangedValue)}
         </td>
         <td>Real</td>
-        <td>Buttons</td>
+        <td>
+          <button
+            type="button"
+            data-testid="delete-btn"
+            data-expenseid={ id }
+            onClick={ this.handleExclusion }
+          >
+            Excluir
+          </button>
+        </td>
       </tr>
     );
   }
@@ -47,4 +72,8 @@ ExpenseRow.propTypes = {
   exchangeRates: PropTypes.shape({}),
 }.isRequired;
 
-export default ExpenseRow;
+const mapDispatchToProps = (dispatch) => ({
+  excludeExpense: (expenseId) => dispatch(expenseExcluded(expenseId)),
+});
+
+export default connect(null, mapDispatchToProps)(ExpenseRow);

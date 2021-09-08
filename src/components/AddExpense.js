@@ -120,7 +120,7 @@ class AddExpense extends React.Component {
 
 AddExpense.propTypes = {
   saveExpense: PropTypes.func.isRequired,
-  currencies: PropTypes.shape({ map: PropTypes.func }).isRequired,
+  currencies: PropTypes.shape({ }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
