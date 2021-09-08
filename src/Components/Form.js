@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ConnectedInputSelect } from './InputSelect';
 import { InputText } from './InputText';
 import { saveCurrencies, saveExpense, fetchCurrenciesThunk } from '../actions/index';
-import Button from './Button';
+import { Button } from './Button';
 
 class Form extends React.Component {
   constructor() {
