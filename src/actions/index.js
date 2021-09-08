@@ -17,3 +17,19 @@ export const actionDespesas = (payload) => ({
   type:WALLET_DESPESAS,
   payload,
 });
+const fetchApi= async () => {
+  const MoedasApi = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const ApiJson = await MoedasApi.json();
+  return ApiJson;
+}
+
+export const tankApi=(moedaState) => (dispatch) =>fetchApi().then((data) => {
+  const moedasInfo = {
+    ...moedaState,
+    exchangeRates:{
+      ...data
+    }
+  }
+  dispatch(actionDespesas(moedasInfo))
+})
+

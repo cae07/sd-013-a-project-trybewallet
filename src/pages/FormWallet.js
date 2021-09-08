@@ -1,6 +1,6 @@
 import React from 'react';
-import { sendWalletInfo } from '../actions';
 import { connect } from 'react-redux';
+import { tankApi } from '../actions';
 
 class FormWallet extends React.Component {
   constructor() {
@@ -10,13 +10,14 @@ class FormWallet extends React.Component {
       value: 0,
       id: 0,
       description: '',
-      currency: 'USD',
+      currency: 'BRL',
       method: 'Dinheiro',
       tag: 'Alimentação',
     };
 
     this.fetchMoedas = this.fetchMoedas.bind(this);
     this.buttonAddDispesa = this.buttonAddDispesa.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -25,16 +26,41 @@ class FormWallet extends React.Component {
     // const { currencies } = this.state;
     // dispatchmoedas(currencies);
   }
+  
+  handleChange({ target }) {
+    const {id, value } = target;
+    this.setState({ [id]: value });
+  }
 
-  // componentDidUpdate() {
-  //  const { dispatchmoedas } = this.props;
-  //   dispatchmoedas();
-  // }
+  submitForm(e) {
+    e.preventDefault();
+    const { tankApi } =this.props;
+    const { id, value, description, currency, method, tag } = this.state;
+    const estado = { id, value, description, currency, method, tag };
+   this.setState({ 
+     id: id + 1,
+     value: '',
+     description: '',
+     currency: 'BRL',
+     method: '',
+     tag: '',
+   }, 
+    () => tankApi(estado));
+  }
 
-  // componentWillUnmount() {
-  //   const { dispatchmoedas } = this.props;
-  //   dispatchmoedas();
-  // }
+  soma(){
+    const { cotation } = this.props;
+    let cont = 0;
+    cotation
+      .forEach(({ value, currency, exchangeRates }) => {
+        if (exchangeRates[currency]) {
+          contador += (Number(value) * Number(exchangeRates[currency].ask));
+          return contador;
+        }
+        return contador;
+      });
+    return contador.toFixed(2);
+   }
 
   fetchMoedas() {
     fetch('https://economia.awesomeapi.com.br/json/all')
@@ -51,9 +77,8 @@ class FormWallet extends React.Component {
     return (
       <span>
       <button
-      type="button"
-      onClick={ this.handleSubmit }
-      >
+      type="submit"
+     >
         Adicionar despesa
       </button>
       </span>
@@ -61,15 +86,17 @@ class FormWallet extends React.Component {
   }
 
   render() {
-    const { currencies } = this.state;
+    const { currencies, value, description, tag, method, } = this.state;
     return (
-      <form>
+      <form onSubmit= { this.submitForm }>
         <label htmlFor="valorForm">
           Valor
           <input
             type="text"
             name="valor"
             id="valorForm"
+            value={ value }
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="descriçãoForm">
@@ -78,6 +105,8 @@ class FormWallet extends React.Component {
             type="text"
             id="descriçãoForm"
             name="descrição"
+            value={ description }
+            onChange={this.handleChange}
           />
         </label>
         <label htmlFor="moeda">
@@ -91,7 +120,7 @@ class FormWallet extends React.Component {
         </label>
         <label htmlFor="metodo">
           Método de pagamento
-          <select id="metodo">
+          <select id="metodo" value={ method } onChange={this.handleChange}>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -99,12 +128,12 @@ class FormWallet extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select id="tag">
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
+          <select name="tag" value={tag} id="tag" onChange={this.handleChange}>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
         { this.buttonAddDispesa() }
@@ -112,5 +141,21 @@ class FormWallet extends React.Component {
     );
   }
 }
+// Wallet.propTypes = {
+//   buttonExpenses: PropTypes.func,
+//   fetchData: PropTypes.func,
+//   moedas: PropTypes.shape({
+//     map: PropTypes.func,
+//   }),
+//   userEmail: PropTypes.func,
+// }.isRequired;
 
-export default FormWallet;
+const mapStateToProps = (state) => ({
+  cotation: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  tankApi:(state) => dispatch(tankApi(state))
+})
+
+export default connect (null, mapDispatchToProps)(FormWallet);

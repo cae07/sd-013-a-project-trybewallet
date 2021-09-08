@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
-    const { salvarStore } = this.props;
+    const { salvarStore, contation } = this.props;
+    const { }
     return (
       <header className="header_Wallet" data-testid="email-field">
         <span>
@@ -12,7 +13,7 @@ class Header extends React.Component {
           { `${salvarStore}` }
         </span>
         <br />
-        <span data-testid="total-field"> Total de gastos:R$ 0 </span>
+        <span data-testid="total-field"> Total de gastos:R$ { contation } </span>
         <br />
         <span data-testid="header-currency-field">Cambio utilizado: BRL </span>
       </header>
