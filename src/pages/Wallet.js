@@ -18,13 +18,14 @@ class Wallet extends React.Component {
 
   inputValor() {
     return (
-      <label htmlFor="valor">
+      <label htmlFor="value">
         Valor:
         <input
-          type="text"
-          // value
-          name="valor"
-          // onChange
+          type="number"
+          id="value"
+          name="value"
+          // value={ value }
+          // onChange={ this.handleChange }
         />
       </label>
     );
@@ -32,13 +33,14 @@ class Wallet extends React.Component {
 
   inputDescricao() {
     return (
-      <label htmlFor="descricao">
+      <label htmlFor="description">
         Descrição:
         <input
           type="text"
-          // value
-          name="descricao"
-          // onChange
+          id="description"
+          name="description"
+          // value={ description }
+          // onChange={ this.handleChange }
         />
       </label>
     );
@@ -46,10 +48,16 @@ class Wallet extends React.Component {
 
   inputSelect() {
     return (
-      <label htmlFor="moeda">
+      <label htmlFor="currency">
         Moeda:
-        <select>
-          <option>Selecione</option>
+        <select
+          id="currency"
+          name="currency"
+          className="moedas"
+          // value={ currency }
+          // onChange={ this.handleChange }
+        >
+          <option>sdasd</option>
         </select>
       </label>
     );
@@ -57,9 +65,14 @@ class Wallet extends React.Component {
 
   inputPagamento() {
     return (
-      <label htmlFor="metodo-pagamento">
+      <label htmlFor="method">
         Método de pagamento:
-        <select>
+        <select
+          id="method"
+          name="method"
+          // value={ method }
+          // onChange={ this.handleChange }
+        >
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
           <option>Cartão de débito</option>
@@ -70,9 +83,14 @@ class Wallet extends React.Component {
 
   inputTags() {
     return (
-      <label htmlFor="Tag">
-        Categoria:
-        <select>
+      <label htmlFor="tag">
+        Tag:
+        <select
+          id="tag"
+          name="tag"
+          // value={ tag }
+          // onChange={ this.handleChange }
+        >
           <option>Alimentação</option>
           <option>Lazer</option>
           <option>Trabalho</option>
