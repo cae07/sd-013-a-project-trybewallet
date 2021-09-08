@@ -34,6 +34,7 @@ class Wallet extends React.Component {
     const { id, value, description, currency, method, tag } = this.state;
     const estados = { id, value, description, currency, method, tag };
     this.setState({ id: id + 1 }, () => expensesFetch(estados));
+    this.zerarInputs();
   }
 
   inputValor() {
@@ -127,13 +128,36 @@ class Wallet extends React.Component {
     );
   }
 
+  zerarInputs() {
+    this.setState({
+      value: 0,
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
+    });
+  }
+
+  somaValores() {
+    const { expenses } = this.props;
+    let soma = 0;
+    expenses.forEach(({ value, currency, exchangeRates }) => {
+      soma += value * exchangeRates[currency].ask;
+    });
+    return soma.toFixed(2);
+  }
+
   render() {
     const { email } = this.props;
     return (
       <>
         <header>
           <span data-testid="email-field">{ email }</span>
-          <span data-testid="total-field">{ `Dispensa total: ${0}` }</span>
+          <span
+            data-testid="total-field"
+          >
+            { `Dispensa total: ${this.somaValores()}` }
+          </span>
           <span data-testid="header-currency-field">BRL</span>
         </header>
         <form>

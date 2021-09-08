@@ -20,7 +20,7 @@ export const actionReject = (error) => ({
 });
 
 export const actionGetExpenses = (expenses, data) => ({
-  type: ACTION_API_SUCCESS,
+  type: ACTION_GET_EXPENSES,
   expenses,
   data,
 });
@@ -42,9 +42,9 @@ export const fetchMoedas = () => (dispatch) => {
   return requisicao;
 };
 
-export const fetchExpenses = (exp) => (dispatch) => {
-  const requisicao = fetchApi()
+export const fetchExpenses = (exp) => ((dispatch) => {
+  const requisicao2 = fetchApi()
     .then((resp) => dispatch(actionGetExpenses(exp, resp)))
     .catch((error) => dispatch(actionReject(error)));
-  return requisicao;
-};
+  return requisicao2;
+});
