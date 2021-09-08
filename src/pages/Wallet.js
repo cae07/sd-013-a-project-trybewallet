@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func } from 'prop-types';
+import { func, arrayOf, string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { sendExpenseApi, sendMoedasApi } from '../actions';
@@ -149,6 +149,9 @@ class Wallet extends Component {
 Wallet.propTypes = {
   salvarStore: func.isRequired,
   dispatchMoedas: func.isRequired,
+  buttonExpenses: func.isRequired,
+  forEach: func.isRequired,
+  cotation: arrayOf(string).isRequired,
 };
 
 const mapStateToProps = (state) => ({
