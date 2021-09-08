@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ExpensesInput extends Component {
   render() {
@@ -22,5 +23,10 @@ class ExpensesInput extends Component {
     );
   }
 }
+
+ExpensesInput.propTypes = {
+  kindExpense: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default ExpensesInput;

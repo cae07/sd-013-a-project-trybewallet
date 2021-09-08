@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class PaymentMethod extends Component {
   render() {
@@ -20,5 +21,10 @@ class PaymentMethod extends Component {
     );
   }
 }
+
+PaymentMethod.propTypes = {
+  paymentMethod: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default PaymentMethod;
