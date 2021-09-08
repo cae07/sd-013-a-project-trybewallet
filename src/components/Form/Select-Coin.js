@@ -7,15 +7,15 @@ import { connect } from 'react-redux';
 
 class SelectCoin extends Component {
   render() {
-    const { currencies } = this.props;
+    const { currencies, selectCoin, onChange } = this.props;
     return (
       <label htmlFor="moeda">
         Moeda
-        <select id="moeda">
+        <select id="moeda" name="currency" value={ selectCoin } onChange={ onChange }>
           {
-            Object.keys(currencies).map((currencie, index) => {
-              if (currencie !== 'USDT') {
-                return <option key={ index }>{currencie}</option>;
+            Object.keys(currencies).map((currency, index) => {
+              if (currency !== 'USDT') {
+                return <option key={ index }>{currency}</option>;
               }
               return null;
             })
@@ -28,6 +28,8 @@ class SelectCoin extends Component {
 
 SelectCoin.propTypes = {
   currencies: PropTypes.array,
+  onChange: PropTypes.func,
+  selectCoin: PropTypes.string,
 }.isRequired;
 
 const mapStateToProps = (state) => ({

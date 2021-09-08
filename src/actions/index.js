@@ -1,5 +1,6 @@
 export const USER_LOGIN = 'USER_LOGIN';
-export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
+export const SEND_EXPENSES = 'SEND_EXPENSES';
+export const SEND_TOTAL_EXPENSES = 'SEND_TOTAL_EXPENSES';
 export const RECEIVE_CURRENCIES = 'RECEIVE_CURRENCIES';
 
 export const userLogin = (payload) => ({
@@ -7,8 +8,14 @@ export const userLogin = (payload) => ({
   payload,
 });
 
-export const requestCurrencies = () => ({
-  type: REQUEST_CURRENCIES,
+export const sendExpenses = (expenses) => ({
+  type: SEND_EXPENSES,
+  expenses,
+});
+
+export const sendTotalExpenses = (totalExpenses) => ({
+  type: SEND_TOTAL_EXPENSES,
+  totalExpenses,
 });
 
 export const receiveCurrencies = (data) => ({
@@ -18,7 +25,6 @@ export const receiveCurrencies = (data) => ({
 
 export function fetchCoins() {
   return async (dispatch) => {
-    dispatch(requestCurrencies());
     const response = await fetch('https://economia.awesomeapi.com.br/json/all');
     const data = await response.json();
     return dispatch(receiveCurrencies(data));
