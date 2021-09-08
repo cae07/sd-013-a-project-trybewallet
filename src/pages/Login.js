@@ -1,85 +1,52 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
-const NUMBER_PASSWORD = 6;
+import Button from '../components/button';
 
 class Login extends React.Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
-      password: '',
-      passwordValidation: false,
-      emailValidation: false,
+      senha: '',
     };
-
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
-    this.handleOnclick = this.handleOnclick.bind(this);
   }
 
-  handleLogin({ target }) {
-    const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
-    const emailValidation = email.test(target.value);
-
-    this.setState({
-      email: target.value,
-      emailValidation,
-    });
+  handler(e) {
+    const { name } = e.target;
+    this.setState({ [name]: e.target.value });
   }
 
-  handlePassword({ target: { value } }) {
-    const passwordValidation = value.length >= NUMBER_PASSWORD;
-
-    this.setState({
-      password: value,
-      passwordValidation,
-    });
-  }
-
-  handleOnclick() {
-    const { history } = this.props;
-
-    history.push('/carteira');
+  isAuthenticated() {
+    const { email, senha } = this.state;
+    const emailRegexp = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    const SENHA_LENGTH = 6;
+    if (emailRegexp.test(email) && senha.length === SENHA_LENGTH) {
+      return false;
+    }
+    return true;
   }
 
   render() {
-    const { email, password, passwordValidation, emailValidation } = this.state;
+    const { email } = this.state;
     return (
       <div>
         <input
           data-testid="email-input"
-          type="email"
           name="email"
-          onChange={ this.handleLogin }
-          placeholder="email@example.com"
-          value={ email }
+          type="email"
+          onChange={ (e) => this.handler(e) }
         />
         <input
           data-testid="password-input"
+          name="senha"
           type="password"
-          name="password"
-          onChange={ this.handlePassword }
-          placeholder="password"
-          value={ password }
+          onChange={ (e) => this.handler(e) }
         />
-        <button
-          disabled={ !emailValidation || !passwordValidation }
-          type="button"
-          onClick={ this.handleOnclick }
-        >
-          Entrar
-        </button>
+        <div>
+          <Button disabled={ this.isAuthenticated() } email={ email } />
+        </div>
       </div>
     );
   }
 }
-
-Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-};
 
 export default Login;
