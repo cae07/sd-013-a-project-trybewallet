@@ -23,7 +23,7 @@ const fetchApi = async () => {
   return ApiJson;
 };
 
-export const tankApi = (moedaState) => (dispatch) =>fetchApi().then((data) => {
+export const tankApi = (moedaState) => (dispatch) => fetchApi().then((data) => {
   const moedasInfo = {
     ...moedaState,
     exchangeRates: {

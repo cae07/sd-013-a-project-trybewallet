@@ -27,33 +27,33 @@ class FormWallet extends React.Component {
     // const { currencies } = this.state;
     // dispatchmoedas(currencies);
   }
-  
+
   handleChange({ target }) {
-    const {id, value } = target;
+    const { id, value } = target;
     this.setState({ [id]: value });
   }
 
   submitForm(e) {
     e.preventDefault();
-    const { tankApi } =this.props;
+    const { tankApi } = this.props;
     const { id, value, description, currency, method, tag } = this.state;
     const estado = { id, value, description, currency, method, tag };
-   this.setState({ 
-     id: id + 1,
-     value: '',
-     description: '',
-     currency: 'BRL',
-     method: '',
-     tag: '',
-   }, 
+    this.setState({
+      id: id + 1,
+      value: '',
+      description: '',
+      currency: 'BRL',
+      method: '',
+      tag: '',
+    },
     () => tankApi(estado));
   }
 
-  soma(){
+  soma() {
     const { cotation } = this.props;
-    let cont = 0;
-    cotation
-      .forEach(({ value, currency, exchangeRates }) => {
+    let contador = 0;
+    const { value, currency } = this.state;
+     cotation.forEach(({ value, currency, exchangeRates }) => {
         if (exchangeRates[currency]) {
           contador += (Number(value) * Number(exchangeRates[currency].ask));
           return contador;
@@ -61,7 +61,7 @@ class FormWallet extends React.Component {
         return contador;
       });
     return contador.toFixed(2);
-   }
+  }
 
   fetchMoedas() {
     fetch('https://economia.awesomeapi.com.br/json/all')
@@ -75,20 +75,21 @@ class FormWallet extends React.Component {
       });
   }
   buttonAddDispesa() {
+
     return (
       <span>
-      <button
-      type="submit"
-     >
+        <button
+        type="submit"
+      >
         Adicionar despesa
-      </button>
+        </button>
       </span>
     );
   }
 
   render() {
     const { currencies, value, description, tag, method, } = this.state;
-        return (
+      return (
       <form onSubmit= { this.submitForm }>
         <Header contation = { soma }/>
         <label htmlFor="valorForm">
@@ -157,7 +158,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  tankApi:(state) => dispatch(tankApi(state))
+  tankApi:(state) => dispatch(tankApi(state)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
