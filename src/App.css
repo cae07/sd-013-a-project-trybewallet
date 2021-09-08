@@ -1,3 +1,7 @@
+body {
+  background-color: #686868;
+}
+
 .App {
   text-align: center;
 }
@@ -6,6 +10,11 @@
   height: 40vmin;
   pointer-events: none;
 }
+
+.table {
+  align-items: center;
+
+} 
 
 @media ( prefers-reduced-motion : no-preference ) {
 
