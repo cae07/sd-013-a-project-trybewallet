@@ -1,13 +1,13 @@
 #form {
+  align-items: center;
+  background-color: rgb(0, 51, 102);
   border: 1px solid red;
   border-radius: 5px;
-  background-color: rgb(0, 51, 102);
-  color: rgb(228, 230, 227);
-  height: 70px;
-  display: flex;
-  align-items: center;
   box-shadow: 2px 3px 5px rgb(0, 51, 102);
-  }
+  color: rgb(228, 230, 227);
+  display: flex;
+  height: 70px;
+}
 
 #form input {
   border-radius: 10px;
@@ -17,8 +17,8 @@
 
 #form select {
   border-radius: 5px;
-  margin-left: 8px;
   border-style: none;
+  margin-left: 8px;
 }
 
 #form label {
