@@ -1,7 +1,6 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 
-import { INSERT_EXPENSES } from '../actions';
-import { DELETE_EXPENSES } from '../actions';
+import { INSERT_EXPENSES, DELETE_EXPENSES } from '../actions';
 
 const INITIAL_STATE = { expenses: [] };
 
