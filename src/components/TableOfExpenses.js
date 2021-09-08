@@ -23,7 +23,7 @@ class TableOfExpenses extends React.Component {
   render() {
     const { stateWalletExpenses } = this.props;
     return (
-      <div>
+      <tbody>
         {this.Tabela()}
         {stateWalletExpenses.map((expense) => (
           <tr key={ expense.id }>
@@ -32,7 +32,7 @@ class TableOfExpenses extends React.Component {
             <td>{ expense.method }</td>
             <td>{ expense.value }</td>
             <td>
-              {expense.exchangeRates[expense.currency.name]}
+              {expense.exchangeRates[expense.currency].name}
             </td>
             <td>
               { parseFloat(expense.exchangeRates[expense.currency].ask).toFixed(2) }
@@ -54,7 +54,7 @@ class TableOfExpenses extends React.Component {
               </button>
             </td>
           </tr>))}
-      </div>
+      </tbody>
     );
   }
 }
