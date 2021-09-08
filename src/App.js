@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 import {
   Switch,
   Route,
@@ -8,7 +9,7 @@ import Login from './pages/Login';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/carteira" component={ Wallet } />

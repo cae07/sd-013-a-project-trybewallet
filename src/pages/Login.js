@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { salvarStore } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -72,6 +74,9 @@ class Login extends React.Component {
   }
 
   handleClick() {
+    const { sendEmail } = this.props;
+    const { email } = this.state;
+    sendEmail(email);
     return this.setState({ redirect: true });
   }
 
@@ -80,6 +85,11 @@ class Login extends React.Component {
     if (redirect) return <Redirect to="/carteira" />;
     return (
       <form>
+        <img
+          className="App-logo"
+          src="http://www.w3.org/2000/svg"
+          alt="logo"
+        />
         <label htmlFor="emailLabel">
           <input
             data-testid="email-input"
@@ -115,4 +125,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  sendEmail: (email) => dispatch(salvarStore(email)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
