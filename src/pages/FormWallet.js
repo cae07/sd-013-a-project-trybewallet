@@ -19,9 +19,8 @@ class FormWallet extends React.Component {
         response.json().then((data) => {
           const moedas = (data);
           delete moedas.USDT; // com ajuda de Gabriel Gaspar e Josué
-          const arrayMoedas = Object.keys(moedas); //Object.keys pega chave e key tranforma o obj. em array
-          this.setState({  
-            currencies: arrayMoedas, 
+          const arrayMoedas = Object.keys(moedas); // Object.keys pega chave e key tranforma o obj. em array
+          this.setState({ currencies: arrayMoedas, 
           });
         });
       });
@@ -32,30 +31,29 @@ class FormWallet extends React.Component {
     return (
       <div>
         <form>
-          <label htmlFor="valorForm">
-            Valor
-            <input
+          <label htmlFor="valorForm">Valor
+             <input
               id="valorForm"
               type="text"
               name="valor"
             />
           </label>
-          <label htmlFor="descriçãoForm">
-            Descrição
+          <label htmlFor="descriçãoForm"> Descrição
             <input
               id="descriçãoForm"
               type="text"
               name="descrição"
             />
           </label>
-          <label htmlFor="moeda">
-            Moeda
+          <label htmlFor="moeda"> Moeda
             <select id="moeda">
               { currencies.map((moeda, index) => (
-                <option key={ index }
+                <option
+                  key={ index }
                 > 
                   { moeda }
-                </option> ))}
+                </option>))
+              }
             </select>
           </label>
           <br/>
