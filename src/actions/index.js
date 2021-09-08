@@ -38,15 +38,10 @@ export const fetchCurrencesAction = () => (dispatch) => {
   dispatch(requestWalletLoading());
   return fetch(`${CURRENCES_API}`)
     .then((response) => response.json())
-    .then((currencesResponse) => dispatch(
-      requestWalletSuccess(
-        Object.keys(currencesResponse).filter((key) => {
-          if (key === 'USDT') {
-            return false;
-          } return true;
-        }),
-      ),
-    ));
+    .then((currencesResponse) => {
+      delete currencesResponse.USDT;
+      dispatch(requestWalletSuccess(currencesResponse));
+    });
 };
 
 export const requestExchangeLoading = () => ({
