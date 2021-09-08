@@ -12,6 +12,7 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -32,10 +33,12 @@ class Login extends React.Component {
     const { email, password } = this.state;
     const num = 6;
     const validPASSWORD = password.length >= num;
+
     const validEMAIL = () => {
       const regex = /\S+@\S+\.\S+/;
       return regex.test(email);
     };
+    
     return (
       <div>
         <form>
@@ -44,17 +47,17 @@ class Login extends React.Component {
             name="email"
             data-testid="email-input"
             value={ email }
-            onChange={ handleChange }
+            handleChange={ handleChange }
             />
           <Input
             label="Senha:"
             name="password"
             data-testid="password-input"
-            onChange={ handleChange }
+            handleChange={ handleChange }
             value={ password }
             />
           <Button
-            onClick={ handleClick }
+            handleClick={ handleClick }
             disabled={ !(validEMAIL() && validPASSWORD) }
             />
           </form>
@@ -64,7 +67,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  changeInputValue: (state) => dispatch(inputEmail(state)) });
+  changeInputValue: (state) => dispatch(inputEmail(state)) }); 
 
 Login.propTypes = {
   changeInputValue: Proptypes.func.isRequired,

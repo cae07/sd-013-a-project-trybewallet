@@ -3,11 +3,11 @@ import Proptypes from 'prop-types';
 
 class Button extends React.Component {
   render() {
-    const { onClick, disabled } = this.props;
+    const { handleClick, disabled } = this.props;
     return (
       <button
         type="button"
-        onClick={ onClick }
+        onClick={ handleClick }
         disabled={ disabled }
       >
         Entrar

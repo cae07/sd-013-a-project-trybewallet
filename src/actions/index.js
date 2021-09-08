@@ -15,6 +15,7 @@ export const inputPassword = (payload) => ({
 export const LOADING_TYPE = 'LOADING_TYPE';
 export const SUCCESS_TYPE = 'SUCCESS_TYPE';
 export const ERROR_TYPE = 'ERROR_TYPE';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
 
 export const isLoadingAction = () => ({
   type: LOADING_TYPE,
@@ -25,8 +26,14 @@ export const successAction = (payload) => ({
   payload,
 });
 
-export const errorAction = () => ({
+export const errorAction = (payload) => ({
   type: ERROR_TYPE,
+  payload,
+});
+
+export const addExpAction = (payload) => ({
+  type: ADD_EXPENSES,
+  payload,
 });
 
 export const fetchApiThunk = () => (dispatch) => {
@@ -37,4 +44,17 @@ export const fetchApiThunk = () => (dispatch) => {
       (response) => dispatch(successAction(response)),
       () => dispatch(errorAction()),
     );
+};
+
+export const addAPIExpense = (payload) => async (dispatch) => {
+  try {
+    const res = await fetch('https://economia.awesomeapi.com.br/json/all');
+    if (!res.ok) throw new Error('Fetch failed');
+    const data = await res.json();
+    delete data.USDT;
+    const expense = { ...payload, exchangeRates: data };
+    return dispatch(addExpAction(expense));
+  } catch (error) {
+    return dispatch(errorAction(error.message));
+  }
 };
