@@ -24,10 +24,10 @@ class FormWallet extends React.Component {
         });
       });
   }
- 
+
   render() {
     const { currencies } = this.state;
-      return (
+    return (
       <div>
         <form>
           <label htmlFor="valorForm">
