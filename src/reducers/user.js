@@ -2,7 +2,7 @@
 import { USER_ACTION } from '../actions';
 
 const initialState = {
-  email: '',
+  email: 'abc',
 
 };
 
