@@ -1,11 +1,7 @@
-// Esse reducer será responsável por tratar as informações da pessoa usuária
-
 import USER_LOGIN from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
 
 const user = (state = INITIAL_STATE, action) => {
