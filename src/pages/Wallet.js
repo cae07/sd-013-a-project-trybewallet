@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { fetchMoedas, fetchExpenses } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      // id: 0,
+      id: 0,
       value: 0,
       currency: 'USD',
       method: 'Dinheiro',
@@ -16,10 +17,23 @@ class Wallet extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    const { apiFetch } = this.props;
+    apiFetch();
   }
 
   handleChange({ target: { name, value } }) {
     this.setState({ [name]: value });
+  }
+
+  handleClick() {
+    const { expensesFetch } = this.props;
+    const { id, value, description, currency, method, tag } = this.state;
+    const estados = { id, value, description, currency, method, tag };
+    this.setState({ id: id + 1 }, () => expensesFetch(estados));
   }
 
   inputValor() {
@@ -56,6 +70,7 @@ class Wallet extends React.Component {
 
   inputSelect() {
     const { currency } = this.state;
+    const { moedas } = this.props;
     return (
       <label htmlFor="currency">
         Moeda:
@@ -66,7 +81,7 @@ class Wallet extends React.Component {
           value={ currency }
           onChange={ this.handleChange }
         >
-          <option>sdasd</option>
+          { moedas.map((moeda) => (<option key={ moeda }>{ moeda }</option>)) }
         </select>
       </label>
     );
@@ -127,6 +142,12 @@ class Wallet extends React.Component {
           { this.inputSelect() }
           { this.inputPagamento() }
           { this.inputTags() }
+          <button
+            type="button"
+            onClick={ this.handleClick }
+          >
+            Adicionar despesa
+          </button>
         </form>
       </>
     );
@@ -139,6 +160,13 @@ Wallet.propTypes = {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  moedas: state.wallet.currencies,
+  expenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  apiFetch: () => dispatch(fetchMoedas()),
+  expensesFetch: (state) => dispatch(fetchExpenses(state)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
