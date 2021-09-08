@@ -1,0 +1,23 @@
+#header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgb(133, 188, 228);
+  color: rgb(0, 51, 102);
+}
+
+#logo {
+  width: 180px;
+}
+
+#valor {
+  display: flex;
+  justify-content: space-around;
+  width: 500px;
+  margin-right: 100px;
+}
+
+#preco {
+  display: flex;
+}
+

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setLogin } from '../actions';
-// import './Login.css';
-// import img from '../logo.gif'; linha 46
+import './Login.css';
+import img from '../logo.gif'; // linha 46
 
 class Login extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class Login extends React.Component {
     return (
       <div>
         <fieldset id="login-countainer">
-          {/* <img id="img-login" src={ img } alt="logo" /> */}
+          <img id="img-login" src={ img } alt="logo" />
           <div id="input-container">
             <label htmlFor="email-input">
               Email:

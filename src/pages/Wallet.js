@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Button from '../components/Button';
 import Header from '../components/Header';
-// import './Wallet.css';
+import Input from '../components/Input';
+import SelectPagamento from '../components/SelectPagamento';
+import SelectDespesa from '../components/SelectDespesa';
+import './Wallet.css';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -14,6 +17,7 @@ class Wallet extends React.Component {
     };
     this.getApiMoedas = this.getApiMoedas.bind(this);
     this.getOptions = this.getOptions.bind(this);
+    /*  this.handleChange = this.handleChange.bind(this); */
   }
 
   componentDidMount() {
@@ -39,48 +43,41 @@ class Wallet extends React.Component {
       ));
   }
 
+  /*   handleChange({ target }) {
+    const { name, value } = target;
+    console.log(value);
+    console.log(name);
+  } */
+
   render() {
     const { emailReducer } = this.props;
     const { loading } = this.state;
     const Loading = <h1>Loading...</h1>;
-
     if (loading === true) { return Loading; }
     return (
       <div>
         <Header email={ emailReducer } />
         <form id="form">
-          <label htmlFor="valor-input">
-            Valor:
-            <input type="text" id="valor-input" name="valor" />
-          </label>
-          <label htmlFor="descricao-input">
-            Descrição:
-            <input type="text" id="descricao-input" name="descricao" />
-          </label>
+          <Input
+            id="valor-input"
+            value="teste"
+            text="Valor:"
+            /* handleChange={ this.handleChange } */
+          />
+          <Input
+            id="descricao-input"
+            value="teste2"
+            text="Descrição:"
+            /* handleChange={ this.handleChange } */
+          />
           <label htmlFor="moeda-input">
             Moeda:
-            <select id="moeda-input">
+            <select value="moeda" id="moeda-input">
               {this.getOptions()}
             </select>
           </label>
-          <label htmlFor="pagamento-input">
-            Método de pagamento:
-            <select id="pagamento-input">
-              <option value="dinheiro"> Dinheiro </option>
-              <option value="credito"> Cartão de crédito </option>
-              <option value="debito"> Cartão de débito </option>
-            </select>
-          </label>
-          <label htmlFor="despesa-input">
-            Tag:
-            <select id="despesa-input">
-              <option value="alimentacao"> Alimentação </option>
-              <option value="lazer"> Lazer </option>
-              <option value="trabalho"> Trabalho </option>
-              <option value="transporte"> Transporte </option>
-              <option value="saude"> Saúde </option>
-            </select>
-          </label>
+          <SelectPagamento value="dinheiro" />
+          <SelectDespesa value="value" />
           <Button />
         </form>
       </div>
