@@ -1,11 +1,11 @@
-import { WALLET } from '../actions/index';
+import { WALLET, ADD_CURRENCIES } from '../actions/index';
 
 const INITIAL_STATE = {
   currencies: [],
   expenses: [],
 };
 
-const wallet = (state = INITIAL_STATE, action) => {
+const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case WALLET:
     return {
@@ -13,9 +13,13 @@ const wallet = (state = INITIAL_STATE, action) => {
       currencies: action,
       expenses: action,
     };
+  case ADD_CURRENCIES:
+    return { ...state,
+      currencies: action.payload.currencies,
+    };
   default:
     return state;
   }
 };
 
-export default wallet;
+export default user;
