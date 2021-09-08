@@ -1,8 +1,19 @@
 import React from 'react';
 import Input from './Input';
+import { connect } from 'react-redux';
+import Proptypes from 'prop-types';
+import { fetchApiThunk } from '../actions';
 
 class Forms extends React.Component {
+  componentDidMount() {
+    const { ApiCoin } = this.props;
+    ApiCoin();
+  }
+  
   render() {
+    const { currencies } = this.props;
+    const getCurrenciesArray = Object.keys(currencies);
+
     return (
       <div>
         <form>
@@ -15,9 +26,10 @@ class Forms extends React.Component {
             <label htmlFor="select-coin">
                 Moeda
                 <select required="required" id="select-coin">
-                    <option name="Moeda">
-                    Selecione a moeda
-                    </option>
+                    {getCurrenciesArray
+                      .map((item, index) => (
+                          item !== 'USDT' && <option value={ item } key={ index }>{item}</option>
+                      ))}
                 </select>
             </label>
 
@@ -46,4 +58,16 @@ class Forms extends React.Component {
   }
 }
 
-export default Forms;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  ApiCoin: () => dispatch(fetchApiThunk()),
+});
+
+Forms.propTypes = {
+  ApiCoin: Proptypes.func,
+}.isRequired;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);
