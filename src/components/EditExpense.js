@@ -9,14 +9,6 @@ const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 class EditExpense extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: 0,
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-      description: '',
-      id: 0,
-    };
     this.handleChange = this.handleChange.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
   }
@@ -69,7 +61,7 @@ class EditExpense extends React.Component {
   }
 
   render() {
-    const { currencies } = this.props;
+    const { currencies, expenseInEdition: { value } } = this.props;
     return (
       <div className="formEditExpense">
         <form>
@@ -80,6 +72,7 @@ class EditExpense extends React.Component {
               type="text"
               id="valor"
               name="value"
+              defaultvalue={ value }
               onChange={ this.handleChange }
             />
           </label>
@@ -124,7 +117,7 @@ EditExpense.propTypes = {
 const mapStateToProps = (stateStore) => ({
   currencies: stateStore.wallet.currencies,
   expenses: stateStore.wallet.expenses,
-});
+  expenseInEdition: stateStore.wallet.expenseInEdition });
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchCurrencies: () => dispatch(fetchApiCurrencies()),

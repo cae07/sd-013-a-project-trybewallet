@@ -43,7 +43,7 @@ class TableExpense extends React.Component {
   clickEditExpense(id) {
     const { dispatchEditExpense, expenses } = this.props;
     const expenseInEdition = {
-      id: expenses[id],
+      id,
       value: expenses[id].value,
       tag: expenses[id].tag,
       method: expenses[id].method,
