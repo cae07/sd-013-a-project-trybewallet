@@ -48,7 +48,9 @@ class Wallet extends React.Component {
     return (
       <label htmlFor="moeda">
         Moeda:
-        <select>Selecione</select>
+        <select>
+          <option>Selecione</option>
+        </select>
       </label>
     );
   }
