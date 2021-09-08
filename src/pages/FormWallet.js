@@ -1,17 +1,40 @@
 import React from 'react';
+import { sendWalletInfo } from '../actions';
+import { connect } from 'react-redux';
 
 class FormWallet extends React.Component {
   constructor() {
     super();
     this.state = {
       currencies: [],
+      value: 0,
+      id: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
+
     this.fetchMoedas = this.fetchMoedas.bind(this);
+    this.buttonAddDispesa = this.buttonAddDispesa.bind(this);
   }
 
   componentDidMount() {
     this.fetchMoedas();
+    // const { dispatchmoedas } = this.props;
+    // const { currencies } = this.state;
+    // dispatchmoedas(currencies);
   }
+
+  // componentDidUpdate() {
+  //  const { dispatchmoedas } = this.props;
+  //   dispatchmoedas();
+  // }
+
+  // componentWillUnmount() {
+  //   const { dispatchmoedas } = this.props;
+  //   dispatchmoedas();
+  // }
 
   fetchMoedas() {
     fetch('https://economia.awesomeapi.com.br/json/all')
@@ -23,6 +46,18 @@ class FormWallet extends React.Component {
           this.setState({ currencies: arrayMoedas });
         });
       });
+  }
+  buttonAddDispesa() {
+    return (
+      <span>
+      <button
+      type="button"
+      onClick={ this.handleSubmit }
+      >
+        Adicionar despesa
+      </button>
+      </span>
+    );
   }
 
   render() {
@@ -72,6 +107,7 @@ class FormWallet extends React.Component {
             <option>Saúde</option>
           </select>
         </label>
+        { this.buttonAddDispesa() }
       </form>
     );
   }
