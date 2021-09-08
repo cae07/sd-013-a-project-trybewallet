@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   currencyToExchange: 'BRL',
   currencies: [],
   error: false,
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {

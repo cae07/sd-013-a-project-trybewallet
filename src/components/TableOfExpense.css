@@ -1,0 +1,8 @@
+.table-header {
+  display: flex;
+  justify-content: center;
+}
+
+.table-component {
+  margin: 10px 10px
+}

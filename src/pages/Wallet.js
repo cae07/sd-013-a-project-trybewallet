@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {
   requestAPI,
 } from '../actions';
+import TableOfExpenses from '../components/TableOfExpenses';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -14,7 +15,6 @@ class Wallet extends React.Component {
       fetching: false,
     };
 
-    // this.renderSelect = this.renderSelect.bind(this);
     this.loadAPI = this.loadAPI.bind(this);
     this.renderSelect = this.renderSelect.bind(this);
     this.option = this.option.bind(this);
@@ -86,6 +86,7 @@ class Wallet extends React.Component {
             <input type="text" id="Description" />
           </label>
         </form>
+        <TableOfExpenses />
       </div>
     );
   }
