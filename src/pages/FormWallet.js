@@ -48,9 +48,7 @@ class FormWallet extends React.Component {
             Moeda
             <select id="moeda">
               { currencies.map((moeda, index) => (<option key={ index }>
-                { moeda }
-              </option>))
-              }
+                { moeda }</option>)) }
             </select>
           </label>
           <label htmlFor="metodo">
