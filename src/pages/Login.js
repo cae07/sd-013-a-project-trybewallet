@@ -28,7 +28,6 @@ class Login extends React.Component {
     const { saveEmail } = this.props;
     const { email } = this.state;
     const { history } = this.props;
-    console.log(email);
     saveEmail(email);
     history.push('/carteira');
   }
@@ -43,14 +42,14 @@ class Login extends React.Component {
         <form onSubmit={ this.handleSubmit }>
           <input
             data-testid="email-input"
-            type="text"
+            type="email"
             name="email"
             value={ email }
             onChange={ this.handleChange }
           />
           <input
             data-testid="password-input"
-            type="text"
+            type="password"
             name="password"
             value={ password }
             onChange={ this.handleChange }

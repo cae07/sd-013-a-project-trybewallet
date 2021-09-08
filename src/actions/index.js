@@ -1,7 +1,8 @@
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const IS_FETCHING = 'IS_FETCHING';
 export const UPDATE_CURRENCIES = 'UPDATE_CURRENCIES';
-export const ERROR = 'ERROR';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const UPDATE_TOTAL = 'UPDATE_TOTAL';
 
 export const saveEmailAction = (email) => ({
   type: SAVE_EMAIL,
@@ -13,26 +14,32 @@ export const getCurrencies = (payload) => ({
   payload,
 });
 
-export const isFetching = () => ({ type: IS_FETCHING });
+export const isFetching = (status) => ({
+  type: IS_FETCHING,
+  payload: status,
+});
 
-export const errorHandler = (payload) => ({
-  type: ERROR,
+export const addExpense = (payload) => ({
+  type: ADD_EXPENSE,
   payload,
+});
+
+export const updateTotal = () => ({
+  type: UPDATE_TOTAL,
 });
 
 export const fetchCurrencies = () => (
   async (dispatch) => {
-    dispatch(isFetching());
+    dispatch(isFetching(true));
     try {
       const response = await fetch('https://economia.awesomeapi.com.br/json/all');
-      if (!response.ok) throw new Error('Couldn\'t fetch data');
+      if (!response.ok) throw new Error('Erro ao realizar requisição.');
       const data = await response.json();
       delete data.USDT;
       dispatch(getCurrencies(data));
-      dispatch(isFetching());
+      dispatch(isFetching(false));
     } catch (error) {
-      dispatch(errorHandler(error.message));
-      dispatch(isFetching());
+      dispatch(isFetching(false));
     }
   }
 );
