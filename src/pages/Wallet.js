@@ -6,6 +6,7 @@ import { insertExpenses } from '../actions';
 import Header from './Header';
 import TagSelect from './TagSelect';
 import MethodSelect from './MethodSelect';
+import Expenses from './Expenses';
 
 class Wallet extends React.Component {
   constructor() {
@@ -27,6 +28,7 @@ class Wallet extends React.Component {
   currenciesOptions() {
     const select = document.querySelector('#currency');
     const { exchangeRates } = this.state;
+    console.log(exchangeRates);
     Object.keys(exchangeRates).forEach((currency, i) => {
       if (currency !== 'USDT') {
         const newOption = document.createElement('option');
@@ -102,6 +104,7 @@ class Wallet extends React.Component {
           </label>
           <button type="submit">Adicionar Despesa</button>
         </form>
+        <Expenses />
       </>
     );
   }
