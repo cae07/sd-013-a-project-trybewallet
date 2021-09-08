@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import '../Header.css';
 
 class Header extends Component {
   render() {
     const { email, totalExpenses = 0 } = this.props;
 
     return (
-      <div>
+      <div className="header-total-expenses">
         <h3
           data-testid="email-field"
         >

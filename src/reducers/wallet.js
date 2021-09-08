@@ -1,5 +1,5 @@
-// Requisito 7 - 5º Passo - Importar as actionsType
-import { GET_CURRENCIES, REQUEST_CURRENCIES } from '../actions/actionsType';
+// Requisito 7 - 5º Passo / Requisito 8 - 4º Passo - Importar as actionsType
+import { ADD_EXPENSES, GET_CURRENCIES, REQUEST_CURRENCIES } from '../actions/actionsType';
 
 const INITIAL_STATE_WALLET = {
   currencies: [],
@@ -14,11 +14,13 @@ const wallet = (state = INITIAL_STATE_WALLET, action) => {
     return state;
   case GET_CURRENCIES:
     return { ...state, currencies: action.json };
-  default:
+  case ADD_EXPENSES
+    return { ...state, expenses: action.expenses };
+    default:
     return state;
   }
 };
 
 export default wallet;
 
-// Continuação do Requisito 7 'src/pages/Wallet.js'
+// Continuação do Requisito 7 e 8 'src/pages/Wallet.js'

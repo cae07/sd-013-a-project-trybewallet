@@ -1,5 +1,5 @@
-// Requisito 7 - 2º Passo - importar as actionsType
-import { SAVE_EMAIL, REQUEST_CURRENCIES, GET_CURRENCIES } from './actionsType';
+// Requisitos 7 e 8 - 2º Passo - importar as actionsType
+import { ADD_EXPENSES, GET_CURRENCIES, REQUEST_CURRENCIES, SAVE_EMAIL } from './actionsType';
 
 export const saveEmail = (email) => ({
   type: SAVE_EMAIL,
@@ -16,6 +16,11 @@ export const getCurrencies = (json) => ({
   json,
 });
 
+// Requisito 8 - 3º Passo - configurar a action
+export const addExpenses = () => ({
+  type: ADD_EXPENSES,
+});
+
 // Requisito 7 - 4º Passo - Fazer a requisição à API
 export function fetchCurrencies() {
   return async (dispatch) => {
@@ -26,4 +31,4 @@ export function fetchCurrencies() {
   };
 }
 
-// Continuação do Requisito 7 'src/reducers/wallet.js'
+// Continuação do Requisito 7 e 8 'src/reducers/wallet.js'

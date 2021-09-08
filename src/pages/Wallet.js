@@ -36,3 +36,5 @@ Wallet.propTypes = {
 
 // Requisito 7 - º Passo - Fazer a conexão do componente com o estado global
 export default connect(null, mapDispatchToProps)(Wallet);
+
+// Continuação do Requisito 7 'src/components/Form/SelectCoin'

@@ -7,7 +7,7 @@ import SelectTag from './SelectTag';
 class Form extends Component {
   render() {
     return (
-      <form>
+      <form className="expense-form">
         <Inputs />
         <SelectCoin />
         <SelectPayment />
