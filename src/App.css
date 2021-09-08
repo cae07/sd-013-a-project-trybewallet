@@ -2,8 +2,13 @@ body {
   background-color: #686868;
 }
 
+
 .App {
   text-align: center;
+}
+
+header {
+  text-align: left;
 }
 
 .App-logo {
