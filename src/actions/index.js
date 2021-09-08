@@ -5,7 +5,7 @@ export const loginAction = (email) => ({
   payload: email,
 });
 
-const resquestApi = (json, state) => ({
+const requestApi = (json, state) => ({
   type: REQUEST_API,
   payload: json,
   state,
@@ -13,6 +13,6 @@ const resquestApi = (json, state) => ({
 
 export function fetchApi(state) {
   return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
-    .then((response) => response.json)
-    .then((json) => dispatch(resquestApi(json, state)));
+    .then((response) => response.json())
+    .then((json) => dispatch(requestApi(json, state)));
 }

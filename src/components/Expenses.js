@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 class Expenses extends React.Component {
   render() {
     const { expenses } = this.props;
-
     return (
       <table>
         <tr>
