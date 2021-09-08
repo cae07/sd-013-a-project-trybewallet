@@ -129,6 +129,7 @@ class Wallet extends React.Component {
       </>
     );
   }
+  // O método toFixed() formata um número utilizando notação de ponto fixo
 
   render() {
     return (

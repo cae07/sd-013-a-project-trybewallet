@@ -28,6 +28,8 @@ class Login extends React.Component {
       this.setState({ checkEmail: true }, this.buttonValidation);
     }
   }
+  // expressão para validação de formulário tirada do Stack Overflow.
+  // https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
 
   validationPassoword() {
     const password = document.getElementById('senha-id').value;
@@ -115,3 +117,5 @@ Login.propTypes = {
 };
 
 export default connect(null, mapDispatchToProps)(Login);
+
+// Questões feitas com ajuda de colegas da turma em call.
