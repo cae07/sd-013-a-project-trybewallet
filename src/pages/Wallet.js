@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import EditForm from '../components/EditForm';
 import '../style/Table.css';
 import '../style/Header.css';
+import '../style/Form.css';
 
 class Wallet extends React.Component {
   render() {

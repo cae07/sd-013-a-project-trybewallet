@@ -9,7 +9,7 @@ body {
   padding: 0;
 }
 
-input, input:focus, textarea:focus, select:focus{
+input , input:focus , textarea:focus , select:focus {
   border: none;
   outline: none;
 }

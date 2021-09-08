@@ -1,0 +1,18 @@
+.add-edit-form input , .add-edit-form select {
+  background-color: white;
+  border: 0.001em solid rgba(0, 0, 0, 0.061);
+  height: 2.5em;
+  padding: 2px 2px 2px 4px;
+}
+
+.add-edit-form input:focus , .add-edit-form select:focus {
+  background-color: rgb(231, 238, 251);
+  border: 0.001em solid rgba(0, 0, 0, 0.335);
+  height: 2.5em;
+  padding: 2px 2px 2px 4px;
+}
+
+.add-edit-form label {
+  display: flex;
+  flex-direction: column;
+}

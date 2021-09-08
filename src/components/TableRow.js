@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { editMode, removeExpense } from '../actions';
 
+export function currencyFormat(number) {
+  return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+
 export function round2Digits(number) {
   return Math.round((Number(number) + Number.EPSILON) * 100) / 100;
 }
@@ -30,14 +34,14 @@ class TableRow extends Component {
     let baseCurrency = name.split('/')[1];
     if (!baseCurrency) baseCurrency = 'Real';
     return (
-      <tr>
+      <tr className="data-row">
         <td>{ description }</td>
         <td>{ tag }</td>
         <td>{ method }</td>
         <td>{ value }</td>
         <td>{ targetCurrency }</td>
-        <td>{ parseFloat(ask).toFixed(2) }</td>
-        <td>{ convertCurrency(expense) }</td>
+        <td>{ currencyFormat(parseFloat(ask)) }</td>
+        <td>{ currencyFormat(convertCurrency(expense)) }</td>
         <td>{ baseCurrency }</td>
         <td>
           <button

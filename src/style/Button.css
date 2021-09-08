@@ -1,19 +1,17 @@
 button {
-  display: inline-block;
-  border: none;
-  padding: 1rem 2rem;
-  margin: 0;
-  text-decoration: none;
   background: #eea949bb;
-  color: #ffffff;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
   font-family: sans-serif;
   font-size: 1rem;
-  cursor: pointer;
+  margin: 0;
+  padding: 1rem 2rem;
   text-align: center;
-  transition: background 250ms ease-in-out, 
-              transform 150ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  text-decoration: none;
+  transition: background 250ms ease-in-out,
+    transform 150ms ease;
 }
 
 button:hover {
@@ -29,15 +27,14 @@ button:disabled {
 }
 
 .btn-control {
+  background: none;
+  color: #393939;
+  font-size: 15px;
+  height: 40px;
   margin: 5px 0;
   padding: 0;
-  background: none;
-  font-size: 15px;
-  color: #393939;
   transition: 0.3s;
-  /* border-radius: 50%; */
   width: 40px;
-  height: 40px;
 }
 
 .btn-control:hover {
@@ -45,10 +42,10 @@ button:disabled {
   color: #191919;
 }
 
-.btn-edit, .btn-add {
+.btn-edit , .btn-add {
+  border: none;
   margin: 0;
   padding: 5px;
-  border: none;
   width: 12%;
 }
 
@@ -59,7 +56,7 @@ button:disabled {
 
 .btn-add:hover {
   background-color: #3f7a3d;
-  color: #fff;
+  color: white;
 }
 
 .btn-edit {
@@ -69,5 +66,5 @@ button:disabled {
 
 .btn-edit:hover {
   background-color: #e0761f;
-  color: #fff;
+  color: white;
 }

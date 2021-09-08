@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { round2Digits } from './TableRow';
+import { round2Digits, currencyFormat } from './TableRow';
 
 class Header extends Component {
   render() {
     const { email } = this.props;
     let { totalExpenses = 0 } = this.props;
-    totalExpenses = round2Digits(totalExpenses).toFixed(2);
-    const magicNumber = 10;
-    if (totalExpenses < magicNumber) {
-      totalExpenses = `0${totalExpenses}`;
-    }
+    totalExpenses = currencyFormat(round2Digits(totalExpenses));
     return (
       <header className="expense-header">
         <div className="logo">
