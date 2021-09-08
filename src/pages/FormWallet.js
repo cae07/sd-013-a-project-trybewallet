@@ -24,10 +24,10 @@ class FormWallet extends React.Component {
         });
       });
   }
-
+ 
   render() {
     const { currencies } = this.state;
-    return (
+      return (
       <div>
         <form>
           <label htmlFor="valorForm">
@@ -48,10 +48,9 @@ class FormWallet extends React.Component {
             Moeda
             <select id="moeda">
               {currencies.map((moeda, index) => (
-              <option key={ index }>
-                { moeda }
-              </option>
-              ))}
+                <option key={ index }>
+                  { moeda }
+                </option>))}
             </select>
           </label>
           <label htmlFor="metodo">
