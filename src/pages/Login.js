@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { emailAction } from '../actions';
+import { emailAction/* fetchMoedas */ } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -35,9 +35,6 @@ class Login extends React.Component {
       login(loginEmail);
       history.push('/carteira');
     };
-    // const { email } = this.props;
-    // console.log(this.state);
-    // console.log(this.props);
     return (
       <form>
         <input
@@ -70,6 +67,7 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   login: (payload) => dispatch(emailAction(payload)),
+  // fetchDadosProps2: () => dispatch(fetchMoedas()),
 });
 
 Login.propTypes = {
