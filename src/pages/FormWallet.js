@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { tankApi } from '../actions';
+import Header from './Header';
 
 class FormWallet extends React.Component {
   constructor() {
@@ -87,8 +88,9 @@ class FormWallet extends React.Component {
 
   render() {
     const { currencies, value, description, tag, method, } = this.state;
-    return (
+        return (
       <form onSubmit= { this.submitForm }>
+        <Header contation = { soma }/>
         <label htmlFor="valorForm">
           Valor
           <input
@@ -158,4 +160,4 @@ const mapDispatchToProps = (dispatch) => ({
   tankApi:(state) => dispatch(tankApi(state))
 })
 
-export default connect (null, mapDispatchToProps)(FormWallet);
+export default connect(mapStateToProps, mapDispatchToProps)(FormWallet);
