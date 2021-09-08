@@ -1,41 +1,89 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+.form-container {
   align-items: center;
-  background-color: #282c34;
-  color: white;
   display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+  flex-flow: column;
 }
 
-.App-link {
-  color: #61dafb;
+.fieldset-login-form {
+  display: flex;
+  flex-flow: column;
+  padding: 2em 2em 1.4em 1.6em;
+  width: 22em;
 }
 
-@keyframes App-logo-spin {
+#email-input-id {
+  margin-bottom: 2em;
+  margin-left: 4px;
+  margin-right: 6px;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+#password-input-id {
+  margin-left: 4px;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+#submit-input-id {
+  align-self: flex-start;
+  margin-top: 2em;
+}
+
+.header {
+  background-color: rgb(63, 63, 63);
+  color: rgb(243, 243, 243);
+  display: flex;
+  font-family: 'Courier New', Courier, monospace;
+  flex-flow: row;
+  justify-content: flex-start;
+}
+
+.header p {
+  margin-top: 1.2em;
+  margin-right: 2.6em;
+}
+
+.email-class {
+  margin-left: 1em;
+}
+
+.form-class {
+  align-items: baseline;
+  background-color: rgb(100, 100, 100);
+  color: rgb(243, 243, 243);
+  display: flex;
+  flex-flow: row nowrap;
+  font-family: 'Courier New', Courier, monospace;
+  justify-content: space-around;
+  padding: 1em;
+}
+
+.columns-container {
+  align-items: center;
+  background-color: rgb(146, 146, 146);
+  color: rgb(243, 243, 243);
+  display: flex;
+  height: 4em;
+  list-style-type: none;
+  justify-content: space-around;
+}
+
+.main-container-lines {
+  display: flex;
+  flex-flow: column;
+}
+
+.lines-container {
+  align-items: center;
+  background-color: rgb(180, 180, 180);
+  display: flex;
+  flex-flow: row wrap;
+  height: 4em;
+  list-style-type: none;
+  justify-content: space-around;
+}
+
+.lines-container li {
+  width: 60%;
 }
