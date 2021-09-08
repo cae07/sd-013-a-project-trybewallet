@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 
 class SelectCoin extends Component {
   render() {
-    const { currencies } = this.props;
+    const { currencies, onChange, currency } = this.props;
 
     return (
       <label htmlFor="moeda">
         Moeda
-        <select id="moeda">
+        <select id="moeda" value={ currency } onChange={ onChange }>
           {
             // Requisito 7 - º Passo
             Object.keys(currencies).map((currencie, index) => {
@@ -26,15 +26,16 @@ class SelectCoin extends Component {
   }
 }
 
+SelectCoin.propTypes = {
+  currencies: PropTypes.array,
+  onChange: PropTypes.func,
+  currency: PropTypes.string,
+}.isRequired;
+
 // Requisito 7 - º Passo - Fazer a conexão do componente com o estado global
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
-
-// Requisito 7 - º Passo -
-SelectCoin.propTypes = {
-  currencies: PropTypes.array,
-}.isRequired;
 
 // Requisito 7 - º Passo - Fazer a conexão do componente com o estado global
 export default connect(mapStateToProps)(SelectCoin);

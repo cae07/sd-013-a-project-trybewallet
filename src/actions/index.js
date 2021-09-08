@@ -17,8 +17,9 @@ export const getCurrencies = (json) => ({
 });
 
 // Requisito 8 - 3º Passo - configurar a action
-export const addExpenses = () => ({
+export const addExpenses = (expenses) => ({
   type: ADD_EXPENSES,
+  expenses,
 });
 
 // Requisito 7 - 4º Passo - Fazer a requisição à API

@@ -14,9 +14,9 @@ const wallet = (state = INITIAL_STATE_WALLET, action) => {
     return state;
   case GET_CURRENCIES:
     return { ...state, currencies: action.json };
-  case ADD_EXPENSES
-    return { ...state, expenses: action.expenses };
-    default:
+  case ADD_EXPENSES:
+    return { ...state, expenses: [...state.expenses, action.expenses] };
+  default:
     return state;
   }
 };

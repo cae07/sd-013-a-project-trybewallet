@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class Inputs extends Component {
   render() {
+    const { value, description, onChange } = this.props;
     return (
       <>
         <label htmlFor="valor">
@@ -9,6 +10,9 @@ class Inputs extends Component {
           <input
             type="text"
             id="valor"
+            value={ value }
+            name="value"
+            onChange={ onChange }
           />
         </label>
         <label htmlFor="descricao">
@@ -16,6 +20,9 @@ class Inputs extends Component {
           <input
             type="text"
             id="descricao"
+            value={ description }
+            name="description"
+            onChange={ onChange }
           />
         </label>
       </>
