@@ -1,10 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Forms from '../components/Forms';
 import Header from '../components/Header';
 import { addAPIExpense } from '../actions';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-
 
 class Wallet extends React.Component {
   constructor() {
@@ -49,21 +48,21 @@ class Wallet extends React.Component {
         </div>
         <div>
           <section>
-          <Forms 
-            value={ value }
-            description={ description }
-            currency={ currency }
-            method={ method }
-            tag={ tag }
-            handleChange={ this.handleChange }
-          />
-          <button type="submit" onClick={ this.onSubmitForm }>
-            Adicionar despesa
-          </button>
-        </section>
+            <Forms
+              value={ value }
+              description={ description }
+              currency={ currency }
+              method={ method }
+              tag={ tag }
+              handleChange={ this.handleChange }
+            />
+            <button type="submit" onClick={ this.onSubmitForm }>
+              Adicionar despesa
+            </button>
+          </section>
         </div>
       </div>
-    )
+    );
   }
 }
 

@@ -15,8 +15,8 @@ class Header extends React.Component {
   }
 
   render() {
-     const { user } = this.props; 
-    const { email } = user; 
+    const { user } = this.props;
+    const { email } = user;
     return (
       <header>
         <p>
@@ -30,7 +30,7 @@ class Header extends React.Component {
         </p>
       </header>
     );
-  } 
+  }
 }
 
 Header.propTypes = {

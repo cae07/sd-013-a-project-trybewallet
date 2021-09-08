@@ -1,4 +1,4 @@
-import { ApiCoin }  from "../service/ApiCoin";
+import { ApiCoin } from '../service/ApiCoin';
 // Coloque aqui suas actions
 
 export const INPUT_EMAIL = 'INPUT_EMAIL';

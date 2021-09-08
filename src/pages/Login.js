@@ -38,7 +38,7 @@ class Login extends React.Component {
       const regex = /\S+@\S+\.\S+/;
       return regex.test(email);
     };
-    
+
     return (
       <div>
         <form>
@@ -48,26 +48,26 @@ class Login extends React.Component {
             data-testid="email-input"
             value={ email }
             handleChange={ handleChange }
-            />
+          />
           <Input
             label="Senha:"
             name="password"
             data-testid="password-input"
             handleChange={ handleChange }
             value={ password }
-            />
+          />
           <Button
             handleClick={ handleClick }
             disabled={ !(validEMAIL() && validPASSWORD) }
-            />
-          </form>
+          />
+        </form>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  changeInputValue: (state) => dispatch(inputEmail(state)) }); 
+  changeInputValue: (state) => dispatch(inputEmail(state)) });
 
 Login.propTypes = {
   changeInputValue: Proptypes.func.isRequired,
