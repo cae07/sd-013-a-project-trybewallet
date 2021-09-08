@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { func } from 'prop-types';
 import { salvarStore } from '../actions';
 
 class Login extends React.Component {
@@ -124,6 +125,10 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  sendEmail: func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   sendEmail: (email) => dispatch(salvarStore(email)),
