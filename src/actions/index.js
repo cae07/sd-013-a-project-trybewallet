@@ -1,6 +1,7 @@
 export const ADD_USER = 'USER';
 export const WALLET = 'WALLET';
 export const ADD_CURRENCIES = 'ADD_CURRENCIES';
+export const ADD_EXPENSE = 'ADD_EXPENSE';
 
 export const addUser = (payload) => ({
   type: ADD_USER,
@@ -14,6 +15,11 @@ export const wallet = (payload) => ({
 
 export const walletCurrency = (payload) => ({
   type: ADD_CURRENCIES,
+  payload,
+});
+
+export const addExpense = (payload) => ({
+  type: ADD_EXPENSE,
   payload,
 });
 
