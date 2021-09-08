@@ -35,7 +35,6 @@ class ExpensesForm extends React.Component {
     const noUSDT = Object.keys(result).filter((key) => key !== 'USDT');
     this.setState({ currencies: noUSDT });
   }
-  //fazer função para o botão de adicionar despesa
 
   render() {
     const { value, description, payMethod, tag, currencies } = this.state;
