@@ -10,7 +10,6 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      login: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
