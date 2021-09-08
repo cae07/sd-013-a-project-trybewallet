@@ -31,7 +31,7 @@ class FormWallet extends React.Component {
       <form>
         <label htmlFor="valorForm">
           Valor
-          <input 
+          <input
             type="text"
             name="valor"
             id="valorForm"
