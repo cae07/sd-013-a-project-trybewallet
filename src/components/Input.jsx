@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class Input extends React.Component {
   render() {
@@ -20,10 +20,10 @@ class Input extends React.Component {
   }
 }
 
-/* Input.propTypes = {
+Input.propTypes = {
   value: PropTypes.string,
   id: PropTypes.string,
   text: PropTypes.string,
-}.isRequired; */
+}.isRequired;
 
 export default Input;
