@@ -1,13 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { walletForm } from '../actions';
+import { walletForm, fetchAPI } from '../actions';
 
+// Requisitos 6, 7, 8. referencia ao codigo do aluno Rafael Janovicci
 class FormsWallet extends React.Component {
   constructor(props) {
     super(props);
-
+    this.state = {
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.count = 0;
+  }
+
+  handleClick(event) {
+    event.preventDefault();
+    const { walletState } = this.props;
+    walletState();
+    const { expensesOk, currencies } = this.props;
+    expensesOk({ id: this.count, ...this.state, exchangeRates: currencies });
+    this.count += 1;
   }
 
   handleChange({ target }) {
@@ -22,12 +40,12 @@ class FormsWallet extends React.Component {
           Valor:
           <input id="value" type="text" name="value" onChange={ this.handleChange } />
         </label>
-        <label htmlFor="descricao">
+        <label htmlFor="description">
           Descrição:
           <input
-            id="descricao"
+            id="description"
             type="text"
-            name="descricao"
+            name="description"
             onChange={ this.handleChange }
           />
         </label>
@@ -41,11 +59,11 @@ class FormsWallet extends React.Component {
     return (
       <div>
 
-        <label htmlFor="moeda">
+        <label htmlFor="moedas">
           Moeda:
           <select
-            id="moeda"
-            name="moeda"
+            id="moedas"
+            name="currency"
             onChange={ this.handleChange }
           >
             { Object.keys(currencies).filter((x) => x !== 'USDT')
@@ -58,11 +76,11 @@ class FormsWallet extends React.Component {
                 </option>))}
           </select>
         </label>
-        <label htmlFor="payment">
+        <label htmlFor="method">
           Método de pagamento:
           <select
-            id="payment"
-            name="payment"
+            id="method"
+            name="method"
             onChange={ this.handleChange }
           >
             <option>Dinheiro</option>
@@ -90,6 +108,12 @@ class FormsWallet extends React.Component {
         <form>
           { this.part1() }
           { this.part2() }
+          <button
+            type="submit"
+            onClick={ this.handleClick }
+          >
+            Adicionar despesa
+          </button>
         </form>
       </div>
     );
@@ -105,11 +129,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  expenses: (payload) => dispatch(walletForm(payload)),
+  expensesOk: (payload) => dispatch(walletForm(payload)),
+  walletState: (payload) => dispatch(fetchAPI(payload)),
 });
 
 FormsWallet.propTypes = {
-  expenses: PropTypes.arrayOf(Object),
+  expensesOk: PropTypes.arrayOf(Object),
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormsWallet);
