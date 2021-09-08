@@ -18,24 +18,24 @@ export class InputSelect extends Component {
           </label>
         </div>
         <div>
-          <label htmlFor="payment">
+          <label htmlFor="method">
             Método de pagamento
-            <select name="payment" id="payment" onChange={ onChange }>
-              <option value="payment">Dinheiro</option>
-              <option value="payment">Cartão de crédito</option>
-              <option value="payment">Cartão de débito</option>
+            <select name="method" id="method" onChange={ onChange }>
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
         </div>
         <div>
-          <label htmlFor="category">
+          <label htmlFor="tag">
             Tag
-            <select name="category" id="category" onChange={ onChange }>
-              <option value="category">Alimentação</option>
-              <option value="category">Lazer</option>
-              <option value="category">Trabalho</option>
-              <option value="category">Transporte</option>
-              <option value="category">Saúde</option>
+            <select name="tag" id="tag" onChange={ onChange }>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
             </select>
           </label>
         </div>

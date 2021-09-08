@@ -7,7 +7,11 @@ class Header extends React.Component {
     const { userEmail, expenses } = this.props;
 
     function getTotal(total, item) {
-      return total + Number(item.value);
+      const originalValue = Number(item.value);
+      const itemCurrency = item.currency;
+      const exchangeMultiple = Number(item.exchangeRates[itemCurrency].ask);
+
+      return total + (originalValue * exchangeMultiple);
     }
 
     const totalExpenses = expenses.reduce(getTotal, 0);
@@ -23,7 +27,7 @@ class Header extends React.Component {
             data-testid="total-field"
           >
             Despesa:
-            { totalExpenses }
+            { totalExpenses.toFixed(2) }
           </p>
         </div>
         <div>
