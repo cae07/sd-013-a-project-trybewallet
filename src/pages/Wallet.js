@@ -7,28 +7,46 @@ import {
 } from '../actions';
 
 class Wallet extends React.Component {
-  // constructor(props) {
-  // super(props);
+  constructor(props) {
+    super(props);
 
-  // this.renderSelect = this.renderSelect.bind(this);
-  // }
+    this.state = {
+      fetching: false,
+    };
 
-  componentDidMount() {
-    const { dispatchAPI } = this.props;
-    dispatchAPI();
+    // this.renderSelect = this.renderSelect.bind(this);
+    this.loadAPI = this.loadAPI.bind(this);
+    this.renderSelect = this.renderSelect.bind(this);
+    this.option = this.option.bind(this);
   }
 
-  // renderSelect() {
-  //   const { fetching, currencies } = this.props;
-  //   if (fetching === false) {
-  //     return (
-  //       // <select id="currency" name="currency" />
-  //     );
-  //   }
-  // }
+  componentDidMount() {
+    this.loadAPI();
+  }
+
+  async loadAPI() {
+    const { dispatchAPI } = this.props;
+    await dispatchAPI().then(() => { this.setState({ fetching: true }); });
+  }
+
+  option(currency) {
+    return (
+      <option value={ currency } key={ currency }>{currency}</option>
+    );
+  }
+
+  renderSelect() {
+    const { moedas } = this.props;
+    return (
+      <select id="currency" name="currency">
+        { moedas.map((currency) => this.option(currency))}
+      </select>
+    );
+  }
 
   render() {
     const { email } = this.props;
+    const { fetching } = this.state;
     return (
       <div>
         <header>
@@ -43,10 +61,7 @@ class Wallet extends React.Component {
           </label>
           <label htmlFor="currency">
             Moeda:
-            <select id="currency" name="currency">
-              <option value="teste">Teste</option>
-              {/* { this.renderSelect() } */}
-            </select>
+            {fetching ? this.renderSelect() : <h1>Deu Ruim</h1>}
           </label>
           <label htmlFor="payment-method">
             Método de pagamento:
