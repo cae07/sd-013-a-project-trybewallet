@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Header from '../components/Header';
 import FormWallet from '../components/FormWallet';
 import { fetchCurrencies } from '../actions';
 
@@ -13,10 +12,7 @@ class Wallet extends React.Component {
 
   render() {
     return (
-      <>
-        <Header />
-        <FormWallet />
-      </>
+      <FormWallet />
     );
   }
 }

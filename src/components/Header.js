@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 class Header extends React.Component {
   render() {
-    const { email } = this.props;
+    const { email, totalExpenses } = this.props;
     return (
       <header className="wallet-header">
         <span data-testid="email-field">
@@ -13,7 +13,7 @@ class Header extends React.Component {
         </span>
         <span data-testid="total-field">
           Despesa:
-          { 0 }
+          { totalExpenses }
         </span>
         <span data-testid="header-currency-field">
           BRL
