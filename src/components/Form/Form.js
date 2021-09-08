@@ -46,7 +46,11 @@ class Form extends Component {
     const { value, description, currency, method, tag } = this.state;
     return (
       <form className="expense-form">
-        <Inputs value={ value } description={ description } onChange={ this.handleChange } />
+        <Inputs
+          value={ value }
+          description={ description }
+          onChange={ this.handleChange }
+        />
         <SelectCoin currency={ currency } onChange={ this.handleChange } />
         <SelectPayment method={ method } onChange={ this.handleChange } />
         <SelectTag tag={ tag } onChange={ this.handleChange } />

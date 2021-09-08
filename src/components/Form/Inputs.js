@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { Component } from 'react';
 
 class Inputs extends Component {
@@ -29,5 +30,11 @@ class Inputs extends Component {
     );
   }
 }
+
+Inputs.propTypes = {
+  description: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
+}.isRequired;
 
 export default Inputs;

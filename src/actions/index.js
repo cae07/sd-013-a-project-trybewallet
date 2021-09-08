@@ -1,12 +1,12 @@
-// Requisitos 7 e 8 - 2º Passo - importar as actionsType
-import { ADD_EXPENSES, GET_CURRENCIES, REQUEST_CURRENCIES, SAVE_EMAIL } from './actionsType';
+import {
+  ADD_EXPENSES,
+  GET_CURRENCIES, REQUEST_CURRENCIES, SAVE_EMAIL } from './actionsType';
 
 export const saveEmail = (email) => ({
   type: SAVE_EMAIL,
   email,
 });
 
-// Requisito 7 - 3º Passo - Configurar as actions
 export const requestCurrencies = () => ({
   type: REQUEST_CURRENCIES,
 });
@@ -16,13 +16,11 @@ export const getCurrencies = (json) => ({
   json,
 });
 
-// Requisito 8 - 3º Passo - configurar a action
 export const addExpenses = (expenses) => ({
   type: ADD_EXPENSES,
   expenses,
 });
 
-// Requisito 7 - 4º Passo - Fazer a requisição à API
 export function fetchCurrencies() {
   return async (dispatch) => {
     dispatch(requestCurrencies());
