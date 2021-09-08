@@ -87,8 +87,7 @@ class Login extends React.Component {
     return (
       <form>
         <img
-          className="App-logo"
-          src="http://www.w3.org/2000/svg"
+          src="../imagens/julios2"
           alt="logo"
         />
         <label htmlFor="emailLabel">

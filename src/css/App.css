@@ -1,14 +1,12 @@
 .App {
-  margin-top: 15px;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
-/* body {
-  background-color: black;
-} */
-
 .App-logo {
-  height: 40vmin;
+  height: 200px;
   pointer-events: none;
 }
 
@@ -19,15 +17,9 @@
   }
 }
 
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+
+.Login-logo {
+  height: 300px;
 }
 
 .App-link {

@@ -1,0 +1,7 @@
+.Login {
+  align-content: center;
+  align-items: center;
+  border: solid 1px;
+  display: flex;
+  flex-direction: column;
+}
