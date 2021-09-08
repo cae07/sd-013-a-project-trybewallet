@@ -108,7 +108,7 @@ class FormWallet extends React.Component {
             id="descriçãoForm"
             name="descrição"
             value={ description }
-            onChange={this.handleChange}
+            onChange={ this.handleChange }
           />
         </label>
         <label htmlFor="moeda">
@@ -122,7 +122,7 @@ class FormWallet extends React.Component {
         </label>
         <label htmlFor="metodo">
           Método de pagamento
-          <select id="metodo" value={ method } onChange={this.handleChange}>
+          <select id="metodo" value={ method } onChange={ this.handleChange }>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
             <option value="Cartão de débito">Cartão de débito</option>
@@ -130,7 +130,7 @@ class FormWallet extends React.Component {
         </label>
         <label htmlFor="tag">
           Tag
-          <select name="tag" value={tag} id="tag" onChange={this.handleChange}>
+          <select name="tag" value={ tag } id="tag" onChange={ this.handleChange }>
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
