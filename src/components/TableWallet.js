@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import ButtonDelete from './ButtonDelete';
 
 class WalletTable extends Component {
   renderTableRows() {
@@ -23,7 +24,9 @@ class WalletTable extends Component {
             <td>{ `${askFloat.toFixed(2)}` }</td>
             <td>{ conversionValue.toFixed(2) }</td>
             <td>Real</td>
-            <td>botoes</td>
+            <td>
+              <ButtonDelete expenseId={ expanse.id } />
+            </td>
           </tr>
         );
       })
