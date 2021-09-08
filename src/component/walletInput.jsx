@@ -1,7 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchMoeda } from '../actions';
 
 class WalletInput extends React.Component {
+  componentDidMount() {
+    const { loadMoedas } = this.props;
+    loadMoedas();
+  }
+
   render() {
+    const { moedas } = this.props;
     return (
       <form>
         <label htmlFor="valor">
@@ -12,7 +21,13 @@ class WalletInput extends React.Component {
         <label htmlFor="moeda">
           Moeda:
           <select name="moeda" id="moeda">
-            <option value="real">Real</option>
+            { moedas && Object.keys(moedas)
+              .map((key, index) => {
+                if (key !== 'USDT') {
+                  return <option key={ index }>{ key }</option>;
+                }
+                return null;
+              })}
           </select>
         </label>
 
@@ -45,4 +60,21 @@ class WalletInput extends React.Component {
   }
 }
 
-export default WalletInput;
+const mapStateToProps = (state) => ({
+  moedas: state.wallet.currencies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadMoedas: () => dispatch(fetchMoeda()),
+});
+
+WalletInput.propTypes = {
+  loadMoedas: PropTypes.func.isRequired,
+  moedas: PropTypes.shape(
+    PropTypes.shape({}),
+  ).isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletInput);
+
+// Requisito 7 foi resolvido com a GRANDE ajuda do Vinicius Dyonisio em salas de estudos, e em mensagens privadas no slack.
