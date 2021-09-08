@@ -8,15 +8,22 @@ class Wallet extends React.Component {
 
     this.state = {
       // id: 0,
-      // value: 0,
-      // currency: 'USD',
-      // method: 'Dinheiro',
-      // tag: 'Alimentação',
-      // description: '',
+      value: 0,
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      description: '',
     };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange({ target: { name, value } }) {
+    this.setState({ [name]: value });
   }
 
   inputValor() {
+    const { value } = this.state;
     return (
       <label htmlFor="value">
         Valor:
@@ -24,14 +31,15 @@ class Wallet extends React.Component {
           type="number"
           id="value"
           name="value"
-          // value={ value }
-          // onChange={ this.handleChange }
+          value={ value }
+          onChange={ this.handleChange }
         />
       </label>
     );
   }
 
   inputDescricao() {
+    const { description } = this.state;
     return (
       <label htmlFor="description">
         Descrição:
@@ -39,14 +47,15 @@ class Wallet extends React.Component {
           type="text"
           id="description"
           name="description"
-          // value={ description }
-          // onChange={ this.handleChange }
+          value={ description }
+          onChange={ this.handleChange }
         />
       </label>
     );
   }
 
   inputSelect() {
+    const { currency } = this.state;
     return (
       <label htmlFor="currency">
         Moeda:
@@ -54,8 +63,8 @@ class Wallet extends React.Component {
           id="currency"
           name="currency"
           className="moedas"
-          // value={ currency }
-          // onChange={ this.handleChange }
+          value={ currency }
+          onChange={ this.handleChange }
         >
           <option>sdasd</option>
         </select>
@@ -64,14 +73,15 @@ class Wallet extends React.Component {
   }
 
   inputPagamento() {
+    const { method } = this.state;
     return (
       <label htmlFor="method">
         Método de pagamento:
         <select
           id="method"
           name="method"
-          // value={ method }
-          // onChange={ this.handleChange }
+          value={ method }
+          onChange={ this.handleChange }
         >
           <option>Dinheiro</option>
           <option>Cartão de crédito</option>
@@ -82,14 +92,15 @@ class Wallet extends React.Component {
   }
 
   inputTags() {
+    const { tag } = this.state;
     return (
       <label htmlFor="tag">
         Tag:
         <select
           id="tag"
           name="tag"
-          // value={ tag }
-          // onChange={ this.handleChange }
+          value={ tag }
+          onChange={ this.handleChange }
         >
           <option>Alimentação</option>
           <option>Lazer</option>
