@@ -3,3 +3,21 @@
   margin: 0;
   padding: 0;
 }
+
+.wallet-header-container {
+  background-color: #07B676;
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+.wallet-header {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.wallet-header span {
+  color: white;
+  font-weight: bold;
+}

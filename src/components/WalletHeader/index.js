@@ -8,11 +8,11 @@ class WalletHeader extends React.Component {
     const { userEmail, total } = this.props;
 
     return (
-      <header className="wallet-header">
+      <header className="wallet-header-container">
 
-        <div className="wallet-email">
+        <div className="wallet-header">
           <span data-testid="email-field">{`Email: ${userEmail}`}</span>
-          <span data-testid="total-field">{`Despesas Totais: ${total}`}</span>
+          <span data-testid="total-field">{`Despesas Totais: R$${total}`}</span>
           <span data-testid="header-currency-field">Câmbio: BRL</span>
         </div>
 

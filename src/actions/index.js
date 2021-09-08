@@ -42,7 +42,8 @@ export const fetchData = () => (
       const data = await res.json();
 
       delete data.USDT;
-      return dispatch(loadingActionSuccess(data));
+      dispatch(loadingActionSuccess(data));
+      return data;
     } catch (error) {
       return dispatch(loadingActionFail(error.message));
     }

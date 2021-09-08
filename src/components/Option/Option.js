@@ -5,9 +5,8 @@ import PropTypes from 'prop-types';
 class Option extends Component {
   render() {
     const { currencies } = this.props;
-    const keys = Object.keys(currencies);
     return (
-      keys.map((currency) => (
+      currencies.map((currency) => (
         <option
           name="currency"
           key={ currency }

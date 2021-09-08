@@ -13,8 +13,18 @@ const INITIAL_STATE = {
   error: '',
 };
 
-const wallet = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
+const setTotal = (expenses, { value, exchangeRates, currency }) => {
+  const reduce = expenses.reduce((acc, curr) => (
+    acc + parseFloat(curr.value) * parseFloat(curr.exchangeRates[curr.currency].ask)
+  ), 0);
+
+  const total = reduce + parseFloat(value) * parseFloat(exchangeRates[currency].ask);
+
+  return total;
+};
+
+const wallet = (state = INITIAL_STATE, { payload, type }) => {
+  switch (type) {
   case LOADING_ACTION:
     return {
       ...state,
@@ -24,20 +34,21 @@ const wallet = (state = INITIAL_STATE, action) => {
   case LOADING_ACTION_SUCCESS:
     return {
       ...state,
-      currencies: action.payload,
+      currencies: Object.keys(payload),
     };
 
   case LOADING_ACTION_FAIL:
     return {
       ...state,
-      error: action.payload.error,
+      error: payload.error,
       loading: false,
     };
 
   case UPDATE_EXPENSES:
     return {
       ...state,
-      expenses: [...state.expenses, action.payload],
+      expenses: [...state.expenses, payload],
+      total: setTotal(state.expenses, payload).toFixed(2),
     };
 
   default:

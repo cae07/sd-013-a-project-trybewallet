@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { fetchData, updateExpenses } from '../../actions';
 import './WalletForm.css';
 import Option from '../Option/Option';
+import ExpensesData from '../ExpensesData';
 
 class WalletForm extends Component {
   constructor() {
@@ -13,12 +14,10 @@ class WalletForm extends Component {
     this.state = {
       value: '',
       description: '',
-      currency: '',
-      payment: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Cartão de crédito',
+      tag: 'Alimentação',
     };
-
-    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -33,18 +32,18 @@ class WalletForm extends Component {
     });
   }
 
-  handleClick(e) {
+  async handleClick(e) {
     e.preventDefault();
     const { dispatchExpense, expenses, fetchCurrencies } = this.props;
     const spreadExpenses = { id: expenses.length, ...this.state };
-    fetchCurrencies();
-    dispatchExpense(spreadExpenses);
+    const exchangeRates = await fetchCurrencies();
+    dispatchExpense({ ...spreadExpenses, exchangeRates });
 
     return <Redirect to="/carteira" />;
   }
 
   render() {
-    const { value, description, currency, tag, payment } = this.state;
+    const { value, description, currency, tag, method } = this.state;
 
     return (
       <div className="wallet-control">
@@ -79,20 +78,20 @@ class WalletForm extends Component {
               <Option currency={ currency } />
             </select>
           </label>
-          <label htmlFor="payment">
+          <label name="method" htmlFor="method">
             Método de Pagamento
             <select
               onChange={ (e) => this.handleChange(e) }
-              name="payment"
-              id="payment"
-              value={ payment }
+              name="method"
+              id="method"
+              value={ method }
             >
-              <option value="credit">Cartão de Crédito</option>
-              <option value="debit">Cartão de Débito</option>
-              <option value="cash">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de Crédito</option>
+              <option value="Cartão de débito">Cartão de Débito</option>
+              <option value="Dinheiro">Dinheiro</option>
             </select>
           </label>
-          <label htmlFor="tag">
+          <label name="tag" htmlFor="tag">
             Tag
             <select
               onChange={ (e) => this.handleChange(e) }
@@ -100,11 +99,11 @@ class WalletForm extends Component {
               id="tag"
               value={ tag }
             >
-              <option value="alimentacao">Alimentação</option>
-              <option value="lazer">Lazer</option>
-              <option value="trabalho">Trabalho</option>
-              <option value="transporte">Transporte</option>
-              <option value="saude">Saúde</option>
+              <option value="Alimentacao">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saude">Saúde</option>
             </select>
           </label>
           <button
@@ -114,6 +113,8 @@ class WalletForm extends Component {
             Adicionar Despesa
           </button>
         </form>
+
+        <ExpensesData />
       </div>
     );
   }
