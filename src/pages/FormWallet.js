@@ -141,14 +141,14 @@ class FormWallet extends React.Component {
     );
   }
 }
-// Wallet.propTypes = {
-//   buttonExpenses: PropTypes.func,
-//   fetchData: PropTypes.func,
-//   moedas: PropTypes.shape({
-//     map: PropTypes.func,
-//   }),
-//   userEmail: PropTypes.func,
-// }.isRequired;
+Wallet.propTypes = {
+  buttonExpenses: PropTypes.func,
+  fetchData: PropTypes.func,
+  moedas: PropTypes.shape({
+    map: PropTypes.func,
+  }),
+  userEmail: PropTypes.func,
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   cotation: state.wallet.expenses,
