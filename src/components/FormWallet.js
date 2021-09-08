@@ -36,7 +36,7 @@ class FormWallet extends React.Component {
       <option key={ moeda } value={ moeda }>{ moeda }</option>
     ));
   }
-  // função feita consultando o Codigo de Victor Diniz
+  // função feita consultando o Codigo de Victor Diniz, achei interessante o jeito de atualizar o nome e a dispesa total.
   // https://github.com/tryber/sd-013-a-project-trybewallet/blob/victor-diniz-project-trybewallet/src/pages/Wallet.js
 
   async addExpensesButton() {
@@ -139,7 +139,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 FormWallet.propTypes = {
-  currencies: PropTypes.arrayOf.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   expenseSave: PropTypes.func.isRequired,
 };
 
