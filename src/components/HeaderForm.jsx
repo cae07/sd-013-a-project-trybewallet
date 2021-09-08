@@ -1,67 +1,72 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Loading from './Loading';
+import PropTypes from 'prop-types';
+import CurrencyInput from './CurrencyInput';
+import DescriptionInput from './DescriptionInput';
+import ExpensesInput from './ExpensesInput';
+import PaymentMethod from './PaymentMethod';
+import ValueInput from './ValueInput';
 
 class HeaderForm extends Component {
+  constructor() {
+    super();
+    this.handleChangeCallBack = this.handleChangeCallBack.bind(this);
+    this.submitFormCallBack = this.submitFormCallBack.bind(this);
+  }
+
+  handleChangeCallBack(e, option = false) {
+    const { handleChange } = this.props;
+    handleChange(e, option);
+  }
+
+  submitFormCallBack(e) {
+    e.preventDefault();
+    const { submitForm } = this.props;
+    submitForm();
+  }
+
   render() {
-    const { currencies, isFetching, currencyValue, valueCost, handleChange } = this.props;
+    const { expenses: { value, description,
+      currency, paymentMethod, kindExpense } } = this.props;
     return (
       <form>
-        <label htmlFor="value">
-          Valor
-          <input
-            type="number"
-            name="value"
-            id="value"
-            value={ valueCost }
-            onChange={ (e) => handleChange(e) }
-          />
-        </label>
-        <label htmlFor="description">
-          Descrição
-          <input type="text" name="description" id="description" />
-        </label>
-        <label htmlFor="currencies">
-          Moeda
-          <select
-            name="currencies"
-            id="currencies"
-            value={ currencyValue }
-            onChange={ (e) => handleChange(e, true) }
-          >
-            {isFetching
-              ? <Loading />
-              : currencies
-                .map((currency, index) => <option value={ currency }key={ index }>{ currency }</option>)}
-          </select>
-        </label>
-        <label htmlFor="payment">
-          Método de pagamento
-          <select name="payment" id="payment">
-            <option>Dinheiro</option>
-            <option>Cartão de crédito</option>
-            <option>Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="expenses">
-          Tag
-          <select name="expenses" id="expenses" >
-            <option>Alimentação</option>
-            <option>Lazer</option>
-            <option>Trabalho</option>
-            <option>Transporte</option>
-            <option>Saúde</option>
-          </select>
-        </label>
-        <button type="submit">Adicionar despesa</button>
+        <ValueInput handleChange={ this.handleChangeCallBack } valueCost={ value } />
+        <DescriptionInput
+          handleChange={ this.handleChangeCallBack }
+          descriptionValue={ description }
+        />
+        <CurrencyInput
+          currencyValue={ currency }
+          handleChange={ this.handleChangeCallBack }
+        />
+        <PaymentMethod
+          paymentMethod={ paymentMethod }
+          handleChange={ this.handleChangeCallBack }
+        />
+        <ExpensesInput
+          kindExpense={ kindExpense }
+          handleChange={ this.handleChangeCallBack }
+        />
+        <button
+          type="submit"
+          onClick={ (e) => this.submitFormCallBack(e) }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  currencies: state.wallet.currencies,
-  isFetching: state.isFetching,
-});
+HeaderForm.propTypes = {
+  expenses: PropTypes.shape({
+    value: PropTypes.number,
+    description: PropTypes.string,
+    currency: PropTypes.string,
+    paymentMethod: PropTypes.string,
+    kindExpense: PropTypes.string,
+  }).isRequired,
+  submitForm: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
 
-export default connect(mapStateToProps)(HeaderForm);
+export default HeaderForm;

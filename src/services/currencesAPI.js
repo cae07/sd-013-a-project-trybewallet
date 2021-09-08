@@ -1,5 +1,3 @@
-
-
 export const getCurrencesCambio = () => {
   fetch(`${CURRENCES_API}`)
     .then((response) => response.json()

@@ -22,8 +22,6 @@ class Login extends Component {
     this.setState({
       [name]: value,
     });
-    // const ONE_SECOND_HALF = 100;
-    // setTimeout(this.activateButton, ONE_SECOND_HALF);
     this.activateButton();
   }
 

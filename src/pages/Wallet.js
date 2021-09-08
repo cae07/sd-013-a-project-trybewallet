@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import HeaderForm from '../components/HeaderForm';
-import { fetchCurrencesAction } from '../actions';
-
-// const TWO_SECONDS = 2000;
+import { fetchCurrencesAction, fetchExchangeRatesAction } from '../actions';
+import fetchCurrencyAPI from '../services/calculateCurrencyAPI';
 
 class Wallet extends React.Component {
   constructor() {
@@ -13,11 +12,17 @@ class Wallet extends React.Component {
     this.state = {
       expensesValue: 0,
       expenses: {
+        id: 0,
         currency: 'USD',
         value: 0,
+        description: '',
+        paymentMethod: 'Dinheiro',
+        kindExpense: 'Alimentação',
       },
     };
     this.handleChange = this.handleChange.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    this.expenseTotal = this.expenseTotal.bind(this);
   }
 
   componentDidMount() {
@@ -25,19 +30,7 @@ class Wallet extends React.Component {
     fetchCurrences();
   }
 
-  componentWillUnmount() {
-  }
-
-  handleChange({ target: { value, name = '' } }, option = false) {
-    const { expenses: { currency } } = this.state;
-    if (option) {
-      return this.setState((prevState) => ({
-        expenses: {
-          ...prevState.expenses,
-          [currency]: value,
-        },
-      }));
-    }
+  handleChange({ target: { value, name } }) {
     return this.setState((prevState) => ({
       expenses: {
         ...prevState.expenses,
@@ -46,9 +39,28 @@ class Wallet extends React.Component {
     }));
   }
 
+  expenseTotal(currency) {
+    const { expenses: { value } } = this.state;
+    const expenseRate = value * currency;
+    this.setState((prevState) => (
+      { expensesValue: prevState.expensesValue + expenseRate }));
+  }
+
+  async submitForm() {
+    const { fetchExchangeRates } = this.props;
+    const { expenses, expenses: { currency } } = this.state;
+    this.setState((prevState) => ({
+      expenses:
+      { ...prevState.expenses,
+        id: prevState.expenses.id + 1 } }));
+    fetchExchangeRates(expenses);
+    const currencyAsk = await fetchCurrencyAPI(currency);
+    this.expenseTotal(Number(currencyAsk));
+  }
+
   render() {
     const { email } = this.props;
-    const { expensesValue, expenses: { currency, value } } = this.state;
+    const { expensesValue, expenses } = this.state;
     return (
       <header>
         <span data-testid="email-field">
@@ -62,9 +74,9 @@ class Wallet extends React.Component {
           BRL
         </span>
         <HeaderForm
-          currencyValue={ currency }
-          valueCost={ value }
+          expenses={ expenses }
           handleChange={ this.handleChange }
+          submitForm={ this.submitForm }
         />
       </header>
     );
@@ -73,17 +85,19 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
-  currencies: state.wallet.currences,
+  currencies: state.wallet.currencies,
   isFetching: state.isFetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrences: () => dispatch(fetchCurrencesAction()),
+  fetchExchangeRates: (expenses) => dispatch(fetchExchangeRatesAction(expenses)),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
   fetchCurrences: PropTypes.func.isRequired,
+  fetchExchangeRates: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
