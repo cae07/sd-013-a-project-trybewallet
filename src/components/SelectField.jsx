@@ -15,7 +15,7 @@ class SelectField extends React.Component {
           value={ value }
           onChange={ onChange }
         >
-          {options.map((option, index) => (
+          {(!options.length ? [] : options).map((option, index) => (
             <option key={ index + id } value={ option.code || option }>
               { option.code || option }
             </option>

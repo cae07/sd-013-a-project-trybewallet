@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import htmlID from './util/util';
 
 const COLUMNS_NAME = ['Descrição', 'Tag', 'Método de pagamento', 'Valor', 'Moeda',
-  'Câmbio utilizado', 'Valor Convertido', 'Moeda de conversão', 'Editar/Excluir'];
+  'Câmbio utilizado', 'Valor convertido', 'Moeda de conversão', 'Editar/Excluir'];
 class ExpensesTable extends React.Component {
   constructor(props) {
     super(props);
@@ -15,26 +15,30 @@ class ExpensesTable extends React.Component {
   generateColumns(columns) {
     return (
       <tr>
-        {columns.map((column) => <th key={ htmlID({ name: column }) }>{column}</th>)}
+        {columns.map((column) => (
+          <th name={ column } key={ htmlID({ name: column }) }>{column}</th>
+        ))}
       </tr>);
   }
 
+  // { `${code} ${value}` }
   generateRows(expenses) {
     return (
       expenses.map((expense) => {
-        const { value, description, currency, method, tag, exchangeRates } = expense;
+        const { id, value, description, currency, method, tag, exchangeRates } = expense;
         const { ask, code, name } = exchangeRates[currency];
         const currencyNames = name.split('/');
+        if (ask < 5.8) console.log(currencyNames[0]);
         const expenseRow = (
-          <tr>
+          <tr key={ htmlID({ name: id }) }>
             <td key={ htmlID({ name: description }) }>{ description }</td>
             <td key={ htmlID({ name: tag }) }>{ tag }</td>
             <td key={ htmlID({ name: method }) }>{ method }</td>
-            <td key={ htmlID({ name: value }) }>{ `${code} ${value}` }</td>
+            <td key={ htmlID({ name: value }) }>{ value }</td>
             <td key={ htmlID({ name: currencyNames[0] }) }>{ currencyNames[0] }</td>
-            <td key={ htmlID({ name: ask }) }>{ `R$ ${ask}` }</td>
+            <td key={ htmlID({ name: ask }) }>{ Number(ask).toFixed(2) }</td>
             <td key={ htmlID({ name: ask + value }) }>{ ask * value }</td>
-            <td key={ htmlID({ name: currencyNames[1] }) }>{ currencyNames[1] }</td>
+            <td key={ htmlID({ name: 'Real' }) }>Real</td>
             <td key={ htmlID({ name: 'button' }) }>button</td>
           </tr>
         );
@@ -48,7 +52,7 @@ class ExpensesTable extends React.Component {
     const { expenses } = this.props;
     return (
       <table>
-        { this.generateColumns(COLUMNS_NAME) }
+        <thead>{ this.generateColumns(COLUMNS_NAME) }</thead>
         { this.generateRows(expenses) }
       </table>
     );

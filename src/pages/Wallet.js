@@ -32,7 +32,7 @@ class Wallet extends React.Component {
 
   async componentDidMount() {
     const quotations = await fetchAPI(quotationURL);
-    this.handleQuotation(quotations);
+    this.handleQuotation(await quotations);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -77,14 +77,15 @@ class Wallet extends React.Component {
     this.setState({ quotation: Object.values(quotationOptions) });
   }
 
-  handleQuotation(quotations) {
-    this.setState({ quotation: quotations });
+  async handleQuotation(quotations) {
+    this.setState({ quotation: await quotations });
   }
 
   render() {
     const { quotation, expenses } = this.state;
     const { value, description, currency, method, tag } = expenses;
-    if (!quotation.length) return <Header />;
+    // if (!quotation.length) return <Header />;
+    // console.log(quotation);
     return (
       <div>
         <Header />
