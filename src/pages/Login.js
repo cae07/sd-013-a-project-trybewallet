@@ -23,8 +23,7 @@ class Login extends React.Component {
     const min = 6;
     const { email, senha } = this.state;
     const validation = !(/\w+@\w+.com/.test(email)
-    && senha.length >= min
-    && (/[A-z\s]+/).test(senha));
+    && senha.length >= min);
     this.setState({ validation });
   }
 
@@ -39,11 +38,11 @@ class Login extends React.Component {
   }
 
   handleClick() {
-    const { history } = this.props;
+    const { history, validEmail } = this.props;
     const { email } = this.state;
 
-    saveEmail(email);
     history.push('/carteira');
+    validEmail(email);
   }
 
   render() {
@@ -72,25 +71,27 @@ class Login extends React.Component {
           />
         </label>
 
-        <input
-          type="submit"
-          value="Entrar"
+        <button
+          type="button"
           disabled={ validation }
           onClick={ this.handleClick }
-        />
+        >
+          Entrar
+        </button>
       </form>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  saveEmail: (email) => dispatch(saveEmail(email)),
+  validEmail: (email) => dispatch(saveEmail(email)),
 });
 
 Login.propTypes = {
+  validEmail: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-};
+}.isRequired;
 
-export default connect(mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);
