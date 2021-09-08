@@ -1,5 +1,6 @@
 import {
   SAVE_STATE_EXPENSES,
+  DELETE_EXPENSE,
   FETCH_API_THUNK_EXCHANGE_RATES,
   FETCH_API_THUNK_HAS_STARTED,
   FETCH_API_THUNK_HAS_FINISHED,
@@ -11,23 +12,22 @@ const INITIAL_STATE = {
   expenses: [],
   loading: false,
   error: null,
+  expenseDeletedID: -1,
 };
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
   case SAVE_STATE_EXPENSES:
     return {
+      ...state,
       expenses: [...state.expenses, ...[action.payload.expenses]],
-      currencies: [...state.currencies],
-      loading: state.loading,
-      error: state.error,
     };
+  case DELETE_EXPENSE:
+    return { ...state, ...action.payload };
   case FETCH_API_THUNK_EXCHANGE_RATES:
     return {
-      expenses: [...state.expenses],
+      ...state,
       currencies: [...state.currencies, ...[action.payload.exchangeRates]],
-      loading: state.loading,
-      error: state.error,
     };
   case FETCH_API_THUNK_HAS_STARTED:
     return {

@@ -84,8 +84,6 @@ class Wallet extends React.Component {
   render() {
     const { quotation, expenses } = this.state;
     const { value, description, currency, method, tag } = expenses;
-    // if (!quotation.length) return <Header />;
-    // console.log(quotation);
     return (
       <div>
         <Header />
@@ -138,7 +136,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = ({ wallet: { expenses } }) => ({
-  id: expenses.length,
+  id: expenses.length ? (expenses[expenses.length - 1].id + 1) : 0,
 });
 
 Wallet.propTypes = {

@@ -1,6 +1,7 @@
 import {
   LOGIN,
   SAVE_STATE_EXPENSES,
+  DELETE_EXPENSE,
   FETCH_API_THUNK_EXCHANGE_RATES,
   FETCH_API_THUNK_HAS_STARTED,
   FETCH_API_THUNK_HAS_FINISHED,
@@ -16,6 +17,11 @@ export const loginAction = (payload) => ({
 
 export const saveExpensesAction = (payload) => ({
   type: SAVE_STATE_EXPENSES,
+  payload,
+});
+
+export const deleteExpenseAction = (payload) => ({
+  type: DELETE_EXPENSE,
   payload,
 });
 
@@ -45,13 +51,9 @@ export const fetchApiThunk = (walletState) => async (dispatch) => {
     const payload = { exchangeRates: await response };
     dispatch(fetchApiThunkFinished());
 
-    // console.log('L39', payload);
-    // console.log('L40', walletState);
-
     dispatch(fetchApiThunkAction(payload));
 
     const newExpense = { expenses: { ...walletState, ...payload } };
-    // console.log('L43', newExpense);
     dispatch(saveExpensesAction(newExpense));
   } catch (error) {
     dispatch(fetchApiThunkError(error));
