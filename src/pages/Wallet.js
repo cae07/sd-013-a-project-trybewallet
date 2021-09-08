@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Forms from '../components/forms';
-import Header from '../components/header';
+// import Header from '../components/Header';
 import { fetchCoins } from '../actions';
+import Header from '../components/Header';
+import Forms from '../components/Forms';
+// import Forms from '../components/Forms';
 
 class Wallet extends React.Component {
   componentDidMount() {
