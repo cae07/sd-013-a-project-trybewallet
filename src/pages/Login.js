@@ -1,49 +1,59 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import Input from '../components/Input';
+import { saveEmail } from '../actions/index';
 
 class Login extends React.Component {
-  render() {
-    // this.state = {
-    //   email: '',
-    //   password: '',
-    // };
-    // const sixCharacters = 6;
-    // const passwordCorrect = password.length >= sixCharacters || false;
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      disabled: false,
+    };
+  }
 
-    // function handleChange({ target }) {
-    //   const { name, value } = target;
-    //   this.setState({
-    //     [name]: value,
-    //   });
-    //   const re = /\S+@\S+\.\S+/;
-    //   return re.test(email);
-    // }
+  render() {
+    const fiveCharacters = 5;
+    const REGEX_EMAIL = /\S+@\S+\.\S+/;
+    const { email, password, disabled } = this.state;
+
+    const handleClick = () => {
+      const { history, emailDispatch } = this.props;
+      // const { email } = this.state;
+      emailDispatch(email);
+      history.push('/carteira');
+    };
+
+    const verifica = () => {
+      if (REGEX_EMAIL.test(email) && password.length >= fiveCharacters) {
+        this.setState({
+          disabled: true,
+        });
+      }
+    };
+    const handleChange = ({ target }) => {
+      const { name, value } = target;
+      this.setState({
+        [name]: value,
+      });
+      verifica();
+    };
 
     return (
-      <div>
-        Login
-        <input
-          type="email"
-          placeholder="Coloque seu e-mail"
-          data-testid="email-input"
-          // value={}
-          name="email"
-          // onChange={ validateEmail }
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Coloque sua senha"
-          data-testid="password-input"
-        />
-        <button
-          type="submit"
-          // disabled={ !(validateEmail && passwordCorrect) }
-        >
-          Entrar
-        </button>
-      </div>
+      <Input
+        disabled={ disabled }
+        handleChange={ handleChange }
+        email={ email }
+        password={ password }
+        onClick={ handleClick }
+      />
     );
   }
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  emailDispatch: (state) => dispatch(saveEmail(state)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

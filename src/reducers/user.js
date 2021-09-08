@@ -1,16 +1,17 @@
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 const USER_STATE = {
-  user: {
-    email: '',
-  },
+  email: '',
 };
-function userReducer(state = USER_STATE, action) {
+function user(state = USER_STATE, action) {
   switch (action.type) {
-  case '':
-    return { state: action.state };
+  case 'saveEmail':
+    return {
+      ...state,
+      email: action.payload,
+    };
   default:
     return state;
   }
 }
 
-export default userReducer;
+export default user;
