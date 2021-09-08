@@ -1,7 +1,34 @@
 import React from 'react';
 
 class FormWallet extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currencies: [],
+    };
+    this.fetchMoedas = this.fetchMoedas.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchMoedas();
+  }
+
+  fetchMoedas() {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => {
+        response.json().then((data) => {
+          const moedas = (data);
+          delete moedas.USDT;
+          const arrayMoedas = Object.keys(moedas)
+          this.setState({
+          currencies: arrayMoedas 
+          });
+        });
+      });
+  }
+  
   render() {
+    const { currencies } = this.state;
     return (
       <div>
         <form>
@@ -26,9 +53,11 @@ class FormWallet extends React.Component {
           <label htmlFor="moeda">
             Moeda
             <select id="moeda">
-              <option>a</option>
+              { currencies.map((moeda, index) => (
+                <option key={ index }> { moeda }</option> ))}
             </select>
           </label>
+          <br/>
           <label htmlFor="metodo">
             Método de pagamento
             <select id="metodo">
