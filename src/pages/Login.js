@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import loginAction from '../actions/index';
 
 // Referência Pedro Alles turma 12 //
 class Login extends React.Component {
@@ -10,6 +13,7 @@ class Login extends React.Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleOnClick = this.handleOnClick.bind(this);
   }
   // Criação da função handleChange, sempre que ocorrer alguma modificação no campo login ou senha //
   // automaticamente é valor do estado é atualizado
@@ -23,6 +27,18 @@ class Login extends React.Component {
       [target.name]: target.value,
     }));
   }
+  // Ajuda do Wesley de melo
+
+  handleOnClick(event) {
+    // serve para página parar de dar resfresh
+    event.preventDefault();
+    const { myFirstDispatch } = this.props;
+    const { email } = this.state;
+    myFirstDispatch(email);
+    // Mudar a rota para carteira
+    const { history } = this.props;
+    history.push('/carteira');
+  }
 
   render() {
   // Aqui esto desustruturando o estado //
@@ -32,7 +48,7 @@ class Login extends React.Component {
     const REG_EX_EMAIL = /^([\w\d._\-#])+@([\w\d._\-#]+[.][\w\d._\-#]+)+$/;
     const minPassLength = 6;
     return (
-      <form>
+      <form onSubmit={ this.handleOnClick }>
         <input
           data-testid="email-input"
           type="text"
@@ -62,5 +78,14 @@ class Login extends React.Component {
     );
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  myFirstDispatch: (email) => dispatch(loginAction(email)) });
 
-export default Login;
+Login.propTypes = {
+  myFirstDispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(Login);
