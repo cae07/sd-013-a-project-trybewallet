@@ -148,7 +148,7 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { email } = this.props;
+    const { email, expenses } = this.props;
     return (
       <>
         <header>
@@ -172,6 +172,14 @@ class Wallet extends React.Component {
           >
             Adicionar despesa
           </button>
+          <div>
+            <ul>
+              { expenses
+                .map(
+                  (expense) => <li key={ expense.id }>{expense.value}</li>,
+                )}
+            </ul>
+          </div>
         </form>
       </>
     );
