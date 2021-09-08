@@ -3,10 +3,10 @@
 import { REQUEST_API } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  wallet: {
-    currencies: [],
-    expenses: [],
-  },
+
+  currencies: [],
+  expenses: [],
+
 };
 
 function wallet(state = INITIAL_STATE, action) {
@@ -16,7 +16,7 @@ function wallet(state = INITIAL_STATE, action) {
       ...state,
       expenses: [
         ...state.expenses,
-        { id: state.wallet.expenses.length,
+        { id: state.expenses.length,
           ...action.state,
           exchangeRates: action.payload }],
     };

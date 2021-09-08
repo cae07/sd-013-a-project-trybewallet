@@ -9,7 +9,6 @@ class WalletForm extends React.Component {
     this.fetchApi = this.fetchApi.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      apiResponse: [],
       expenses: {
         value: '',
         description: '',
@@ -17,6 +16,7 @@ class WalletForm extends React.Component {
         method: '',
         tag: '',
       },
+      apiResponse: [],
     };
   }
 
@@ -57,7 +57,7 @@ class WalletForm extends React.Component {
       <label htmlFor="value">
         Valor
         <input
-          type="number"
+          type="text"
           name="value"
           id="value"
           value={ value }
@@ -102,14 +102,14 @@ class WalletForm extends React.Component {
   }
 
   methodOfPaymentLabel() {
-    const { expenses: { method } } = this.state;
+    const { expenses: { payment } } = this.state;
     return (
       <label htmlFor="methodOfPayment">
         Método de pagamento
         <select
-          name="methodOfPayment"
-          id="methodOfPayment"
-          value={ method }
+          name="method"
+          id="payment"
+          value={ payment }
           onChange={ this.handleChange }
         >
           <option>Dinheiro</option>
@@ -142,7 +142,7 @@ class WalletForm extends React.Component {
   }
 
   render() {
-    const { fetchWalletApi } = this.props;
+    const { fetchApiWallet } = this.props;
     const { expenses } = this.state;
     return (
       <div>
@@ -154,7 +154,7 @@ class WalletForm extends React.Component {
           { this.tagLabel() }
           <button
             type="button"
-            onClick={ () => fetchWalletApi(expenses) }
+            onClick={ () => fetchApiWallet(expenses) }
           >
             Adicionar despesa
           </button>
@@ -165,11 +165,11 @@ class WalletForm extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchWalletApi: (state) => dispatch(fetchApi(state)),
+  fetchApiWallet: (state) => dispatch(fetchApi(state)),
 });
 
 WalletForm.propTypes = ({
-  fetchWalletApi: PropTypes.func.isRequired,
+  fetchApiWallet: PropTypes.func.isRequired,
 });
 
 export default connect(null, mapDispatchToProps)(WalletForm);
