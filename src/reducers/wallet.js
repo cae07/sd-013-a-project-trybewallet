@@ -2,6 +2,7 @@ import {
   GET_MOEDA,
   REQUEST_MOEDAAPI,
   ERROR_REQUEST_MOEDA,
+  ADD_EXPENSE,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -9,7 +10,19 @@ const INITIAL_STATE = {
   expenses: [],
   loading: false,
   error: '',
+  expenseId: 0,
+  totalExpenses: 0,
 };
+function totalExpenses(expenses) {
+  let total = 0;
+  if (expenses.length > 0 && expenses) {
+    expenses.forEach((expense) => {
+      const { currency, value, exchangeRates } = expense;
+      total += Number(value) * Number(exchangeRates[currency].ask);
+    });
+  }
+  return total;
+}
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -29,6 +42,19 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       error: action.payload,
       loading: false,
+    };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      expenseId: state.expenseId + 1,
+      expenses: state.expenses.concat({
+        ...action.payload,
+        id: state.expenseId,
+      }),
+      totalExpenses: totalExpenses(state.expenses.concat({
+        ...action.payload,
+        id: state.expenseId,
+      })),
     };
   default:
     return state;

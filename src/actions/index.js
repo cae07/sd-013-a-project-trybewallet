@@ -31,4 +31,26 @@ export function fetchMoeda() {
   };
 }
 
-// Requisito 7 foi resolvido com a GRANDE ajuda do Vinicius Dyonisio em salas de estudos, e em mensagens privadas no slack.
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+function newExpense(expense) {
+  return {
+    type: ADD_EXPENSE,
+    payload: expense,
+  };
+}
+
+export function addExpense(expense) {
+  return (dispatch) => {
+    fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((json) => {
+        const completeExpense = {
+          ...expense,
+          exchangeRates: json,
+        };
+        dispatch(newExpense(completeExpense));
+      });
+  };
+}
+
+// Requisito 8 o amigo Vinicius Dyonisio me salvou, esta ajudando muito na adaptacao do redux

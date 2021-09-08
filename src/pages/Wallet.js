@@ -5,14 +5,14 @@ import WalletInput from '../component/walletInput';
 
 class Wallet extends React.Component {
   render() {
-    const { emailGlobalState } = this.props;
+    const { emailGlobalState, totalExpenses = 0 } = this.props;
     return (
       <section>
         <header>
           <p data-testid="email-field">
             { emailGlobalState }
           </p>
-          <p data-testid="total-field">Despesa total: 0</p>
+          <p data-testid="total-field">{ totalExpenses }</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <WalletInput />
@@ -23,10 +23,12 @@ class Wallet extends React.Component {
 
 Wallet.propTypes = {
   emailGlobalState: PropTypes.string.isRequired,
+  totalExpenses: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   emailGlobalState: state.user.email,
+  totalExpenses: state.wallet.totalExpenses,
 });
 
 export default connect(mapStateToProps)(Wallet);

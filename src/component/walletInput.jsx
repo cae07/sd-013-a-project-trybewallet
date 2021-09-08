@@ -1,80 +1,100 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchMoeda } from '../actions';
+import { fetchMoeda, addExpense } from '../actions';
+import SelectMoeda from './SelectMoeda';
+import DescriptionExpense from './DescriptionExpense';
 
 class WalletInput extends React.Component {
+  constructor() {
+    super();
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.state = {
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: '',
+    };
+  }
+
   componentDidMount() {
     const { loadMoedas } = this.props;
     loadMoedas();
   }
 
+  handleChange({ target }) {
+    const { value, name } = target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const { addNewExpense } = this.props;
+    addNewExpense(this.state);
+  }
+
   render() {
-    const { moedas } = this.props;
+    const { currencies } = this.props;
     return (
       <form>
-        <label htmlFor="valor">
-          Valor:
-          <input type="number" name="" id="valor" />
+        <label htmlFor="value">
+          Valor
+          <input type="number" name="value" id="value" onChange={ this.handleChange } />
         </label>
-
-        <label htmlFor="moeda">
-          Moeda:
-          <select name="moeda" id="moeda">
-            { moedas && Object.keys(moedas)
-              .map((key, index) => {
-                if (key !== 'USDT') {
-                  return <option key={ index }>{ key }</option>;
-                }
-                return null;
-              })}
+        <DescriptionExpense name="description" handleChange={ this.handleChange } />
+        <SelectMoeda currencies={ currencies } handleChange={ this.handleChange } />
+        <label htmlFor="method">
+          Método de pagamento
+          <select name="method" id="method" onChange={ this.handleChange }>
+            <option>Dinheiro</option>
+            <option>Cartão de crédito</option>
+            <option>Cartão de débito</option>
           </select>
         </label>
-
-        <label htmlFor="pagamentos">
-          Método de pagamento:
-          <select name="pagamentos" id="pagamentos">
-            <option value="dinheiro">Dinheiro</option>
-            <option value="credito">Cartão de crédito</option>
-            <option value="debito">Cartão de débito</option>
-          </select>
-        </label>
-
         <label htmlFor="tag">
-          Tag:
-          <select name="tag" id="tag">
-            <option value="alimentacao">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="trabalho">Trabalho</option>
-            <option value="transporte">Transporte</option>
-            <option value="saude">Saúde</option>
+          Tag
+          <select name="tag" id="tag" onChange={ this.handleChange }>
+            <option>Alimentação</option>
+            <option>Lazer</option>
+            <option>Trabalho</option>
+            <option>Transporte</option>
+            <option>Saúde</option>
           </select>
         </label>
-
-        <label htmlFor="descricao">
-          Descrição:
-          <input type="text" name="" id="descricao" />
-        </label>
+        <button type="submit" onClick={ this.handleSubmit }>
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  moedas: state.wallet.currencies,
-});
-
 const mapDispatchToProps = (dispatch) => ({
   loadMoedas: () => dispatch(fetchMoeda()),
+  addNewExpense: (expense) => dispatch(addExpense(expense)),
 });
+
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+WalletInput.defaultProps = {
+  currencies: [],
+};
 
 WalletInput.propTypes = {
   loadMoedas: PropTypes.func.isRequired,
-  moedas: PropTypes.shape(
-    PropTypes.shape({}),
-  ).isRequired,
+  addNewExpense: PropTypes.func.isRequired,
+  currencies: PropTypes.shape(
+    {},
+  ),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletInput);
 
-// Requisito 7 foi resolvido com a GRANDE ajuda do Vinicius Dyonisio em salas de estudos, e em mensagens privadas no slack.
+// Requisito 8 o amigo Vinicius Dyonisio me salvou, esta ajudando muito na adaptacao do redux
