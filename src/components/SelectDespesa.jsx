@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class SelectDespesa extends React.Component {
   render() {
@@ -18,8 +18,8 @@ class SelectDespesa extends React.Component {
   }
 }
 
-/* SelectDespesa.propTypes = {
+SelectDespesa.propTypes = {
   value: PropTypes.string,
-}.isRequired; */
+}.isRequired;
 
 export default SelectDespesa;

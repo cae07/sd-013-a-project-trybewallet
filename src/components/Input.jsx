@@ -12,7 +12,7 @@ class Input extends React.Component {
           value={ value }
           id={ id }
           name={ value }
-          /* onChange={ handleChange() } */
+
         />
       </label>
 

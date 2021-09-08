@@ -10,10 +10,10 @@ class Header extends React.Component {
       <header id="header-container">
         <img id="logo" src={ imagem } alt="" />
         <div id="valor">
-          <h3 data-testid="email-field">{`Email: ${email}`}</h3>
+          <h4 data-testid="email-field">{`Email: ${email}`}</h4>
           <div id="preco">
-            <h3 data-testid="total-field">Despesa Total: R$ 0</h3>
-            <h3 data-testid="header-currency-field">BRL</h3>
+            <h4 data-testid="total-field">Despesa Total: R$ 0</h4>
+            <h4 data-testid="header-currency-field">BRL</h4>
           </div>
         </div>
       </header>

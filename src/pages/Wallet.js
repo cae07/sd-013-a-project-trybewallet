@@ -53,33 +53,32 @@ class Wallet extends React.Component {
     const { emailReducer } = this.props;
     const { loading } = this.state;
     const Loading = <h1>Loading...</h1>;
-    if (loading === true) { return Loading; }
     return (
       <div>
         <Header email={ emailReducer } />
-        <form id="form">
-          <Input
-            id="valor-input"
-            value="teste"
-            text="Valor:"
-            /* handleChange={ this.handleChange } */
-          />
-          <Input
-            id="descricao-input"
-            value="teste2"
-            text="Descrição:"
-            /* handleChange={ this.handleChange } */
-          />
-          <label htmlFor="moeda-input">
-            Moeda:
-            <select value="moeda" id="moeda-input">
-              {this.getOptions()}
-            </select>
-          </label>
-          <SelectPagamento value="dinheiro" />
-          <SelectDespesa value="value" />
-          <Button />
-        </form>
+        { loading ? Loading : (
+          <form id="form">
+            <Input
+              id="valor-input"
+              value="teste"
+              text="Valor:"
+            />
+            <Input
+              id="descricao-input"
+              value="teste2"
+              text="Descrição:"
+            />
+            <label htmlFor="moeda-input">
+              Moeda:
+              <select value="moeda" id="moeda-input">
+                {this.getOptions()}
+              </select>
+            </label>
+            <SelectPagamento value="dinheiro" />
+            <SelectDespesa value="value" />
+            <Button />
+          </form>
+        )}
       </div>
     );
   }
