@@ -26,9 +26,8 @@ class ExpensesTable extends React.Component {
     return (
       expenses.map((expense) => {
         const { id, value, description, currency, method, tag, exchangeRates } = expense;
-        const { ask, code, name } = exchangeRates[currency];
+        const { ask, name } = exchangeRates[currency];
         const currencyNames = name.split('/');
-        if (ask < 5.8) console.log(currencyNames[0]);
         const expenseRow = (
           <tr key={ htmlID({ name: id }) }>
             <td key={ htmlID({ name: description }) }>{ description }</td>
