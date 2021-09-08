@@ -15,7 +15,7 @@ class Header extends React.Component {
 
   componentDidMount() {
     const { expenses } = this.props;
-    expenses.map((expense) => {
+    expenses.forEach((expense) => {
       const { id, value, currency, exchangeRates } = expense;
       const currencyRate = (exchangeRates[currency]).ask;
       const lastExpense = value * currencyRate;
@@ -84,6 +84,10 @@ const mapStateToProps = ({
 Header.propTypes = {
   email: PropTypes.string.isRequired,
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
-  expenseDeletedID: PropTypes.number.isrequired,
+  expenseDeletedID: PropTypes.number,
+};
+
+Header.defaultProps = {
+  expenseDeletedID: -1,
 };
 export default connect(mapStateToProps, null)(Header);
