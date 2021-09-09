@@ -1,37 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import apiWithThunk from '../actions/actionsThunk';
 
 class Header extends React.Component {
   constructor() {
     super();
 
-    this.handleUpdate = this.handleUpdate.bind(this);
+    this.totalAmount = this.totalAmount.bind(this);
   }
 
-  componentDidMount() { // Retorna o JSON com as moedas.
-    const { totalExpenses } = this.props;
-    totalExpenses();
-  }
+  totalAmount() {
+    const { getWalletExpenses } = this.props;
+    const result = getWalletExpenses.reduce((acc, curr) => {
+      const { value, currency, exchangeRates } = curr;
+      const rate = exchangeRates[currency].ask;
 
-  handleUpdate() {
-    const { expenses: { response } } = this.props;
-    const getCurrencies = Object.values(response);
+      acc += (parseFloat(value) * parseFloat(rate));
+      return acc;
+    }, 0);
+    return Math.round(result * 100) / 100;
   }
 
   render() {
-    const { user: { email } } = this.props;
+    const { user, getWalletExpenses } = this.props;
+    console.log(getWalletExpenses);
+    console.log(this.totalAmount());
 
     return (
       <header data-testid="email-field">
         <h3>
           Email:
-          <span>{` ${email}`}</span>
+          <span>{` ${user}`}</span>
         </h3>
 
         <div data-testid="total-field">
-          <p>Despesa total: 0</p>
+          <p>
+            Despesa total: R$
+            {this.totalAmount()}
+          </p>
         </div>
 
         <div data-testid="header-currency-field">
@@ -49,12 +55,8 @@ Header.propTypes = {
 }.isRequired;
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  user: state.user.email,
   getWalletExpenses: state.wallet.expenses,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  totalExpenses: () => dispatch(apiWithThunk()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

@@ -4,9 +4,8 @@ import {
   SUCCESS_TYPE,
   ERROR_TYPE,
   SUBMIT_TYPE,
-  ADD_EXPENSE,
+  ADD_EXPENSES,
 } from './actionTypes';
-import fetchApi from '../utils/api';
 
 // Login page
 
@@ -35,22 +34,7 @@ export const submitAction = (payload) => ({
   payload,
 });
 
-export const addExpenses = (payload) => {
-  const expenseAction = {
-    type: ADD_EXPENSE,
-    expense: payload,
-  };
-  return (dispatch) => {
-    dispatch(loadingAction());
-    return fetchApi()
-      .then(
-        (response) => dispatch({
-          ...expenseAction,
-          expense: {
-            payload, // Expenses
-            response, // Exchange Rates
-          },
-        }),
-      );
-  };
-};
+export const addExpenseAction = (payload) => ({
+  type: ADD_EXPENSES,
+  payload,
+});

@@ -3,6 +3,7 @@ import {
   ERROR_TYPE,
   LOADING_TYPE,
   ADD_EXPENSE,
+  ADD_EXPENSES,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -32,6 +33,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       expenses: [...state.expenses, action.expense],
+    };
+  case ADD_EXPENSES:
+    return { ...state,
+      expenses: [...state.expenses, { ...action.payload }],
+      error: '',
     };
   default:
     return state;

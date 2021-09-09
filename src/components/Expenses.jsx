@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addExpenses } from '../actions';
-import apiWithThunk from '../actions/actionsThunk';
+import apiWithThunk, { fetchExpenseAPI } from '../actions/actionsThunk';
 import { tags, methods } from '../utils/options';
 import Input from './Input';
 import Select from './Select';
@@ -140,7 +139,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getCoinsThunk: () => dispatch(apiWithThunk()),
-  expenses: (state) => dispatch(addExpenses(state)),
+  expenses: (payload) => dispatch(fetchExpenseAPI(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expenses);

@@ -7,3 +7,4 @@ export const SUCCESS_TYPE = 'SUCCESS_TYPE';
 export const ERROR_TYPE = 'ERROR_TYPE';
 export const SUBMIT_TYPE = 'SUBMIT_TYPE';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const ADD_EXPENSES = 'ADD_EXPENSES';
