@@ -83,6 +83,7 @@ class WalletForm extends Component {
 
   createInputs(type, name, value, labelText) {
     const { currency } = this.state;
+
     const formInput = (
       <FormInput
         type={ type }
@@ -101,6 +102,7 @@ class WalletForm extends Component {
         { labelText }
       </button>
     );
+
     switch (name || type) {
     case 'currency':
       return this.selectCurrency(name, currency, labelText);

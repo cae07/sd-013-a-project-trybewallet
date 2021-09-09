@@ -12,9 +12,9 @@
   flex-direction: column;
   height: 450px;
   justify-content: space-evenly;
+  margin: 0 auto;
   padding: 26px;
   width: 400px;
-  margin: 0 auto;
 }
 
 label {
@@ -23,12 +23,12 @@ label {
 }
 
 select {
-  width: 100%;
-  height: 30px;
-  margin-bottom: 10px;
   border: none;
   border-radius: 5px;
-  font-weight: bold;
+  font-weight: 700;
+  height: 30px;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 .form-group {

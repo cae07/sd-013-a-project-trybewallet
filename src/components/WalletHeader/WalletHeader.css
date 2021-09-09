@@ -5,19 +5,19 @@
 }
 
 .wallet-header-container {
-  background-color: #07B676;
+  background-color: #07b676;
   height: 80px;
   margin-bottom: 20px;
 }
 
 .wallet-header {
-  height: 100%;
-  display: flex;
-  justify-content: space-around;
   align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
 }
 
 .wallet-header span {
   color: white;
-  font-weight: bold;
+  font-weight: 700;
 }
