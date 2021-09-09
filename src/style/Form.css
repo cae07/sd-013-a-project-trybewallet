@@ -1,3 +1,7 @@
+.add-edit-form {
+  font-family: Roboto, sans-serif;
+}
+
 .add-edit-form input , .add-edit-form select {
   background-color: white;
   border: 0.001em solid rgba(0, 0, 0, 0.061);

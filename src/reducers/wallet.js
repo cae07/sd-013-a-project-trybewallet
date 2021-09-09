@@ -81,6 +81,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       expenses: changeExpense(
         state.expenses, action.id, action.expense,
       ),
+      totalExpenses: calculateTotalExpenses(
+        changeExpense(
+          state.expenses, action.id, action.expense,
+        ),
+      ),
     };
   default:
     return state;

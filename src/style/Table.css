@@ -2,8 +2,8 @@
   box-sizing: border-box;
 }
 
-/* centraliza elemento no meio da página */
 .table-wrapper {
+  font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -30,9 +30,15 @@
   border-collapse: collapse;
   font-size: 12px;
   font-weight: 400;
+  margin-top: 25px;
   max-width: 100%;
   white-space: nowrap;
   width: 100%;
+}
+
+.main-table thead {
+  background-color: #eea9496c;
+  height: 30px;
 }
 
 .main-table th:first-of-type {

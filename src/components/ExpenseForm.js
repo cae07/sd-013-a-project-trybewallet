@@ -19,7 +19,8 @@ class ExpenseForm extends Component {
       value: 0,
       description: '',
       currency: 'USD',
-      method: '',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
   }
 
