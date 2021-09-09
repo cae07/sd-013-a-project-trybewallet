@@ -18,7 +18,8 @@
 }
 
 label {
-  margin: auto 6px;
+  margin: auto;
+  width: 100%;
 }
 
 select {
@@ -28,4 +29,12 @@ select {
   border: none;
   border-radius: 5px;
   font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 20px;
 }

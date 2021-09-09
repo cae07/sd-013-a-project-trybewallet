@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const FormInput = ({
-  name,
   type,
+  name,
   onChange,
   className,
   value,
@@ -17,9 +17,9 @@ const FormInput = ({
       <input
         type={ type }
         name={ name }
+        label={ label }
         id={ name }
         className={ className }
-        placeholder=""
         onChange={ onChange }
         value={ value }
         { ...props }
