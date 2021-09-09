@@ -1,4 +1,4 @@
-/* #header-container {
+.header-container {
   align-items: center;
   background-color: rgb(133, 188, 228);
   color: rgb(0, 51, 102);
@@ -6,19 +6,19 @@
   justify-content: space-between;
 }
 
-#logo {
+.logo {
   width: 180px;
 }
 
-#valor {
+.valor {
   display: flex;
   justify-content: space-around;
   margin-right: 100px;
   width: 500px;
 }
 
-#preco {
+.preco {
   display: flex;
 }
 
-*/
+

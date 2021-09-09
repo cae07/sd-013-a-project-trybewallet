@@ -14,10 +14,15 @@ class Wallet extends React.Component {
     this.state = {
       loading: true,
       result: '',
+      valor: '',
+      descricao: '',
+      moeda: '',
+      pagamento: '',
+      despesa: '',
     };
     this.getApiMoedas = this.getApiMoedas.bind(this);
     this.getOptions = this.getOptions.bind(this);
-    /*  this.handleChange = this.handleChange.bind(this); */
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -43,15 +48,16 @@ class Wallet extends React.Component {
       ));
   }
 
-  /*   handleChange({ target }) {
+  handleChange({ target }) {
     const { name, value } = target;
-    console.log(value);
-    console.log(name);
-  } */
+    this.setState({
+      [name]: value,
+    });
+  }
 
   render() {
     const { emailReducer } = this.props;
-    const { loading } = this.state;
+    const { loading, valor, descricao, moeda, pagamento, despesa } = this.state;
     const Loading = <h1>Loading...</h1>;
     return (
       <div>
@@ -60,22 +66,26 @@ class Wallet extends React.Component {
           <form id="form">
             <Input
               id="valor-input"
-              value="teste"
+              value={ valor }
               text="Valor:"
+              name="valor"
+              handleChange={ this.handleChange }
             />
             <Input
               id="descricao-input"
-              value="teste2"
+              value={ descricao }
               text="Descrição:"
+              name="descricao"
+              handleChange={ this.handleChange }
             />
             <label htmlFor="moeda-input">
               Moeda:
-              <select value="moeda" id="moeda-input">
+              <select value={ moeda } id="moeda-input">
                 {this.getOptions()}
               </select>
             </label>
-            <SelectPagamento value="dinheiro" />
-            <SelectDespesa value="value" />
+            <SelectPagamento value={ pagamento } />
+            <SelectDespesa value={ despesa } />
             <Button />
           </form>
         )}

@@ -7,11 +7,11 @@ class Header extends React.Component {
   render() {
     const { email } = this.props;
     return (
-      <header id="header-container">
-        <img id="logo" src={ imagem } alt="" />
-        <div id="valor">
+      <header className="header-container">
+        <img className="logo" src={ imagem } alt="" />
+        <div className="valor">
           <h4 data-testid="email-field">{`Email: ${email}`}</h4>
-          <div id="preco">
+          <div className="preco">
             <h4 data-testid="total-field">Despesa Total: R$ 0</h4>
             <h4 data-testid="header-currency-field">BRL</h4>
           </div>
