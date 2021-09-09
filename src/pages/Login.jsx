@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Input from '../components/Input';
-import Button from '../components/Button';
+import { Input, Button } from '../components';
 import { emailChecker, passwordChecker } from '../utils/loginChecker';
 import { sendUserInfo } from '../actions';
 

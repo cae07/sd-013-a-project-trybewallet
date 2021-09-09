@@ -22,9 +22,9 @@ class Header extends React.Component {
   }
 
   render() {
-    const { user, getWalletExpenses } = this.props;
-    console.log(getWalletExpenses);
-    console.log(this.totalAmount());
+    const { user } = this.props;
+    // console.log(getWalletExpenses);
+    // console.log(this.totalAmount());
 
     return (
       <header data-testid="email-field">

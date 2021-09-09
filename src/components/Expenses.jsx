@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import apiWithThunk, { fetchExpenseAPI } from '../actions/actionsThunk';
 import { tags, methods } from '../utils/options';
-import Input from './Input';
-import Select from './Select';
-import Button from './Button';
+import { Input, Select, Button, Table } from '.';
 
 class Expenses extends React.Component {
   constructor() {
@@ -22,9 +20,10 @@ class Expenses extends React.Component {
       },
     };
 
-    this.inputs = this.inputs.bind(this);
+    this.renderInputs = this.renderInputs.bind(this);
+    this.renderSelects = this.renderSelects.bind(this);
+    this.renderForm = this.renderForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -49,7 +48,6 @@ class Expenses extends React.Component {
     event.preventDefault();
     const { expense } = this.state; // Traz expense do estado local
     const { expenses } = this.props; // Traz a chave expenses do mapDispatchToProps
-
     this.setState({
       expense: {
         id: expense.id + 1,
@@ -64,7 +62,38 @@ class Expenses extends React.Component {
     });
   }
 
-  inputs() {
+  renderSelects() {
+    const { currencies } = this.props;
+    const getCurrencies = Object.keys(currencies);
+    const filterCurrencies = getCurrencies.filter((item) => item !== 'USDT');
+    return (
+      <div>
+        <Select
+          name="currency"
+          labelText="Moeda"
+          id="expense-currency"
+          options={ filterCurrencies }
+          onChange={ this.handleChange }
+        />
+        <Select
+          name="method"
+          labelText="Método de pagamento"
+          id="expense-payment"
+          options={ methods }
+          onChange={ this.handleChange }
+        />
+        <Select
+          name="tag"
+          labelText="Tag"
+          id="expense-category"
+          options={ tags }
+          onChange={ this.handleChange }
+        />
+      </div>
+    );
+  }
+
+  renderInputs() {
     return (
       <div>
         <Input
@@ -88,36 +117,12 @@ class Expenses extends React.Component {
     );
   }
 
-  render() {
-    const { currencies } = this.props;
-    const getCurrencies = Object.keys(currencies);
-    const filterCurrencies = getCurrencies.filter((item) => item !== 'USDT');
-
+  renderForm() {
     return (
       <section>
         <form onSubmit={ this.handleSubmit }>
-          { this.inputs() }
-          <Select
-            name="currency"
-            labelText="Moeda"
-            id="expense-currency"
-            options={ filterCurrencies }
-            onChange={ this.handleChange }
-          />
-          <Select
-            name="method"
-            labelText="Método de pagamento"
-            id="expense-payment"
-            options={ methods }
-            onChange={ this.handleChange }
-          />
-          <Select
-            name="tag"
-            labelText="Tag"
-            id="expense-category"
-            options={ tags }
-            onChange={ this.handleChange }
-          />
+          { this.renderInputs() }
+          { this.renderSelects() }
           <Button
             name="expense-submit"
             id="expense-submit"
@@ -125,6 +130,15 @@ class Expenses extends React.Component {
           />
         </form>
       </section>
+    );
+  }
+
+  render() {
+    return (
+      <main>
+        { this.renderForm() }
+        <Table />
+      </main>
     );
   }
 }
@@ -135,6 +149,7 @@ Expenses.propTypes = {
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  getExpenses: state.wallet.expenses,
 });
 
 const mapDispatchToProps = (dispatch) => ({
