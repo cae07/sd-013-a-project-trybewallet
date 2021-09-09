@@ -44,11 +44,10 @@ class WalletForm extends Component {
   }
 
   createInputs(type, name, value, labelText) {
-    const { currency } = this.state;
-
     // start creating dynamic components - in refactoring stage,
     // should be placed into a separate file
     // made by myself =P
+    const { currency } = this.state;
 
     // general text or number input
     const formInput = (
@@ -63,9 +62,9 @@ class WalletForm extends Component {
 
     // select html tag for payment method
     const selectMethod = (
-      <label htmlFor={ name }>
+      <label name="method" htmlFor={ name }>
         {labelText}
-        <select onChange={ (e) => this.handleChange(e) } name="method">
+        <select id={ name } onChange={ (e) => this.handleChange(e) } name="method">
           <option value="Cartão de crédito">Cartão de Crédito</option>
           <option value="Cartão de débito">Cartão de Débito</option>
           <option value="Dinheiro">Dinheiro</option>
@@ -75,9 +74,9 @@ class WalletForm extends Component {
 
     // select html tag for ca-TAG-ory of expenses
     const selectTag = (
-      <label htmlFor={ name }>
+      <label name="tag" htmlFor={ name }>
         {labelText}
-        <select onChange={ (e) => this.handleChange(e) } name="tag">
+        <select id={ name } onChange={ (e) => this.handleChange(e) } name="tag">
           <option value="Alimentacao">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
@@ -89,9 +88,9 @@ class WalletForm extends Component {
 
     // select html tag for currency
     const selectCurrency = (
-      <label htmlFor={ name }>
+      <label name="currency" htmlFor="currency">
         {labelText}
-        <select onChange={ (e) => this.handleChange(e) } name="currency">
+        <select onChange={ (e) => this.handleChange(e) } id={ name } name="currency">
           <Option currency={ currency } />
         </select>
       </label>
@@ -99,33 +98,44 @@ class WalletForm extends Component {
 
     // button html tag for add new expenses in to the table
     const addExpenseButton = (
-      <button
-        onClick={ (e) => this.handleClick(e) }
-        type="submit"
-      >
-        Adicionar despesa
-      </button>
+      <label htmlFor={ name }>
+        <button
+          name="button"
+          onClick={ (e) => this.handleClick(e) }
+          type="button"
+          id={ name }
+        >
+          { labelText }
+        </button>
+      </label>
     );
 
     // return the correct component based on the type AND name
-    if (formInput.props.type === 'select' && formInput.props.name === 'currency') {
+    // prefer using switch case because of complexity
+    // this case search for the correct component based on the name or type
+
+    switch (name || type) {
+    case 'currency':
       return selectCurrency;
-    }
 
-    if (formInput.props.type === 'select' && formInput.props.name === 'method') {
+    case 'method':
       return selectMethod;
-    }
 
-    if (formInput.props.type === 'select' && formInput.props.name === 'tag') {
+    case 'tag':
       return selectTag;
-    }
 
-    if (formInput.props.type === 'button') {
+    case 'value':
+      return formInput;
+
+    case 'description':
+      return formInput;
+
+    case 'button':
       return addExpenseButton;
-    }
 
-    // return the default component if any above isn't met
-    return formInput;
+    default:
+      return formInput;
+    }
   }
 
   render() {
@@ -136,9 +146,9 @@ class WalletForm extends Component {
           { this.createInputs('text', 'value', value, 'Valor') }
           { this.createInputs('text', 'description', description, 'Descrição') }
           { this.createInputs('select', 'currency', currency, 'Moeda') }
-          { this.createInputs('select', 'tag', tag, 'Categoria') }
-          { this.createInputs('select', 'method', method, 'Método') }
-          { this.createInputs('button', '', '', 'Adicionar') }
+          { this.createInputs('select', 'tag', tag, 'Tag') }
+          { this.createInputs('select', 'method', method, 'Método de pagamento') }
+          { this.createInputs('button', '', '', 'Adicionar despesa') }
         </form>
 
         <ExpensesData />

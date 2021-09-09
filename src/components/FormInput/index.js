@@ -44,7 +44,7 @@ FormInput.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   className: PropTypes.string,
-  type: PropTypes.oneOf(['text', 'number']),
+  type: PropTypes.oneOf(['text', 'number', 'select', 'button']),
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
