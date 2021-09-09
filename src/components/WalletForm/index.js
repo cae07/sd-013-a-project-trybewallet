@@ -64,7 +64,7 @@ class WalletForm extends Component {
     const selectMethod = (
       <label name="method" htmlFor={ name }>
         {labelText}
-        <select id={ name } onChange={ (e) => this.handleChange(e) } name="method">
+        <select id={ name } onChange={ (e) => this.handleChange(e) } name={ name }>
           <option value="Cartão de crédito">Cartão de Crédito</option>
           <option value="Cartão de débito">Cartão de Débito</option>
           <option value="Dinheiro">Dinheiro</option>
@@ -76,7 +76,7 @@ class WalletForm extends Component {
     const selectTag = (
       <label name="tag" htmlFor={ name }>
         {labelText}
-        <select id={ name } onChange={ (e) => this.handleChange(e) } name="tag">
+        <select id={ name } onChange={ (e) => this.handleChange(e) } name={ name }>
           <option value="Alimentacao">Alimentação</option>
           <option value="Lazer">Lazer</option>
           <option value="Trabalho">Trabalho</option>
@@ -88,9 +88,9 @@ class WalletForm extends Component {
 
     // select html tag for currency
     const selectCurrency = (
-      <label name="currency" htmlFor="currency">
+      <label name={ name } htmlFor="currency">
         {labelText}
-        <select onChange={ (e) => this.handleChange(e) } id={ name } name="currency">
+        <select onChange={ (e) => this.handleChange(e) } id={ name } name={ name }>
           <Option currency={ currency } />
         </select>
       </label>
@@ -98,16 +98,12 @@ class WalletForm extends Component {
 
     // button html tag for add new expenses in to the table
     const addExpenseButton = (
-      <label htmlFor={ name }>
-        <button
-          name="button"
-          onClick={ (e) => this.handleClick(e) }
-          type="button"
-          id={ name }
-        >
-          { labelText }
-        </button>
-      </label>
+      <button
+        onClick={ (e) => this.handleClick(e) }
+        type="submit"
+      >
+        { labelText }
+      </button>
     );
 
     // return the correct component based on the type AND name
