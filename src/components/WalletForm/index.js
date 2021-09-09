@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -43,26 +42,9 @@ class WalletForm extends Component {
     return <Redirect to="/carteira" />;
   }
 
-  createInputs(type, name, value, labelText) {
-    // start creating dynamic components - in refactoring stage,
-    // should be placed into a separate file
-    // made by myself =P
-    const { currency } = this.state;
-
-    // general text or number input
-    const formInput = (
-      <FormInput
-        type={ type }
-        name={ name }
-        value={ value }
-        label={ labelText }
-        onChange={ (e) => this.handleChange(e) }
-      />
-    );
-
-    // select html tag for payment method
-    const selectMethod = (
-      <label name="method" htmlFor={ name }>
+  selectMethod(name, labelText) {
+    return (
+      <label name={ name } htmlFor={ name }>
         {labelText}
         <select id={ name } onChange={ (e) => this.handleChange(e) } name={ name }>
           <option value="Cartão de crédito">Cartão de Crédito</option>
@@ -71,9 +53,21 @@ class WalletForm extends Component {
         </select>
       </label>
     );
+  }
 
-    // select html tag for ca-TAG-ory of expenses
-    const selectTag = (
+  selectCurrency(name, currency, labelText) {
+    return (
+      <label name={ name } htmlFor="currency">
+        {labelText}
+        <select onChange={ (e) => this.handleChange(e) } id={ name } name={ name }>
+          <Option currency={ currency } />
+        </select>
+      </label>
+    );
+  }
+
+  selectTag(name, labelText) {
+    return (
       <label name="tag" htmlFor={ name }>
         {labelText}
         <select id={ name } onChange={ (e) => this.handleChange(e) } name={ name }>
@@ -85,18 +79,20 @@ class WalletForm extends Component {
         </select>
       </label>
     );
+  }
 
-    // select html tag for currency
-    const selectCurrency = (
-      <label name={ name } htmlFor="currency">
-        {labelText}
-        <select onChange={ (e) => this.handleChange(e) } id={ name } name={ name }>
-          <Option currency={ currency } />
-        </select>
-      </label>
+  createInputs(type, name, value, labelText) {
+    const { currency } = this.state;
+    const formInput = (
+      <FormInput
+        type={ type }
+        name={ name }
+        value={ value }
+        label={ labelText }
+        onChange={ (e) => this.handleChange(e) }
+      />
     );
 
-    // button html tag for add new expenses in to the table
     const addExpenseButton = (
       <button
         onClick={ (e) => this.handleClick(e) }
@@ -105,30 +101,19 @@ class WalletForm extends Component {
         { labelText }
       </button>
     );
-
-    // return the correct component based on the type AND name
-    // prefer using switch case because of complexity
-    // this case search for the correct component based on the name or type
-
     switch (name || type) {
     case 'currency':
-      return selectCurrency;
-
+      return this.selectCurrency(name, currency, labelText);
     case 'method':
-      return selectMethod;
-
+      return this.selectMethod(name, labelText);
     case 'tag':
-      return selectTag;
-
+      return this.selectTag(name, labelText);
     case 'value':
       return formInput;
-
     case 'description':
       return formInput;
-
     case 'button':
       return addExpenseButton;
-
     default:
       return formInput;
     }
