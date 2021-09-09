@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { emailLogin } from '../actions/index';
+import './Login.css';
 
 const validacaoEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/i;
 const NUMBER_SIX = 6;
@@ -35,8 +36,8 @@ class Login extends React.Component {
   render() {
     const { email, password } = this.state;
     return (
-      <div>
-        <form>
+      <div className="principal">
+        <form className="container_form">
           <fieldset>
             <label htmlFor="email">
               Email:
@@ -48,6 +49,7 @@ class Login extends React.Component {
                 placeholder="cafe@trybe.com"
                 data-testid="email-input"
                 name="email"
+                className="inputText_1"
               />
             </label>
 
@@ -61,12 +63,14 @@ class Login extends React.Component {
                 placeholder="password"
                 data-testid="password-input"
                 name="password"
+                className="inputText_2"
               />
             </label>
 
             <button
               type="button"
               onClick={ this.handleClick }
+              className="button"
               disabled={ !(validacaoEmail.test(email) && password.length >= NUMBER_SIX) }
             >
               Entrar

@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchMoedas, addApiExpenses } from '../actions';
+import Table from './Table';
+import './Wallet.css';
 
 // TODO O MÉRITO DA QUESTÃO 8 PARA MATHEUS MACEDO -> VALEU BROW!
 class Wallet extends React.Component {
@@ -33,11 +35,12 @@ class Wallet extends React.Component {
   }
 
   handleClick() {
+    const { actionAPiExpense } = this.props;
     const { id, value, description, currency, method, tag } = this.state;
     const estados = { id, value, description, currency, method, tag };
-    const { actionAPiExpense } = this.props;
 
     this.setState({ id: id + 1 }, () => actionAPiExpense(estados));
+    this.zerar();
   }
 
   somaValores() {
@@ -49,6 +52,16 @@ class Wallet extends React.Component {
     });
 
     return soma.toFixed(2);
+  }
+
+  zerar() {
+    this.setState({
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+    });
   }
 
   inputValues() {
@@ -174,6 +187,7 @@ class Wallet extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        <Table soma={ this.somaValores() } />
       </div>
     );
   }
