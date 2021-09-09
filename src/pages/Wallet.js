@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { setExpenses } from '../actions';
+import Expenses from './Expenses';
 import Header from './Header';
 
 class Wallet extends React.Component {
@@ -62,44 +63,47 @@ class Wallet extends React.Component {
 
   render() {
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <Header />
-        <label htmlFor="valor">
-          Valor
-          <input name="value" id="valor" type="number" onChange={ this.change } />
-        </label>
-        <label htmlFor="moedas">
-          Moeda
-          <select name="currency" id="moedas" onChange={ this.change }> </select>
-        </label>
-        <label htmlFor="pagamento">
-          Método de pagamento
-          <select
-            id="pagamento"
-            name="method"
-            onChange={ this.change }
-          >
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de crédito">Cartão de crédito</option>
-            <option value="Cartão de débito">Cartão de débito</option>
-          </select>
-        </label>
-        <label htmlFor="tag">
-          Tag
-          <select name="tag" id="tag" onChange={ this.change }>
-            <option value="Alimentação">Alimentação</option>
-            <option value="Lazer">Lazer</option>
-            <option value="Trabalho">Trabalho</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Saúde">Saúde</option>
-          </select>
-        </label>
-        <label htmlFor="descricao">
-          Descrição
-          <textarea name="description" id="descricao" onChange={ this.change } />
-        </label>
-        <button type="submit"> Adicionar Despesa </button>
-      </form>
+      <>
+        <form onSubmit={ this.handleSubmit }>
+          <Header />
+          <label htmlFor="valor">
+            Valor
+            <input name="value" id="valor" type="number" onChange={ this.change } />
+          </label>
+          <label htmlFor="moedas">
+            Moeda
+            <select name="currency" id="moedas" onChange={ this.change }> </select>
+          </label>
+          <label htmlFor="pagamento">
+            Método de pagamento
+            <select
+              id="pagamento"
+              name="method"
+              onChange={ this.change }
+            >
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
+            </select>
+          </label>
+          <label htmlFor="tag">
+            Tag
+            <select name="tag" id="tag" onChange={ this.change }>
+              <option value="Alimentação">Alimentação</option>
+              <option value="Lazer">Lazer</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Saúde">Saúde</option>
+            </select>
+          </label>
+          <label htmlFor="descricao">
+            Descrição
+            <textarea name="description" id="descricao" onChange={ this.change } />
+          </label>
+          <button type="submit"> Adicionar Despesa </button>
+        </form>
+        <Expenses />
+      </>
     );
   }
 }

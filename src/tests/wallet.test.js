@@ -231,7 +231,7 @@ describe('8 - Desenvolva a opção de "Adicionar despesa" na sua tabela de gasto
 describe('9 - Desenvolva uma tabela com os gastos contendo as seguintes características:', () => {
   const initial = initialStateWithExpenses;
 
-  test.skip('A tabela deve possuir um cabeçalho com os campos Descrição, Tag, Método de pagamento, Valor, Moeda, Câmbio utilizado, Valor convertido e Moeda de conversão', () => {
+  test('A tabela deve possuir um cabeçalho com os campos Descrição, Tag, Método de pagamento, Valor, Moeda, Câmbio utilizado, Valor convertido e Moeda de conversão', () => {
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     const thDescricao = screen.getByRole('columnheader', { name: 'Descrição' });
     const thTag = screen.getByRole('columnheader', { name: 'Tag' });
@@ -254,7 +254,7 @@ describe('9 - Desenvolva uma tabela com os gastos contendo as seguintes caracter
     expect(thEditarExcluir).toBeInTheDocument();
   });
 
-  test.skip('A tabela deve ser alimentada pelo estado da aplicação, que estará disponível na chave expenses que vem do reducer wallet.', () => {
+  test('A tabela deve ser alimentada pelo estado da aplicação, que estará disponível na chave expenses que vem do reducer wallet.', () => {
     renderWithRouterAndStore(<Wallet />, '/carteira', initial);
     expect(screen.getAllByRole('cell', { name: 'Dez dólares' })[0]).toBeInTheDocument();
     expect(screen.getAllByRole('cell', { name: 'Lazer' })[0]).toBeInTheDocument();
