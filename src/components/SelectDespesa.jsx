@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 
 class SelectDespesa extends React.Component {
   render() {
+    const { handleChange } = this.props;
     return (
       <label htmlFor="despesa-input">
         Tag:
-        <select id="despesa-input">
+        <select id="despesa-input" name="despesa" onChange={ handleChange }>
           <option value="alimentacao"> Alimentação </option>
           <option value="lazer"> Lazer </option>
           <option value="trabalho"> Trabalho </option>

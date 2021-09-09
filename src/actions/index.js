@@ -7,7 +7,7 @@ export const setLogin = (email) => ({
   email,
 });
 
-export const setCurrencies = () => ({
+export const setCurrencies = (state) => ({
   type: SET_CURRENCIES,
-
+  state,
 });

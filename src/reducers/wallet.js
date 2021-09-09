@@ -6,12 +6,19 @@ const INITIAL_STATE = {
   expenses: [],
 };
 
-const wallet = (state = INITIAL_STATE, { payload, type }) => {
-  switch (type) {
+const wallet = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
   case SET_CURRENCIES:
     return {
       ...state,
-      currencies: Object.keys(payload),
+      currencies: [{
+        id: 0,
+        value: action.valor,
+        description: action.descricao,
+        currency: action.moeda,
+        method: action.pagamento,
+        tag: action.despesa,
+      }],
     };
   default:
     return state;

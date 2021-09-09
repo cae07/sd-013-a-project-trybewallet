@@ -7,6 +7,7 @@ import Input from '../components/Input';
 import SelectPagamento from '../components/SelectPagamento';
 import SelectDespesa from '../components/SelectDespesa';
 import './Wallet.css';
+import { setCurrencies } from '../actions';
 
 class Wallet extends React.Component {
   constructor(props) {
@@ -23,10 +24,23 @@ class Wallet extends React.Component {
     this.getApiMoedas = this.getApiMoedas.bind(this);
     this.getOptions = this.getOptions.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
     this.getApiMoedas();
+  }
+
+  onSubmit() {
+    const { setStateCurrencies } = this.props;
+    setStateCurrencies(this.state);
+    this.setState({
+      valor: '',
+      descricao: '',
+      moeda: '',
+      pagamento: '',
+      despesa: '',
+    });
   }
 
   async getApiMoedas() {
@@ -80,13 +94,18 @@ class Wallet extends React.Component {
             />
             <label htmlFor="moeda-input">
               Moeda:
-              <select value={ moeda } id="moeda-input">
+              <select
+                name="moeda"
+                onChange={ this.handleChange }
+                value={ moeda }
+                id="moeda-input"
+              >
                 {this.getOptions()}
               </select>
             </label>
-            <SelectPagamento value={ pagamento } />
-            <SelectDespesa value={ despesa } />
-            <Button />
+            <SelectPagamento value={ pagamento } handleChange={ this.handleChange } />
+            <SelectDespesa value={ despesa } handleChange={ this.handleChange } />
+            <Button onSubmit={ this.onSubmit } />
           </form>
         )}
       </div>
@@ -102,4 +121,8 @@ const mapStateToProps = (state) => ({
   emailReducer: state.user.email,
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  setStateCurrencies: (state) => dispatch(setCurrencies(state)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
