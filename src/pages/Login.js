@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { setLogin } from '../actions';
 import './Login.css';
-// import img from '../logo.gif'; // linha 46
+import img from '../logo.gif';
 
 class Login extends React.Component {
   constructor(props) {
@@ -42,9 +42,9 @@ class Login extends React.Component {
     const { email, password } = this.state;
     return (
       <div>
-        <fieldset id="login-countainer">
-          {/* <img id="img-login" src={ img } alt="logo" /> */}
-          <div id="input-container">
+        <fieldset className="login-countainer">
+          <img className="img-login" src={ img } alt="logo" />
+          <div className="input-container">
             <label htmlFor="email-input">
               Email:
               <input
@@ -67,9 +67,9 @@ class Login extends React.Component {
               />
             </label>
           </div>
-          <Link to="/carteira" id="link-login">
+          <Link to="/carteira" className="link-login">
             <button
-              id="button-login"
+              className="button-login"
               type="button"
               disabled={ this.validLogin(email, password) }
               onClick={ this.onSubmitLogin }
