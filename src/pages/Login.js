@@ -63,7 +63,7 @@ class Login extends React.Component {
                 type="text"
                 data-testid="password-input"
                 name="password"
-                onChange={ this.handleChange }
+                onChange={ his.hatndleChange }
               />
             </label>
           </div>
