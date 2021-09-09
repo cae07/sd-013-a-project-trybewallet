@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import apiWithThunk, { fetchExpenseAPI } from '../actions/actionsThunk';
 import { tags, methods } from '../utils/options';
-import { Input, Select, Button, Table } from '.';
+import Table from './Table';
+import { Input, Select, Button } from '.';
 
 class Expenses extends React.Component {
   constructor() {
