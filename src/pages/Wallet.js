@@ -63,7 +63,7 @@ class Wallet extends React.Component {
       <div>
         <Header email={ emailReducer } />
         { loading ? Loading : (
-          <form id="form">
+          <form className="form">
             <Input
               id="valor-input"
               value={ valor }
