@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Tbody } from '.';
+import Tbody from './Tbody';
 
 class Table extends React.Component {
   constructor() {
