@@ -19,9 +19,10 @@ class Login extends React.Component {
     this.setState({ [name]: value });
   }
 
-  validateEmail(email) {
-    const re = /^[^@]+@[^@]+\.[^@]+$/;
-    return re.test(String(email).toLowerCase());
+  validateEmail() {
+    const { email } = this.state;
+    const pattern = /^\S+@\S+\.\S+$/;
+    return pattern.test(email);
   }
 
   handleBtnClick() {
@@ -54,7 +55,7 @@ class Login extends React.Component {
         />
         <button
           type="button"
-          disabled={ (!passwordLength && !this.validateEmail()) }
+          disabled={ !(this.validateEmail() && passwordLength) }
           onClick={ this.handleBtnClick }
         >
           Entrar
