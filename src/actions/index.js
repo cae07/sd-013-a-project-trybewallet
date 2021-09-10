@@ -5,6 +5,7 @@ import {
   ERROR_TYPE,
   SUBMIT_TYPE,
   ADD_EXPENSES,
+  DELETE_PAYMENT,
 } from './actionTypes';
 
 // Login page
@@ -37,4 +38,9 @@ export const submitAction = (payload) => ({
 export const addExpenseAction = (payload) => ({
   type: ADD_EXPENSES,
   payload,
+});
+
+export const deleteExpense = (id) => ({
+  type: DELETE_PAYMENT,
+  id,
 });

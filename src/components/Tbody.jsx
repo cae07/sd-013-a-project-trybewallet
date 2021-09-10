@@ -1,19 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Button } from '.';
+import { deleteExpense } from '../actions';
 
 class Tbody extends React.Component {
   constructor() {
     super();
 
-    this.state = {};
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick({ target }) {
+    const { remove } = this.props;
+    const expenseID = parseInt(target.name, 10);
+    remove(expenseID);
   }
 
   render() {
     const { getExpenses } = this.props;
 
     return (
-      <div>
+      <>
         {getExpenses.map((expense) => {
           const {
             id,
@@ -35,10 +43,20 @@ class Tbody extends React.Component {
               <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
               <td>{Number(exchangeRates[currency].ask * value).toFixed(2)}</td>
               <td>Real</td>
+              <td>
+                <Button
+                  type="button"
+                  name={ id }
+                  testID="delete-btn"
+                  onClick={ this.handleClick }
+                  text="Excluir"
+                />
+              </td>
+              <p>{id}</p>
             </tr>
           );
         })}
-      </div>
+      </>
     );
   }
 }
@@ -53,4 +71,8 @@ const mapStateToProps = (state) => ({
   getExpenses: state.wallet.expenses,
 });
 
-export default connect(mapStateToProps, null)(Tbody);
+const mapDispatchToProps = (dispatch) => ({
+  remove: (expenseID) => dispatch(deleteExpense(expenseID)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tbody);

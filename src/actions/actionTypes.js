@@ -7,3 +7,5 @@ export const SUCCESS_TYPE = 'SUCCESS_TYPE';
 export const ERROR_TYPE = 'ERROR_TYPE';
 export const SUBMIT_TYPE = 'SUBMIT_TYPE';
 export const ADD_EXPENSES = 'ADD_EXPENSES';
+export const DELETE_PAYMENT = 'DELETE_PAYMENT';
+export const EDIT_PAYMENT = 'EDIT_PAYMENT';
