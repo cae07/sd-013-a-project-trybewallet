@@ -41,3 +41,13 @@
   color: #07b676;
   font-weight: 700;
 }
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.edit-btn, .delete-btn {
+  font-size: 25px;
+  margin-left: 12px;
+}

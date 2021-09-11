@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import DeleteButton from '../DeleteButton';
+import EditButton from '../EditButton';
+
 import './ExpensesData.css';
 
 class ExpensesData extends Component {
@@ -23,7 +26,10 @@ class ExpensesData extends Component {
           </td>
           <td>{(value * askRate).toFixed(2)}</td>
           <td>Real</td>
-          <td>Editar/Excluir</td>
+          <td className="buttons">
+            <EditButton id={ id } />
+            <DeleteButton id={ id } />
+          </td>
         </tr>
       );
     });

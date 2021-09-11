@@ -103,6 +103,15 @@ class WalletForm extends Component {
       </button>
     );
 
+    // const editExpenseButton = (
+    //   <button
+    //     onClick={ (e) => this.handleClick(e) }
+    //     type="submit"
+    //   >
+    //     Editar despesa
+    //   </button>
+    // );
+
     switch (name || type) {
     case 'currency':
       return this.selectCurrency(name, currency, labelText);

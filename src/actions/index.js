@@ -5,6 +5,9 @@ import {
   LOADING_ACTION,
   LOADING_ACTION_SUCCESS,
   LOADING_ACTION_FAIL,
+  EDIT_EXPENSE,
+  DELETE_EXPENSE,
+  IS_EDITING,
   API_URL,
 } from '../constants';
 
@@ -30,6 +33,21 @@ export const loadingActionSuccess = (payload) => ({
 export const loadingActionFail = (payload) => ({
   type: LOADING_ACTION_FAIL,
   payload,
+});
+
+export const editExpense = (expense) => ({
+  type: EDIT_EXPENSE,
+  expense,
+});
+
+export const deleteExpense = (payload, id) => ({
+  type: DELETE_EXPENSE,
+  payload,
+  id,
+});
+
+export const isEditing = () => ({
+  type: IS_EDITING,
 });
 
 export const fetchData = () => (
