@@ -35,8 +35,9 @@ class Login extends React.Component {
 
   handleClick() {
     const { history, loginToStore } = this.props;
+    const { email } = this.state;
 
-    loginToStore(this.state);
+    loginToStore(email);
 
     history.push('/carteira');
   }
@@ -93,7 +94,7 @@ Login.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  loginToStore: (login) => dispatch(actionLogin(login)),
+  loginToStore: (email) => dispatch(actionLogin(email)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

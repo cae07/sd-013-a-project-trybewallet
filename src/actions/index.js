@@ -1,6 +1,6 @@
 export const LOGIN = 'LOGIN';
 
-export const actionLogin = (login) => ({
+export const actionLogin = (email) => ({
   type: LOGIN,
-  login,
+  email,
 });
