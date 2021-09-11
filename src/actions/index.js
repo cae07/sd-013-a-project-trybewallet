@@ -2,6 +2,8 @@
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 export const SAVE_EXCHANGE_RATES = 'SAVE_EXCHANGE_RATES';
+export const SAVE_ID = 'SAVE_ID';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const saveEmail = (payload) => ({
   type: SAVE_EMAIL,
@@ -19,7 +21,15 @@ export const saveExpenseThunk = (payload) => async (dispatch) => {
   delete exchangeRates.USDT;
   const rates = { expense: { exchangeRates } };
   Object.assign(payload.expense, rates.expense);
-  console.log(payload);
-
   return dispatch(saveExpense(payload));
 };
+
+export const saveId = (payload) => ({
+  type: SAVE_ID,
+  payload,
+});
+
+export const deleteExpense = (payload) => ({
+  type: DELETE_EXPENSE,
+  payload,
+});

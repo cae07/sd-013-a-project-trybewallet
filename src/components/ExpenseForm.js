@@ -10,8 +10,8 @@ class ExpenseForm extends Component {
       value: 0,
       description: '',
       currency: 'USD',
-      payment: 'money',
-      tag: 'food',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
       shouldIFetch: true,
       exchangeRates: {},
       id: 0,
@@ -19,7 +19,7 @@ class ExpenseForm extends Component {
     this.renderValue = this.renderValue.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
     this.renderCurrency = this.renderCurrency.bind(this);
-    this.renderPayment = this.renderPayment.bind(this);
+    this.renderMethod = this.renderMethod.bind(this);
     this.renderTag = this.renderTag.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.fetchApi = this.fetchApi.bind(this);
@@ -42,14 +42,14 @@ class ExpenseForm extends Component {
   }
 
   handleAddExpenseBtn() {
-    const { value, description, currency, payment, tag, id } = this.state;
+    const { value, description, currency, method, tag, id } = this.state;
     const { saveExpense } = this.props;
     const payload = { expense: {
       id,
       value,
       description,
       currency,
-      payment,
+      method,
       tag,
     } };
     saveExpense(payload);
@@ -114,20 +114,20 @@ class ExpenseForm extends Component {
     );
   }
 
-  renderPayment() {
-    const { payment } = this.state;
+  renderMethod() {
+    const { method } = this.state;
     return (
-      <label htmlFor="payment">
+      <label htmlFor="method">
         Método de pagamento
         <select
-          id="payment"
-          name="payment"
-          value={ payment }
+          id="method"
+          name="method"
+          value={ method }
           onChange={ this.handleChange }
         >
-          <option value="money">Dinheiro</option>
-          <option value="credit">Cartão de crédito</option>
-          <option value="debit">Cartão de débito</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Cartão de crédito">Cartão de crédito</option>
+          <option value="Cartão de débito">Cartão de débito</option>
         </select>
       </label>
     );
@@ -144,25 +144,25 @@ class ExpenseForm extends Component {
           value={ tag }
           onChange={ this.handleChange }
         >
-          <option value="food">Alimentação</option>
-          <option value="hobby">Lazer</option>
-          <option value="work">Trabalho</option>
-          <option value="transport">Transporte</option>
-          <option value="health">Saúde</option>
+          <option value="Alimentaçao">Alimentação</option>
+          <option value="Lazer">Lazer</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Saúde">Saúde</option>
         </select>
       </label>
     );
   }
 
   render() {
-    // const { shouldIFetch } = this.state;
-    // if (shouldIFetch) return <p>Loading...</p>;
+    const { shouldIFetch } = this.state;
+    if (shouldIFetch) return <p>Loading...</p>;
     return (
       <form>
         { this.renderValue() }
         { this.renderDescription()}
         { this.renderCurrency()}
-        { this.renderPayment() }
+        { this.renderMethod() }
         { this.renderTag() }
         <button
           type="button"

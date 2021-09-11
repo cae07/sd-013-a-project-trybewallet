@@ -1,7 +1,8 @@
-import { SAVE_EMAIL } from '../actions';
+import { SAVE_EMAIL, SAVE_ID } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
+  id: 0,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +11,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       email: action.payload.email,
+    };
+  case SAVE_ID:
+    return {
+      ...state,
+      id: state.id + 1,
     };
   default:
     return state;
