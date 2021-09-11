@@ -5,6 +5,7 @@ import DescriptionInput from './DescriptionInput';
 import ExpensesInput from './ExpensesInput';
 import PaymentMethod from './PaymentMethod';
 import ValueInput from './ValueInput';
+import ExpensesTable from './ExpensesTable';
 
 class HeaderForm extends Component {
   constructor() {
@@ -52,6 +53,7 @@ class HeaderForm extends Component {
         >
           Adicionar despesa
         </button>
+        <ExpensesTable />
       </form>
     );
   }
@@ -59,7 +61,7 @@ class HeaderForm extends Component {
 
 HeaderForm.propTypes = {
   expenses: PropTypes.shape({
-    value: PropTypes.number,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     description: PropTypes.string,
     currency: PropTypes.string,
     paymentMethod: PropTypes.string,

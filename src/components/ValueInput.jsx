@@ -20,7 +20,7 @@ class ValueInput extends Component {
 }
 
 ValueInput.propTypes = {
-  valueCost: PropTypes.number.isRequired,
+  valueCost: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   handleChange: PropTypes.func.isRequired,
 };
 

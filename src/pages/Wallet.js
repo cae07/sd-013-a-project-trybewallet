@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import HeaderForm from '../components/HeaderForm';
 import { fetchCurrencesAction, fetchExchangeRatesAction } from '../actions';
-import fetchCurrencyAPI from '../services/calculateCurrencyAPI';
 
 class Wallet extends React.Component {
   constructor() {
@@ -39,9 +38,9 @@ class Wallet extends React.Component {
     }));
   }
 
-  expenseTotal(currency) {
+  expenseTotal(currencyAsk) {
     const { expenses: { value } } = this.state;
-    const expenseRate = value * currency;
+    const expenseRate = value * currencyAsk;
     this.setState((prevState) => (
       { expensesValue: prevState.expensesValue + expenseRate }));
   }
@@ -53,9 +52,8 @@ class Wallet extends React.Component {
       expenses:
       { ...prevState.expenses,
         id: prevState.expenses.id + 1 } }));
-    fetchExchangeRates(expenses);
-    const currencyAsk = await fetchCurrencyAPI(currency);
-    this.expenseTotal(Number(currencyAsk));
+    const currenciesAsk = await fetchExchangeRates(expenses, currency);
+    this.expenseTotal(Number(currenciesAsk));
   }
 
   render() {
@@ -91,7 +89,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchCurrences: () => dispatch(fetchCurrencesAction()),
-  fetchExchangeRates: (expenses) => dispatch(fetchExchangeRatesAction(expenses)),
+  fetchExchangeRates: (expenses, currency) => (
+    dispatch(fetchExchangeRatesAction(expenses, currency))),
 });
 
 Wallet.propTypes = {

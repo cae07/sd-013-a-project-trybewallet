@@ -33,8 +33,12 @@ const mapStateToProps = (state) => ({
 CurrencyInput.propTypes = {
   currencyValue: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  currencies: PropTypes.arrayOf().isRequired,
-  isFetching: PropTypes.bool.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isFetching: PropTypes.bool,
+};
+
+CurrencyInput.defaultProps = {
+  isFetching: false,
 };
 
 export default connect(mapStateToProps)(CurrencyInput);

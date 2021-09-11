@@ -62,18 +62,16 @@ export const requestExchangeError = (error) => ({
 
 // source: https://github.com/tryber/sd-013-a-project-trybewallet/pull/85/commits/26a7724fb33c00509cfb1a908c7594c8dec40693
 
-export const fetchExchangeRatesAction = (expense) => (dispatch) => (
+export const fetchExchangeRatesAction = (expense, currency) => (dispatch) => (
   fetch(`${CURRENCES_API}`)
     .then((response) => response.json())
     .then((currenciesResponse) => {
+      delete currenciesResponse.USDT;
       const expenses = {
         ...expense,
-        exchangeRates: Object.fromEntries(
-          Object.entries(currenciesResponse).filter(([key]) => !(key.includes('USDT'))),
-        ),
+        exchangeRates: currenciesResponse,
       };
-      return dispatch(requestExchangeSuccess(
-        expenses,
-      ));
+      dispatch(requestExchangeSuccess(expenses));
+      return currenciesResponse[currency].ask;
     })
 );

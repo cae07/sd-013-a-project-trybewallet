@@ -10,7 +10,7 @@ const wallet = (state = WALLET_INICIAL_STATE, action) => {
   case WALLET_SUCCESS:
     return {
       ...state,
-      currencies: action.wallet.currencies,
+      currencies: Object.keys({ ...action.wallet.currencies }),
     };
   case WALLET_ERROR:
     return {
@@ -20,15 +20,17 @@ const wallet = (state = WALLET_INICIAL_STATE, action) => {
   case EXCHANGE_SUCCESS:
     return {
       ...state,
-      expenses: [{
-        id: action.expenses.id,
-        value: action.expenses.value,
-        description: action.expenses.description,
-        currency: action.expenses.currency,
-        method: action.expenses.paymentMethod,
-        tag: action.expenses.kindExpense,
-        exchangeRates: action.expenses.exchangeRates,
-      }],
+      expenses: [
+        ...state.expenses,
+        {
+          id: action.expenses.id,
+          value: action.expenses.value,
+          description: action.expenses.description,
+          currency: action.expenses.currency,
+          method: action.expenses.paymentMethod,
+          tag: action.expenses.kindExpense,
+          exchangeRates: action.expenses.exchangeRates,
+        }],
     };
   default:
     return state;
