@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { saveExpenseThunk } from '../actions';
 
 class ExpenseForm extends Component {
   constructor() {
@@ -6,19 +9,21 @@ class ExpenseForm extends Component {
     this.state = {
       value: 0,
       description: '',
-      coin: 'USD',
+      currency: 'USD',
       payment: 'money',
       tag: 'food',
       shouldIFetch: true,
       exchangeRates: {},
+      id: 0,
     };
     this.renderValue = this.renderValue.bind(this);
     this.renderDescription = this.renderDescription.bind(this);
-    this.renderCoin = this.renderCoin.bind(this);
+    this.renderCurrency = this.renderCurrency.bind(this);
     this.renderPayment = this.renderPayment.bind(this);
     this.renderTag = this.renderTag.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.fetchApi = this.fetchApi.bind(this);
+    this.handleAddExpenseBtn = this.handleAddExpenseBtn.bind(this);
   }
 
   async componentDidMount() {
@@ -31,9 +36,24 @@ class ExpenseForm extends Component {
       const fetchAPI = await fetch('https://economia.awesomeapi.com.br/json/all');
       const json = await fetchAPI.json();
       delete json.USDT;
-      this.setState({ exchangeRates: { ...json } });
-      return json;
+      this.setState({ exchangeRates: { ...json }, shouldIFetch: false });
+      // return json;
     });
+  }
+
+  handleAddExpenseBtn() {
+    const { value, description, currency, payment, tag, id } = this.state;
+    const { saveExpense } = this.props;
+    const payload = { expense: {
+      id,
+      value,
+      description,
+      currency,
+      payment,
+      tag,
+    } };
+    saveExpense(payload);
+    this.setState((prevState) => ({ id: prevState.id + 1 }));
   }
 
   handleChange({ target: { name, value } }) {
@@ -70,15 +90,15 @@ class ExpenseForm extends Component {
     );
   }
 
-  renderCoin() {
-    const { coin, exchangeRates } = this.state;
+  renderCurrency() {
+    const { currency, exchangeRates } = this.state;
     return (
-      <label htmlFor="coin">
+      <label htmlFor="currency">
         Moeda
         <select
-          id="coin"
-          name="coin"
-          value={ coin }
+          id="currency"
+          name="currency"
+          value={ currency }
           onChange={ this.handleChange }
         >
           {Object.keys(exchangeRates).map((obj) => (
@@ -135,16 +155,32 @@ class ExpenseForm extends Component {
   }
 
   render() {
+    // const { shouldIFetch } = this.state;
+    // if (shouldIFetch) return <p>Loading...</p>;
     return (
       <form>
         { this.renderValue() }
         { this.renderDescription()}
-        { this.renderCoin()}
+        { this.renderCurrency()}
         { this.renderPayment() }
         { this.renderTag() }
+        <button
+          type="button"
+          onClick={ this.handleAddExpenseBtn }
+        >
+          Adicionar despesa
+        </button>
       </form>
     );
   }
 }
 
-export default ExpenseForm;
+ExpenseForm.propTypes = {
+  saveExpense: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  saveExpense: (payload) => dispatch(saveExpenseThunk(payload)),
+});
+
+export default connect(null, mapDispatchToProps)(ExpenseForm);
