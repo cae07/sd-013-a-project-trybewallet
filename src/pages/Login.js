@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { actionLogin } from '../actions';
+import './login.css';
 
 class Login extends React.Component {
   constructor(props) {
@@ -46,11 +47,11 @@ class Login extends React.Component {
     const { email, password, disabled } = this.state;
 
     return (
-      <header>
-        <h1>LOGIN</h1>
-        <section>
-          <form>
-            <label htmlFor="input-email">
+      <header className="header">
+        <h1 className="login-header">LOGIN</h1>
+        <form className="login-form">
+          <div className="mb-3">
+            <label className="form-label" htmlFor="input-email">
               Email:
               <input
                 type="email"
@@ -60,9 +61,12 @@ class Login extends React.Component {
                 value={ email }
                 name="email"
                 placeholder="insira seu email"
+                className="form-control form-control-lg"
               />
             </label>
-            <label htmlFor="input-password">
+          </div>
+          <div className="mb-3">
+            <label className="form-label" htmlFor="input-password">
               Senha:
               <input
                 type="password"
@@ -72,17 +76,19 @@ class Login extends React.Component {
                 value={ password }
                 name="password"
                 placeholder="insira sua senha"
+                className="form-control form-control-lg"
               />
             </label>
-            <button
-              type="button"
-              onClick={ this.handleClick }
-              disabled={ disabled }
-            >
-              Entrar
-            </button>
-          </form>
-        </section>
+          </div>
+          <button
+            type="button"
+            onClick={ this.handleClick }
+            disabled={ disabled }
+            className="btn btn0 test"
+          >
+            Entrar
+          </button>
+        </form>
       </header>
     );
   }

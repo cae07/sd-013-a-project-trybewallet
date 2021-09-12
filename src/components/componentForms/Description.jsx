@@ -6,16 +6,22 @@ class Description extends React.Component {
     const { onChange, description } = this.props;
 
     return (
-      <label htmlFor="input-description">
-        Descrição
-        <input
-          type="text"
-          id="input-description"
-          onChange={ onChange }
-          value={ description }
-          name="description"
-        />
-      </label>
+      <div className="col">
+        <label
+          htmlFor="input-description"
+          className="form-label"
+        >
+          Descrição
+          <input
+            type="text"
+            id="input-description"
+            onChange={ onChange }
+            value={ description }
+            name="description"
+            className="form-control"
+          />
+        </label>
+      </div>
     );
   }
 }

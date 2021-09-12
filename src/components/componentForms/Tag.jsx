@@ -6,21 +6,27 @@ class Tag extends React.Component {
     const { tag, onChange } = this.props;
 
     return (
-      <label htmlFor="input-tag">
-        Tag
-        <select
-          id="input-tag"
-          onChange={ onChange }
-          value={ tag }
-          name="tag"
+      <div className="col">
+        <label
+          htmlFor="input-tag"
+          className="form-label"
         >
-          <option value="Alimentação">Alimentação</option>
-          <option value="Lazer">Lazer</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Transporte">Transporte</option>
-          <option value="Saúde">Saúde</option>
-        </select>
-      </label>
+          Tag
+          <select
+            id="input-tag"
+            onChange={ onChange }
+            value={ tag }
+            name="tag"
+            className="form-select"
+          >
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
+          </select>
+        </label>
+      </div>
     );
   }
 }

@@ -6,19 +6,25 @@ class Paycheck extends React.Component {
     const { paycheck, onChange } = this.props;
 
     return (
-      <label htmlFor="input-paycheck">
-        Método de pagamento
-        <select
-          id="input-paycheck"
-          onChange={ onChange }
-          value={ paycheck }
-          name="paycheck"
+      <div className="col">
+        <label
+          htmlFor="input-paycheck"
+          className="form-label"
         >
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Cartão de crédito">Cartão de crédito</option>
-          <option value="Cartão de débito">Cartão de débito</option>
-        </select>
-      </label>
+          Método de pagamento
+          <select
+            id="input-paycheck"
+            onChange={ onChange }
+            value={ paycheck }
+            name="paycheck"
+            className="form-select"
+          >
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </select>
+        </label>
+      </div>
     );
   }
 }

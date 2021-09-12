@@ -6,16 +6,22 @@ class Value extends React.Component {
     const { value, onChange } = this.props;
 
     return (
-      <label htmlFor="input-valor">
-        Valor
-        <input
-          type="text"
-          id="input-valor"
-          onChange={ onChange }
-          value={ value }
-          name="value"
-        />
-      </label>
+      <div className="col">
+        <label
+          htmlFor="input-valor"
+          className="form-label"
+        >
+          Valor
+          <input
+            type="text"
+            id="input-valor"
+            onChange={ onChange }
+            value={ value }
+            name="value"
+            className="form-control"
+          />
+        </label>
+      </div>
     );
   }
 }
