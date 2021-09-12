@@ -1,0 +1,39 @@
+* {
+  background-color: #d8d1d1;
+  margin: 0;
+  padding: 0;
+}
+
+.login-header {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 50px;
+  padding: 20px;
+  text-align: center;
+  font-weight: 900;
+  text-shadow: 10px 6px 4px rgb(151, 142, 142);
+}
+
+.login-form {
+  display: flex;
+  box-shadow: 10px 15px 15px black;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid black;
+  padding: 50px;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 5%;
+}
+
+.btn0 {
+  margin-top: 5px;
+  color: white;
+  background-color: red;  
+}
+
+.test:hover {
+  background-color: green;
+  box-shadow: inset 0 0 1em gold, 0 0 1.5em green;
+  color: black;
+  font-weight: 900;
+}
