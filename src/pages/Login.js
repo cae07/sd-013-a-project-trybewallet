@@ -31,6 +31,9 @@ class Login extends React.Component {
       this.setState({
         disabled: false,
       });
+      const button = document.getElementById('id-button');
+      button.classList.remove('btn0');
+      button.classList.add('btnLogin');
     }
   }
 
@@ -81,6 +84,7 @@ class Login extends React.Component {
             </label>
           </div>
           <button
+            id="id-button"
             type="button"
             onClick={ this.handleClick }
             disabled={ disabled }

@@ -1,0 +1,21 @@
+.table {
+  border: 1px solid black;
+}
+
+.tr {
+  border: 1px solid black;
+}
+
+.th {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.th-background {
+  background-color: gray;
+  color: white;
+}
+
+.th-tag {
+  padding: 5px;
+}
