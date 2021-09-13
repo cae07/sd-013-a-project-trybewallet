@@ -27,7 +27,7 @@ class Value extends React.Component {
 }
 
 Value.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

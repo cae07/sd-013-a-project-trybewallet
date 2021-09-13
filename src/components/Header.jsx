@@ -35,9 +35,8 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  myLogin: PropTypes.objectOf(PropTypes.shape({
-    email: PropTypes.string,
-  })).isRequired,
+  myLogin: PropTypes.objectOf(PropTypes.shape).isRequired,
+  myStore: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 const mapStateToProps = (state) => ({

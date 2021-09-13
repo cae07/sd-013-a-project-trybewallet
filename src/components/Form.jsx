@@ -19,7 +19,7 @@ class Form extends React.Component {
       currency: 'USD',
       paycheck: 'Dinheiro',
       tag: 'Alimentação',
-      fetch: [],
+      fetch: {},
     };
 
     this.handleChange = this.handleChange.bind(this);

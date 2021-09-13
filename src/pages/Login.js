@@ -50,8 +50,8 @@ class Login extends React.Component {
       <header className="header">
         <h1 className="login-header">LOGIN</h1>
         <form className="login-form">
-          <div className="mb-3">
-            <label className="form-label" htmlFor="input-email">
+          <div className="mb-3 back">
+            <label className="form-label back" htmlFor="input-email">
               Email:
               <input
                 type="email"
@@ -65,8 +65,8 @@ class Login extends React.Component {
               />
             </label>
           </div>
-          <div className="mb-3">
-            <label className="form-label" htmlFor="input-password">
+          <div className="mb-3 back">
+            <label className="form-label back" htmlFor="input-password">
               Senha:
               <input
                 type="password"

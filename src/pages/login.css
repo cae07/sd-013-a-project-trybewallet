@@ -16,6 +16,7 @@
 .login-form {
   display: flex;
   box-shadow: 10px 15px 15px black;
+  background-color: darkgrey;
   flex-direction: column;
   align-items: center;
   border: 2px solid black;
@@ -23,6 +24,11 @@
   margin-left: 30%;
   margin-right: 30%;
   margin-top: 5%;
+}
+
+.back {
+  background-color: darkgrey;
+  font-weight: 900;
 }
 
 .btn0 {

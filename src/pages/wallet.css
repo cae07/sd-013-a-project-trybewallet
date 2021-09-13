@@ -7,17 +7,21 @@
   padding: 15px;
   position:relative;
   margin-bottom: 15px;
+  background-color: black;
+  color: white;
 }
 
 #header-section {
   display: flex;
   align-content: space-between;
   margin-left: 20px;
+  background-color: black;
 }
 
 .p-header {
   display: flex;
   align-content: space-between;
+  background-color: black;
 }
 
 .brl {
@@ -58,7 +62,7 @@ span {
   }
 
   to {
-    margin-left: 0%;
+    margin-left: 1.5%;
     width: 100%;
   }
 }
