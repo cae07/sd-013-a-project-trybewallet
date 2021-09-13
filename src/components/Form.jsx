@@ -16,7 +16,7 @@ class Form extends React.Component {
       id: 0,
       value: '',
       description: '',
-      currency: '',
+      currency: 'USD',
       paycheck: 'Dinheiro',
       tag: 'Alimentação',
       fetch: [],
@@ -54,13 +54,12 @@ class Form extends React.Component {
     const { spendingToStore } = this.props;
     spendingToStore(this.state);
     this.setState((prevState) => ({
-      id: prevState + 1,
+      id: prevState.id + 1,
       value: '',
       description: '',
-      currency: '',
+      currency: 'USD',
       paycheck: 'Dinheiro',
       tag: 'Alimentação',
-      fetch: [],
     }));
   }
 
@@ -103,7 +102,7 @@ class Form extends React.Component {
             onClick={ this.handleClick }
             className="btn button-submit"
           >
-            Enviar
+            Adicionar despesa
           </button>
         </div>
       </form>

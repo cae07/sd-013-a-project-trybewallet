@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   render() {
-    const { myLogin: { email } } = this.props;
+    const { myLogin: { email }, myStore } = this.props;
 
     return (
       <div className="header-wallet">
@@ -22,7 +22,11 @@ class Header extends React.Component {
             data-testid="total-field"
             className="total-header"
           >
-            0
+            {myStore.reduce(
+              (prev, curr) => (
+                prev + (Number(curr.value) * (curr.exchangeRates[curr.currency].ask))
+              ), 0,
+            ).toFixed(2)}
           </p>
         </div>
       </div>
@@ -38,6 +42,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   myLogin: state.user,
+  myStore: state.wallet.expenses,
 });
 
 export default connect(mapStateToProps)(Header);
