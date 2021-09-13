@@ -5,9 +5,7 @@ import {
 } from '../actions';
 
 const INITIAL_STATE = {
-  expenses: [{
-    exchangeRates: {},
-  }],
+  expenses: [],
   loading: false,
   erro: null,
 };
@@ -23,15 +21,17 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       loading: false,
-      expenses: [{
-        id: action.payload.id,
-        value: action.payload.value,
-        description: action.payload.description,
-        currency: action.payload.currency,
-        method: action.payload.paycheck,
-        tag: action.payload.tag,
-        exchangeRates: action.payload.payload,
-      }],
+      expenses: [
+        ...state.expenses,
+        {
+          id: action.payload.id,
+          value: action.payload.value,
+          description: action.payload.description,
+          currency: action.payload.currency,
+          method: action.payload.paycheck,
+          tag: action.payload.tag,
+          exchangeRates: action.payload.payload,
+        }],
     };
   case FAILED:
     return {
